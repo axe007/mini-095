@@ -1,3 +1,5 @@
+package com.group8;
+
 public class CPM {
     // Should use json tree to demostrate CPM structure
     private WBS wbs;
