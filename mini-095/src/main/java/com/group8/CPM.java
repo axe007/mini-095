@@ -2,6 +2,7 @@ package com.group8;
 
 public class CPM {
     // Should use json tree to demostrate CPM structure
+    // Test
     private WBS wbs;
     private String[] upStreamWBSs;
     private String[] downStreamWBSs;
