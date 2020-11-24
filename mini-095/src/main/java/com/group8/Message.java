@@ -14,7 +14,7 @@ public class Message {
         this.receiverID = recieverID;
         this.title = title;
         this.content = content;
-        this.date = date; //TODO: should be set to whatever the date actually is.
+        this.date = date; //TODO: should be set to whatever the date actually is
         this.isRead = false;
         this.isReplied = false;
     }
