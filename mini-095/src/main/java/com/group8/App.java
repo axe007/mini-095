@@ -1,5 +1,7 @@
 package com.group8;
 
+import com.group8.controllers.MainController;
+
 /**
  * Hello world!
  *
@@ -8,6 +10,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        MainController mainController = new MainController();
+        mainController.startApplication();
     }
 }
