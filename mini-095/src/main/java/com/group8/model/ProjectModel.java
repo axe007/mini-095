@@ -1,2 +1,4 @@
-package com.group8.model;public class ProjectModel {
+package com.group8.model;
+
+public class ProjectModel {
 }
