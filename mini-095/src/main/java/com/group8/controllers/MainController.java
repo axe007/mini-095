@@ -1,7 +1,7 @@
 package com.group8.controllers;
 
-
 import com.group8.helper.Helper;
+import com.group8.model.UserModel;
 import com.group8.controllers.UserController;
 
 public class MainController {
@@ -21,8 +21,10 @@ public class MainController {
                 System.out.println(EOL + " ---------------------------------------------------");
                 System.out.println("| PMS - Type one of the options below:              |");
                 System.out.println("|---------------------------------------------------|");
-                System.out.println("| 1. Create an user                                 |");
-                System.out.println("| 2. Print user information                         |");
+                System.out.println("| 1. Create a manager                               |");
+                System.out.println("| 2. Create a developer                             |");
+                System.out.println("| 3. Print user information                         |");
+                System.out.println("| 4. Show all users                                 |");
                 System.out.println("|---------------------------------------------------|");
                 System.out.println("| 6. Create project                                 |");
                 System.out.println("| 7. Create an activity                             |");
@@ -36,13 +38,21 @@ public class MainController {
                 String userInput = helper.getMenuInput(); // Calling Helper method
 
                 UserController userController = new UserController();
+                UserModel userModel = new UserModel();
+
                 switch (userInput.toLowerCase()) {
                     case "1":
-                        activityMenu();
+                        userController.createUser("Manager");
                         break;
                     case "2":
+                        userController.createUser("Developer");
+                        break;
+                    case "3":
                         userController.getUserInfo();
                         break;
+//                    case "4":
+//                        userModel.showAllUsers();
+//                        break;
 
                     case "7":
                         activityMenu();

@@ -9,11 +9,12 @@ public class UserController {
 
     private static String EOL = System.lineSeparator();
 
-    public static void createUser() {
+    public void createUser(String userType) {
         try {
             Helper helper = new Helper();
             String username;
             String password;
+          //  String userType;
 
             UUID uuid = UUID.randomUUID();
             System.out.println("ID: " + uuid);
@@ -23,8 +24,11 @@ public class UserController {
             System.out.print("Enter user password: ");
             password = helper.getString();
 
+//            System.out.print("Enter user type:  ");
+//            userType= helper.getString();
+
             UserModel model = new UserModel();
-            boolean result = model.createUser(uuid, username, password);
+            boolean result = model.createUser(uuid, username, password,userType);
 
             if (result) {
                 System.out.println("User created successfully!" + EOL);
@@ -44,4 +48,7 @@ public class UserController {
         String userInfo = model.getUserInfo(username);
         System.out.println(userInfo);
     }
+
+
 }
+
