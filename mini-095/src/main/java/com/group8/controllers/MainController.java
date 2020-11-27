@@ -36,13 +36,16 @@ public class MainController {
                 String userInput = helper.getMenuInput(); // Calling Helper method
 
                 UserController userController = new UserController();
-
                 switch (userInput.toLowerCase()) {
                     case "1":
-                        userController.createUser();
+                        activityMenu();
                         break;
                     case "2":
                         userController.getUserInfo();
+                        break;
+
+                    case "7":
+                        activityMenu();
                         break;
 
                     /*case "2" -> userController.deleteEmployee();
@@ -58,6 +61,49 @@ public class MainController {
                     case "12" -> dartController.saveRentalData();*/
 
                     case "13":
+                        mainMenu();
+                        break;
+
+                    default:
+                        System.out.println("No match in mainMenu options");
+                }
+            } while (session);
+        } catch (Exception e) {
+            System.out.println("Exception in mainMenu");
+        }
+    }
+
+    public void activityMenu() {
+
+        ActivityController activityController = new ActivityController();
+
+        try {
+            do {
+                System.out.println(EOL + " ---------------------------------------------------");
+                System.out.println("| PMS - Type one of the options below:              |");
+                System.out.println("|---------------------------------------------------|");
+                System.out.println("| 1. Create a user story                            |");
+                System.out.println("| 2. Create a bug                                   |");
+                System.out.println("| 3. Create a task                                  |");
+                System.out.println("| 4. Return to Main Menu                           |");
+                System.out.println(" ---------------------------------------------------");
+                System.out.println(EOL);
+                System.out.println("Enter your option: ");
+                Helper helper = new Helper();
+                String userInput = helper.getMenuInput(); // Calling Helper method
+
+                switch (userInput.toLowerCase()) {
+                    case "1":
+                        activityController.createActivity("UserStory");
+                        break;
+                    case "2":
+                        activityController.createActivity("Bug");
+                        break;
+
+                    case "3":
+                        activityController.createActivity("Task");
+
+                    case "4":
                         mainMenu();
                         break;
 

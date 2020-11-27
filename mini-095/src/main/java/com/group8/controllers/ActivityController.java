@@ -1,39 +1,88 @@
 package com.group8.controllers;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.group8.entity.User;
 import com.group8.helper.Helper;
+import com.group8.model.ActivityModel;
 
 public class ActivityController {
     
-    public void createActivity (){
-        //1. ask what type of activity 
-        int choice;
+    public void createActivity (String activityType){
+
+        ActivityModel activityModel = new ActivityModel();
+
+        //General Activity attributes
         Helper helper = new Helper();
-        System.out.println("Would you like to create a Task (1), Bug(2) or User Story(3)? ");
-        choice = helper.getInt();
-        /*
-        switch(choice) {
-            case 1: 
-                createTask();
-                break;
-            case 2:
-                createBug()
-                break;
-            case 3:
-                createUserStory();
-                break;
-            default:
-                break;
+        String content;
+        String name; 
+        LocalDate startDate;
+        LocalDate endDate; 
+        ArrayList<User> teamMembers = new ArrayList<>();
+        String priority; 
+        String id = "1"; //TODO: fix
+
+        //User Story attributes
+        double storyPoints;
+        String acceptanceCriteria;
+
+        //Task 
+        //TODO: add task attributes here
+
+        //Bug
+        //TODO: add bug attributes here
+
+
+        //1. ask for generic input 
+        System.out.println("Enter name");
+        name = helper.getString();
+
+        System.out.println("Enter content");
+        content = helper.getString();
+
+        System.out.println("Enter start date");
+        startDate = null; //TODO: 
+
+        System.out.println("Enter end date");
+        endDate = null;
+
+
+        System.out.println("Enter team members");
+        teamMembers.add(null); //TODO: Needs to be fixed, should be able to choose from a list or something similar
+
+
+        System.out.println("Enter priority");
+        priority = helper.getString();
+
+
+        if(activityType.equals("UserStory")) {
+            System.out.println("Enter team story points");
+            storyPoints = helper.getDouble();
+
+            System.out.println("Enter acceptance criteria");
+            acceptanceCriteria = helper.getString();
+
+            activityModel.createActivity(activityType,  name,  content,  startDate,  endDate, 
+            teamMembers, priority,  id, storyPoints, acceptanceCriteria);
+
+        } else if( activityType.equals("Bug")) {
+            //TODO: Under construction, Bug class not created yet
+
+            //activityModel.createActivity(activityType,  name,  content,  startDate,  endDate, 
+            //teamMembers, priority,  id, null, null);
+
+        } else if(activityType.equals("Task")) {
+            //TODO: Under construction, Task class not created yet
+            
+        } else {
+            System.out.println("Oh no, something went wrong... :'( ");
         }
-        
-        // add to activities (list)
-        //2. create that
-    }
-    
-    public void createTask(){
 
-    }
 
-    public void createBug(){
-        */
+
+      
+        //2. ask for specific input
+        //3. call the method
     }
 }
