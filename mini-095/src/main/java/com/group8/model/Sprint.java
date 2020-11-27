@@ -1,15 +1,18 @@
 package com.group8.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
+
+import com.group8.entity.Activity;
 
 public class Sprint {
     private String name;
     private UUID id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Activity[] activities;
+    public ArrayList<Activity> activities;
     private double status;// 100% or use enum status
 
     public Sprint(String name, LocalDate startDate, LocalDate endDate) {
@@ -19,13 +22,11 @@ public class Sprint {
         this.id = UUID.randomUUID();
         this.activities = null;
         this.status = 0.0;
-
     }
 
     @Override
     public String toString() {
-        return "Sprint [activities=" + Arrays.toString(activities) + ", endDate=" + endDate + ", id=" + id + ", name="
-                + name + ", startDate=" + startDate + ", status=" + status + "]";
+        return "Some sprint";
     }
 
     public String getName() {
@@ -60,14 +61,6 @@ public class Sprint {
         this.endDate = endDate;
     }
 
-    public Activity[] getActivities() {
-        return activities;
-    }
-
-    public void setActivities(Activity[] activities) {
-        this.activities = activities;
-    }
-
     public double getStatus() {
         return status;
     }
@@ -99,6 +92,14 @@ public class Sprint {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public ArrayList<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(ArrayList<Activity> activities) {
+        this.activities = activities;
     }
 
 }
