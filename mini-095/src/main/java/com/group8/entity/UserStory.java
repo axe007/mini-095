@@ -1,9 +1,6 @@
-package com.group8;
+package com.group8.entity;
 
 import java.time.LocalDate;
-import java.util.UUID;
-import com.group8.entity.Activity;
-import com.group8.entity.User;
 import java.util.ArrayList;
 
 public class UserStory extends Activity {
@@ -117,5 +114,13 @@ public class UserStory extends Activity {
         this.endDate = endDate;
     }
 */
+    @Override
+    public String toString() {
+        return "ID: " + this.getId() +  " " + this.getName() +
+        " : " + this.getContent() + " Start: " + this.getStartDate() + " End: " + this.getEndDate() +
+         "priority: " + this.getPriority() + " Completion Status: " + this.getCompletion() + "Story Points: " + 
+         this.storyPoints + " AcceptanceCriteria: " + this.acceptanceCriteria ;
+
+    }
 
 }
