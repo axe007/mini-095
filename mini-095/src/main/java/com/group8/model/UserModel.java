@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public class UserModel {
 
-    private static final ArrayList<User> users = new ArrayList<>();
-    private final String adminName = "admin";
-    private final String adminPass = "admin1234";
+    public static ArrayList<User> users = new ArrayList<>();
+    public static final String adminName = "admin";
+    // public static final String adminPass = "admin1234";
 
 
     public boolean createUser(UUID uuid, String username, String password, String userType) {
