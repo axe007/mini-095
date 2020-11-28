@@ -1,0 +1,7 @@
+package com.group8.constants;
+
+// We store hardcoded variables here for convience
+public class Constans{
+    public static final String ADMIN_PASSWORD = "password";
+    
+}
