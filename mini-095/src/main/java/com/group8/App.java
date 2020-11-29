@@ -14,6 +14,8 @@ import javafx.stage.Stage;
  *
  */
 public class App extends Application {
+    public static Scene currentScene;
+    
     public static void main(String[] args) {
         // MainController mainController = new MainController();
         // mainController.startApplication();
