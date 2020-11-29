@@ -23,6 +23,8 @@ public class UserWithoutPm {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        //TODO: add type check and throw exceptions here later.
+
     }
     public UserWithoutPm(UserType userType, String password, String firstName, String lastName,
             String phoneNumber, String email) {
@@ -33,6 +35,9 @@ public class UserWithoutPm {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+
+        //TODO: add type check and throw exceptions here later.
+
     }
     
 

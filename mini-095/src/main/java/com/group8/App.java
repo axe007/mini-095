@@ -1,10 +1,13 @@
 package com.group8;
 
+import java.io.IOException;
+
 import com.group8.controllers.LoginViewController;
 import com.group8.controllers.MainController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -14,8 +17,8 @@ import javafx.stage.Stage;
  *
  */
 public class App extends Application {
-    public static Scene currentScene;
-    
+    private static Scene scene;
+
     public static void main(String[] args) {
         // MainController mainController = new MainController();
         // mainController.startApplication();
@@ -23,15 +26,18 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // TODO Auto-generated method stub
-        BorderPane root = new BorderPane();
-        FXMLLoader listLoader = new FXMLLoader(getClass().getResource("views/LoginView.fxml"));
-        root.setCenter(listLoader.load());
-        LoginViewController listController = listLoader.getController();
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("LoginView"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
 
-        Scene scene = new Scene(root, 800, 600);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/"+fxml + ".fxml"));
+        return fxmlLoader.load();
     }
 }
