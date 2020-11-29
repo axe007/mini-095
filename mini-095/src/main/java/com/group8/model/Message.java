@@ -1,4 +1,4 @@
-package com.group8;
+package com.group8.model;
 
 public class Message {
     private String senderID;

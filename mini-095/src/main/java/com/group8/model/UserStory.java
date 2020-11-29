@@ -1,4 +1,4 @@
-package com.group8;
+package com.group8.model;
 
 import java.time.LocalDate;
 import java.util.UUID;
