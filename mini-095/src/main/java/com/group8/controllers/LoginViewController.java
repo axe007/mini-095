@@ -27,22 +27,21 @@ public class LoginViewController {
         // Button was clicked, do something...
         String userName = userNameTextField.getText();
         String password = passwordField.getText();
-        if(userName!= null && !userName.isEmpty()&&password!=null&&!password.isEmpty()){
-            if(userName.equalsIgnoreCase(Constants.ADMIN_USERNAME)){
-                if(password.equals(Constants.ADMIN_PASSWORD)){
+        if (userName != null && !userName.isEmpty() && password != null && !password.isEmpty()) {
+            if (userName.equalsIgnoreCase(Constants.ADMIN_USERNAME)) {
+                if (password.equals(Constants.ADMIN_PASSWORD)) {
                     // turn into next screen
                     App.setRoot("AdminView");
-                }else{
+
+                } else {
                     // display error info
 
                 }
-            }else{
-                
-
+            } else {
 
             }
 
-        }else{
+        } else {
 
         }
 

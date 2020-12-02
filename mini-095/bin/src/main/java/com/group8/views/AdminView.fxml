@@ -27,11 +27,11 @@
                         <ListView fx:id="employeeListView" prefHeight="200.0" prefWidth="200.0" />
                         <VBox fx:id="userInfoVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <HBox fx:id="userInfoRoleHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                              <HBox fx:id="userInfoRollHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
                                     <Label fx:id="roleLabel" text="Role" />
-                                    <RadioButton fx:id="managerRadioButton" mnemonicParsing="false" onAction="#handleManagerRadioButtonAction" text="Manager" />
-                                    <RadioButton fx:id="developerRadioButton" mnemonicParsing="false" onAction="#handleDeveloperRadioButtonAction" text="Developer" />
+                                    <RadioButton fx:id="managerRadioButton" mnemonicParsing="false" text="Manager" />
+                                    <RadioButton fx:id="developerRadioButton" mnemonicParsing="false" text="Developer" />
                                  </children>
                               </HBox>
                               <HBox fx:id="nameHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -52,9 +52,9 @@
                               </HBox>
                               <HBox alignment="CENTER" layoutX="10.0" layoutY="142.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Delete" />
-                                    <Button fx:id="clearButton" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleClearButtonAction" text="Clear" />
-                                    <Button fx:id="addSaveButton" alignment="CENTER" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddSaveButtonAction" text="Add" />
+                                    <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" text="Delete" />
+                                    <Button fx:id="clearButton" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Clear" />
+                                    <Button fx:id="addSaveButton" alignment="CENTER" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" text="Add" />
                                  </children>
                               </HBox>
                            </children>
