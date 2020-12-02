@@ -15,7 +15,7 @@ public class UserModel {
     // public static final String adminPass = "admin1234";
 
 
-    public boolean createUser(UUID uuid, String username, String password, String userType) {
+    public boolean createUser(String uuid, String username, String password, String userType) {
         boolean result = false;
 
         if (userType.equals("Developer")) {

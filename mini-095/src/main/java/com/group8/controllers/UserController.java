@@ -2,13 +2,14 @@ package com.group8.controllers;
 
 import java.util.UUID;
 
+import com.group8.entity.User;
 import com.group8.helper.Helper;
 import com.group8.model.UserModel;
 
 public class UserController {
 
     private static String EOL = System.lineSeparator();
-
+    User user; 
     public void createUser(String userType) {
         try {
             Helper helper = new Helper();
@@ -16,7 +17,7 @@ public class UserController {
             String password;
           //  String userType;
 
-            UUID uuid = UUID.randomUUID();
+            String uuid = user.getUuid();
             System.out.println("ID: " + uuid);
             System.out.print("Enter user name: ");
             username = helper.getString();

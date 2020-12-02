@@ -1,16 +1,15 @@
 package com.group8.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 
-import com.group8.model.Sprint;
+import com.group8.entity.Sprint;
 
 public class Project {
     private String name;
-    private ArrayList<Activity> activities;
+    private Map<String, Activity> activities;
     private UUID id;
-    private ArrayList<User> develperTeam;
+    private Map<String, User> developerTeam;
     private ArrayList<Sprint> sprints;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -20,9 +19,9 @@ public class Project {
 
     public Project(String name, LocalDate startDate, LocalDate endDate, ProjectType type) {
         this.name = name;
-        this.activities = new ArrayList<>();
+        this.activities = new HashMap<>();
         this.id = UUID.randomUUID();
-        this.develperTeam = new ArrayList<>();
+        this.developerTeam = new HashMap<>();
         this.sprints = sprints;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -39,24 +38,28 @@ public class Project {
         this.name = name;
     }
 
-    public ArrayList<Activity> getActivities() {
+    public Map<String, Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(ArrayList<Activity> activities) {
+    public void setActivities(Map<String, Activity> activities) {
         this.activities = activities;
+    }
+
+    public void addActivity(String activityId, Activity activity) {
+        activities.put(activityId, activity); 
     }
 
     public UUID getId() {
         return id;
     }
 
-    public ArrayList<User> getDevelperTeam() {
-        return develperTeam;
+    public Map<String, User> getDeveloperTeam() {
+        return developerTeam;
     }
 
-    public void setDevelperTeam(ArrayList<User> develperTeam) {
-        this.develperTeam = develperTeam;
+    public void setDeveloperTeam(Map<String, User>developerTeam) {
+        this.developerTeam = developerTeam;
     }
 
     public ArrayList<Sprint> getSprints() {
@@ -93,7 +96,7 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project [activities=" + activities + ", develperTeam=" + develperTeam + ", endDate=" + endDate + ", id="
+        return "Project [activities=" + activities + ", develperTeam=" + developerTeam + ", endDate=" + endDate + ", id="
                 + id + ", name=" + name + ", sprints=" + sprints + ", startDate=" + startDate + ", type=" + type + "]";
     }
 

@@ -2,11 +2,13 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.*;
 
 import com.group8.entity.Activity;
 import com.group8.entity.Project;
 import com.group8.entity.ProjectType;
 import com.group8.entity.User;
+import com.group8.controllers.*;
 
 public class ProjectController {
 
@@ -24,9 +26,9 @@ public class ProjectController {
 
     }
 
-    public void createActivity(Activity activity) {
-
-    }
+    // public void createActivity(String activity, Project currentProject) {
+        
+    // }
 
     public void removeSprint() {
 
@@ -47,9 +49,9 @@ public class ProjectController {
     }
 
     public void addUserToTeam(User user) {
-        ArrayList<User> tempList = currentProject.getDevelperTeam();
-        tempList.add(user);
-        currentProject.setDevelperTeam(tempList);
+        Map<String, User> tempList = currentProject.getDeveloperTeam();
+        tempList.put(user.getUuid(), user);
+        currentProject.setDeveloperTeam(tempList);
 
     }
 

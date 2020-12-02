@@ -2,23 +2,24 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.*;
 
-import com.group8.entity.User;
+import com.group8.entity.*;
 import com.group8.helper.Helper;
 
 public class ActivityController {
-
-    public void createActivity(String activityType) {
+    private Activity activity; 
+    private Helper helper; 
+    // private Project project; 
+    public void createActivity(String activityType, Project project) {
 
         // General Activity attributes
-        Helper helper = new Helper();
         String content;
         String name;
         LocalDate startDate;
         LocalDate endDate;
-        ArrayList<User> teamMembers = new ArrayList<>();
         String priority;
-        String id = "1"; // TODO: fix
+        String id = helper.getMenuInput();
 
         // User Story attributes
         double storyPoints;
@@ -44,7 +45,8 @@ public class ActivityController {
         endDate = null;
 
         System.out.println("Enter team members");
-        teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
+
+        // project.getDevelperTeam().add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
                                // similar
 
         System.out.println("Enter priority");
@@ -56,21 +58,28 @@ public class ActivityController {
 
             System.out.println("Enter acceptance criteria");
             acceptanceCriteria = helper.getString();
-
+            this.activity = new UserStory(name, content, startDate, endDate, project.getDeveloperTeam(), priority, id, storyPoints, acceptanceCriteria);
+            project.addActivity(activity.getId(), activity);
         } else if (activityType.equals("Bug")) {
-            // TODO: Under construction, Bug class not created yet
-
-            // activityModel.createActivity(activityType, name, content, startDate, endDate,
-            // teamMembers, priority, id, null, null);
+            this.activity = new Bug( name,  content,  startDate,  endDate, project.getDeveloperTeam(),  priority,  id);
+            project.addActivity(activity.getId(), activity);
 
         } else if (activityType.equals("Task")) {
-            // TODO: Under construction, Task class not created yet
-
+            this.activity = new Task( name,  content,  startDate,  endDate, project.getDeveloperTeam(),  priority,  id);
+            project.addActivity(activity.getId(), activity);
         } else {
             System.out.println("Oh no, something went wrong... :'( ");
         }
 
         // 2. ask for specific input
         // 3. call the method
+    }
+
+    public void assignUserStory(String userStoryId, String assigneeId, Project project) {
+        if (project.getActivities().containsKey(userStoryId)) {
+            UserStory newUserStory = (UserStory) project.getActivities().get(userStoryId);
+            newUserStory.addMember(project.getDeveloperTeam().get(assigneeId));
+        }
+
     }
 }

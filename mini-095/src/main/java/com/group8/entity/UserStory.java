@@ -2,6 +2,7 @@ package com.group8.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class UserStory extends Activity {
     //private UUID id;
@@ -27,8 +28,8 @@ public class UserStory extends Activity {
     // }
 
     public UserStory (String name, String content, LocalDate startDate, LocalDate endDate, 
-    ArrayList<User> teamMembers, String priority, String id, double storyPoints, String acceptanceCriteria) {
-        super(name, content, startDate, endDate, teamMembers, priority, id);
+    Map<String, User> map, String priority, String id, double storyPoints, String acceptanceCriteria) {
+        super(name, content, startDate, endDate, map, priority, id);
         this.storyPoints = storyPoints;
         this.acceptanceCriteria = acceptanceCriteria;
         

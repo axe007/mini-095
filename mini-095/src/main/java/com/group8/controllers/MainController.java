@@ -3,11 +3,14 @@ package com.group8.controllers;
 import com.group8.helper.Helper;
 import com.group8.model.UserModel;
 import com.group8.controllers.UserController;
+import com.group8.entity.*;
 
 public class MainController {
 
     private boolean session = true;
     private final String EOL = System.lineSeparator();
+    private Project project;
+    Helper helper;
 
     public void startApplication() {
 
@@ -34,7 +37,6 @@ public class MainController {
                 System.out.println(" ---------------------------------------------------");
                 System.out.println(EOL);
                 System.out.println("Enter your option: ");
-                Helper helper = new Helper();
                 String userInput = helper.getMenuInput(); // Calling Helper method
 
                 UserController userController = new UserController();
@@ -86,7 +88,7 @@ public class MainController {
     public void activityMenu() {
 
         ActivityController activityController = new ActivityController();
-
+        // ProjectController projectController = new ProjectController(this.project); 
         try {
             do {
                 System.out.println(EOL + " ---------------------------------------------------");
@@ -104,19 +106,23 @@ public class MainController {
 
                 switch (userInput.toLowerCase()) {
                     case "1":
-                        activityController.createActivity("UserStory");
+                        activityController.createActivity("UserStory", this.project);
                         break;
                     case "2":
-                        activityController.createActivity("Bug");
+                        activityController.createActivity("Bug", this.project);
                         break;
 
                     case "3":
-                        activityController.createActivity("Task");
+                        activityController.createActivity("Task", this.project);
 
                     case "4":
                         mainMenu();
                         break;
-
+                    case "5":
+                    // assign UserStory
+                        String userStoryId = helper.getMenuInput(); 
+                        String assigneeId = helper.getMenuInput(); 
+                        activityController.assignUserStory(userStoryId, assigneeId, this.project);
                     default:
                         System.out.println("No match in mainMenu options");
                 }

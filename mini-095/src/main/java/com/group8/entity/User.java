@@ -3,23 +3,27 @@ package com.group8.entity;
 import java.util.UUID;
 
 public  abstract class User {
-    private UUID uuid;
+    private String uuid;
     private String username;
     private String password;
 
 
-    public User(UUID uuid, String username, String password) {
+    public User(String uuid, String username, String password) {
         this.uuid = uuid;
         this.username = username;
         this.password = password;
 
     }
-
-    public UUID getUuid() {
+    public String getUuid() {
+        uuid = UUID.randomUUID().toString();
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    // public UUID getUuid() {
+    //     return uuid;
+    // }
+
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 

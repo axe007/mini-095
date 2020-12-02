@@ -1,4 +1,4 @@
-package com.group8.model;
+package com.group8.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -2,6 +2,7 @@ package com.group8.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class Activity {
 
@@ -9,17 +10,17 @@ public abstract class Activity {
     private String name; 
     private LocalDate startDate;
     private LocalDate endDate; 
-    private ArrayList<User> teamMembers;
+    private Map<String, User> teamMembers;
     private String priority;
     private boolean completion; 
     private String id; 
 
-    public Activity (String name, String content, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers, String priority, String id) {
+    public Activity (String name, String content, LocalDate startDate, LocalDate endDate, Map<String, User> teamMembers2, String priority, String id) {
         this.name = name; 
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.teamMembers = teamMembers;
+        this.teamMembers = teamMembers2;
         this.priority = priority;
         this.id = id;
         this.completion = false;
@@ -27,7 +28,9 @@ public abstract class Activity {
     public void setPriority(String priority) {
         this.priority = priority; 
     }
-
+    public void addMember(User member) {
+        this.teamMembers.put(member.getUuid(), member); 
+    }
     public String getPriority() {
         return this.priority ; 
     }

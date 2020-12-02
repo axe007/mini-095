@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Administrator extends User {
     private String userType = "Administrator";
 
-    public Administrator(UUID uuid, String username, String password, String userType) {
+    public Administrator(String uuid, String username, String password, String userType) {
         super(uuid, username, password);
         this.userType = userType;
     }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.group8.entity.Activity;
 import com.group8.helper.Helper;
-import com.group8.model.Sprint;
+import com.group8.entity.Sprint;
 
 public class SprintController {
     private Sprint currentSprint;
