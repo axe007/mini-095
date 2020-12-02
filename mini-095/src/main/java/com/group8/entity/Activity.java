@@ -15,18 +15,21 @@ public abstract class Activity {
     private boolean completion; 
     private String id; 
 
-    public Activity (String name, String content, LocalDate startDate, LocalDate endDate, Map<String, User> teamMembers2, String priority, String id) {
+    public Activity (String name, String content, LocalDate startDate, LocalDate endDate, Map<String, User> teamMembers, String priority, String id) {
         this.name = name; 
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.teamMembers = teamMembers2;
+        this.teamMembers = teamMembers;
         this.priority = priority;
         this.id = id;
         this.completion = false;
     }
     public void setPriority(String priority) {
         this.priority = priority; 
+    }
+    public Map<String, User> getTeamMembers() {
+        return this.teamMembers; 
     }
     public void addMember(User member) {
         this.teamMembers.put(member.getUuid(), member); 

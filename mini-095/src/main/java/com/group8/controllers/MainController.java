@@ -123,6 +123,12 @@ public class MainController {
                         String userStoryId = helper.getMenuInput(); 
                         String assigneeId = helper.getMenuInput(); 
                         activityController.assignUserStory(userStoryId, assigneeId, this.project);
+                        break; 
+                    case "6": 
+                    //assign Task
+                        break;
+                    case "7":
+                        break; 
                     default:
                         System.out.println("No match in mainMenu options");
                 }

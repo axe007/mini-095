@@ -24,7 +24,7 @@ public class ActivityController {
         // User Story attributes
         double storyPoints;
         String acceptanceCriteria;
-
+        Map<String, User> userActivityMap; 
         // Task
         // TODO: add task attributes here
 
@@ -46,9 +46,6 @@ public class ActivityController {
 
         System.out.println("Enter team members");
 
-        // project.getDevelperTeam().add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
-                               // similar
-
         System.out.println("Enter priority");
         priority = helper.getString();
 
@@ -58,14 +55,14 @@ public class ActivityController {
 
             System.out.println("Enter acceptance criteria");
             acceptanceCriteria = helper.getString();
-            this.activity = new UserStory(name, content, startDate, endDate, project.getDeveloperTeam(), priority, id, storyPoints, acceptanceCriteria);
+            this.activity = new UserStory(name, content, startDate, endDate, this.activity.getTeamMembers(), priority, id, storyPoints, acceptanceCriteria);
             project.addActivity(activity.getId(), activity);
         } else if (activityType.equals("Bug")) {
-            this.activity = new Bug( name,  content,  startDate,  endDate, project.getDeveloperTeam(),  priority,  id);
+            this.activity = new Bug( name,  content,  startDate,  endDate,this.activity.getTeamMembers(),  priority,  id);
             project.addActivity(activity.getId(), activity);
 
         } else if (activityType.equals("Task")) {
-            this.activity = new Task( name,  content,  startDate,  endDate, project.getDeveloperTeam(),  priority,  id);
+            this.activity = new Task( name,  content,  startDate,  endDate, this.activity.getTeamMembers(),  priority,  id);
             project.addActivity(activity.getId(), activity);
         } else {
             System.out.println("Oh no, something went wrong... :'( ");
@@ -80,6 +77,5 @@ public class ActivityController {
             UserStory newUserStory = (UserStory) project.getActivities().get(userStoryId);
             newUserStory.addMember(project.getDeveloperTeam().get(assigneeId));
         }
-
     }
 }
