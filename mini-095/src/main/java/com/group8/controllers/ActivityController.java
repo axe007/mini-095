@@ -55,14 +55,14 @@ public class ActivityController {
 
             System.out.println("Enter acceptance criteria");
             acceptanceCriteria = helper.getString();
-            this.activity = new UserStory(name, content, startDate, endDate, this.activity.getTeamMembers(), priority, id, storyPoints, acceptanceCriteria);
+            this.activity = new UserStory(name, content, startDate, endDate, priority, id, storyPoints, acceptanceCriteria);
             project.addActivity(activity.getId(), activity);
         } else if (activityType.equals("Bug")) {
-            this.activity = new Bug( name,  content,  startDate,  endDate,this.activity.getTeamMembers(),  priority,  id);
+            this.activity = new Bug( name,  content,  startDate,  endDate,  priority,  id);
             project.addActivity(activity.getId(), activity);
 
         } else if (activityType.equals("Task")) {
-            this.activity = new Task( name,  content,  startDate,  endDate, this.activity.getTeamMembers(),  priority,  id);
+            this.activity = new Task( name,  content,  startDate,  endDate,  priority,  id);
             project.addActivity(activity.getId(), activity);
         } else {
             System.out.println("Oh no, something went wrong... :'( ");
@@ -72,10 +72,18 @@ public class ActivityController {
         // 3. call the method
     }
 
-    public void assignUserStory(String userStoryId, String assigneeId, Project project) {
-        if (project.getActivities().containsKey(userStoryId)) {
-            UserStory newUserStory = (UserStory) project.getActivities().get(userStoryId);
-            newUserStory.addMember(project.getDeveloperTeam().get(assigneeId));
+    public void assignUserStory(String activityType, String activityId, String assigneeId, Project project) {
+        
+        if (project.getActivities().containsKey(activityId)) {
+            if (activityType.equals("UserStory")) {
+                UserStory newUserStory = (UserStory) project.getActivities().get(activityId);
+                newUserStory.addMember(project.getDeveloperTeam().get(assigneeId));
+            } else {
+                Task newTask = (Task) project.getActivities().get(activityId);
+                newTask.addMember(project.getDeveloperTeam().get(assigneeId));
+            }
         }
     }
+
+    // public void logTime()
 }

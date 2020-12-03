@@ -3,10 +3,9 @@ import java.util.*;
 import java.time.LocalDate;
 
 public class Task extends Activity{
-    public Task(String name, String content, LocalDate startDate, LocalDate endDate, 
-    Map<String, User> teamMembers, String priority, String id) {
+    public Task(String name, String content, LocalDate startDate, LocalDate endDate, String priority, String id) {
 
-        super(name, content, startDate, endDate, teamMembers, priority, id);
+        super(name, content, startDate, endDate, priority, id);
         
 
     }

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "com.group8/com.group8.App",
+            "projectName": "min-095"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -15,7 +22,6 @@
             "name": "Debug (Launch)-App<min-095>",
             "request": "launch",
             "vmArgs": "--module-path D:/GU/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
-
             "mainClass": "com.group8.App",
             "projectName": "min-095"
         }

@@ -2,6 +2,8 @@ package com.group8.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class Activity {
@@ -14,16 +16,23 @@ public abstract class Activity {
     private String priority;
     private boolean completion; 
     private String id; 
+    private Map<User, List<TimeTracker>> timeTrackingMap; 
 
-    public Activity (String name, String content, LocalDate startDate, LocalDate endDate, Map<String, User> teamMembers, String priority, String id) {
+    public Activity (String name, String content, LocalDate startDate, LocalDate endDate, String priority, String id) {
         this.name = name; 
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.teamMembers = teamMembers;
+        this.teamMembers = new HashMap<String, User>();
         this.priority = priority;
         this.id = id;
         this.completion = false;
+
+        this.timeTrackingMap = new HashMap<User, List<TimeTracker>>(); 
+    }
+
+    public  Map<User, List<TimeTracker>> getTimeTrackingMap() {
+        return this.timeTrackingMap; 
     }
     public void setPriority(String priority) {
         this.priority = priority; 

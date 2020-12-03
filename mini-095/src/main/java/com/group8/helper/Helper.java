@@ -1,5 +1,9 @@
 package com.group8.helper;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Helper {
@@ -34,9 +38,27 @@ public class Helper {
 
         return userInput;
     }
+    public long getLong() {
+        long userInput = input.nextLong();
+        input.nextLine();
 
+        return userInput;
+    }
+    public LocalDateTime localDateExceptionHandler() {
+        System.out.print("Please input in the following format: yyyy-MM-dd hh:mm ");
+        String s = "";
 
+        LocalDateTime dateTime = null;
+        try {
+            s = getString();
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            dateTime = LocalDateTime.from(f.parse(s));
+        } catch (DateTimeException e) {
+            System.out.println(e.getMessage());
+        }
 
+        return dateTime;
+    }
 
 
     public void closeScanner() {

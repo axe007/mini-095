@@ -27,9 +27,8 @@ public class UserStory extends Activity {
     //     this.completion = false;
     // }
 
-    public UserStory (String name, String content, LocalDate startDate, LocalDate endDate, 
-    Map<String, User> map, String priority, String id, double storyPoints, String acceptanceCriteria) {
-        super(name, content, startDate, endDate, map, priority, id);
+    public UserStory (String name, String content, LocalDate startDate, LocalDate endDate, String priority, String id, double storyPoints, String acceptanceCriteria) {
+        super(name, content, startDate, endDate, priority, id);
         this.storyPoints = storyPoints;
         this.acceptanceCriteria = acceptanceCriteria;
         
