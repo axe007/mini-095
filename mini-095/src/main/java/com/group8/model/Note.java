@@ -1,17 +1,17 @@
 package com.group8.model;
 
 public class Note {
-        private String content;
-        private String title;
-        private String date;
-        private String author;
+    private String content;
+    private String title;
+    private String date;
+    private String author;
 
-        public Note (String content, String title, String date, String author) {
-            this.title = title;
-            this.content = content;
-            this.date = date; //TODO: should be set to whatever the date actually is.
-            this.author = author;
-        }
+    public Note (String content, String title, String date, String author) {
+        this.title = title;
+        this.content = content;
+        this.date = date; //TODO: should be set to whatever the date actually is.
+        this.author = author;
+    }
 
     public String getContent() {
         return content;
@@ -45,5 +45,3 @@ public class Note {
         this.author = author;
     }
 }
-
-
