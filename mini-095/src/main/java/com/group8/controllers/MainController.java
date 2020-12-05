@@ -215,7 +215,10 @@ public class MainController {
                         activityController.assignActivity("Task",  taskId, taskAssigneeId, this.project);
                         break;
                     case "7":
+                        String activityId = helper.getMenuInput(); 
+                        activityController.changeActivityStatus(activityId, this.project);
                         break; 
+
                     default:
                         System.out.println("No match in mainMenu options");
                 }
