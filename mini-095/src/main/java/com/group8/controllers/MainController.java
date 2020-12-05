@@ -206,13 +206,13 @@ public class MainController {
                     // assign UserStory
                         String userStoryId = helper.getMenuInput(); 
                         String userAssigneeId = helper.getMenuInput(); 
-                        activityController.assignUserStory("UserStory", userStoryId, userAssigneeId, this.project);
+                        activityController.assignActivity("UserStory", userStoryId, userAssigneeId, this.project);
                         break; 
                     case "6": 
                     //assign Task
                         String taskId = helper.getMenuInput(); 
                         String taskAssigneeId = helper.getMenuInput(); 
-                        activityController.assignUserStory("Task",  taskId, taskAssigneeId, this.project);
+                        activityController.assignActivity("Task",  taskId, taskAssigneeId, this.project);
                         break;
                     case "7":
                         break; 

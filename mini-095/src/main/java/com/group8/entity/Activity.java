@@ -17,7 +17,7 @@ public abstract class Activity {
     private boolean completion; 
     private String id; 
     private Map<User, List<TimeTracker>> timeTrackingMap; 
-
+    private ActivityStatus status; 
     public Activity (String name, String content, LocalDate startDate, LocalDate endDate, String priority, String id) {
         this.name = name; 
         this.content = content;
@@ -27,7 +27,7 @@ public abstract class Activity {
         this.priority = priority;
         this.id = id;
         this.completion = false;
-
+        this.status = ActivityStatus.TODO; 
         this.timeTrackingMap = new HashMap<User, List<TimeTracker>>(); 
     }
 
@@ -96,4 +96,13 @@ public abstract class Activity {
          " : " + this.content + " Start: " + this.startDate + " End: " + this.endDate +
           "priority: " + this.priority + " Completion Status: " + this.completion ;
     }
+
+    public ActivityStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ActivityStatus status) {
+		this.status = status;
+	}
+
 }
