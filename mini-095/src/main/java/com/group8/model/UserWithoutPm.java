@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class UserWithoutPm {
 
-
     private UUID id;
     private UserType userType;
     private String password;
@@ -13,8 +12,8 @@ public class UserWithoutPm {
     private String phoneNumber;
     private String email;
 
-    public UserWithoutPm(UUID id, UserType userType, String password, String firstName,
-            String lastName, String phoneNumber, String email) {
+    public UserWithoutPm(UUID id, UserType userType, String password, String firstName, String lastName,
+            String phoneNumber, String email) {
 
         this.id = id;
         this.userType = userType;
@@ -23,11 +22,12 @@ public class UserWithoutPm {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        //TODO: add type check and throw exceptions here later.
+        // TODO: add type check and throw exceptions here later.
 
     }
-    public UserWithoutPm(UserType userType, String password, String firstName, String lastName,
-            String phoneNumber, String email) {
+
+    public UserWithoutPm(UserType userType, String password, String firstName, String lastName, String phoneNumber,
+            String email) {
         this.userType = userType;
         this.id = UUID.randomUUID();
         this.password = password;
@@ -36,12 +36,9 @@ public class UserWithoutPm {
         this.phoneNumber = phoneNumber;
         this.email = email;
 
-        //TODO: add type check and throw exceptions here later.
+        // TODO: add type check and throw exceptions here later.
 
     }
-    
-
-
 
     public UUID getId() {
         return id;
@@ -99,12 +96,10 @@ public class UserWithoutPm {
         this.email = email;
     }
 
-
-
-
-
-    
-
-
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return firstName + lastName + userType.toString();
+    }
 
 }
