@@ -1,14 +1,13 @@
-/* ______________________ custom fonts */
+/* Main font for the App */
 @font-face {
-  	font-family: Inter;
-  	font-style: normal;
-	src: url('Inter-VariableFont_slnt,wght.ttf');
+  	font-family: 'Inter';
+	src: url("Inter.ttf");
 }
-/* ______________________ root styling */
+/* Root styling */
 .root {
   	-fx-background-color: #edf0f2;
   	-fx-font-smoothing-type: gray;
-  	-fx-font-family: Inter;
+  	-fx-font-family: 'Inter';
   	-fx-font-size: 1em;
 }
 
@@ -70,13 +69,14 @@
  }
 
 
-/* ______________________ text, label, etc, styling */
+/* Typography styling */
 .h1, .h1-tab, .h1-tab-sub {
-  -fx-font-family: "Inter";
+	-fx-font-family: "Inter";
 }
 
 .h1 {
-  -fx-font-size: 3.5em;
+	-fx-font-size: 3.5em;
+	-fx-font-weight: 900;
 }
 
 .h1-tab {
@@ -88,5 +88,18 @@
 }
 
 .h2 {
-  -fx-font-size: 1.5em;
+	-fx-font-size: 1.5em;
+	-fx-font-weight: 700;
+}
+
+.h3 {
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 700;
+
+}
+
+.error-message {
+	-fx-font-size: 1.2em;
+	-fx-text-fill: red;
+	-fx-font-weight: bold;
 }
