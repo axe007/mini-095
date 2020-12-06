@@ -1,5 +1,7 @@
 package com.group8.helper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Helper {
@@ -35,6 +37,12 @@ public class Helper {
         return userInput;
     }
 
+    public LocalDate getDate() {
+        String inputDate = input.nextLine();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate date = LocalDate.parse(inputDate, format);
+        return date;
+    }
 
 
 

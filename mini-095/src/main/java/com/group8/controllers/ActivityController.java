@@ -2,8 +2,9 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.UUID;
 
-import com.group8.entity.User;
+//import  com.group8.entity.User;
 import com.group8.helper.Helper;
 
 public class ActivityController {
@@ -16,19 +17,14 @@ public class ActivityController {
         String name;
         LocalDate startDate;
         LocalDate endDate;
-        ArrayList<User> teamMembers = new ArrayList<>();
         String priority;
-        String id = "1"; // TODO: fix
+        //ArrayList<User> teamMembers = new ArrayList<>();
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString();
 
         // User Story attributes
         double storyPoints;
         String acceptanceCriteria;
-
-        // Task
-        // TODO: add task attributes here
-
-        // Bug
-        // TODO: add bug attributes here
 
         // 1. ask for generic input
         System.out.println("Enter name");
@@ -37,14 +33,14 @@ public class ActivityController {
         System.out.println("Enter content");
         content = helper.getString();
 
-        System.out.println("Enter start date");
-        startDate = null; // TODO:
+        System.out.println("Enter start date as DD/MM/YYYY: ");
+        startDate = helper.getDate();
 
-        System.out.println("Enter end date");
-        endDate = null;
+        System.out.println("Enter end date as DD/MM/YYYY");
+        endDate = helper.getDate();
 
         System.out.println("Enter team members");
-        teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
+        //teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
                                // similar
 
         System.out.println("Enter priority");
@@ -58,13 +54,15 @@ public class ActivityController {
             acceptanceCriteria = helper.getString();
 
         } else if (activityType.equals("Bug")) {
-            // TODO: Under construction, Bug class not created yet
+            // TODO: Under construction
 
-            // activityModel.createActivity(activityType, name, content, startDate, endDate,
+            //activityModel.createActivity(activityType, name, content, startDate, endDate,
             // teamMembers, priority, id, null, null);
 
         } else if (activityType.equals("Task")) {
-            // TODO: Under construction, Task class not created yet
+            // TODO: Under construction
+            //createActivity(activityType,activityType, name, content, startDate, endDate,
+            //             teamMembers, priority, id, null, null);
 
         } else {
             System.out.println("Oh no, something went wrong... :'( ");

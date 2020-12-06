@@ -12,7 +12,7 @@ public abstract class Activity {
     private ArrayList<User> teamMembers;
     private String priority;
     private boolean completion; 
-    private String id; 
+    private String id;
 
     public Activity (String name, String content, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers, String priority, String id) {
         this.name = name; 
@@ -31,9 +31,11 @@ public abstract class Activity {
     public String getPriority() {
         return this.priority ; 
     }
-        public String getName() {
+
+    public String getName() {
         return this.name; 
     }
+
     public void setName(String name) {
         this.name = name; 
     }
@@ -41,6 +43,7 @@ public abstract class Activity {
     public String getContent() {
         return this.content; 
     }
+
     public void setContent(String content) {
         this.content = content; 
     }
@@ -52,6 +55,7 @@ public abstract class Activity {
     public LocalDate getStartDate() {
         return startDate;
     }
+
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -59,6 +63,7 @@ public abstract class Activity {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+
     public void setId (String id) {
         this.id = id;
     }
