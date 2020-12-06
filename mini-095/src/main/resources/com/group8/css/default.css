@@ -1,0 +1,92 @@
+/* ______________________ custom fonts */
+@font-face {
+  	font-family: Inter;
+  	font-style: normal;
+	src: url('Inter-VariableFont_slnt,wght.ttf');
+}
+/* ______________________ root styling */
+.root {
+  	-fx-background-color: #edf0f2;
+  	-fx-font-smoothing-type: gray;
+  	-fx-font-family: Inter;
+  	-fx-font-size: 1em;
+}
+
+/* LoginView styling */
+
+.submit-button {
+  	-fx-background-color: #5179d6;
+  	-fx-background-radius: 2;
+  	-fx-text-fill: #fff;
+  	-fx-font-size: 1.1em;
+  	-fx-font-weight: 800;
+	-fx-padding: 6 8 6 8;
+}
+
+.reset-button {
+ 	-fx-background-color: #d9e2f6;
+  	-fx-background-radius: 2;
+  	-fx-text-fill: #5179d6;
+  	-fx-font-size: 1.1em;
+  	-fx-font-weight: 800;
+	-fx-padding: 6 8 6 8;
+}
+
+.submit-button:hover {
+  	-fx-background-color: #3261cf;
+  	-fx-effect: dropshadow(three-pass-box, #3261cf, 10, 0, 0, 2);
+}
+
+.reset-button:hover {
+  	-fx-background-color: #bacaef;
+  	-fx-effect: dropshadow(three-pass-box, #bacaef, 10, 0, 0, 2);
+}
+
+.login-titled-pane 
+{    
+	-fx-text-fill: #fff;
+	-fx-box-border: none;
+	-fx-background-radius: 5 5 5 5, 4 4 4 4, 3 3 3 3;
+
+}
+.login-titled-pane:focused 
+{
+	-fx-text-fill: white;
+}
+.login-titled-pane > .title 
+{
+	-fx-background-color: #3b4654;
+	-fx-font-size: 1.4em;
+  	-fx-font-weight: 900;
+	-fx-padding: 8 0 8 10; /* 2 10 3 10 */
+	-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+}
+
+.login-titled-pane > *.content 
+{
+	-fx-background-color: white;
+	-fx-padding: 0.167em;
+	-fx-background-radius: 0 0 5 5, 0 0 4 4, 0 0 3 3;
+ }
+
+
+/* ______________________ text, label, etc, styling */
+.h1, .h1-tab, .h1-tab-sub {
+  -fx-font-family: "Inter";
+}
+
+.h1 {
+  -fx-font-size: 3.5em;
+}
+
+.h1-tab {
+  -fx-font-size: 1.75em;
+}
+
+.h1-tab-sub {
+  -fx-font-size: 2.5em;
+}
+
+.h2 {
+  -fx-font-size: 1.5em;
+}

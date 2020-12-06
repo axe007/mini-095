@@ -2,7 +2,7 @@ package com.group8.entity;
 
 import java.util.UUID;
 
-public class User {
+public  abstract class User {
     private UUID uuid;
     private String username;
     private String password;
@@ -39,9 +39,9 @@ public class User {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        String userInfo = "ID: " + getUuid() + ", Username: " + getUsername() + ", Password: " + getPassword();
-        return userInfo;
-    }
+    //  @Override
+    // public String toString() {
+    //     String userInfo = "ID: " + getUuid() + ", Username: " + getUsername() + ", Password: " + getPassword();
+    //     return userInfo;
+    // }   
 }

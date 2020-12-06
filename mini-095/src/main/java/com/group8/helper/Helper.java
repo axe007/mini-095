@@ -28,6 +28,13 @@ public class Helper {
         return userInput;
     }
 
+    public double getDouble() {
+        double userInput = input.nextDouble();
+        input.nextLine();
+
+        return userInput;
+    }
+
 
 
 

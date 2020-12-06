@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="976.0" minWidth="420.0" prefHeight="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoginViewController">
+    <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/logo-big.png" />
+        </image>
+      <VBox.margin>
+         <Insets top="100.0" />
+      </VBox.margin>
+    </ImageView>
+    <TitledPane animated="false" collapsible="false" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="360.0" minWidth="420.0" prefHeight="420.0" prefWidth="600.0" styleClass="login-titled-pane" text="SYSTEM LOGIN">
+        <content>
+            <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="420.0" prefWidth="420.0" scaleShape="false">
+                <children>
+               <Label text="Label" />
+                    <TextField fx:id="userNameTextField" alignment="TOP_LEFT" layoutX="244.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" promptText="Enter your username..." />
+                    <PasswordField fx:id="passwordField" alignment="TOP_LEFT" layoutX="244.0" layoutY="74.0" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" promptText="Enter your password ...">
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin></PasswordField>
+               <HBox alignment="CENTER">
+                  <children>
+                          <Button fx:id="loginSubmitButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefWidth="120.0" styleClass="submit-button" text=" SUBMIT ">
+                        <HBox.margin>
+                           <Insets bottom="20.0" right="20.0" top="20.0" />
+                        </HBox.margin></Button>
+                          <Button fx:id="loginResetButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleResetButtonAction" prefWidth="120.0" styleClass="reset-button" text=" CANCEL ">
+                        <HBox.margin>
+                           <Insets bottom="20.0" left="20.0" top="20.0" />
+                        </HBox.margin></Button>
+                  </children>
+               </HBox>
+                </children>
+            </VBox>
+        </content>
+        <padding>
+            <Insets bottom="80.0" left="80.0" right="80.0" top="80.0" />
+        </padding>
+    </TitledPane>
+</VBox>
