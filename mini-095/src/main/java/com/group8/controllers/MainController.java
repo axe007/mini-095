@@ -152,19 +152,20 @@ public class MainController {
             logTime(Developer dev, String taskId, String projectId) {
                     Map<String, Task> newMap = new HashMap<String, Task>(); 
                     if (dev.getProjectTaskMap().containsKey(dev.getProjectMap().get(projectId))) {
-                        newMap = dev.getProjectTaskMap().containsKey(dev.getProjectMap().get(projectId)); 
+                        newMap = dev.getProjectTaskMap().get(dev.getProjectMap().get(projectId)); 
                     }
                     if (newMap.containsKey(taskId)) {
                         Task newTask = newMap.get(taskId); 
                         long hours = helper.getLong(); 
                         TimeTracker newTime = new TimeTracker(hours, null); 
-                        newTime.getStartDateTime(hours); 
+                        newTime.setStartDateTime(newTime.getStartDateTime(hours)); 
                         newTask.getTimeTrackingMap().put(dev, newTime); 
                         System.out.println("Press 1 to modify your start time"); 
                         String userInput = helper.getMenuInput(); // Calling Helper method
                         if (userInput.equals("1")) {
                             newTime.setStartDateTime();
                         }
+                        
                     }
             } */
     }

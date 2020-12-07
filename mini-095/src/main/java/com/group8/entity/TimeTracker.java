@@ -24,4 +24,9 @@ public class TimeTracker {
         Helper helper = new Helper();
         this.startDateTime = helper.localDateExceptionHandler(); 
     }
+    
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
 }
