@@ -48,7 +48,4 @@ public class UserController {
         String userInfo = model.getUserInfo(username);
         System.out.println(userInfo);
     }
-
-
 }
-

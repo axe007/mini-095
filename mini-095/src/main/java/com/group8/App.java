@@ -26,7 +26,8 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws Exception {
+        // Parent root = FXMLLoader.load(getClass().getResource("fxml_example.fxml"));
         scene = new Scene(loadFXML("LoginView"));
         scene.getStylesheets().add(getClass().getResource("css/default.css").toExternalForm());
 
@@ -51,6 +52,7 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent root = fxmlLoader.load();
+        return root;
     }
 }

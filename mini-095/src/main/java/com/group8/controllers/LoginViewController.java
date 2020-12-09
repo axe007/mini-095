@@ -17,33 +17,33 @@ public class LoginViewController {
     @FXML
     private Label titleLabel;
     @FXML
-    private TextField userNameTextField;
+    private TextField usernameField;
     @FXML
     private PasswordField passwordField;
     @FXML
     private Button loginButton;
     @FXML
-    private HBox loginError;
+    private HBox loginErrorMsg;
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) throws IOException {
+    private void handleLoginButton(ActionEvent event) throws IOException {
         // Button was clicked, do something...
-        String userName = userNameTextField.getText();
+        String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (userName.equalsIgnoreCase(Constants.ADMIN_USERNAME) && password.equals(Constants.ADMIN_PASSWORD)) {
+        if (username.equalsIgnoreCase(Constants.ADMIN_USERNAME) && password.equals(Constants.ADMIN_PASSWORD)) {
             // turn into next screen
-            App.setRoot("AdminView");
+            App.setRoot("ProjectView");
         } else {
             // display error info
-            loginError.setVisible(true);
+            loginErrorMsg.setVisible(true);
         }
     }
 
     @FXML
-    private void handleResetButtonAction(ActionEvent event) throws IOException {
-        userNameTextField.clear();
+    private void handleResetButton(ActionEvent event) throws IOException {
+        usernameField.clear();
         passwordField.clear();
-        loginError.setVisible(false);
+        loginErrorMsg.setVisible(false);
     }
 }
