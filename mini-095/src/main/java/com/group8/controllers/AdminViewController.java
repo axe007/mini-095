@@ -93,6 +93,7 @@ public class AdminViewController implements Initializable {
         if (currentUser != null) {
             UserWoPmController.userList.remove(currentUser);
             currentUser = null;
+            updateListView();
         }
 
     }
@@ -123,6 +124,7 @@ public class AdminViewController implements Initializable {
                 if (currentUser != null) {
                     newUser = createUser();
                     UserWoPmController.updateUserToList(currentUser, newUser);
+                    clearUserInfo();
                     updateListView();
                 }
                 break;
@@ -144,15 +146,12 @@ public class AdminViewController implements Initializable {
 
         });
 
-        for (UserWithoutPm user : UserWoPmController.userList) {
-            employeeListView.getItems().add(user);
-        }
         employeeListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<UserWithoutPm>() {
             public void changed(ObservableValue<? extends UserWithoutPm> ov, UserWithoutPm old_val,
                     UserWithoutPm new_val) {
                 currentUser = new_val;
                 seletectIndex = employeeListView.getSelectionModel().getSelectedIndex();
-                if (seletectIndex > 0) {
+                if (seletectIndex >= 0) {
                     addSaveButton.setText(Constants.SAVE);
                 } else {
                     addSaveButton.setText(Constants.ADD);
@@ -160,6 +159,9 @@ public class AdminViewController implements Initializable {
                 updateUserInfo();
             }
         });
+
+        developerRadioButton.setSelected(true);
+        updateListView();
     }
 
     static class UserCell extends ListCell<UserWithoutPm> {
@@ -235,5 +237,7 @@ public class AdminViewController implements Initializable {
         for (UserWithoutPm user : UserWoPmController.userList) {
             employeeListView.getItems().add(user);
         }
+//        employeeListView.getItems().clear();
+
     }
 }
