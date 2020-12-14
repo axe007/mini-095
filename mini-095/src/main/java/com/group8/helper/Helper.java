@@ -1,5 +1,17 @@
 package com.group8.helper;
 
+import com.group8.App;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.Scanner;
 
 public class Helper {
@@ -33,6 +45,39 @@ public class Helper {
         input.nextLine();
 
         return userInput;
+    }
+
+    public Object loadWindow(URL fileName, Pane parentPane) {
+        Object controller = null;
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            AnchorPane loadedPane = fxmlLoader.load(App.class.getResource("../fxml/content/" + fileName + ".fxml"));
+
+            if (parentPane == null){
+                parentPane = new StackPane();
+            }
+            parentPane.getChildren().clear();
+            parentPane.getChildren().add(loadedPane);
+
+
+            /*FXMLLoader loader = new FXMLLoader(loc);
+            Parent parent = loader.load();
+            controller = loader.getController();
+            Stage stage = null;
+            if (parentStage != null) {
+                stage = parentStage;
+            } else {
+                stage = new Stage(StageStyle.DECORATED);
+            }
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();*/
+
+        } catch (IOException ex) {
+            System.out.println("Exception: " + ex);
+        }
+        return controller;
     }
 
 

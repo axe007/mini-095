@@ -1,7 +1,6 @@
 package com.group8.controllers;
 
 import com.group8.helper.Helper;
-import com.group8.model.UserModel;
 import com.group8.controllers.UserController;
 
 public class MainController {
@@ -38,14 +37,14 @@ public class MainController {
                 String userInput = helper.getMenuInput(); // Calling Helper method
 
                 UserController userController = new UserController();
-                UserModel userModel = new UserModel();
+                // UserModel userModel = new UserModel();
 
                 switch (userInput.toLowerCase()) {
                     case "1":
-                        userController.createUser("Manager");
+                        // userController.createUser("Manager");
                         break;
                     case "2":
-                        userController.createUser("Developer");
+                        // userController.createUser("Developer");
                         break;
                     case "3":
                         userController.getUserInfo();

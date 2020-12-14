@@ -1,6 +1,6 @@
 package com.group8.controllers;
 
-import com.group8.entity.User;
+import com.group8.model.User;
 
 public abstract class ViewController {
     public static User currentUser;

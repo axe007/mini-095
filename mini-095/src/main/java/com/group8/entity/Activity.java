@@ -1,5 +1,7 @@
 package com.group8.entity;
 
+import com.group8.model.User;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ public abstract class Activity {
     private ArrayList<User> teamMembers;
     private String priority;
     private boolean completion; 
-    private String id; 
+    private String id;
 
     public Activity (String name, String content, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers, String priority, String id) {
         this.name = name; 
@@ -24,6 +26,7 @@ public abstract class Activity {
         this.id = id;
         this.completion = false;
     }
+
     public void setPriority(String priority) {
         this.priority = priority; 
     }

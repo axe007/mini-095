@@ -38,8 +38,8 @@ public class App extends Application {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
 
         //set Stage boundaries to visible bounds of the main screen
-        primaryStage.setWidth((primaryScreenBounds.getWidth()) * 0.85);
-        primaryStage.setHeight((primaryScreenBounds.getHeight()) * 0.85);
+        primaryStage.setWidth((primaryScreenBounds.getWidth()) * 0.8);
+        primaryStage.setHeight((primaryScreenBounds.getHeight()) * 0.8);
         primaryStage.setX((primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
         primaryStage.setY((primaryScreenBounds.getHeight() - primaryStage.getHeight()) / 4);
 
@@ -50,7 +50,7 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
         Parent root = fxmlLoader.load();
         return root;

@@ -1,10 +1,12 @@
 package com.group8.entity;
+import com.group8.model.User;
+
 import java.util.*;
 import java.time.LocalDate;
 
 public class Task extends Activity{
-    public Task(String name, String content, LocalDate startDate, LocalDate endDate, 
-    ArrayList<User> teamMembers, String priority, String id) {
+    public Task(String name, String content, LocalDate startDate, LocalDate endDate,
+                ArrayList<User> teamMembers, String priority, String id) {
 
         super(name, content, startDate, endDate, teamMembers, priority, id);
         

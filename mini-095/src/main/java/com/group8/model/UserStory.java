@@ -1,9 +1,9 @@
 package com.group8.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
+
 import com.group8.entity.Activity;
-import com.group8.entity.User;
+
 import java.util.ArrayList;
 
 public class UserStory extends Activity {

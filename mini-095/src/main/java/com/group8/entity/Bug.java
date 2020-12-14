@@ -1,12 +1,14 @@
 package com.group8.entity;
 
+import com.group8.model.User;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Bug extends Activity {
 
-    public Bug(String name, String content, LocalDate startDate, LocalDate endDate, 
-    ArrayList<User> teamMembers, String priority, String id) {
+    public Bug(String name, String content, LocalDate startDate, LocalDate endDate,
+               ArrayList<User> teamMembers, String priority, String id) {
 
         super(name, content, startDate, endDate, teamMembers, priority, id);
 
