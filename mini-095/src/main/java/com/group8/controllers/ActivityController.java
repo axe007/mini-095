@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
-//import  com.group8.entity.User;
+import com.group8.entity.Activity;
+import com.group8.entity.Project;
+import  com.group8.entity.User;
+import com.group8.entity.UserStory;
 import com.group8.helper.Helper;
 
 public class ActivityController {
@@ -18,7 +21,7 @@ public class ActivityController {
         LocalDate startDate;
         LocalDate endDate;
         String priority;
-        //ArrayList<User> teamMembers = new ArrayList<>();
+        ArrayList<User> teamMembers = new ArrayList<>();
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
 
@@ -39,9 +42,11 @@ public class ActivityController {
         System.out.println("Enter end date as DD/MM/YYYY");
         endDate = helper.getDate();
 
-        System.out.println("Enter team members");
+        //System.out.println("Enter team members");
         //teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
-                               // similar
+        //viewDevelopers();
+        System.out.println("Enter ID of developers you want to add");
+        helper.getString();
 
         System.out.println("Enter priority");
         priority = helper.getString();
@@ -67,8 +72,61 @@ public class ActivityController {
         } else {
             System.out.println("Oh no, something went wrong... :'( ");
         }
+    }
 
-        // 2. ask for specific input
-        // 3. call the method
+    public void viewDevelopers(Project currentProject){
+        ArrayList<User> developerTeam = currentProject.getDevelperTeam();
+        for (User developer: developerTeam) {
+            System.out.println(developer);
+        }
+    }
+
+    public void assignDevelopers(User developer){
+
+    }
+
+    public void viewActivities(ArrayList<Activity> activities){
+        for (Activity activity: activities) {
+            System.out.println(activity);
+        }
+    }
+
+    public void modifyContent(Activity activity, String content) {
+        activity.setContent(content);
+    }
+
+    public void modifyName(Activity activity, String name) {
+        activity.setName(name);
+    }
+
+    public void modifyStartDate(Activity activity, LocalDate startDate) {
+        activity.setStartDate(startDate);
+    }
+
+    public void modifyEndDate(Activity activity, LocalDate endDate) {
+        activity.setEndDate(endDate);
+    }
+
+    public void modifyPriority(Activity activity, String priority) {
+        activity.setPriority(priority);
+    }
+
+    //Modify User Story Attributes
+    public void modifyStoryPoints(Activity activity, double storyPoints) {
+
+        if( activity instanceof UserStory){
+            ((UserStory) activity).setStoryPoints(storyPoints);
+        }else {
+            System.out.println("Not a User Story");
+        }
+    }
+
+    public void modifyAcceptanceCriteria(Activity activity, String acceptanceCriteria) {
+
+        if( activity instanceof UserStory){
+            ((UserStory) activity).setAcceptanceCriteria(acceptanceCriteria);
+        }else {
+            System.out.println("Not a User Story");
+        }
     }
 }

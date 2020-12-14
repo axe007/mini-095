@@ -53,6 +53,10 @@ public class ProjectController {
 
     }
 
+    public void addActivityToProject (Activity activity){
+        currentProject.addActivity(activity);
+    }
+
     public void closeProject() {
         currentProject.setClosed(true);
     }

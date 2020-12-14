@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.group8.controllers.ActivityController;
 import com.group8.model.Sprint;
 
 public class Project {
@@ -89,6 +90,26 @@ public class Project {
 
     public void setType(ProjectType type) {
         this.type = type;
+    }
+
+    public void addActivity (Activity activity) {
+        this.activities.add(activity);
+    }
+
+    public void viewActivities () {
+        for (Activity activity: activities) {
+            System.out.println(activity);
+        }
+    }
+
+    public void modifyActivity (){
+        viewActivities();
+        //choose one
+        //what should be modified?
+        System.out.println("Which activity would you like to modify? ");
+        //change it
+
+
     }
 
     @Override
