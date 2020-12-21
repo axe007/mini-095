@@ -39,10 +39,12 @@ public class UserController {
     }
 
     public void modifyUser(String username, String password, String fullname, String emailAddress, String userRole) {
-        User user = (User )Session.getOpenItem();
+        User user = (User) Session.getOpenItem();
         ObjectId id = user.getId();
 
-        mongoDb.getUserCollection().updateOne(eq("_id", id), combine(set("username", username), set("password", password), set("fullname", fullname), set("userRole", userRole), set("emailAddress", emailAddress)));
+        mongoDb.getUserCollection().updateOne(eq("_id", id),
+                combine(set("username", username), set("password", password), set("fullname", fullname),
+                        set("userRole", userRole), set("emailAddress", emailAddress)));
         System.out.println("User details updated!");
     }
 
@@ -67,14 +69,28 @@ public class UserController {
 
     public String getUserDetail(String findField, String findValue, String returnField) {
         String returnValue = null;
-        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq(findField, findValue)).first();
+        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users"))
+                .find(eq(findField, findValue)).first();
         switch (returnField) {
-            case "id" -> returnValue = String.valueOf(user.getId());
-            case "username" -> returnValue = user.getUsername();
-            case "password" -> returnValue = user.getPassword();
-            case "fullname" -> returnValue = user.getFullname();
-            case "emailAddress" -> returnValue = user.getEmailAddress();
-            case "userRole" -> returnValue = user.getUserRole();
+            case "id":
+                returnValue = String.valueOf(user.getId());
+                break;
+
+            case "username":
+                returnValue = user.getUsername();
+                break;
+            case "password":
+                returnValue = user.getPassword();
+                break;
+            case "fullname":
+                returnValue = user.getFullname();
+                break;
+            case "emailAddress":
+                returnValue = user.getEmailAddress();
+                break;
+            case "userRole":
+                returnValue = user.getUserRole();
+                break;
         }
         return returnValue;
     }
