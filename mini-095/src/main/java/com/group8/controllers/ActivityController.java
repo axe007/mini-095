@@ -3,7 +3,7 @@ package com.group8.controllers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.group8.entity.User;
+import com.group8.model.User;
 import com.group8.helper.Helper;
 
 public class ActivityController {

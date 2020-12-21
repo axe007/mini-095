@@ -38,37 +38,39 @@ public class MainController {
                 String userInput = helper.getMenuInput(); // Calling Helper method
 
                 UserController userController = new UserController();
-                UserModel userModel = new UserModel();
+                // UserModel userModel = new UserModel();
 
                 switch (userInput.toLowerCase()) {
                     case "1":
-                        userController.createUser("Manager");
+                        // userController.createUser("Manager");
                         break;
                     case "2":
-                        userController.createUser("Developer");
+                        // userController.createUser("Developer");
                         break;
                     case "3":
                         userController.getUserInfo();
                         break;
-//                    case "4":
-//                        userModel.showAllUsers();
-//                        break;
+                    // case "4":
+                    // userModel.showAllUsers();
+                    // break;
 
                     case "7":
                         activityMenu();
                         break;
 
-                    /*case "2" -> userController.deleteEmployee();
-                    case "3" -> userController.displayEmployees(false);
-                    case "4" -> userController.calculateSalary();
-                    case "5" -> dartController.viewRentalTotalProfit();
-                    case "6" -> dartController.viewRentalProfitable();
-                    case "7" -> dartController.viewRentalFrequency();
-                    case "8" -> dartController.viewRentalBestCustomer();
-                    case "9" -> dartController.loadProductData();
-                    case "10" -> dartController.loadRentalData();
-                    case "11" -> dartController.saveProductData();
-                    case "12" -> dartController.saveRentalData();*/
+                    /*
+                     * case "2" -> userController.deleteEmployee(); case "3" ->
+                     * userController.displayEmployees(false); case "4" ->
+                     * userController.calculateSalary(); case "5" ->
+                     * dartController.viewRentalTotalProfit(); case "6" ->
+                     * dartController.viewRentalProfitable(); case "7" ->
+                     * dartController.viewRentalFrequency(); case "8" ->
+                     * dartController.viewRentalBestCustomer(); case "9" ->
+                     * dartController.loadProductData(); case "10" ->
+                     * dartController.loadRentalData(); case "11" ->
+                     * dartController.saveProductData(); case "12" ->
+                     * dartController.saveRentalData();
+                     */
 
                     case "13":
                         mainMenu();

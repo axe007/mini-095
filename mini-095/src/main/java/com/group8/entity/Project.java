@@ -10,7 +10,7 @@ public class Project {
     private String name;
     private ArrayList<Activity> activities;
     private UUID id;
-    private ArrayList<User> develperTeam;
+    // private ArrayList<User> developerTeam;
     private ArrayList<Sprint> sprints;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -22,7 +22,7 @@ public class Project {
         this.name = name;
         this.activities = new ArrayList<>();
         this.id = UUID.randomUUID();
-        this.develperTeam = new ArrayList<>();
+        // this.developerTeam = new ArrayList<>();
         this.sprints = sprints;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -51,13 +51,14 @@ public class Project {
         return id;
     }
 
-    public ArrayList<User> getDevelperTeam() {
-        return develperTeam;
-    }
+    /*
+     * public ArrayList<User> getDeveloperTeam() { return developerTeam; }
+     */
 
-    public void setDevelperTeam(ArrayList<User> develperTeam) {
-        this.develperTeam = develperTeam;
-    }
+    /*
+     * public void setDeveloperTeam(ArrayList<User> developerTeam) {
+     * this.developerTeam = developerTeam; }
+     */
 
     public ArrayList<Sprint> getSprints() {
         return sprints;
@@ -93,8 +94,8 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project [activities=" + activities + ", develperTeam=" + develperTeam + ", endDate=" + endDate + ", id="
-                + id + ", name=" + name + ", sprints=" + sprints + ", startDate=" + startDate + ", type=" + type + "]";
+        return "Project [activities=" + activities + ", endDate=" + endDate + ", id=" + id + ", name=" + name
+                + ", sprints=" + sprints + ", startDate=" + startDate + ", type=" + type + "]";
     }
 
     @Override
