@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="419.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.CreateActivityViewController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="405.0">
+         <children>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="419.0" prefWidth="406.0">
+               <children>
+                  <Pane layoutX="2.0" layoutY="260.0" prefHeight="94.0" prefWidth="383.0">
+                     <children>
+                        <Separator layoutY="-3.0" prefHeight="11.0" prefWidth="406.0" />
+                        <Label fx:id="acceptanceCriteriaLabel" layoutX="206.0" layoutY="18.0" text="Acceptance Criteria" />
+                        <Label fx:id="storyPointsLabel" layoutX="14.0" layoutY="18.0" text="Story Points" />
+                        <TextField fx:id="enterStoryPointsTextField" layoutX="14.0" layoutY="35.0" text="Enter Story Points" />
+                        <TextField fx:id="enterAcceptanceCriteriaTextField" layoutX="206.0" layoutY="35.0" text="Enter Acceptance Criteria" />
+                     </children>
+                  </Pane>
+                  <VBox layoutX="194.0" layoutY="102.0" prefHeight="146.0" prefWidth="184.0">
+                     <children>
+                        <Label fx:id="descriptionLabel" alignment="CENTER" contentDisplay="BOTTOM" text="Description" />
+                        <TextField fx:id="enterDescriptionTextField" text="Enter a Description" />
+                        <Label fx:id="endDateLabel" text="End Date" />
+                        <TextField fx:id="enterEndDateTextField" text="End Date d/MM/yyyy" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" layoutX="-14.0" layoutY="46.0" prefHeight="46.0" prefWidth="414.0">
+                     <children>
+                        <RadioButton fx:id="userStoryRadioButton" mnemonicParsing="false" text="User Story">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="taskRadioButton" mnemonicParsing="false" text="Task">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="bugRadioButton" mnemonicParsing="false" text="Bug" />
+                     </children>
+                  </HBox>
+                  <Text fx:id="createAnActivity" layoutX="99.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create An Activity">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <VBox layoutX="14.0" layoutY="102.0" prefHeight="167.0" prefWidth="171.0">
+                     <children>
+                        <Label fx:id="nameLabel" text="Name" />
+                        <TextField fx:id="enterNameTextField" onAction="#EnterName" text="Enter Name" />
+                        <Label fx:id="startDateLabel" text="Start Date" />
+                        <TextField fx:id="enterStartDateTextField" text="Start date d/MM/yyyy" />
+                        <Label fx:id="priorityLabel" text="Priority" />
+                        <TextField fx:id="enterPriorityTextField" text="Enter Priority" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" layoutX="-2.0" layoutY="355.0" prefHeight="46.0" prefWidth="414.0">
+                     <children>
+                        <Button fx:id="saveButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="51.0" text="Save">
+                           <cursor>
+                              <Cursor fx:constant="NE_RESIZE" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="clearButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearTextFields" prefHeight="26.0" prefWidth="51.0" text="Clear">
+                           <cursor>
+                              <Cursor fx:constant="NE_RESIZE" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

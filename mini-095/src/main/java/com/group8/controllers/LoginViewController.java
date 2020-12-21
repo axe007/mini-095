@@ -31,6 +31,7 @@ public class LoginViewController {
             if (userName.equalsIgnoreCase(Constants.ADMIN_USERNAME)) {
                 if (password.equals(Constants.ADMIN_PASSWORD)) {
                     // turn into next screen
+                    //App.setRoot("CreateActivityView");
                     App.setRoot("AdminView");
 
                 } else {
