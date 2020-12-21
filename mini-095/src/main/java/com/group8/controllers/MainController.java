@@ -1,8 +1,6 @@
 package com.group8.controllers;
 
 import com.group8.helper.Helper;
-import com.group8.model.UserModel;
-import com.group8.controllers.UserController;
 
 public class MainController {
 
