@@ -38,7 +38,7 @@ public class Helper {
         input.nextLine();
 
         return userInput;
-    }
+}
 
     public double getDouble() {
         double userInput = input.nextDouble();

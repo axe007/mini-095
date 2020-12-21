@@ -2,7 +2,6 @@ package com.group8.controllers;
 
 import com.group8.App;
 import com.group8.model.Session;
-import com.group8.model.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import org.bson.types.ObjectId;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -113,15 +114,12 @@ public class ApplicationController implements Initializable {
 
     private void displayUserFullname() {
         // Display logged user fullname
-        String loggedUsername = Session.getSessionUsername();
-        String fullname;
+        ObjectId loggedUserId = Session.getSessionUserId();
 
-        if (loggedUsername.equals("admin")) {
-            fullname = "System Admin";
-        } else {
-            UserController userController = new UserController();
-            fullname = userController.getUserDetail("username", loggedUsername, "fullname");
-        }
+        String fullname;
+        UserController userController = new UserController();
+        fullname = userController.getUserDetail(loggedUserId, "fullname");
+
         sessionUsername.setText(fullname);
     }
 }
