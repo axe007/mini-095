@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
 <StackPane fx:id="dialogPane" prefHeight="480.0" prefWidth="400.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.UserAddViewController">
@@ -62,10 +61,13 @@
                          <VBox.margin>
                             <Insets bottom="5.0" left="12.0" top="10.0" />
                          </VBox.margin></Label>
-                            <RadioButton fx:id="developer" mnemonicParsing="false" selected="true" text="Developer" toggleGroup="$userRoleToggle">
+                            <RadioButton fx:id="developer" mnemonicParsing="false" selected="true" text="Developer">
                              <VBox.margin>
                                 <Insets left="20.0" top="-10.0" />
                              </VBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="userRoleToggle" />
+                     </toggleGroup>
                             </RadioButton>
                             <RadioButton fx:id="projectManager" mnemonicParsing="false" text="Project Manager" toggleGroup="$userRoleToggle">
                              <VBox.margin>
@@ -97,7 +99,4 @@
          </StackPane.margin>
         </AnchorPane>
     </children>
-   <effect>
-      <DropShadow height="38.79" radius="18.895" width="38.79" />
-   </effect>
 </StackPane>

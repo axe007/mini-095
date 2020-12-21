@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import org.bson.types.ObjectId;
 
 public class LoginViewController {
 
@@ -42,7 +43,9 @@ public class LoginViewController {
     }
 
     public void initializeApp(String loggedUsername) throws IOException {
-        Session.getInstance(loggedUsername);
+        UserController userController = new UserController();
+        ObjectId loggedUserId = userController.getUserId("username", loggedUsername);
+        Session.getInstance(loggedUserId);
         App app = new App();
         app.setRoot("Application");
     }
