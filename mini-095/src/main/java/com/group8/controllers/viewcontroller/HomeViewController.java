@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -15,9 +16,9 @@ import java.util.ResourceBundle;
 public class HomeViewController implements Initializable {
 
     @FXML
-    private SplitPane mainSplitPane;
-    @FXML
-    private Label mainTitleLabel;
+    private StackPane homeView;
+
+
     @FXML
     private Button projectNewButton;
     @FXML
@@ -27,8 +28,6 @@ public class HomeViewController implements Initializable {
     @FXML
     private Button projectArchiveButton;
 
-    @FXML
-    private Pane topPane;
     @FXML
     private VBox userInfoVBox;
     @FXML

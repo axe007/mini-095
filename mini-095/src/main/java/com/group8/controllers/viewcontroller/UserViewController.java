@@ -3,33 +3,57 @@ package com.group8.controllers.viewcontroller;
 import com.group8.App;
 import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
+import com.group8.model.Session;
+import com.group8.model.User;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.util.Callback;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserViewController implements Initializable {
 
     private static UserController userController = new UserController();
     private static UIHelper uiHelper = new UIHelper();
+    private List<User> userList = new ArrayList<>();
 
     @FXML
-    private Pane userView;
+    private StackPane userView;
+    @FXML
+    private TableView<User> tblUsers = new TableView<User>();
+    @FXML
+    private TableColumn<User, ObjectId> tblClmUserId;
+    @FXML
+    private TableColumn<User, String> tblClmUserName;
+    @FXML
+    private TableColumn<User, String> tblClmUserFullname;
+    @FXML
+    private TableColumn<User, String> tblClmUserRole;
+    @FXML
+    private TableColumn<User, String> tblClmUserEmailAddress;
+
     @FXML
     private Button userNewButton;
     @FXML
-    private Button userOpenButton;
+    private Button userModifyButton;
     @FXML
     private Button userAssignButton;
     @FXML
@@ -45,27 +69,53 @@ public class UserViewController implements Initializable {
     private void handleUserButtons(ActionEvent event) throws IOException {
         // clear all text field
         if (event.getSource() == userNewButton) {
-            uiHelper.loadWindow("UserAddView", userNewButton);
+            Session.setWindowMode("new");
+            uiHelper.loadWindow("UserAddView", userNewButton, null);
 
-
-        } else if (event.getSource() == userOpenButton) {
-            // Open project window
+        } else if (event.getSource() == userModifyButton) {
+            // Modify user details
+            User user = tblUsers.getSelectionModel().getSelectedItem();
+            Session.setSetOpenItem(user);
+            if (user == null) {
+                uiHelper.alertDialogGenerator(userView,"error", "Modify user", "No user exist or no user selected.\nPlease select an user and try again.");
+            } else {
+                Session.setWindowMode("edit");
+                uiHelper.loadWindow("UserAddView", userModifyButton, user);
+            }
 
         } else if (event.getSource() == userAssignButton) {
             // List all projects window
 
         } else if (event.getSource() == userListButton) {
             // List all projects window
+            // userController.getUser();
 
         } else if (event.getSource() == userDeleteButton) {
             // Archive project window
         }
     }
 
+    public void loadUserData() {
+
+        //getting the full list of books from file
+        List<User> userList = userController.getUserList();
+        ObservableList<User> viewUsers = (ObservableList<User>) FXCollections.observableArrayList(userList);
+
+        tblClmUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tblClmUserName.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tblClmUserFullname.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        tblClmUserRole.setCellValueFactory(new PropertyValueFactory<>("userRole"));
+        tblClmUserEmailAddress.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
+
+        tblUsers.setItems(viewUsers);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             // TODO
+            //initCol();
+            loadUserData();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,12 +129,12 @@ public class UserViewController implements Initializable {
 
     @FXML
     private void btnRefreshOnAction(ActionEvent event) {
-        /*tblActivities.getItems().clear();
-        activitiesSearch.clear();*/
+        loadUserData();
     }
 
     @FXML
     public void actionFeedback(String result) {
-        dbFeedback.setText(result);
+        //dbFeedback.setText(result);
+        //System.out.println(result);
     }
 }

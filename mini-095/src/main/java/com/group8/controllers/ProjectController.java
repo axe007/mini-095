@@ -16,9 +16,7 @@ public class ProjectController {
         this.currentProject = currentProject;
     }
 
-    public ProjectController() {
-        this.currentProject = currentProject;
-    }
+    public ProjectController() { this.currentProject = currentProject; }
 
     public ProjectController(String name, LocalDate startDate, LocalDate endDate, ProjectType type) {
         this.currentProject = new Project(name, startDate, endDate, type);
@@ -50,13 +48,12 @@ public class ProjectController {
 
     }
 
-    /*
-     * public void addUserToTeam(User user) { ArrayList<User> tempList =
-     * currentProject.getDeveloperTeam(); tempList.add(user);
-     * currentProject.setDeveloperTeam(tempList);
-     * 
-     * }
-     */
+    /*public void addUserToTeam(User user) {
+        ArrayList<User> tempList = currentProject.getDeveloperTeam();
+        tempList.add(user);
+        currentProject.setDeveloperTeam(tempList);
+
+    }*/
 
     public void closeProject() {
         currentProject.setClosed(true);

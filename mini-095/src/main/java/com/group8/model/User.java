@@ -1,10 +1,10 @@
 package com.group8.model;
 
+import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
-import java.util.UUID;
-
 public class User {
+
     private ObjectId id;
     private String username;
     private String password;
@@ -13,9 +13,9 @@ public class User {
     private String userRole; // "Developer", "Project Manager", "Scrum master"
 
     // Constructors
-    public User() {}
+    public User() { }
 
-    public User(final String username, final String password, final String fullname, final String emailAddress, final String userRole) {
+    public User(String username, String password, String fullname, String emailAddress, String userRole) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
@@ -37,6 +37,7 @@ public class User {
     public String getUserRole() { return userRole; }
 
     // Setters
+    public void setId(ObjectId id) { this.id = id; }
     public void setUsername(String username) {
         this.username = username;
     }
@@ -48,7 +49,7 @@ public class User {
     public void setUserRole(String userRole) { this.userRole = userRole; }
 
 
-    @Override
+    /*@Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -81,7 +82,7 @@ public class User {
             return false;
         }
         return true;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -97,8 +98,8 @@ public class User {
     @Override
     public String toString() {
         return "User{"
-                + "id='" + id + "'"
-                + ", name='" + username + "'"
+                + "id='" + getId() + "'"
+                + ", username='" + username + "'"
                 + ", fullname=" + fullname
                 + ", password=" + password
                 + ", emailAddress=" + emailAddress

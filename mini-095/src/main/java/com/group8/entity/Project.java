@@ -51,14 +51,13 @@ public class Project {
         return id;
     }
 
-    /*
-     * public ArrayList<User> getDeveloperTeam() { return developerTeam; }
-     */
+    /*public ArrayList<User> getDeveloperTeam() {
+        return developerTeam;
+    }*/
 
-    /*
-     * public void setDeveloperTeam(ArrayList<User> developerTeam) {
-     * this.developerTeam = developerTeam; }
-     */
+    /*public void setDeveloperTeam(ArrayList<User> developerTeam) {
+        this.developerTeam = developerTeam;
+    }*/
 
     public ArrayList<Sprint> getSprints() {
         return sprints;
@@ -94,8 +93,8 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project [activities=" + activities + ", endDate=" + endDate + ", id=" + id + ", name=" + name
-                + ", sprints=" + sprints + ", startDate=" + startDate + ", type=" + type + "]";
+        return "Project [activities=" + activities + ", endDate=" + endDate + ", id="
+                + id + ", name=" + name + ", sprints=" + sprints + ", startDate=" + startDate + ", type=" + type + "]";
     }
 
     @Override

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +20,8 @@ public class ActivitiesViewController implements Initializable {
 
     private static ProjectController proController = new ProjectController();
 
+    @FXML
+    private StackPane activitiesView;
     @FXML
     private Button activityNewButton;
     @FXML

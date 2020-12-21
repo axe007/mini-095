@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.helper.Helper;
+import com.group8.controllers.UserController;
 
 public class MainController {
 
@@ -48,27 +49,25 @@ public class MainController {
                     case "3":
                         userController.getUserInfo();
                         break;
-                    // case "4":
-                    // userModel.showAllUsers();
-                    // break;
+//                    case "4":
+//                        userModel.showAllUsers();
+//                        break;
 
                     case "7":
                         activityMenu();
                         break;
 
-                    /*
-                     * case "2" -> userController.deleteEmployee(); case "3" ->
-                     * userController.displayEmployees(false); case "4" ->
-                     * userController.calculateSalary(); case "5" ->
-                     * dartController.viewRentalTotalProfit(); case "6" ->
-                     * dartController.viewRentalProfitable(); case "7" ->
-                     * dartController.viewRentalFrequency(); case "8" ->
-                     * dartController.viewRentalBestCustomer(); case "9" ->
-                     * dartController.loadProductData(); case "10" ->
-                     * dartController.loadRentalData(); case "11" ->
-                     * dartController.saveProductData(); case "12" ->
-                     * dartController.saveRentalData();
-                     */
+                    /*case "2" -> userController.deleteEmployee();
+                    case "3" -> userController.displayEmployees(false);
+                    case "4" -> userController.calculateSalary();
+                    case "5" -> dartController.viewRentalTotalProfit();
+                    case "6" -> dartController.viewRentalProfitable();
+                    case "7" -> dartController.viewRentalFrequency();
+                    case "8" -> dartController.viewRentalBestCustomer();
+                    case "9" -> dartController.loadProductData();
+                    case "10" -> dartController.loadRentalData();
+                    case "11" -> dartController.saveProductData();
+                    case "12" -> dartController.saveRentalData();*/
 
                     case "13":
                         mainMenu();

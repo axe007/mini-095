@@ -4,22 +4,19 @@ import java.io.IOException;
 
 import com.group8.App;
 import com.group8.constants.Constants;
-import com.group8.controllers.ApplicationController;
-
+import com.group8.model.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 public class LoginViewController {
+
+    private UserController userController = new UserController();
+
     @FXML
     private TextField usernameField;
     @FXML
@@ -35,13 +32,19 @@ public class LoginViewController {
         String password = passwordField.getText();
 
         if (username.equalsIgnoreCase(Constants.ADMIN_USERNAME) && password.equals(Constants.ADMIN_PASSWORD)) {
-            ApplicationController appController = new ApplicationController();
-            App.setRoot("Application");
-
-        } else {
+            initializeApp("admin");
+        } else if (userController.authenticateUser(username, password)) {
+            initializeApp(username);
+        }else {
             // display error info
             loginErrorMsg.setVisible(true);
         }
+    }
+
+    public void initializeApp(String loggedUsername) throws IOException {
+        Session.getInstance(loggedUsername);
+        App app = new App();
+        app.setRoot("Application");
     }
 
     @FXML

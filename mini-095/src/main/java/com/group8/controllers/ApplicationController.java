@@ -1,13 +1,15 @@
 package com.group8.controllers;
 
 import com.group8.App;
+import com.group8.model.Session;
+import com.group8.model.User;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +21,9 @@ public class ApplicationController implements Initializable {
     @FXML
     private Label mainTitleLabel = new Label("Main Title");
     @FXML
-    private StackPane appContent;
+    private Label sessionUsername = new Label("John Doe");
+    @FXML
+    public StackPane appContent;
     @FXML
     private Button dashboardButton;
     @FXML
@@ -60,11 +64,14 @@ public class ApplicationController implements Initializable {
             viewName = "UserView";
             viewTitle = "Users";
         } else if (menuEvent.getSource() == logoutButton) {
-            App.setRoot("LoginView");
+            Session.logoutSession();
+
+            App app = new App();
+            app.setRoot("LoginView");
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        AnchorPane loadedPane = fxmlLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
+        StackPane loadedPane = fxmlLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
         mainTitleLabel.setText(viewTitle);
         setActiveButton(menuEvent.getSource());
 
@@ -93,9 +100,28 @@ public class ApplicationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            // Set main title label
             mainTitleLabel.setText("Welcome");
+            displayUserFullname();
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void displayUserFullname() {
+        // Display logged user fullname
+        String loggedUsername = Session.getSessionUsername();
+        String fullname;
+
+        if (loggedUsername.equals("admin")) {
+            fullname = "System Admin";
+        } else {
+            UserController userController = new UserController();
+            fullname = userController.getUserDetail("username", loggedUsername, "fullname");
+        }
+        sessionUsername.setText(fullname);
     }
 }

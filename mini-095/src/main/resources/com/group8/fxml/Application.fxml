@@ -129,7 +129,7 @@
                                 <Insets right="20.0" />
                              </HBox.margin>
                         </FontAwesomeIconView>
-                        <Label style="-fx-text-fill: #6d767e" styleClass="h2" text="John">
+                        <Label fx:id="sessionUsername" style="-fx-text-fill: #6d767e" styleClass="h2" text="John Doe">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin></Label>

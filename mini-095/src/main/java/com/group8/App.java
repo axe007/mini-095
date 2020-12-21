@@ -1,6 +1,9 @@
 package com.group8;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -27,7 +30,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Parent root = FXMLLoader.load(getClass().getResource("fxml_example.fxml"));
+
         scene = new Scene(loadFXML("LoginView"));
         scene.getStylesheets().add(getClass().getResource("css/default.css").toExternalForm());
 
@@ -37,7 +40,7 @@ public class App extends Application {
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
 
-        // set Stage boundaries to visible bounds of the main screen
+        //set Stage boundaries to visible bounds of the main screen
         primaryStage.setWidth((primaryScreenBounds.getWidth()) * 0.8);
         primaryStage.setHeight((primaryScreenBounds.getHeight()) * 0.8);
         primaryStage.setX((primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
@@ -46,11 +49,11 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public static void setRoot(String fxml) throws IOException {
+    public void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
-    public static Parent loadFXML(String fxml) throws IOException {
+    public Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
         Parent root = fxmlLoader.load();
         return root;

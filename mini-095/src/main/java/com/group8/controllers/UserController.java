@@ -1,23 +1,19 @@
 package com.group8.controllers;
 
-import java.util.UUID;
-
 import com.group8.model.Developer;
 import com.group8.model.Manager;
+import com.group8.model.Session;
 import com.group8.model.User;
 import com.group8.helper.Helper;
-import com.group8.controllers.DatabaseController;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.result.InsertOneResult;
-import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.ClassModel;
-import org.bson.codecs.pojo.PojoCodecProvider;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.result.UpdateResult;
+import org.bson.types.ObjectId;
 
-import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Updates.*;
 
 public class UserController {
 
@@ -36,10 +32,51 @@ public class UserController {
             // users.add(manager);
         }
 
-        mongoDb.getUserCollection("users").insertOne(newUser);
-        result = true;
+        mongoDb.getUserCollection().insertOne(newUser);
+        System.out.println("New user created successfully!");
 
+        return true;
+    }
+
+    public void modifyUser(String username, String password, String fullname, String emailAddress, String userRole) {
+        User user = (User )Session.getOpenItem();
+        ObjectId id = user.getId();
+
+        mongoDb.getUserCollection().updateOne(eq("_id", id), combine(set("username", username), set("password", password), set("fullname", fullname), set("userRole", userRole), set("emailAddress", emailAddress)));
+        System.out.println("User details updated!");
+    }
+
+    public boolean authenticateUser(String username, String password) {
+        boolean result = false;
+
+        BasicDBObject query = new BasicDBObject();
+        query.put("username", username);
+        query.put("password", password);
+        User user = mongoDb.getUserCollection().find(query).first();
+
+        if (user != null && user instanceof User) {
+            result = true;
+        }
         return result;
+    }
+
+    public List getUserList() {
+        List<User> users = mongoDb.getUserCollection().find().into(new ArrayList<User>());
+        return users;
+    }
+
+    public String getUserDetail(String findField, String findValue, String returnField) {
+        String returnValue = null;
+        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq(findField, findValue)).first();
+        switch (returnField) {
+            case "id" -> returnValue = String.valueOf(user.getId());
+            case "username" -> returnValue = user.getUsername();
+            case "password" -> returnValue = user.getPassword();
+            case "fullname" -> returnValue = user.getFullname();
+            case "emailAddress" -> returnValue = user.getEmailAddress();
+            case "userRole" -> returnValue = user.getUserRole();
+        }
+        return returnValue;
     }
 
     public void getUserInfo() {

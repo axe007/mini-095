@@ -54,25 +54,35 @@ public class Helper {
             FXMLLoader fxmlLoader = new FXMLLoader();
             AnchorPane loadedPane = fxmlLoader.load(App.class.getResource("../fxml/content/" + fileName + ".fxml"));
 
-            if (parentPane == null) {
+            if (parentPane == null){
                 parentPane = new StackPane();
             }
             parentPane.getChildren().clear();
             parentPane.getChildren().add(loadedPane);
 
-            /*
-             * FXMLLoader loader = new FXMLLoader(loc); Parent parent = loader.load();
-             * controller = loader.getController(); Stage stage = null; if (parentStage !=
-             * null) { stage = parentStage; } else { stage = new
-             * Stage(StageStyle.DECORATED); } stage.setTitle(title); stage.setScene(new
-             * Scene(parent)); stage.show();
-             */
+
+            /*FXMLLoader loader = new FXMLLoader(loc);
+            Parent parent = loader.load();
+            controller = loader.getController();
+            Stage stage = null;
+            if (parentStage != null) {
+                stage = parentStage;
+            } else {
+                stage = new Stage(StageStyle.DECORATED);
+            }
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();*/
 
         } catch (IOException ex) {
             System.out.println("Exception: " + ex);
         }
         return controller;
     }
+
+
+
+
 
     public void closeScanner() {
         input.close();

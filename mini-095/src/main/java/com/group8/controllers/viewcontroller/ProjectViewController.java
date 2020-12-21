@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 
 
 import java.io.IOException;
@@ -18,9 +19,7 @@ public class ProjectViewController implements Initializable {
     private static ProjectController proController = new ProjectController();
 
     @FXML
-    private SplitPane mainSplitPane;
-    @FXML
-    private Label mainTitleLabel;
+    private StackPane projectView;
     @FXML
     private Button projectNewButton;
     @FXML

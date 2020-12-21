@@ -1,9 +1,6 @@
 package com.group8.entity;
 
 import com.group8.model.User;
-import org.bson.types.ObjectId;
-
-import java.util.UUID;
 
 public class Administrator extends User {
 
