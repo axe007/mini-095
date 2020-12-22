@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="activityItem" alignment="CENTER_LEFT" fillHeight="false" maxHeight="Infinity" maxWidth="Infinity" prefHeight="48.0" prefWidth="${activityItem.parent.width}" minHeight="48.0" style="-fx-background-color: #fff; -fx-background-radius: 5; -fx-background-insets: 0;" styleClass="scrum-activity-item" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ActivitiesItemController">
+    <children>
+      <BorderPane prefWidth="${activityItem.width}">
+         <HBox.margin>
+            <Insets left="4.0" right="4.0" />
+         </HBox.margin>
+         <left>
+              <FontAwesomeIconView glyphName="USER_TIMES" size="16" styleClass="content-action-icon" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+              <Button fx:id="btnActivityItemAssign" mnemonicParsing="false" onAction="#btnActivityItemAssign" prefHeight="8.0" prefWidth="54.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Assign" BorderPane.alignment="CENTER">
+                  <graphic>
+                      <FontAwesomeIconView glyphName="EXCHANGE" size="16" styleClass="content-action-icon" />
+                  </graphic>
+              </Button>
+         </right>
+         <center>
+              <Label fx:id="activityName" text="Activity Id" textFill="#000" BorderPane.alignment="CENTER_LEFT">
+               <padding>
+                  <Insets left="6.0" />
+               </padding></Label>
+         </center>
+      </BorderPane>
+    </children>
+    <effect>
+        <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0" />
+    </effect>
+</HBox>
