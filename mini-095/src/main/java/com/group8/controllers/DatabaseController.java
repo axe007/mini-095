@@ -2,6 +2,7 @@ package com.group8.controllers;
 
 import com.group8.model.Developer;
 import com.group8.model.Manager;
+import com.group8.model.Project;
 import com.group8.model.User;
 
 import com.mongodb.MongoClientSettings;
@@ -63,6 +64,14 @@ public class DatabaseController {
 
     }
 
+    public MongoCollection<Project> getProjectCollection() {
+
+        MongoDatabase database = dbConnect().getDatabase(dbName);
+        MongoCollection<Project> collection = database.getCollection("projects",Project.class).withCodecRegistry(createCodecRegistry("Projects"));
+        return collection;
+
+    }
+
     public CodecRegistry createCodecRegistry(String classType) {
 
         PojoCodecProvider pojoCodecProvider = null;
@@ -75,8 +84,12 @@ public class DatabaseController {
 
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(userModel, developerUserModel, managerUserModel).build();
 
-        }
+        } else if (classType.equals("Projects")){
 
+            ClassModel<Project> projectModel = ClassModel.builder(Project.class).enableDiscriminator(true).build();
+            pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(projectModel).build();
+
+        }
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
         return pojoCodecRegistry;
