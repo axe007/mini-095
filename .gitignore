@@ -3,8 +3,7 @@
 !.gitignore
 !pom.xml
 !README.md
-!*.java
-!*.fxml
+!./mini-095/src
 
 
 
