@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane fx:id="mainSplitPane" dividerPositions="0.1" maxHeight="Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" scaleShape="false" styleClass="main-split-pane" stylesheets="../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ApplicationController">
+  <items>
+    <AnchorPane maxHeight="Infinity" maxWidth="-Infinity" minHeight="480.0" prefWidth="360.0">
+         <children>
+             <VBox fx:id="sidebarVBox" maxHeight="Infinity" prefHeight="${sidebarVBox.parent.height}" VBox.vgrow="ALWAYS">
+                 <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="400.0" minWidth="300.0" prefWidth="360.0" style="-fx-background-color: #d9e1f4;" VBox.vgrow="NEVER">
+                     <children>
+                         <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="dashboard">
+                             <graphic>
+                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icon-home.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                             <opaqueInsets>
+                                 <Insets />
+                             </opaqueInsets>
+                             <VBox.margin>
+                                 <Insets top="15.0" />
+                             </VBox.margin>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="projectButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="projects">
+                             <graphic>
+                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icon-projects.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="sprintboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="sprintboard">
+                             <graphic>
+                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icon-scrumboard.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="activitiesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="activities">
+                             <graphic>
+                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icon-activities.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="usersButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="users">
+                             <graphic>
+                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icon-users.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="logoutButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="log out">
+                             <graphic>
+                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../images/icon-logout.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                     </children>
+                 </VBox>
+                 <BorderPane fx:id="borderPane" style="-fx-background-color: #d9e1f4;" VBox.vgrow="ALWAYS">
+                     <bottom>
+                         <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                             <children>
+                                 <ImageView fitHeight="132.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                     <image>
+                                         <Image url="@../images/logo-small.png" />
+                                     </image>
+                                     <VBox.margin>
+                                         <Insets bottom="50.0" />
+                                     </VBox.margin>
+                                 </ImageView>
+                             </children>
+                         </VBox>
+                     </bottom>
+                 </BorderPane>
+             </VBox>
+         </children>
+    </AnchorPane>
+    <SplitPane fx:id="rightSplitPane" dividerPositions="0.1" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="${rightSplitPane.parent.height}" prefWidth="${rightSplitPane.parent.width}" scaleShape="true" style="-fx-box-border: transparent;" styleClass="right-split-pane" SplitPane.resizableWithParent="true">
+        <items>
+            <BorderPane maxHeight="90.0" minHeight="90.0" style="-fx-background-color: #edf0f2;">
+               <left>
+                    <Label fx:id="mainTitleLabel" styleClass="h1-title" text="Main Title" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets left="40.0" />
+                     </BorderPane.margin></Label>
+               </left>
+               <right>
+                  <HBox alignment="CENTER" prefHeight="90.0" BorderPane.alignment="CENTER_RIGHT">
+                     <children>
+                        <FontAwesomeIconView fill="#6d767e" glyphName="USER_CIRCLE_ALT" size="64">
+                             <HBox.margin>
+                                <Insets right="20.0" />
+                             </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label fx:id="sessionUsername" style="-fx-text-fill: #6d767e" styleClass="h2" text="John Doe">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin></Label>
+                     </children>
+                  </HBox>
+               </right>
+            </BorderPane>
+            <StackPane fx:id="appContent" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <children>
+                    <fx:include fx:id="homeView" source="content/HomeView.fxml" />
+                </children>
+            </StackPane>
+        </items>
+    </SplitPane>
+  </items>
+</SplitPane>

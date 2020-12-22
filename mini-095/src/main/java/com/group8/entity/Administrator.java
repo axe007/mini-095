@@ -1,20 +1,11 @@
 package com.group8.entity;
 
-import java.util.UUID;
+import com.group8.model.User;
 
 public class Administrator extends User {
-    private String userType = "Administrator";
 
-    public Administrator(UUID uuid, String username, String password, String userType) {
-        super(uuid, username, password);
-        this.userType = userType;
+    public Administrator(String username, String password, String fullname, String emailAddress, String userRole) {
+        super(username, password, fullname, emailAddress, userRole);
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
 }
