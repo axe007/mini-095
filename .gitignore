@@ -3,9 +3,6 @@
 !.gitignore
 !pom.xml
 !README.md
-!mini-095/
-mini-095/**
-!mini-095/src
-
+!src/
 
 
