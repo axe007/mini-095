@@ -4,7 +4,9 @@ import com.group8.controllers.ApplicationController;
 import com.group8.controllers.ProjectController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -59,6 +61,7 @@ public class ActivitiesViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             // TODO
+
         } catch (Exception e) {
             e.printStackTrace();
         }

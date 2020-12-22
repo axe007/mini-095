@@ -70,7 +70,7 @@ public class UserViewController implements Initializable {
         // clear all text field
         if (event.getSource() == userNewButton) {
             Session.setWindowMode("new");
-            uiHelper.loadWindow("UserAddView", userNewButton, null);
+            uiHelper.loadWindow("UserAddView", userNewButton, (User) null);
 
         } else if (event.getSource() == userModifyButton) {
             // Modify user details

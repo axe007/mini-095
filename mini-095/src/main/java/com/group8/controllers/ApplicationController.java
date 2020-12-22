@@ -56,8 +56,8 @@ public class ApplicationController implements Initializable {
             viewName = "ProjectView";
             viewTitle = "Projects";
         } else if (menuEvent.getSource() == sprintboardButton) {
-            viewName = "HomeView";
-            viewTitle = "Sprint Board";
+            viewName = "ScrumboardView";
+            viewTitle = "Scrum Board";
         } else if (menuEvent.getSource() == activitiesButton) {
             viewName = "ActivitiesView";
             viewTitle = "Activities";
