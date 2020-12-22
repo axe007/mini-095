@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="dialogPane" prefHeight="480.0" prefWidth="400.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ProjectAddViewController">
+    <children>
+        <AnchorPane id="anchorPane" fx:id="mainContainer" prefHeight="376.0" prefWidth="490.0" StackPane.alignment="CENTER">
+            <children>
+                <VBox fx:id="vboxPane" maxWidth="-Infinity" prefHeight="153.0" prefWidth="240.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" focusTraversable="false" prefWidth="420" styleClass="h2" text="Enter new project details" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
+                        <Label focusTraversable="false" layoutX="240.0" layoutY="160.0" styleClass="textfield-label" text="Name">
+                            <VBox.margin>
+                                <Insets bottom="-5.0" left="12.0" top="15.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="name" maxWidth="-Infinity" prefWidth="180.0" promptText="Enter new project name" styleClass="login-textfield">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <Label focusTraversable="false" styleClass="textfield-label" text="Start date">
+                            <VBox.margin>
+                                <Insets bottom="-5.0" left="12.0" top="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="startDate" layoutX="20.0" layoutY="30.0" maxWidth="-Infinity" prefWidth="180.0" promptText="Enter new start date" styleClass="login-textfield">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <Label focusTraversable="false" styleClass="textfield-label" text="End date">
+                            <VBox.margin>
+                                <Insets bottom="-5.0" left="12.0" top="10.0" />
+                            </VBox.margin>
+                        </Label>
+                  <TextField fx:id="endDate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Enter new end date">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                            <Label fx:id="type" styleClass="textfield-label" text="Project type">
+                             <VBox.margin>
+                                <Insets bottom="5.0" left="12.0" top="10.0" />
+                             </VBox.margin>
+                            </Label>
+                            <fx:define>
+                                <ToggleGroup fx:id="projectTypeToggle" />
+                            </fx:define>
+                            <RadioButton fx:id="software" mnemonicParsing="false" text="Software" selected="true" toggleGroup="$projectTypeToggle">
+                             <VBox.margin>
+                                <Insets left="20.0" top="-5.0" />
+                             </VBox.margin>
+                            </RadioButton>
+                            <RadioButton fx:id="personal" mnemonicParsing="false" text="Personal" toggleGroup="$projectTypeToggle">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="-5.0" />
+                                 </VBox.margin>
+                            </RadioButton>
+                            <RadioButton fx:id="business" mnemonicParsing="false" text="Business" toggleGroup="$projectTypeToggle">
+                                <VBox.margin>
+                                    <Insets left="20.0" top="-5.0" />
+                                </VBox.margin>
+                            </RadioButton>
+
+                        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="404.0" spacing="30.0">
+                            <children>
+                                <Button fx:id="saveButton" onAction="#handleSaveProjectBtn" prefHeight="66.0" prefWidth="100.0" styleClass="submit-button" text="Save" />
+                                <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" onAction="#handleCancel" prefHeight="66.0" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
+                            </children>
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+            </children>
+         <StackPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </StackPane.margin>
+        </AnchorPane>
+    </children>
+</StackPane>
