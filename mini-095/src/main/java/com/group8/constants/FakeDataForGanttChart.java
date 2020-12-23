@@ -2,9 +2,8 @@ package com.group8.constants;
 
 import java.time.LocalDate;
 
-import com.group8.entity.Activity;
-import com.group8.entity.ActivityForGanttChart;
-import com.group8.entity.ProjectForGanttChart;
+import com.group8.model.Activity;
+import com.group8.model.ProjectForGanttChart;
 
 public class FakeDataForGanttChart {
     public static ProjectForGanttChart fakeProject = new ProjectForGanttChart("Fake project",

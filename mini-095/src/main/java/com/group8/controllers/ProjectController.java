@@ -3,7 +3,9 @@ package com.group8.controllers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.group8.model.Activity;
 import com.group8.model.Project;
+import com.group8.model.ProjectType;
 import com.group8.model.User;
 
 public class ProjectController {

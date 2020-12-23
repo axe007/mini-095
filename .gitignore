@@ -6,4 +6,5 @@ mini-095/*
 !pom.xml
 !README.md
 
-*
+.vscode/
+.DS_Store
