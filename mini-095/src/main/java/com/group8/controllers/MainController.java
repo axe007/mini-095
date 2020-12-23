@@ -103,14 +103,14 @@ public class MainController {
 
                 switch (userInput.toLowerCase()) {
                     case "1":
-                        activityController.createActivity("UserStory");
+                        // activityController.createActivity("UserStory");
                         break;
                     case "2":
-                        activityController.createActivity("Bug");
+                        // activityController.createActivity("Bug");
                         break;
 
                     case "3":
-                        activityController.createActivity("Task");
+                        // activityController.createActivity("Task");
 
                     case "4":
                         mainMenu();
