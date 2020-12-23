@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="homeView" prefHeight="608.0" prefWidth="871.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.HomeViewController">
+    <children>
+        <BorderPane layoutX="262.0" layoutY="138.0" prefHeight="540.0" prefWidth="723.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <AnchorPane prefHeight="111.0" prefWidth="683.0" styleClass="homeview-top-pane" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" layoutX="194.0" layoutY="28.0" prefHeight="133.0" prefWidth="831.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="106.0" prefWidth="469.0" />
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="357.0" prefWidth="683.0" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER" layoutX="177.0" layoutY="165.0" prefHeight="344.0" prefWidth="683.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <AnchorPane prefHeight="392.0" prefWidth="648.0">
+                                    <children>
+                                        <VBox layoutX="215.0" layoutY="73.0" prefHeight="392.0" prefWidth="648.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <Label fx:id="lblOrgName" alignment="CENTER" prefHeight="55.0" prefWidth="641.0" text="Welcome to mini-095">
+                                                    <font>
+                                                        <Font name="System Bold" size="27.0" />
+                                                    </font>
+                                                </Label>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Developed by: Group 8" textAlignment="CENTER" wrappingWidth="647.7294921875" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="University of Gothenburg" textAlignment="CENTER" wrappingWidth="647.7294921875" />
+                                    <VBox layoutX="100.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="Infinity" prefHeight="240.0" prefWidth="480.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                                      <Text styleClass="homeview-intro-text" text="• Project users are created as group members' firstname." wrappingWidth="620.0" />
+                                                      <Text styleClass="homeview-intro-text" text="• Default passwords are &#8220;password&#8221;."  wrappingWidth="620.0" />
+                                                      <Text styleClass="homeview-intro-text" text="• First, please open a project to work with." wrappingWidth="620.0" />
+                                                      <Text styleClass="homeview-intro-text" text="• Intro text 4" wrappingWidth="620.0" />
+                                                      <Text styleClass="homeview-intro-text" text="• Intro text 5 jfoire jfoi jeroifj reo fjior jfiorej fiorej iofejio jei ji fierjojeoi oei joij ferjoeroferio er fre fre fre fref re ferf er fergre" wrappingWidth="620.0" />
+                                                      <Text styleClass="homeview-intro-text" text="• Intro text 6" wrappingWidth="620.0" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="20.0" right="20.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets top="30.0" />
+                                       </VBox.margin>
+                                    </VBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                    </children></AnchorPane>
+            </center>
+            <padding>
+                <Insets left="20.0" right="20.0" />
+            </padding>
+            <bottom>
+                <AnchorPane prefHeight="85.0" prefWidth="683.0" styleClass="homeview-bottom-pane" BorderPane.alignment="CENTER" />
+            </bottom>
+        </BorderPane>
+    </children>
+</StackPane>
