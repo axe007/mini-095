@@ -6,6 +6,7 @@ import com.group8.model.Project;
 import com.group8.model.User;
 
 import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.*;
 import com.mongodb.client.MongoCollection;
@@ -47,10 +48,13 @@ public class DatabaseController {
 
     public MongoClient dbConnect() {
 
+        MongoCredential credential = MongoCredential.createCredential(dbUser, authdbName, dbPassword);
+
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
                         .applyToClusterSettings(builder ->
-                                builder.hosts(Arrays.asList(new ServerAddress("mongodb.altansukh.com", 27017))))
+                                builder.hosts(Arrays.asList(new ServerAddress(dbServer, 27017))))
+                        .credential(credential)
                         .build());
 
         return mongoClient;
