@@ -15,7 +15,7 @@ public abstract class Activity {
     private ActivityStatus status;
     private String id;
     private String sessionID;
-    private ActivityType type;
+    // private ActivityType type;
     private ArrayList<LocalDateTime> trackingHistory;
 
     public Activity(String content, String name, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers,
@@ -30,7 +30,7 @@ public abstract class Activity {
         this.status = status;
         this.id = id;
         this.sessionID = sessionID;
-        this.type = type;
+        // this.type = type;
         this.trackingHistory = trackingHistory;
     }
 
@@ -114,13 +114,13 @@ public abstract class Activity {
         this.sessionID = sessionID;
     }
 
-    public ActivityType getType() {
-        return type;
-    }
+    // public ActivityType getType() {
+    // return type;
+    // }
 
-    public void setType(ActivityType type) {
-        this.type = type;
-    }
+    // public void setType(ActivityType type) {
+    // this.type = type;
+    // }
 
     public ArrayList<LocalDateTime> getTrackingHistory() {
         return trackingHistory;
@@ -130,12 +130,16 @@ public abstract class Activity {
         this.trackingHistory = trackingHistory;
     }
 
-    public void signUser(User user) {
+    public void assignUser(User user) {
         this.teamMembers.add(user);
     }
 
     public void removeUser(User user) {
         this.teamMembers.remove(user);
+    }
+
+    public void addTrackTimeToHistory() {
+
     }
 
 }

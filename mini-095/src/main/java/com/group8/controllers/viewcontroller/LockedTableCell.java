@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.scene.AccessibleAttribute;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.Region;
 
@@ -12,29 +11,30 @@ public abstract class LockedTableCell<T, S> extends TreeTableCell<T, S> {
 
     {
 
-        Platform.runLater(() -> {
+        // Platform.runLater(() -> {
 
-            ScrollBar sc = (ScrollBar) getTreeTableView()
-                    .queryAccessibleAttribute(AccessibleAttribute.HORIZONTAL_SCROLLBAR);
+        // ScrollBar sc = (ScrollBar) getTreeTableView()
+        // .queryAccessibleAttribute(AccessibleAttribute.HORIZONTAL_SCROLLBAR);
 
-            TableColumnHeader chr = ((TableHeaderRow) getTreeTableView()
-                    .queryAccessibleAttribute(AccessibleAttribute.HEADER)).getColumnHeaderFor(this.getTableColumn());
-            Region headerNode = chr;
+        // TableHeaderRow thr = (TableHeaderRow) getTreeTableView()
+        // .queryAccessibleAttribute(AccessibleAttribute.HEADER);
 
-            sc.valueProperty().addListener((ob, o, n) -> {
+        // Region headerNode = thr.getColumnHeaderFor(this.getTableColumn());
 
-                double doubleValue = n.doubleValue();
+        // sc.valueProperty().addListener((ob, o, n) -> {
 
-                headerNode.setTranslateX(doubleValue);
+        // double doubleValue = n.doubleValue();
 
-                headerNode.toFront();
+        // headerNode.setTranslateX(doubleValue);
 
-                this.setTranslateX(doubleValue);
-                this.toFront();
+        // headerNode.toFront();
 
-            });
+        // this.setTranslateX(doubleValue);
+        // this.toFront();
 
-        });
+        // });
+
+        // });
 
     }
 

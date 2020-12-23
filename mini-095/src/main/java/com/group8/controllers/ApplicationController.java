@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ApplicationController implements Initializable {
-
+    // MARK: UI Entry Point
     @FXML
     private SplitPane mainSplitPane;
     @FXML
@@ -42,7 +42,6 @@ public class ApplicationController implements Initializable {
     // sessionID2, userId, projectId, loginTime-24hours
     // updateSession();
 
-
     @FXML
     private void handleSidebarBtn(ActionEvent menuEvent) throws IOException {
         String viewName = "HomeView";
@@ -59,8 +58,8 @@ public class ApplicationController implements Initializable {
             viewName = "HomeView";
             viewTitle = "Sprint Board";
         } else if (menuEvent.getSource() == activitiesButton) {
-            viewName = "ActivitiesView";
-            viewTitle = "Activities";
+            viewName = "GanttChartView";
+            viewTitle = "Gantt Chart";
         } else if (menuEvent.getSource() == usersButton) {
             viewName = "UserView";
             viewTitle = "Users";
@@ -76,7 +75,7 @@ public class ApplicationController implements Initializable {
         mainTitleLabel.setText(viewTitle);
         setActiveButton(menuEvent.getSource());
 
-        if (appContent == null){
+        if (appContent == null) {
             appContent = new StackPane();
         }
         appContent.getChildren().clear();
@@ -85,7 +84,8 @@ public class ApplicationController implements Initializable {
 
     @FXML
     public void setActiveButton(Object activeButton) {
-        Button[] sidebarButtons = new Button[] {dashboardButton, projectButton, sprintboardButton, activitiesButton, usersButton};
+        Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, sprintboardButton, activitiesButton,
+                usersButton };
 
         for (Button button : sidebarButtons) {
             if (button.equals(activeButton)) {
@@ -104,8 +104,6 @@ public class ApplicationController implements Initializable {
             // Set main title label
             mainTitleLabel.setText("Welcome");
             displayUserFullname();
-
-
 
         } catch (Exception e) {
             e.printStackTrace();

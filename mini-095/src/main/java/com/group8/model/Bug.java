@@ -10,14 +10,13 @@ public class Bug extends Activity {
     public Bug(String name, String content, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers,
             String priority, String id) {
 
-        super(name, content, startDate, endDate, teamMembers, priority, id);
-
+        super(content, name, startDate, endDate, priority, id, "1.1.1", ActivityType.Bug);
     }
 
     @Override
     public String toString() {
         return "ID: " + this.getId() + " " + this.getName() + " : " + this.getContent() + " Start: "
                 + this.getStartDate() + " End: " + this.getEndDate() + "priority: " + this.getPriority()
-                + " Completion Status: " + this.getCompletion();
+                + " Completion Status: " + this.getStatus().toString();
     }
 }
