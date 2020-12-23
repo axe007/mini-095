@@ -1,4 +1,4 @@
-module com.group8 {
+module com.group8  {
     requires jdk.net;
     requires javafx.controls;
     requires javafx.fxml;

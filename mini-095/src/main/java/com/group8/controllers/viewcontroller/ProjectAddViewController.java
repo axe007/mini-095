@@ -15,10 +15,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -42,9 +45,9 @@ public class ProjectAddViewController implements Initializable {
     @FXML
     private TextField name;
     @FXML
-    private TextField startDate;
+    private DatePicker startDate;
     @FXML
-    private TextField endDate;
+    private DatePicker endDate;
     @FXML
     private ToggleGroup projectTypeToggle;
     @FXML
@@ -108,24 +111,15 @@ public class ProjectAddViewController implements Initializable {
 
     @FXML
     private void handleSaveProjectBtn(ActionEvent event) throws IOException {
+        UIHelper uiHelper = new UIHelper();
         // clear all text field
         String name;
-        String startDate;
-        String endDate;
+        LocalDate startDate;
+        LocalDate endDate;
         String type;
         String status = "In progress";
         String alertHeading = "Creating new Project";
         String alertContent = "New project successfully created.\nPlease refresh in projects view.";
-
-        name = this.name.getText();
-        startDate = this.startDate.getText();
-        endDate = this.endDate.getText();
-
-        RadioButton selectedRadioButton = (RadioButton) projectTypeToggle.getSelectedToggle();
-        type = selectedRadioButton.getText();
-
-        UIHelper uiHelper = new UIHelper();
-        boolean validation = true;
 
         if (Session.getWindowMode().equals("new")) {
             System.out.println("Creating new project ...");
@@ -133,9 +127,27 @@ public class ProjectAddViewController implements Initializable {
             alertHeading = "Edit project details";
         }
 
+        name = this.name.getText();
+        startDate = this.startDate.getValue();
+        endDate = this.endDate.getValue();
+
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
+
+        if (daysBetween < 1) {
+            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "End date cannot be earlier than Start Date.\nPlease check project dates and try again.");
+        } else if (daysBetween == 1) {
+            alertContent = "Project duration looks to be only 1 day.\n Are you sure?";
+            Optional<ButtonType> dateConfirm = uiHelper.alertDialogGenerator(dialogPane,"confirm", alertHeading, alertContent);
+            if (dateConfirm.get() == ButtonType.CANCEL) {
+                return;
+            }
+        }
+
+        RadioButton selectedRadioButton = (RadioButton) projectTypeToggle.getSelectedToggle();
+        type = selectedRadioButton.getText();
+
         if (name.equals("") || startDate.equals("") || endDate.equals("")) {
             uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check project details and try again.");
-            validation = false;
         } else {
             if (Session.getWindowMode().equals("new")) {
                 projectController.createProject(name, startDate, endDate, type);
@@ -165,13 +177,33 @@ public class ProjectAddViewController implements Initializable {
         try {
             if (Session.getWindowMode().equals("new")) {
                 windowModeTitle.setText("Enter new project details:");
+
+                Callback<DatePicker, DateCell> callB = new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker param) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
+                                LocalDate today = LocalDate.now();
+                                setDisable(empty || item.compareTo(today) < 0);
+                            }
+
+                        };
+                    }
+
+                };
+
+                startDate.setDayCellFactory(callB);
+                startDate.setValue(LocalDate.now());
+                endDate.setValue(LocalDate.now());
             } else if (Session.getWindowMode().equals("edit")) {
                 windowModeTitle.setText("Edit project details:");
 
                 Project project = (Project) Session.getOpenItem();
                 name.setText(project.getName());
-                startDate.setText(String.valueOf(project.getStartDate()));
-                endDate.setText(String.valueOf(project.getEndDate()));
+                startDate.setValue(LocalDate.from(project.getStartDate()));
+                endDate.setValue(LocalDate.from(project.getEndDate()));
 
                 if (project.getType().equals("Software")) {
                     software.setSelected(true);

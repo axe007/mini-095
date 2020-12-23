@@ -34,7 +34,7 @@ public class ProjectController {
     private static DatabaseController mongoDb = new DatabaseController();
 
 
-    public boolean createProject(String name, String startDate, String endDate, String type) {
+    public boolean createProject(String name, LocalDate startDate, LocalDate endDate, String type) {
         boolean result = false;
         Project newProject = new Project(name, startDate, endDate, type);
         mongoDb.getProjectCollection().insertOne(newProject);
@@ -99,7 +99,7 @@ public class ProjectController {
 
     }
 
-    public void modifyProject(String name, String startDate, String endDate, String type) {
+    public void modifyProject(String name, LocalDate startDate, LocalDate endDate, String type) {
         Project project = (Project)Session.getOpenItem();
         ObjectId id = project.getId();
 

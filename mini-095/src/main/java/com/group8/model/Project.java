@@ -13,8 +13,8 @@ public class Project {
     private ArrayList<ObjectId> activities;
     private ArrayList<ObjectId> developerTeam;
     private ArrayList<ObjectId> sprints;
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String type;
     private String status;
 //    private double status;
@@ -23,7 +23,7 @@ public class Project {
     public Project (){
     }
 
-    public Project(String name, String startDate, String endDate, String type) {
+    public Project(String name, LocalDate startDate, LocalDate endDate, String type) {
         this.name = name;
         this.activities = new ArrayList<>();
         this.developerTeam = new ArrayList<>();
@@ -74,19 +74,19 @@ public class Project {
         this.sprints = sprints;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

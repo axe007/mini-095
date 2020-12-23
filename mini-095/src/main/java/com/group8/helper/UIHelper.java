@@ -77,6 +77,13 @@ public class UIHelper {
             alert = new Alert(Alert.AlertType.INFORMATION);
             dialogPane = alert.getDialogPane();
             dialogPane.getStyleClass().add("dialog-pane-success");
+        } else if (alertType.equals("confirm")) {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            dialogPane = alert.getDialogPane();
+            ((Button) dialogPane.lookupButton(ButtonType.OK)).setText("Yes");
+            ((Button) dialogPane.lookupButton(ButtonType.CANCEL)).setText("No");
+            dialogPane.getStyleClass().add("dialog-pane-success");
+
         }
 
         centerButtons(dialogPane);
