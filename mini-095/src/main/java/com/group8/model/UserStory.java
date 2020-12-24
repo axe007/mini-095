@@ -1,9 +1,8 @@
 package com.group8.model;
 
+import com.group8.model.User;
+
 import java.time.LocalDate;
-
-import com.group8.entity.Activity;
-
 import java.util.ArrayList;
 
 public class UserStory extends Activity {
@@ -29,8 +28,8 @@ public class UserStory extends Activity {
     //     this.completion = false;
     // }
 
-    public UserStory (String name, String content, LocalDate startDate, LocalDate endDate, 
-    ArrayList<User> teamMembers, String priority, String id, double storyPoints, String acceptanceCriteria) {
+    public UserStory (String name, String content, LocalDate startDate, LocalDate endDate,
+                      ArrayList<User> teamMembers, String priority, String id, double storyPoints, String acceptanceCriteria) {
         super(name, content, startDate, endDate, teamMembers, priority, id);
         this.storyPoints = storyPoints;
         this.acceptanceCriteria = acceptanceCriteria;
@@ -117,5 +116,13 @@ public class UserStory extends Activity {
         this.endDate = endDate;
     }
 */
+    @Override
+    public String toString() {
+        return "ID: " + this.getId() +  " " + this.getName() +
+        " : " + this.getDescription() + " Start: " + this.getStartDate() + " End: " + this.getEndDate() +
+         "priority: " + this.getPriority() + " Completion Status: " + this.getCompletion() + "Story Points: " + 
+         this.storyPoints + " AcceptanceCriteria: " + this.acceptanceCriteria ;
+
+    }
 
 }
