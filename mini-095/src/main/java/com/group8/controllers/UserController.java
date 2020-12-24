@@ -60,9 +60,27 @@ public class UserController {
         return result;
     }
 
-    public List getUserList() {
+    public List<User> getUserList() {
         List<User> users = mongoDb.getUserCollection().find().into(new ArrayList<User>());
         return users;
+    }
+
+    public ArrayList<String> getUserDetailList(String userAttribute) {
+        ArrayList<String> userDetailList = new ArrayList<>();
+        List<User> users = getUserList();
+        String returnValue;
+        for (User user : users) {
+            switch (userAttribute) {
+                case "username" -> returnValue = user.getUsername();
+                case "password" -> returnValue = user.getPassword();
+                case "fullname" -> returnValue = user.getFullname();
+                case "emailAddress" -> returnValue = user.getEmailAddress();
+                case "userRole" -> returnValue = user.getUserRole();
+                default -> throw new IllegalStateException("Unexpected value: " + userAttribute);
+            }
+            userDetailList.add(returnValue);
+        }
+        return userDetailList;
     }
 
     public String getUserDetail(String findField, String findValue, String returnField) {
@@ -99,7 +117,6 @@ public class UserController {
     }
 
     public void getUserInfo() {
-
         System.out.print("Enter username to display: ");
         Helper helper = new Helper();
         String username = helper.getString();

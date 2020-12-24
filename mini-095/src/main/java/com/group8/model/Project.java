@@ -17,8 +17,6 @@ public class Project {
     private LocalDate endDate;
     private String type;
     private String status;
-//    private double status;
-//    private boolean isClosed;
 
     public Project (){
     }

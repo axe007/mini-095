@@ -1,7 +1,7 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.App;
-import com.group8.controllers.UserController;
+import com.group8.controllers.*;
 import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 import com.group8.model.User;
@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.bson.types.ObjectId;
 
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +72,7 @@ public class UserViewController implements Initializable {
         // clear all text field
         if (event.getSource() == userNewButton) {
             Session.setWindowMode("new");
-            uiHelper.loadWindow("UserAddView", userNewButton, (User) null);
+            uiHelper.loadWindow("UserAddView", userNewButton, "Create new user");
 
         } else if (event.getSource() == userModifyButton) {
             // Modify user details
@@ -80,11 +82,16 @@ public class UserViewController implements Initializable {
                 uiHelper.alertDialogGenerator(userView,"error", "Modify user", "No user exist or no user selected.\nPlease select an user and try again.");
             } else {
                 Session.setWindowMode("edit");
-                uiHelper.loadWindow("UserAddView", userModifyButton, user);
+                uiHelper.loadWindow("UserAddView", userModifyButton, "Edit user details");
             }
-
         } else if (event.getSource() == userAssignButton) {
             // List all projects window
+            ObjectId projectId = Session.getOpenProjectId();
+            if (projectId == null || projectId.equals(null)) {
+                uiHelper.alertDialogGenerator(userView,"error", "Assign user", "No project has been opened.\nPlease open a project in Projects window.");
+            } else {
+                uiHelper.loadWindow("UserAssignView", userAssignButton, "Assign users to project");
+            }
 
         } else if (event.getSource() == userListButton) {
             // List all projects window

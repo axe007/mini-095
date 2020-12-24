@@ -3,40 +3,28 @@ package com.group8.helper;
 import com.group8.App;
 import com.group8.model.Project;
 import com.group8.model.Session;
-import com.group8.model.User;
+import com.group8.model.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
-import java.net.URL;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class UIHelper {
-    public void loadWindow(String viewName, Button sourceButton, User user) throws IOException {
+    public void loadWindow(String viewName, Button sourceButton, String stageTitle) throws IOException {
         Stage stage;
         Parent root;
         root = FXMLLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
         stage = new Stage();
         stage.setScene(new Scene(root));
-
-        if (Session.getWindowMode().equals("new")) {
-            stage.setTitle("Add new user");
-        } else if (Session.getWindowMode().equals("edit")) {
-            stage.setTitle("Edit user details");
-        }
-
+        stage.setTitle(stageTitle);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UTILITY);
         stage.initOwner(sourceButton.getScene().getWindow());
