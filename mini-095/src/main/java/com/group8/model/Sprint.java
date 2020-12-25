@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
-import com.group8.entity.Activity;
-
 public class Sprint {
     private String name;
     private UUID id;
