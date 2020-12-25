@@ -2,6 +2,8 @@ package com.group8.helper;
 
 import com.group8.App;
 import com.group8.model.Project;
+import com.group8.model.Activity;
+
 import com.group8.model.Session;
 import com.group8.model.User;
 import javafx.fxml.FXMLLoader;
@@ -61,7 +63,42 @@ public class UIHelper {
         stage.initOwner(sourceButton.getScene().getWindow());
         stage.show();
     }
+    // public void loadWindow(String viewName, Button sourceButton, Activity activity) throws IOException {
+    //     Stage stage;
+    //     Parent root;
+    //     root = FXMLLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
+    //     stage = new Stage();
+    //     stage.setScene(new Scene(root));
 
+    //     if (Session.getWindowMode().equals("new")) {
+    //         stage.setTitle("Add new project");
+    //     } else if (Session.getWindowMode().equals("edit")) {
+    //         stage.setTitle("Edit project details");
+    //     }
+
+    //     stage.initModality(Modality.APPLICATION_MODAL);
+    //     stage.initStyle(StageStyle.UTILITY);
+    //     stage.initOwner(sourceButton.getScene().getWindow());
+    //     stage.show();
+    // }
+    public void loadWindow(String viewName, Button sourceButton, Activity activity) throws IOException {
+        Stage stage;
+        Parent root;
+        root = FXMLLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
+        stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        if (Session.getWindowMode().equals("new")) {
+            stage.setTitle("Add new activity");
+        } else if (Session.getWindowMode().equals("edit")) {
+            stage.setTitle("Edit activity details");
+        }
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.initOwner(sourceButton.getScene().getWindow());
+        stage.show();
+    }
     public Optional<ButtonType> alertDialogGenerator(StackPane root, String alertType, String title, String content) {
 
         Alert alert = null;

@@ -36,7 +36,7 @@
                   <columns>
                       <TableColumn fx:id="tblClmActivityId" prefWidth="50.0" text="Activity Id" />
                       <TableColumn fx:id="tblClmActivityName" prefWidth="75.0" text="Activity Name" />
-                  <TableColumn fx:id="tblClmActivityName1" prefWidth="75.0" text="Activity Content" />
+                  <TableColumn fx:id="tblClmActivityName1" prefWidth="75.0" text="Activity Description" />
                       <TableColumn fx:id="tblClmActivityStartDate" prefWidth="100.0" text="Start Date" />
                       <TableColumn fx:id="tblClmActivityEndDate" prefWidth="100.0" text="End Date" />
                   <TableColumn fx:id="tblClmActivityName11" prefWidth="75.0" text="Assignee" />

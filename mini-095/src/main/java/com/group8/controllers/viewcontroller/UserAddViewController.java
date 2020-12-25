@@ -123,7 +123,7 @@ public class UserAddViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             if (Session.getWindowMode().equals("new")) {
-                windowModeTitle.setText("Enter new user details:");
+                // windowModeTitle.setText("Enter new user details:");
             } else if (Session.getWindowMode().equals("edit")) {
                 windowModeTitle.setText("Edit user details:");
 

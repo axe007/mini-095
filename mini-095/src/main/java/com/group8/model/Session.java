@@ -7,12 +7,15 @@ public class Session {
     private static Session instance;
     private static ObjectId sessionUserId;
     private static ObjectId openProjectId;
+    private static ObjectId activityId;
+
     private static String windowMode;
     private static Object openItem;
 
     private Session(ObjectId sessionUserId) {
         this.sessionUserId = sessionUserId;
         this.openProjectId = null;
+        this.activityId = null; 
         this.windowMode = null;
     }
 
@@ -30,6 +33,9 @@ public class Session {
     public static ObjectId getOpenProjectId() {
         return openProjectId;
     }
+    public static ObjectId geActivityId() {
+        return activityId;
+    }
     public static String getWindowMode() {
         return windowMode;
     }
@@ -42,6 +48,9 @@ public class Session {
     }
     public static void setOpenProjectId(ObjectId projectName) {
         openProjectId = projectName;
+    }
+    public static void setActivityId(ObjectId activityName) {
+        activityId = activityName;
     }
     public static void setWindowMode(String windowModeSet) {
         windowMode = windowModeSet;
@@ -62,7 +71,7 @@ public class Session {
     public String toString() {
         return "UserSession{" +
                 "Logged Username='" + sessionUserId + '\'' +
-                ", Open Project=" + openProjectId +
+                ", Open Project=" + openProjectId + ", Activity Id=" + activityId +
                 '}';
     }
 }

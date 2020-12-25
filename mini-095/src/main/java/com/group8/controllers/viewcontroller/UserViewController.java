@@ -71,6 +71,7 @@ public class UserViewController implements Initializable {
         if (event.getSource() == userNewButton) {
             Session.setWindowMode("new");
             uiHelper.loadWindow("UserAddView", userNewButton, (User) null);
+            // uiHelper.loadWindow("UserAddView", userNewButton);
 
         } else if (event.getSource() == userModifyButton) {
             // Modify user details
