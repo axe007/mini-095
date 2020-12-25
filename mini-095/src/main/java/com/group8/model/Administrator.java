@@ -1,6 +1,4 @@
-package com.group8.entity;
-
-import com.group8.model.User;
+package com.group8.model;
 
 public class Administrator extends User {
 

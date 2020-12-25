@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.group8.entity.Activity;
+import com.group8.model.Activity;
 import com.group8.model.*;
 import com.mongodb.client.model.Filters;
 import org.bson.types.ObjectId;
@@ -16,23 +16,23 @@ import static com.mongodb.client.model.Updates.set;
 
 public class ProjectController {
 
-//    private Project currentProject;
-//
-//    public ProjectController(Project currentProject) {
-//        this.currentProject = currentProject;
-//    }
-//
-//    public ProjectController() {
-//        this.currentProject = currentProject;
-//    }
+    // private Project currentProject;
+    //
+    // public ProjectController(Project currentProject) {
+    // this.currentProject = currentProject;
+    // }
+    //
+    // public ProjectController() {
+    // this.currentProject = currentProject;
+    // }
 
-//    public ProjectController(String name, LocalDate startDate, LocalDate endDate, ProjectType type) {
-//        this.currentProject = new Project(name, startDate, endDate, type);
-//    }
+    // public ProjectController(String name, LocalDate startDate, LocalDate endDate,
+    // ProjectType type) {
+    // this.currentProject = new Project(name, startDate, endDate, type);
+    // }
 
     private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
-
 
     public boolean createProject(String name, LocalDate startDate, LocalDate endDate, String type) {
         boolean result = false;
@@ -70,17 +70,16 @@ public class ProjectController {
         return success;
     }
 
-
-//
-//    public void deleteProject(Project currentProject) {
-//
-//        mongoDb.getProjectCollection().deleteOne(Filters.eq(currentProject));
-//        System.out.println("This project was successfully deleted!");
-//
-//    }
+    //
+    // public void deleteProject(Project currentProject) {
+    //
+    // mongoDb.getProjectCollection().deleteOne(Filters.eq(currentProject));
+    // System.out.println("This project was successfully deleted!");
+    //
+    // }
 
     public void openProject() {
-        //should open new window here
+        // should open new window here
 
     }
 
@@ -100,29 +99,29 @@ public class ProjectController {
     }
 
     public void modifyProject(String name, LocalDate startDate, LocalDate endDate, String type) {
-        Project project = (Project)Session.getOpenItem();
+        Project project = (Project) Session.getOpenItem();
         ObjectId id = project.getId();
 
-        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("startDate", startDate), set("endDate", endDate), set("type", type), set("status", "Open")));
+        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("startDate", startDate),
+                set("endDate", endDate), set("type", type), set("status", "Open")));
         System.out.println("Project details updated!");
     }
 
+    /*
+     * public void addUserToTeam(User user) { ArrayList<User> tempList =
+     * currentProject.getDeveloperTeam(); tempList.add(user);
+     * currentProject.setDeveloperTeam(tempList);
+     * 
+     * }
+     */
 
-
-    /*public void addUserToTeam(User user) {
-        ArrayList<User> tempList = currentProject.getDeveloperTeam();
-        tempList.add(user);
-        currentProject.setDeveloperTeam(tempList);
-
-    }*/
-
-//    public void closeProject() {
-//        currentProject.setClosed(true);
-//    }
-//
-//    public void reopenProject() {
-//        currentProject.setClosed(false);
-//
-//    }
+    // public void closeProject() {
+    // currentProject.setClosed(true);
+    // }
+    //
+    // public void reopenProject() {
+    // currentProject.setClosed(false);
+    //
+    // }
 
 }
