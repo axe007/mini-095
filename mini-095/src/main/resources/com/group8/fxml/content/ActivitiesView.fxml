@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <StackPane id="ActivitiesView" fx:id="activitiesView" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ActivitiesViewController">
    <children>
       <BorderPane fx:id="avBorderPane" layoutX="238.0" layoutY="136.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -28,9 +36,13 @@
                   <columns>
                       <TableColumn fx:id="tblClmActivityId" prefWidth="50.0" text="Activity Id" />
                       <TableColumn fx:id="tblClmActivityName" prefWidth="75.0" text="Activity Name" />
+                  <TableColumn fx:id="tblClmActivityName1" prefWidth="75.0" text="Activity Content" />
                       <TableColumn fx:id="tblClmActivityStartDate" prefWidth="100.0" text="Start Date" />
                       <TableColumn fx:id="tblClmActivityEndDate" prefWidth="100.0" text="End Date" />
+                  <TableColumn fx:id="tblClmActivityName11" prefWidth="75.0" text="Assignee" />
+                  <TableColumn fx:id="tblClmActivityName111" prefWidth="75.0" text="Time Tracking" />
                       <TableColumn fx:id="tblClmActivityType" prefWidth="100.0" text="Priority" />
+                  <TableColumn fx:id="tblClmActivityType1" prefWidth="100.0" text="Activity Type" />
                       <TableColumn fx:id="tblClmActivityStatus" prefWidth="100.0" text="Current status" />
                   </columns>
                   <columnResizePolicy>

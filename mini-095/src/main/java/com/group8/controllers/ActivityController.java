@@ -73,4 +73,56 @@ public class ActivityController {
         // 2. ask for specific input
         // 3. call the method
     }
+    // public void logTime(Developer dev, String taskId, String projectId) {
+    //     Map<String, Task> newMap = new HashMap<String, Task>(); 
+    //     if (dev.getProjectTaskMap().containsKey(dev.getProjectMap().get(projectId))) {
+    //         newMap = dev.getProjectTaskMap().get(dev.getProjectMap().get(projectId)); 
+    //     }
+    //     if (newMap.containsKey(taskId)) {
+    //         Task newTask = newMap.get(taskId); 
+    //         long hours = helper.getLong(); 
+    //         TimeTracker newTime = new TimeTracker(hours, null); 
+    //         newTime.setStartDateTime(newTime.getStartDateTime(hours)); 
+    //         newTask.getTimeTrackingMap().put(dev, newTime); 
+    //         System.out.println("Press 1 to modify your start time"); 
+    //         String userInput = helper.getMenuInput(); // Calling Helper method
+    //         if (userInput.equals("1")) {
+    //             newTime.setStartDateTime();
+    //         }
+            
+    //     }
+    // public void assignActivity(String activityType, String activityId, String assigneeId, Project project) {
+        
+    //     if (project.getActivities().containsKey(activityId)) {
+    //         if (activityType.equals("UserStory")) {
+    //             UserStory newUserStory = (UserStory) project.getActivities().get(activityId);
+    //             newUserStory.addMember(project.getDeveloperTeam().get(assigneeId));
+    //         } else {
+    //             Task newTask = (Task) project.getActivities().get(activityId);
+    //             newTask.addMember(project.getDeveloperTeam().get(assigneeId));
+    //         }
+    //     }
+    // }
+
+    // public void changeActivityStatus(String activityId, Project project) {
+    //     System.out.println("Please choose your option"); 
+    //     System.out.println("1. To-do"); 
+    //     System.out.println("2. In progress"); 
+    //     System.out.println("3. Review"); 
+    //     System.out.println("4. Done"); 
+
+    //     String input = helper.getString(); 
+    //     switch (input) {
+    //         case "1":
+    //         project.getActivities().get(activityId).setStatus(ActivityStatus.TODO);
+    //         case "2":
+    //         project.getActivities().get(activityId).setStatus(ActivityStatus.INPROGRESS);
+    //         case "3":
+    //         project.getActivities().get(activityId).setStatus(ActivityStatus.REVIEW);
+    //         case "4":
+    //         project.getActivities().get(activityId).setStatus(ActivityStatus.DONE);
+
+    //     }
+    // }
+
 }

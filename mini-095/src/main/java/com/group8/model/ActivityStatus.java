@@ -1,5 +1,16 @@
 package com.group8.model;
 
 public enum ActivityStatus {
-    Todo, InProgress, Review, Done;
+    TODO("To do"), INPROGRESS("In progress"), REVIEW("Review"), DONE("Done");
+
+    private final String simpleName;
+
+    ActivityStatus(String simpleName) {
+        this.simpleName = simpleName;
+    }
+
+    @Override
+    public String toString() {
+        return simpleName;
+    }
 }

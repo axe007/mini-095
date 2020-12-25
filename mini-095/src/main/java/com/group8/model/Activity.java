@@ -1,71 +1,60 @@
 package com.group8.model;
 
+import com.group8.model.User;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class Activity {
 
-    private String content;
-    private String name;
+    private String description;
+    private String name; 
     private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDate endDate; 
     private ArrayList<User> teamMembers;
     private String priority;
-    private ActivityStatus status;
+    private boolean completion; 
     private String id;
-    private String sessionID;
-    // private ActivityType type;
-    private ArrayList<LocalDateTime> trackingHistory;
 
-    public Activity(String content, String name, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers,
-            String priority, ActivityStatus status, String id, String sessionID, ActivityType type,
-            ArrayList<LocalDateTime> trackingHistory) {
-        this.content = content;
-        this.name = name;
+    public Activity (String name, String description, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers, String priority, String id) {
+        this.name = name; 
+        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.teamMembers = teamMembers;
         this.priority = priority;
-        this.status = status;
         this.id = id;
-        this.sessionID = sessionID;
-        // this.type = type;
-        this.trackingHistory = trackingHistory;
+        this.completion = false;
     }
 
-    public Activity(String content, String name, LocalDate startDate, LocalDate endDate, String priority, String id,
-            String sessionID, ActivityType type) {
-
-        this(content, name, startDate, endDate, new ArrayList<>(), priority, ActivityStatus.Todo, id, sessionID, type,
-                new ArrayList<>());
-
+    public void setPriority(String priority) {
+        this.priority = priority; 
     }
 
-    public String getContent() {
-        return content;
+    public String getPriority() {
+        return this.priority ; 
     }
-
-    public void setContent(String content) {
-        this.content = content;
+        public String getName() {
+        return this.name; 
     }
-
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
-        this.name = name;
+        this.name = name; 
+    }
+
+    public String getDescription() {
+        return this.description; 
+    }
+    public void setDescription(String description) {
+        this.description = description; 
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate; 
     }
 
     public LocalDate getStartDate() {
         return startDate;
     }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -73,73 +62,26 @@ public abstract class Activity {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
-    public ArrayList<User> getTeamMembers() {
-        return teamMembers;
-    }
-
-    public void setTeamMembers(ArrayList<User> teamMembers) {
-        this.teamMembers = teamMembers;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public ActivityStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ActivityStatus status) {
-        this.status = status;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+    public void setId (String id) {
         this.id = id;
     }
-
-    public String getSessionID() {
-        return sessionID;
+    
+    public String getId (){
+        return this.id;
+    }
+    
+    public boolean getCompletion() {
+        return this.completion;
+    }
+    
+    public void setCompletion (boolean completion){
+        this.completion =completion;
     }
 
-    public void setSessionID(String sessionID) {
-        this.sessionID = sessionID;
+    @Override
+    public String toString() {
+        return "ID: " + this.id +  " " + this.name +
+         " : " + this.description + " Start: " + this.startDate + " End: " + this.endDate +
+          "priority: " + this.priority + " Completion Status: " + this.completion ;
     }
-
-    // public ActivityType getType() {
-    // return type;
-    // }
-
-    // public void setType(ActivityType type) {
-    // this.type = type;
-    // }
-
-    public ArrayList<LocalDateTime> getTrackingHistory() {
-        return trackingHistory;
-    }
-
-    public void setTrackingHistory(ArrayList<LocalDateTime> trackingHistory) {
-        this.trackingHistory = trackingHistory;
-    }
-
-    public void assignUser(User user) {
-        this.teamMembers.add(user);
-    }
-
-    public void removeUser(User user) {
-        this.teamMembers.remove(user);
-    }
-
-    public void addTrackTimeToHistory() {
-
-    }
-
 }

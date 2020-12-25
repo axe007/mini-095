@@ -31,7 +31,7 @@ public class UserStory extends Activity {
 
     public UserStory(String name, String content, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers,
             String priority, String id, double storyPoints, String acceptanceCriteria) {
-        super(content, name, startDate, endDate, priority, id, "1.1.1", ActivityType.Story);
+        super(name, content, startDate, endDate, teamMembers, priority, id);
         this.storyPoints = storyPoints;
         this.acceptanceCriteria = acceptanceCriteria;
 
@@ -92,11 +92,12 @@ public class UserStory extends Activity {
      * 
      * public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
      */
+
     @Override
     public String toString() {
-        return "ID: " + this.getId() + " " + this.getName() + " : " + this.getContent() + " Start: "
+        return "ID: " + this.getId() + " " + this.getName() + " : " + this.getDescription() + " Start: "
                 + this.getStartDate() + " End: " + this.getEndDate() + "priority: " + this.getPriority()
-                + " Completion Status: " + this.getStatus() + "Story Points: " + this.storyPoints
+                + " Completion Status: " + this.getCompletion() + "Story Points: " + this.storyPoints
                 + " AcceptanceCriteria: " + this.acceptanceCriteria;
 
     }

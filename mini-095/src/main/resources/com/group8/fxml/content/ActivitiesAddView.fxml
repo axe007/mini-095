@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.AutoCompleteTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="520.0" prefWidth="401.0">
+         <children>
+            <VBox layoutX="38.0" layoutY="32.0" prefHeight="420.0" prefWidth="325.0">
+               <children>
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="1059.0" styleClass="h2" text="Enter new activity details" />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="Name" />
+                  <TextField fx:id="name" maxWidth="-Infinity" prefWidth="180.0" promptText="Enter new activity name" styleClass="login-textfield" />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="38.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="Description" />
+                  <TextArea prefHeight="84.0" prefWidth="217.0" promptText="Enter new activity description" />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="91.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="Start Date" />
+                  <DatePicker />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="203.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="End Date" />
+                  <DatePicker layoutX="10.0" layoutY="231.0" />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="256.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="Assignee" />
+                  <AutoCompleteTextField />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="309.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="Priority" />
+                  <RadioButton mnemonicParsing="false" text="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="priority" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutX="10.0" layoutY="390.0" mnemonicParsing="false" text="2" toggleGroup="$priority" />
+                  <RadioButton layoutX="10.0" layoutY="407.0" mnemonicParsing="false" text="3" toggleGroup="$priority" />
+                  <RadioButton layoutX="10.0" layoutY="413.0" mnemonicParsing="false" text="4" toggleGroup="$priority" />
+                  <RadioButton layoutX="10.0" layoutY="413.0" mnemonicParsing="false" text="5" toggleGroup="$priority" />
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="322.0" prefHeight="28.0" prefWidth="361.0" styleClass="h2" text="Activity Type" />
+                  <RadioButton layoutX="10.0" layoutY="345.0" mnemonicParsing="false" text="Task">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="type" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutX="10.0" layoutY="362.0" mnemonicParsing="false" text="User Story" toggleGroup="$type" />
+                  <RadioButton layoutX="10.0" layoutY="413.0" mnemonicParsing="false" text="Bug" toggleGroup="$type" />
+                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="404.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="saveButton" onAction="#handleSaveProjectBtn" prefHeight="66.0" prefWidth="100.0" styleClass="submit-button" text="Save" />
+                        <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" onAction="#handleCancel" prefHeight="66.0" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

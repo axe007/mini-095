@@ -19,6 +19,15 @@
                               <Insets left="10.0" right="10.0" />
                           </HBox.margin>
                       </Button>
+                      <Button fx:id="projectModifyButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Modify Project">
+                          <graphic>
+                              <FontAwesomeIconView glyphName="PLUS_SQUARE_ALT" size="30" styleClass="content-action-icon" />
+                          </graphic>
+                          <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                          </HBox.margin>
+                      </Button>
+
                       <Button fx:id="projectOpenButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Open Project">
                           <graphic>
                               <FontAwesomeIconView glyphName="FOLDER_OPEN_ALT" size="30" styleClass="content-action-icon" />
@@ -32,8 +41,7 @@
                               <FontAwesomeIconView glyphName="ARCHIVE" size="30" styleClass="content-action-icon" />
                           </graphic>
                           <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                          </HBox.margin>
+                              <Insets left="10.0" right="10.0" /></HBox.margin>
                       </Button>
                       <Button fx:id="projectListButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="All projects">
                           <graphic>
@@ -67,12 +75,12 @@
          <center>
               <TableView fx:id="tblProjects" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" styleClass="contentview-tableview" BorderPane.alignment="CENTER">
                   <columns>
-                      <TableColumn fx:id="tblClmProjId" prefWidth="50.0" text="Project Id" />
-                      <TableColumn fx:id="tblClmProjName" prefWidth="75.0" text="Project Name" />
-                      <TableColumn fx:id="tblClmProjStartDate" prefWidth="100.0" text="Start Date" />
-                      <TableColumn fx:id="tblClmProjEndDate" prefWidth="100.0" text="End Date" />
-                      <TableColumn fx:id="tblClmProjType" prefWidth="100.0" text="Project type" />
-                      <TableColumn fx:id="tblClmProjStatus" prefWidth="100.0" text="Project status" />
+                      <TableColumn fx:id="tblClmProjectId" prefWidth="50.0" text="Project Id" />
+                      <TableColumn fx:id="tblClmProjectName" prefWidth="75.0" text="Project Name" />
+                      <TableColumn fx:id="tblClmProjectStartDate" prefWidth="100.0" text="Start Date" />
+                      <TableColumn fx:id="tblClmProjectEndDate" prefWidth="100.0" text="End Date" />
+                      <TableColumn fx:id="tblClmProjectType" prefWidth="100.0" text="Project type" />
+                      <TableColumn fx:id="tblClmProjectStatus" prefWidth="100.0" text="Project status" />
                   </columns>
                   <columnResizePolicy>
                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
