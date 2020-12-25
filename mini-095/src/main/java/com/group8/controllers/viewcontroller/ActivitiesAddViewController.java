@@ -140,12 +140,6 @@ public class ActivitiesAddViewController implements Initializable{
     private ToggleGroup activityPriorityToggle;
 
     @FXML
-    private RadioButton personal;
-
-    @FXML
-    private RadioButton business;
-
-    @FXML
     private Button saveButton;
 
     @FXML
