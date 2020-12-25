@@ -2,7 +2,7 @@ package com.group8.controllers;
 
 import com.group8.model.Developer;
 import com.group8.model.Manager;
-import com.group8.model.Project;
+import com.group8.model.*;
 import com.group8.model.User;
 import com.group8.model.Activity;
 import com.group8.model.Bug;
@@ -88,13 +88,12 @@ public class DatabaseController {
             ClassModel<User> userModel = ClassModel.builder(User.class).enableDiscriminator(true).build();
             ClassModel<Developer> developerUserModel = ClassModel.builder(Developer.class).enableDiscriminator(true).build();
             ClassModel<Manager> managerUserModel = ClassModel.builder(Manager.class).enableDiscriminator(true).build();
-
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(userModel, developerUserModel, managerUserModel).build();
 
         } else if (classType.equals("Projects")){
-
             ClassModel<Project> projectModel = ClassModel.builder(Project.class).enableDiscriminator(true).build();
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(projectModel).build();
+<<<<<<< mini-095/src/main/java/com/group8/controllers/DatabaseController.java
 
         } else if (classType.equals("Activities")){
 
@@ -104,6 +103,8 @@ public class DatabaseController {
             ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true).build();
 
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(activityModel, taskModel, bugModel,userStoryModel).build();
+=======
+>>>>>>> mini-095/src/main/java/com/group8/controllers/DatabaseController.java
         }
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 

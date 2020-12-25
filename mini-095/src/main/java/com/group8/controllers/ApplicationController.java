@@ -43,7 +43,7 @@ public class ApplicationController implements Initializable {
     // updateSession();
 
     @FXML
-    private void handleSidebarBtn(ActionEvent menuEvent) throws IOException {
+    public void handleSidebarBtn(ActionEvent menuEvent) throws IOException {
         String viewName = "HomeView";
         String viewTitle = "Title";
 
@@ -70,10 +70,15 @@ public class ApplicationController implements Initializable {
             app.setRoot("LoginView");
         }
 
+        Object activeButton = menuEvent.getSource();
+        changeView(viewName, viewTitle, activeButton);
+    }
+
+    public void changeView(String viewName, String viewTitle, Object activeButton) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         StackPane loadedPane = fxmlLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
         mainTitleLabel.setText(viewTitle);
-        setActiveButton(menuEvent.getSource());
+        setActiveButton(activeButton);
 
         if (appContent == null) {
             appContent = new StackPane();

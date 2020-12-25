@@ -319,6 +319,38 @@
 
 /* UserView styling */
 
+.user-assign-projectinfo {
+	-fx-border-color: #5179d6;
+	-fx-border-style: solid;
+	-fx-border-width: 2px 0 2px 0;
+	-fx-padding: 2px 2px 2px 2px;
+	
+}
+
+.user-assign-projectinfo-label {
+	-fx-text-fill: #272e38;
+	-fx-font-size: 1.0em;
+	-fx-font-weight: 800;
+	-fx-padding: 2px 8px 2px 0; 
+}
+
+.user-assign-listview-label {
+	-fx-text-fill: #272e38;
+	-fx-margin: 0px 0px 0px 15px;
+	-fx-padding: 0px 0px 0px 15px;
+	-fx-font-size: 1.0em;
+	-fx-font-weight: 800;
+	-fx-spacing: 2px;
+	   
+}
+
+.user-assign-action-button {
+	-fx-text-fill: #272e38;
+	-fx-halign: center;
+	-fx-alignment: center;
+	-fx-margin: 4px 4px 4px 4px;
+}
+
 /* Scrum Board styling */
 
 
