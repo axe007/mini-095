@@ -2,10 +2,7 @@ package com.group8.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
-
-import com.group8.entity.Activity;
 
 public class Sprint {
     private String name;

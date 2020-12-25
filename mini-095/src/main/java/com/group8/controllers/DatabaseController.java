@@ -4,7 +4,10 @@ import com.group8.model.Developer;
 import com.group8.model.Manager;
 import com.group8.model.*;
 import com.group8.model.User;
-
+import com.group8.model.Activity;
+import com.group8.model.Bug;
+import com.group8.model.Task;
+import com.group8.model.UserStory;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -90,6 +93,18 @@ public class DatabaseController {
         } else if (classType.equals("Projects")){
             ClassModel<Project> projectModel = ClassModel.builder(Project.class).enableDiscriminator(true).build();
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(projectModel).build();
+<<<<<<< mini-095/src/main/java/com/group8/controllers/DatabaseController.java
+
+        } else if (classType.equals("Activities")){
+
+            ClassModel<Activity> activityModel = ClassModel.builder(Activity.class).enableDiscriminator(true).build();
+            ClassModel<Task> taskModel = ClassModel.builder(Task.class).enableDiscriminator(true).build();
+            ClassModel<Bug> bugModel = ClassModel.builder(Bug.class).enableDiscriminator(true).build();
+            ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true).build();
+
+            pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(activityModel, taskModel, bugModel,userStoryModel).build();
+=======
+>>>>>>> mini-095/src/main/java/com/group8/controllers/DatabaseController.java
         }
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 

@@ -1,7 +1,6 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.controllers.ActivityController;
-import com.group8.controllers.ProjectController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -72,13 +71,16 @@ public class ActivitiesItemController implements Initializable {
 
     @FXML
     private void activitiesSearchOnKeyReleased(KeyEvent event) {
-        /*tblActivities.getItems().clear();
-        activityController.activityName = activitiesSearch.getText();*/
+        /*
+         * tblActivities.getItems().clear(); activityController.activityName =
+         * activitiesSearch.getText();
+         */
     }
 
     @FXML
     private void btnRefreshOnAction(ActionEvent event) {
-        /*tblActivities.getItems().clear();
-        activitiesSearch.clear();*/
+        /*
+         * tblActivities.getItems().clear(); activitiesSearch.clear();
+         */
     }
 }

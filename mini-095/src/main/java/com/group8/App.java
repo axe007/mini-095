@@ -40,7 +40,7 @@ public class App extends Application {
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
 
-        //set Stage boundaries to visible bounds of the main screen
+        // set Stage boundaries to visible bounds of the main screen
         primaryStage.setWidth((primaryScreenBounds.getWidth()) * 0.8);
         primaryStage.setHeight((primaryScreenBounds.getHeight()) * 0.8);
         primaryStage.setX((primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2);

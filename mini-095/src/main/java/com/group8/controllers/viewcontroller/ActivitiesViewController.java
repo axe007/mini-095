@@ -1,15 +1,11 @@
 package com.group8.controllers.viewcontroller;
 
-import com.group8.controllers.ApplicationController;
 import com.group8.controllers.ProjectController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -69,13 +65,16 @@ public class ActivitiesViewController implements Initializable {
 
     @FXML
     private void activitiesSearchOnKeyReleased(KeyEvent event) {
-        /*tblActivities.getItems().clear();
-        activityController.activityName = activitiesSearch.getText();*/
+        /*
+         * tblActivities.getItems().clear(); activityController.activityName =
+         * activitiesSearch.getText();
+         */
     }
 
     @FXML
     private void btnRefreshOnAction(ActionEvent event) {
-        /*tblActivities.getItems().clear();
-        activitiesSearch.clear();*/
+        /*
+         * tblActivities.getItems().clear(); activitiesSearch.clear();
+         */
     }
 }

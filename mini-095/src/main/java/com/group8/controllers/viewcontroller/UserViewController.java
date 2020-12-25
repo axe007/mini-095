@@ -79,7 +79,8 @@ public class UserViewController implements Initializable {
             User user = tblUsers.getSelectionModel().getSelectedItem();
             Session.setSetOpenItem(user);
             if (user == null) {
-                uiHelper.alertDialogGenerator(userView,"error", "Modify user", "No user exist or no user selected.\nPlease select an user and try again.");
+                uiHelper.alertDialogGenerator(userView, "error", "Modify user",
+                        "No user exist or no user selected.\nPlease select an user and try again.");
             } else {
                 Session.setWindowMode("edit");
                 uiHelper.loadWindow("UserAddView", userModifyButton, "Edit user details");
@@ -104,7 +105,7 @@ public class UserViewController implements Initializable {
 
     public void loadUserData() {
 
-        //getting the full list of books from file
+        // getting the full list of books from file
         List<User> userList = userController.getUserList();
         ObservableList<User> viewUsers = (ObservableList<User>) FXCollections.observableArrayList(userList);
 
@@ -121,17 +122,20 @@ public class UserViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             // TODO
-            //initCol();
+            // initCol();
             loadUserData();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @FXML
     private void userSearchOnKeyReleased(KeyEvent event) {
-        /*tblActivities.getItems().clear();
-        activityController.activityName = activitiesSearch.getText();*/
+        /*
+         * tblActivities.getItems().clear(); activityController.activityName =
+         * activitiesSearch.getText();
+         */
     }
 
     @FXML
@@ -141,7 +145,7 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void actionFeedback(String result) {
-        //dbFeedback.setText(result);
-        //System.out.println(result);
+        // dbFeedback.setText(result);
+        // System.out.println(result);
     }
 }
