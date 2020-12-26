@@ -64,19 +64,21 @@ public class DatabaseController {
     }
 
     public MongoCollection<User> getUserCollection() {
-
         MongoDatabase database = dbConnect().getDatabase(dbName);
         MongoCollection<User> collection = database.getCollection("users", User.class).withCodecRegistry(createCodecRegistry("Users"));
         return collection;
-
     }
 
     public MongoCollection<Project> getProjectCollection() {
-
         MongoDatabase database = dbConnect().getDatabase(dbName);
         MongoCollection<Project> collection = database.getCollection("projects",Project.class).withCodecRegistry(createCodecRegistry("Projects"));
         return collection;
+    }
 
+    public MongoCollection<Activity> getActivityCollection() {
+        MongoDatabase database = dbConnect().getDatabase(dbName);
+        MongoCollection<Activity> collection = database.getCollection("activities",Activity.class).withCodecRegistry(createCodecRegistry("Activities"));
+        return collection;
     }
 
     public CodecRegistry createCodecRegistry(String classType) {
@@ -93,7 +95,6 @@ public class DatabaseController {
         } else if (classType.equals("Projects")){
             ClassModel<Project> projectModel = ClassModel.builder(Project.class).enableDiscriminator(true).build();
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(projectModel).build();
-<<<<<<< mini-095/src/main/java/com/group8/controllers/DatabaseController.java
 
         } else if (classType.equals("Activities")){
 
@@ -103,8 +104,6 @@ public class DatabaseController {
             ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true).build();
 
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(activityModel, taskModel, bugModel,userStoryModel).build();
-=======
->>>>>>> mini-095/src/main/java/com/group8/controllers/DatabaseController.java
         }
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 

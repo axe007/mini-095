@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.group8.entity.Activity;
+import com.group8.model.Activity;
 import org.bson.types.ObjectId;
 
 public class Project {

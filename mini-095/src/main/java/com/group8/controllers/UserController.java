@@ -20,8 +20,7 @@ public class UserController {
     private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
 
-    public boolean createUser(String username, String password, String fullname, String emailAddress, String userRole) {
-        boolean result = false;
+    public void createUser(String username, String password, String fullname, String emailAddress, String userRole) {
         User newUser;
 
         if (userRole.equals("Developer")) {
@@ -34,8 +33,6 @@ public class UserController {
 
         mongoDb.getUserCollection().insertOne(newUser);
         System.out.println("New user created successfully!");
-
-        return true;
     }
 
     public void modifyUser(String username, String password, String fullname, String emailAddress, String userRole) {
@@ -67,7 +64,6 @@ public class UserController {
         return users;
     }
 
-<<<<<<< mini-095/src/main/java/com/group8/controllers/UserController.java
     // public String getUserDetail(String findField, String findValue, String
     // returnField) {
     // String returnValue = null;
@@ -99,7 +95,7 @@ public class UserController {
     // }
     // return returnValue;
     // }
-=======
+
     public ArrayList<String> getUserDetailList(String userAttribute) {
         ArrayList<String> userDetailList = new ArrayList<>();
         List<User> users = getUserList();
@@ -144,7 +140,6 @@ public class UserController {
         }
         return returnValue;
     }
->>>>>>> mini-095/src/main/java/com/group8/controllers/UserController.java
 
     public ObjectId getUserId(String findField, String findValue) {
         User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users"))

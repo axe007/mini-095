@@ -2,77 +2,60 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
-import com.group8.model.User;
+import com.group8.model.*;
+import com.group8.model.Activity;
 import com.group8.helper.Helper;
+import org.bson.types.ObjectId;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class ActivityController {
 
-    public void createActivity(String activityType) {
+    private static DatabaseController mongoDb = new DatabaseController();
+    private ProjectController projectController = new ProjectController();
 
-        // General Activity attributes
-        Helper helper = new Helper();
-        String content;
-        String name;
-        LocalDate startDate;
-        LocalDate endDate;
-        ArrayList<User> teamMembers = new ArrayList<>();
-        String priority;
-        String id = "1"; // TODO: fix
+    public void createActivity(String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
+        Activity newActivity;
 
-        // User Story attributes
-        double storyPoints;
-        String acceptanceCriteria;
-
-        // Task
-        // TODO: add task attributes here
-
-        // Bug
-        // TODO: add bug attributes here
-
-        // 1. ask for generic input
-        System.out.println("Enter name");
-        name = helper.getString();
-
-        System.out.println("Enter content");
-        content = helper.getString();
-
-        System.out.println("Enter start date");
-        startDate = null; // TODO:
-
-        System.out.println("Enter end date");
-        endDate = null;
-
-        System.out.println("Enter team members");
-        teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
-                               // similar
-
-        System.out.println("Enter priority");
-        priority = helper.getString();
-
-        if (activityType.equals("UserStory")) {
-            System.out.println("Enter team story points");
-            storyPoints = helper.getDouble();
-
-            System.out.println("Enter acceptance criteria");
-            acceptanceCriteria = helper.getString();
-
-        } else if (activityType.equals("Bug")) {
-            // TODO: Under construction, Bug class not created yet
-
-            // activityModel.createActivity(activityType, name, content, startDate, endDate,
-            // teamMembers, priority, id, null, null);
-
+        if (activityType.equals("User story")) {
+            newActivity = new UserStory(name, description, startDate, endDate, storyPoints, priority);
         } else if (activityType.equals("Task")) {
-            // TODO: Under construction, Task class not created yet
-
+            newActivity = new Task(name, description, startDate, endDate, estimatedHours, priority);
+            // users.add(manager);
         } else {
-            System.out.println("Oh no, something went wrong... :'( ");
+            newActivity = new Bug(name, description, startDate, endDate, estimatedHours, priority);
         }
 
-        // 2. ask for specific input
-        // 3. call the method
+        mongoDb.getActivityCollection().insertOne(newActivity);
     }
+
+    public void updateActivitiesList(String activityName) {
+        ObjectId activityId = getActivityId("name", activityName);
+        List<ObjectId> projectActivities = new ArrayList<ObjectId>();
+        projectActivities.add(activityId);
+        projectController.updateActivityList(projectActivities);
+    }
+
+    public String getActivityDetail(String findField, String findValue, String returnField) {
+        String returnValue = null;
+        Activity activity = mongoDb.getActivityCollection().withCodecRegistry(mongoDb.createCodecRegistry("Activities")).find(eq(findField, findValue)).first();
+        switch (returnField) {
+            case "id" -> returnValue = String.valueOf(activity.getId());
+            case "name" -> returnValue = activity.getName();
+            case "description" -> returnValue = activity.getDescription();
+        }
+        return returnValue;
+    }
+
+    public ObjectId getActivityId(String findField, String findValue) {
+        Activity activity = mongoDb.getActivityCollection().withCodecRegistry(mongoDb.createCodecRegistry("Activities")).find(eq(findField, findValue)).first();
+        ObjectId activityId = activity.getId();
+        return activityId;
+    }
+
+
     // public void logTime(Developer dev, String taskId, String projectId) {
     //     Map<String, Task> newMap = new HashMap<String, Task>(); 
     //     if (dev.getProjectTaskMap().containsKey(dev.getProjectMap().get(projectId))) {

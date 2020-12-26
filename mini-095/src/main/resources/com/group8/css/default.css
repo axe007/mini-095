@@ -202,30 +202,55 @@
 
 }
 
-.textfield-label {
-	-fx-font-size: 1.0em;
-	-fx-font-weight: normal;
-
-}
-
 .error-message {
 	-fx-font-size: 1.2em;
 	-fx-text-fill: #f00;
 	-fx-font-weight: bold;
 }
 
-.dialog-window-outer {
-	/*-fx-background-color: rgba(255, 255, 255, 0.5);*/
+.textfield-label {
+	-fx-font-size: 1.0em;
+	-fx-font-weight: normal;
 }
 
-.dialog-window-inner {
-	/*-fx-border-color: #6c757d;
-    -fx-border-width: 1 1 1 1;
-	-fx-background-radius: 0 0 0 0;
-	-fx-background-color: #ffffff;
-	-fx-effect: dropshadow(three-pass-box, gray, 10, 0, 5, 5);*/
+.textfield-remark {
+	-fx-font-size: 0.8em;
+	-fx-font-weight: normal;
 }
 
+.combo-box-base:hover {
+	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+
+.combo-box-base:active {
+	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+
+.combo-box-base:focused, .textfield:focused, .text-area:focused, .slider:focused {
+	-fx-focus-color: #5179d6;
+    -fx-faint-focus-color: #5179d622;
+}
+
+.combo-box-popup .cell:selected {
+    -fx-background-color: #c5d2f1;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+	-fx-background-color: #5179d6;
+	-fx-text-fill: #fff;
+ }
+
+.slider .axis .axis-tick-mark {
+    -fx-fill: null;
+    -fx-stroke-width: 2;
+    -fx-stroke: linear-gradient(to left, red, yellow, green);
+}
+
+.slider .track {
+    -fx-control-inner-background: #fff;
+}
 
 /* Sidebar styling */
 

@@ -58,8 +58,8 @@ public class ApplicationController implements Initializable {
             viewName = "ScrumboardView";
             viewTitle = "Scrum Board";
         } else if (menuEvent.getSource() == activitiesButton) {
-            viewName = "GanttChartView";
-            viewTitle = "Gantt Chart";
+            viewName = "ActivitiesView";
+            viewTitle = "Activities";
         } else if (menuEvent.getSource() == usersButton) {
             viewName = "UserView";
             viewTitle = "Users";
@@ -121,8 +121,8 @@ public class ApplicationController implements Initializable {
 
         String fullname;
         UserController userController = new UserController();
-        // fullname = userController.getUserDetail(loggedUserId, "fullname");
+        fullname = userController.getUserDetail(loggedUserId, "fullname");
 
-        // sessionUsername.setText(fullname);
+        sessionUsername.setText(fullname);
     }
 }
