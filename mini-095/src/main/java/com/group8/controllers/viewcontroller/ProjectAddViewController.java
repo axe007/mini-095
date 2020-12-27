@@ -57,58 +57,6 @@ public class ProjectAddViewController implements Initializable {
     @FXML
     private Toggle business;
 
-
-    /*@FXML
-    private void handleSaveProjectBtn(ActionEvent event) throws IOException {
-        // clear all text field
-        String name;
-        String startDate;
-        String endDate;
-        String type;
-        String status;
-        String alertHeading = "Creating new project";
-        String alertContent = "New project successfully created.\nPlease refresh in Proejct view.";
-
-        name = this.name.getText();
-        startDate = this.startDate.getText();
-        endDate = this.endDate.getText();
-        status = "In progress";
-
-
-
-        RadioButton selectedRadioButton = (RadioButton) typeToggle.getSelectedToggle();
-        type = selectedRadioButton.getText();
-
-        UIHelper uiHelper = new UIHelper();
-        boolean validation = true;
-
-        if (Session.getWindowMode().equals("new")) {
-
-
-        } else if (Session.getWindowMode().equals("edit")) {
-            alertHeading = "Edit project details";
-        }
-
-        if (name.equals("") || startDate.equals("") || endDate.equals("") ||type.equals("") ) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check project details and try again.");
-            validation = false;
-        } else {
-            if (Session.getWindowMode().equals("new")) {
-
-                projectController.createProject(name, startDate, endDate, type, status);
-            } else if (Session.getWindowMode().equals("edit")) {
-                //projectController.modifyProject(name, localStartDate, localEndDate, ProjectType.valueOf(type), status);
-                alertHeading = "Edit user details";
-                alertContent = "User details successfully updated.\nPlease refresh in Users view.";
-            }
-            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
-            if (result.get() == ButtonType.OK) {
-                Stage stage = (Stage) saveButton.getScene().getWindow();
-                stage.close();
-            }
-        }
-    }*/
-
     @FXML
     private void handleSaveProjectBtn(ActionEvent event) throws IOException {
         UIHelper uiHelper = new UIHelper();
@@ -120,7 +68,7 @@ public class ProjectAddViewController implements Initializable {
         String status = "In progress";
         String alertHeading = "Creating new Project";
         String alertContent = "New project successfully created.\nPlease refresh in projects view.";
-
+        System.out.println(Session.getWindowMode()); 
         if (Session.getWindowMode().equals("new")) {
             System.out.println("Creating new project ...");
         } else if (Session.getWindowMode().equals("edit")) {
@@ -176,7 +124,7 @@ public class ProjectAddViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             if (Session.getWindowMode().equals("new")) {
-                windowModeTitle.setText("Enter new project details:");
+                // windowModeTitle.setText("Enter new project details:");
 
                 Callback<DatePicker, DateCell> callB = new Callback<DatePicker, DateCell>() {
                     @Override

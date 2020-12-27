@@ -3,13 +3,12 @@ import com.group8.model.User;
 
 import java.util.*;
 import java.time.LocalDate;
+import org.bson.types.ObjectId;
 
 public class Task extends Activity{
-    public Task(String name, String content, LocalDate startDate, LocalDate endDate,
-                ArrayList<User> teamMembers, String priority, String id) {
+    public Task(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
 
-        super(name, content, startDate, endDate, teamMembers, priority, id);
-        
+        super(projectId, name, description, startDate, endDate, priority, type);
 
     }
 

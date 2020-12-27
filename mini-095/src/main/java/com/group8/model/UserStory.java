@@ -4,11 +4,11 @@ import com.group8.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import org.bson.types.ObjectId;
 
 public class UserStory extends Activity {
     //private UUID id;
     //private String name;
-    private double storyPoints;
     //private String description;
     private String acceptanceCriteria;
     //private boolean completion;
@@ -28,10 +28,8 @@ public class UserStory extends Activity {
     //     this.completion = false;
     // }
 
-    public UserStory (String name, String content, LocalDate startDate, LocalDate endDate,
-                      ArrayList<User> teamMembers, String priority, String id, double storyPoints, String acceptanceCriteria) {
-        super(name, content, startDate, endDate, teamMembers, priority, id);
-        this.storyPoints = storyPoints;
+    public UserStory (ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority,String type, String acceptanceCriteria) {
+        super(projectId, name, description, startDate, endDate, priority, type);
         this.acceptanceCriteria = acceptanceCriteria;
         
     }
@@ -52,13 +50,7 @@ public class UserStory extends Activity {
         this.name = name;
     }*/
 
-    public double getStoryPoints() {
-        return storyPoints;
-    }
 
-    public void setStoryPoints(double storyPoints) {
-        this.storyPoints = storyPoints;
-    }
     /*
     public String getDescription() {
         return description;
@@ -120,8 +112,7 @@ public class UserStory extends Activity {
     public String toString() {
         return "ID: " + this.getId() +  " " + this.getName() +
         " : " + this.getDescription() + " Start: " + this.getStartDate() + " End: " + this.getEndDate() +
-         "priority: " + this.getPriority() + " Completion Status: " + this.getCompletion() + "Story Points: " + 
-         this.storyPoints + " AcceptanceCriteria: " + this.acceptanceCriteria ;
+         "priority: " + this.getPriority() + " Completion Status: " + this.getCompletion() +  " AcceptanceCriteria: " + this.acceptanceCriteria ;
 
     }
 

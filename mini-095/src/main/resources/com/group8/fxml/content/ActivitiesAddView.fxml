@@ -79,7 +79,7 @@
                         <fx:define>
                                 <ToggleGroup fx:id="activityPriorityToggle" />
                         </fx:define>
-                        <RadioButton fx:id="one" mnemonicParsing="false" text="1" toggleGroup="$activityPriorityToggle">
+                        <RadioButton fx:id="one" mnemonicParsing="false" text="1" selected="true" toggleGroup="$activityPriorityToggle">
                             <VBox.margin>
                                 <Insets left="20.0" top="-5.0" />
                             </VBox.margin>
@@ -112,7 +112,7 @@
                             <fx:define>
                                 <ToggleGroup fx:id="activityTypeToggle" />
                             </fx:define>
-                            <RadioButton fx:id="task" mnemonicParsing="false" text="Task" toggleGroup="$activityTypeToggle">
+                            <RadioButton fx:id="task" mnemonicParsing="false" selected="true" text="Task" toggleGroup="$activityTypeToggle">
                              <VBox.margin>
                                 <Insets left="20.0" top="-5.0" />
                              </VBox.margin>

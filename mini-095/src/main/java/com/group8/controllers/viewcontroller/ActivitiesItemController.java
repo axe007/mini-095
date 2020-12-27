@@ -10,12 +10,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import com.group8.model.Session;
+import com.group8.helper.UIHelper;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ActivitiesItemController implements Initializable {
+    private static UIHelper uiHelper = new UIHelper();
 
     private static ActivityController activityController = new ActivityController();
 

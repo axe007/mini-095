@@ -78,7 +78,13 @@ public class DatabaseController {
         return collection;
 
     }
+    public MongoCollection<Activity> getActivityCollection() {
 
+        MongoDatabase database = dbConnect().getDatabase(dbName);
+        MongoCollection<Activity> collection = database.getCollection("activities",Activity.class).withCodecRegistry(createCodecRegistry("Activities"));
+        return collection;
+
+    }
     public CodecRegistry createCodecRegistry(String classType) {
 
         PojoCodecProvider pojoCodecProvider = null;

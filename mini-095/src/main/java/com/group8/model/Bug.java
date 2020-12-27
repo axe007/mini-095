@@ -3,13 +3,13 @@ package com.group8.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import org.bson.types.ObjectId;
 
 public class Bug extends Activity {
 
-    public Bug(String name, String content, LocalDate startDate, LocalDate endDate,
-               ArrayList<User> teamMembers, String priority, String id) {
+    public Bug(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
 
-        super(name, content, startDate, endDate, teamMembers, priority, id);
+        super(projectId, name, description, startDate, endDate, priority, type);
 
     }
     

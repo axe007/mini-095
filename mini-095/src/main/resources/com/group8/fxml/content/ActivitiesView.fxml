@@ -34,15 +34,16 @@
          <center>
               <TableView fx:id="tblActivities" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" styleClass="contentview-tableview" BorderPane.alignment="CENTER">
                   <columns>
+                      <TableColumn fx:id="tblClmProjectId" prefWidth="50.0" text="Project" />
                       <TableColumn fx:id="tblClmActivityId" prefWidth="50.0" text="Activity Id" />
                       <TableColumn fx:id="tblClmActivityName" prefWidth="75.0" text="Activity Name" />
-                  <TableColumn fx:id="tblClmActivityName1" prefWidth="75.0" text="Activity Description" />
+                      <TableColumn fx:id="tblClmActivityDescription" prefWidth="75.0" text="Activity Description" />
                       <TableColumn fx:id="tblClmActivityStartDate" prefWidth="100.0" text="Start Date" />
                       <TableColumn fx:id="tblClmActivityEndDate" prefWidth="100.0" text="End Date" />
-                  <TableColumn fx:id="tblClmActivityName11" prefWidth="75.0" text="Assignee" />
-                  <TableColumn fx:id="tblClmActivityName111" prefWidth="75.0" text="Time Tracking" />
-                      <TableColumn fx:id="tblClmActivityType" prefWidth="100.0" text="Priority" />
-                  <TableColumn fx:id="tblClmActivityType1" prefWidth="100.0" text="Activity Type" />
+                      <!-- <TableColumn fx:id="tblClmActivityName11" prefWidth="75.0" text="Assignee" />
+                      <TableColumn fx:id="tblClmActivityName111" prefWidth="75.0" text="Time Tracking" /> -->
+                      <TableColumn fx:id="tblClmActivityPriority" prefWidth="100.0" text="Priority" />
+                      <TableColumn fx:id="tblClmActivityType" prefWidth="100.0" text="Activity Type" />
                       <TableColumn fx:id="tblClmActivityStatus" prefWidth="100.0" text="Current status" />
                   </columns>
                   <columnResizePolicy>

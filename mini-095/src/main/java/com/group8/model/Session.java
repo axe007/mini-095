@@ -71,7 +71,7 @@ public class Session {
     public String toString() {
         return "UserSession{" +
                 "Logged Username='" + sessionUserId + '\'' +
-                ", Open Project=" + openProjectId + ", Activity Id=" + activityId +
+                ", Open Project=" + openProjectId +
                 '}';
     }
 }

@@ -21,7 +21,7 @@ public class UserController {
     private static DatabaseController mongoDb = new DatabaseController();
 
     public boolean createUser(String username, String password, String fullname, String emailAddress, String userRole) {
-        boolean result = false;
+        // boolean result = false;
         User newUser;
 
         if (userRole.equals("Developer")) {
@@ -39,10 +39,12 @@ public class UserController {
     }
 
     public void modifyUser(String username, String password, String fullname, String emailAddress, String userRole) {
-        User user = (User )Session.getOpenItem();
+        User user = (User) Session.getOpenItem();
         ObjectId id = user.getId();
 
-        mongoDb.getUserCollection().updateOne(eq("_id", id), combine(set("username", username), set("password", password), set("fullname", fullname), set("userRole", userRole), set("emailAddress", emailAddress)));
+        mongoDb.getUserCollection().updateOne(eq("_id", id),
+                combine(set("username", username), set("password", password), set("fullname", fullname),
+                        set("userRole", userRole), set("emailAddress", emailAddress)));
         System.out.println("User details updated!");
     }
 
@@ -60,46 +62,64 @@ public class UserController {
         return result;
     }
 
-    public List getUserList() {
+    public List<User> getUserList() {
         List<User> users = mongoDb.getUserCollection().find().into(new ArrayList<User>());
         return users;
     }
 
-    // public String getUserDetail(String findField, String findValue, String returnField) {
-    //     String returnValue = null;
-    //     User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq(findField, findValue)).first();
-    //     switch (returnField) {
-    //         case "id" -> returnValue = String.valueOf(user.getId());
-    //         case "username" -> returnValue = user.getUsername();
-    //         case "password" -> returnValue = user.getPassword();
-    //         case "fullname" -> returnValue = user.getFullname();
-    //         case "emailAddress" -> returnValue = user.getEmailAddress();
-    //         case "userRole" -> returnValue = user.getUserRole();
-    //     }
-    //     return returnValue;
-    // }
+    public ArrayList<String> getUserDetailList(String userAttribute) {
+        ArrayList<String> userDetailList = new ArrayList<>();
+        List<User> users = getUserList();
+        String returnValue;
+        for (User user : users) {
+            switch (userAttribute) {
+                case "username" -> returnValue = user.getUsername();
+                case "password" -> returnValue = user.getPassword();
+                case "fullname" -> returnValue = user.getFullname();
+                case "emailAddress" -> returnValue = user.getEmailAddress();
+                case "userRole" -> returnValue = user.getUserRole();
+                default -> throw new IllegalStateException("Unexpected value: " + userAttribute);
+            }
+            userDetailList.add(returnValue);
+        }
+        return userDetailList;
+    }
 
-    // public String getUserDetail(ObjectId findValue, String returnField) {
-    //     String returnValue = null;
-    //     User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq("_id", findValue)).first();
-    //     switch (returnField) {
-    //         case "username" -> returnValue = user.getUsername();
-    //         case "password" -> returnValue = user.getPassword();
-    //         case "fullname" -> returnValue = user.getFullname();
-    //         case "emailAddress" -> returnValue = user.getEmailAddress();
-    //         case "userRole" -> returnValue = user.getUserRole();
-    //     }
-    //     return returnValue;
-    // }
+    public String getUserDetail(String findField, String findValue, String returnField) {
+        String returnValue = null;
+        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq(findField, findValue)).first();
+        switch (returnField) {
+            case "id" -> returnValue = String.valueOf(user.getId());
+            case "username" -> returnValue = user.getUsername();
+            case "password" -> returnValue = user.getPassword();
+            case "fullname" -> returnValue = user.getFullname();
+            case "emailAddress" -> returnValue = user.getEmailAddress();
+            case "userRole" -> returnValue = user.getUserRole();
+        }
+        return returnValue;
+    }
+
+    public String getUserDetail(ObjectId findValue, String returnField) {
+        String returnValue = null;
+        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq("_id", findValue)).first();
+        switch (returnField) {
+            case "username" -> returnValue = user.getUsername();
+            case "password" -> returnValue = user.getPassword();
+            case "fullname" -> returnValue = user.getFullname();
+            case "emailAddress" -> returnValue = user.getEmailAddress();
+            case "userRole" -> returnValue = user.getUserRole();
+        }
+        return returnValue;
+    }
 
     public ObjectId getUserId(String findField, String findValue) {
-        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq(findField, findValue)).first();
+        User user = mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users"))
+                .find(eq(findField, findValue)).first();
         ObjectId userId = user.getId();
         return userId;
     }
 
     public void getUserInfo() {
-
         System.out.print("Enter username to display: ");
         Helper helper = new Helper();
         String username = helper.getString();

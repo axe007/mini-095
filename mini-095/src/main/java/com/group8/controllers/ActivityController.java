@@ -2,77 +2,115 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.group8.model.Activity;
+import com.group8.model.Bug;
+import com.group8.model.Task;
 import com.group8.model.User;
+import com.group8.model.UserStory;
 import com.group8.helper.Helper;
+import org.bson.types.ObjectId;
 
 public class ActivityController {
+    private static DatabaseController mongoDb = new DatabaseController();
 
-    public void createActivity(String activityType) {
+    public boolean createActivity(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+        Activity newActivity;
 
-        // General Activity attributes
-        Helper helper = new Helper();
-        String content;
-        String name;
-        LocalDate startDate;
-        LocalDate endDate;
-        ArrayList<User> teamMembers = new ArrayList<>();
-        String priority;
-        String id = "1"; // TODO: fix
-
-        // User Story attributes
-        double storyPoints;
-        String acceptanceCriteria;
-
-        // Task
-        // TODO: add task attributes here
-
-        // Bug
-        // TODO: add bug attributes here
-
-        // 1. ask for generic input
-        System.out.println("Enter name");
-        name = helper.getString();
-
-        System.out.println("Enter content");
-        content = helper.getString();
-
-        System.out.println("Enter start date");
-        startDate = null; // TODO:
-
-        System.out.println("Enter end date");
-        endDate = null;
-
-        System.out.println("Enter team members");
-        teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
-                               // similar
-
-        System.out.println("Enter priority");
-        priority = helper.getString();
-
-        if (activityType.equals("UserStory")) {
-            System.out.println("Enter team story points");
-            storyPoints = helper.getDouble();
-
-            System.out.println("Enter acceptance criteria");
-            acceptanceCriteria = helper.getString();
-
-        } else if (activityType.equals("Bug")) {
-            // TODO: Under construction, Bug class not created yet
-
-            // activityModel.createActivity(activityType, name, content, startDate, endDate,
-            // teamMembers, priority, id, null, null);
-
-        } else if (activityType.equals("Task")) {
-            // TODO: Under construction, Task class not created yet
-
+        if (type.equals("task")) {
+            newActivity = new Task(projectId, name, description, startDate, endDate, priority, type);
+            // users.add(developer);
         } else {
-            System.out.println("Oh no, something went wrong... :'( ");
+            newActivity = new Bug(projectId, name, description, startDate, endDate, priority, type);
+            // users.add(manager);
         }
 
-        // 2. ask for specific input
-        // 3. call the method
+        // if (type.equals("task")) {
+        //     newActivity = new Task(projectId, name, description, startDate, endDate, priority, type);
+        //     // users.add(developer);
+        // } else if (type.equals("bug")){
+        //     newActivity = new Bug(projectId, name, description, startDate, endDate, priority, type);
+        //     // users.add(manager);
+        // } else {
+        //     // newActivity = new UserStory( projectId,  name,  description,  startDate,  endDate,  priority,type, acceptanceCriteria[0]);  
+        // }
+
+        mongoDb.getActivityCollection().insertOne(newActivity);
+        System.out.println("New activity created successfully!");
+
+        return true;
     }
+    public List<Activity> getActivityList() {
+        List<Activity> activities = mongoDb.getActivityCollection().find().into(new ArrayList<Activity>());
+        return activities;
+    }
+
+    // public void createActivity(String activityType) {
+
+    //     // General Activity attributes
+    //     Helper helper = new Helper();
+    //     String content;
+    //     String name;
+    //     LocalDate startDate;
+    //     LocalDate endDate;
+    //     ArrayList<User> teamMembers = new ArrayList<>();
+    //     String priority;
+    //     String id = "1"; // TODO: fix
+
+    //     // User Story attributes
+    //     double storyPoints;
+    //     String acceptanceCriteria;
+
+    //     // Task
+    //     // TODO: add task attributes here
+
+    //     // Bug
+    //     // TODO: add bug attributes here
+
+    //     // 1. ask for generic input
+    //     System.out.println("Enter name");
+    //     name = helper.getString();
+
+    //     System.out.println("Enter content");
+    //     content = helper.getString();
+
+    //     System.out.println("Enter start date");
+    //     startDate = null; // TODO:
+
+    //     System.out.println("Enter end date");
+    //     endDate = null;
+
+    //     System.out.println("Enter team members");
+    //     teamMembers.add(null); // TODO: Needs to be fixed, should be able to choose from a list or something
+    //                            // similar
+
+    //     System.out.println("Enter priority");
+    //     priority = helper.getString();
+
+    //     if (activityType.equals("UserStory")) {
+    //         System.out.println("Enter team story points");
+    //         storyPoints = helper.getDouble();
+
+    //         System.out.println("Enter acceptance criteria");
+    //         acceptanceCriteria = helper.getString();
+
+    //     } else if (activityType.equals("Bug")) {
+    //         // TODO: Under construction, Bug class not created yet
+
+    //         // activityModel.createActivity(activityType, name, content, startDate, endDate,
+    //         // teamMembers, priority, id, null, null);
+
+    //     } else if (activityType.equals("Task")) {
+    //         // TODO: Under construction, Task class not created yet
+
+    //     } else {
+    //         System.out.println("Oh no, something went wrong... :'( ");
+    //     }
+
+    //     // 2. ask for specific input
+    //     // 3. call the method
+    // }
     // public void logTime(Developer dev, String taskId, String projectId) {
     //     Map<String, Task> newMap = new HashMap<String, Task>(); 
     //     if (dev.getProjectTaskMap().containsKey(dev.getProjectMap().get(projectId))) {

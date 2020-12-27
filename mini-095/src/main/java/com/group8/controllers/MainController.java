@@ -101,24 +101,24 @@ public class MainController {
                 Helper helper = new Helper();
                 String userInput = helper.getMenuInput(); // Calling Helper method
 
-                switch (userInput.toLowerCase()) {
-                    case "1":
-                        activityController.createActivity("UserStory");
-                        break;
-                    case "2":
-                        activityController.createActivity("Bug");
-                        break;
+                // switch (userInput.toLowerCase()) {
+                //     case "1":
+                //         activityController.createActivity("UserStory");
+                //         break;
+                //     case "2":
+                //         activityController.createActivity("Bug");
+                //         break;
 
-                    case "3":
-                        activityController.createActivity("Task");
+                //     case "3":
+                //         activityController.createActivity("Task");
 
-                    case "4":
-                        mainMenu();
-                        break;
+                //     case "4":
+                //         mainMenu();
+                //         break;
 
-                    default:
-                        System.out.println("No match in mainMenu options");
-                }
+                //     default:
+                //         System.out.println("No match in mainMenu options");
+                // }
             } while (session);
         } catch (Exception e) {
             System.out.println("Exception in mainMenu");

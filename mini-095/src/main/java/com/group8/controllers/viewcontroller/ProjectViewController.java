@@ -122,6 +122,10 @@ public class ProjectViewController implements Initializable {
         tblClmProjectStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         tblProjects.setItems(viewProjects);
+        
+        for (Project viewProject : projectList) {
+            System.out.println(viewProject); 
+        }
     }
 
     @FXML

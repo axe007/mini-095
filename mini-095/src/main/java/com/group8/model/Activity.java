@@ -4,6 +4,7 @@ import com.group8.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import org.bson.types.ObjectId;
 
 public abstract class Activity {
 
@@ -11,22 +12,52 @@ public abstract class Activity {
     private String name; 
     private LocalDate startDate;
     private LocalDate endDate; 
-    private ArrayList<User> teamMembers;
+    private ArrayList<ObjectId> developerTeam;
     private String priority;
     private boolean completion; 
-    private String id;
+    private ObjectId id;
+    private ObjectId projectId; 
+    private String type; // "task", "bug", "user story"
 
-    public Activity (String name, String description, LocalDate startDate, LocalDate endDate, ArrayList<User> teamMembers, String priority, String id) {
+    public Activity() {
+
+    }
+    public Activity (ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+        this.projectId = projectId;
         this.name = name; 
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.teamMembers = teamMembers;
+        this.developerTeam =new ArrayList<>();
         this.priority = priority;
-        this.id = id;
         this.completion = false;
+        this.type = type; 
+    }
+    public ObjectId getId() {
+        return id;
+    }
+    public String getActivityType() {
+        return type; 
+    }
+    public void setActivityType(String type) {
+        this.type = type; 
+    }
+    public ObjectId getProjectId() {
+        return projectId; 
+    }
+    public void setProjectId(ObjectId projectId) {
+        this.projectId = projectId;
+    }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+    public ArrayList<ObjectId> getDeveloperTeam() {
+        return developerTeam;
     }
 
+    public void setDeveloperTeam(ArrayList<ObjectId> developerTeam) {
+        this.developerTeam = developerTeam;
+    }
     public void setPriority(String priority) {
         this.priority = priority; 
     }
@@ -62,14 +93,6 @@ public abstract class Activity {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-    public void setId (String id) {
-        this.id = id;
-    }
-    
-    public String getId (){
-        return this.id;
-    }
-    
     public boolean getCompletion() {
         return this.completion;
     }
@@ -83,5 +106,13 @@ public abstract class Activity {
         return "ID: " + this.id +  " " + this.name +
          " : " + this.description + " Start: " + this.startDate + " End: " + this.endDate +
           "priority: " + this.priority + " Completion Status: " + this.completion ;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -118,8 +118,8 @@ public class ApplicationController implements Initializable {
 
         String fullname;
         UserController userController = new UserController();
-        // fullname = userController.getUserDetail(loggedUserId, "fullname");
+        fullname = userController.getUserDetail(loggedUserId, "fullname");
 
-        // sessionUsername.setText(fullname);
+        sessionUsername.setText(fullname);
     }
 }

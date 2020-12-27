@@ -26,19 +26,13 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class UIHelper {
-    public void loadWindow(String viewName, Button sourceButton, User user) throws IOException {
+    public void loadWindow(String viewName, Button sourceButton, String stageTitle) throws IOException {
         Stage stage;
         Parent root;
         root = FXMLLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
         stage = new Stage();
         stage.setScene(new Scene(root));
-
-        if (Session.getWindowMode().equals("new")) {
-            stage.setTitle("Add new user");
-        } else if (Session.getWindowMode().equals("edit")) {
-            stage.setTitle("Edit user details");
-        }
-
+        stage.setTitle(stageTitle);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UTILITY);
         stage.initOwner(sourceButton.getScene().getWindow());

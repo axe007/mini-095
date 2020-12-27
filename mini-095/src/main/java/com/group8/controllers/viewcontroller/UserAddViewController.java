@@ -87,7 +87,7 @@ public class UserAddViewController implements Initializable {
         boolean validation = true;
 
         if (Session.getWindowMode().equals("new")) {
-
+            System.out.println(Session.getWindowMode()); 
         } else if (Session.getWindowMode().equals("edit")) {
             alertHeading = "Edit user details";
         }

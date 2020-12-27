@@ -45,7 +45,6 @@
 //             if (Session.getWindowMode().equals("new")) {
 //                 // windowModeTitle.setText("Enter new user details:");
 //             } else if (Session.getWindowMode().equals("edit")) {
-                
 
 //             }
 //         } catch (Exception e) {
@@ -85,9 +84,16 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import com.group8.model.Session;
+
+import org.bson.types.ObjectId;
+
+import com.group8.controllers.ActivityController;
+import com.group8.helper.UIHelper;
+import com.group8.model.Activity;
 import com.group8.model.Project; 
 
 public class ActivitiesAddViewController implements Initializable{
+    private static ActivityController activityController = new ActivityController();
 
     @FXML
     private StackPane dialogPane;
@@ -153,8 +159,60 @@ public class ActivitiesAddViewController implements Initializable{
     }
 
     @FXML
-    void handleSaveActivityBtn(ActionEvent event) {
+    void handleSaveActivityBtn(ActionEvent event) throws IOException {
+        UIHelper uiHelper = new UIHelper();
+        String name; 
+        LocalDate startDate;
+        LocalDate endDate;
+        String description;
+        String priority; 
+        String type; 
+        String alertHeading = "Creating new Activity";
+        String alertContent = "New activity successfully created.\nPlease refresh in activities view.";
+        System.out.println(Session.getWindowMode()); 
 
+        if (Session.getWindowMode().equals("new")) {
+            System.out.println("Creating new activity ...");
+        } else if (Session.getWindowMode().equals("edit")) {
+            alertHeading = "Edit activity details";
+        }
+        name = this.name.getText();
+        startDate = this.startDate.getValue();
+        endDate = this.endDate.getValue();
+        description = this.description.getText();
+
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
+
+        if (daysBetween < 1) {
+            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "End date cannot be earlier than Start Date.\nPlease check activity dates and try again.");
+        } else if (daysBetween == 1) {
+            alertContent = "Activity duration looks to be only 1 day.\n Are you sure?";
+            Optional<ButtonType> dateConfirm = uiHelper.alertDialogGenerator(dialogPane,"confirm", alertHeading, alertContent);
+            if (dateConfirm.get() == ButtonType.CANCEL) {
+                return;
+            }
+        }
+        RadioButton priorityRadioButton = (RadioButton) activityPriorityToggle.getSelectedToggle();
+        priority = priorityRadioButton.getText();
+        RadioButton typeRadioButton = (RadioButton) activityTypeToggle.getSelectedToggle();
+        type = typeRadioButton.getText(); 
+        if (name.equals("") || startDate.equals("") || endDate.equals("") || description.equals("") || priority.equals("") || type.equals("")) {
+            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check activity details and try again.");
+        } else {
+            if (Session.getWindowMode().equals("new")) {
+                ObjectId openProjectId = Session.getOpenProjectId();
+                activityController.createActivity(openProjectId, name, description, startDate, endDate, priority, type);
+            } else if (Session.getWindowMode().equals("edit")) {
+                // projectController.modifyProject(name, startDate, endDate, type);
+                // alertHeading = "Edit project details";
+                // alertContent = "Project details successfully updated.\nPlease refresh in Projects view.";
+            }
+            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+            if (result.get() == ButtonType.OK) {
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                stage.close();
+            }
+        }
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -182,7 +240,7 @@ public class ActivitiesAddViewController implements Initializable{
                 startDate.setValue(LocalDate.now());
                 endDate.setValue(LocalDate.now());
             } else if (Session.getWindowMode().equals("edit")) {
-                windowModeTitle.setText("Edit project details:");
+                // windowModeTitle.setText("Edit project details:");
 
                 // Project project = (Project) Session.getOpenItem();
                 // name.setText(project.getName());
