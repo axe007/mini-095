@@ -1,30 +1,45 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.controllers.ActivityController;
-import com.group8.controllers.ProjectController;
 import com.group8.helper.UIHelper;
+import com.group8.model.Activity;
+import com.group8.model.Project;
 import com.group8.model.Session;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.*;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ActivitiesViewController implements Initializable {
 
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
+    private List<Project> activitiesList = new ArrayList<>();
 
     @FXML
     private StackPane activitiesView;
+    @FXML
+    private BorderPane avBorderPane;
+    @FXML
+    private TableView tblActivities;
     @FXML
     private Button activityNewButton;
     @FXML
@@ -36,7 +51,26 @@ public class ActivitiesViewController implements Initializable {
     @FXML
     private Button activityArchiveButton;
     @FXML
-    private TextField activitySearch;
+    private Button activitiesRefresh;
+    @FXML
+    private TextField activitiesSearch;
+    @FXML
+    private TableColumn<Activity, ObjectId> tblClmActivityId;
+    @FXML
+    private TableColumn<Activity, String> tblClmActivityName;
+    @FXML
+    private TableColumn<Activity, String> tblClmActivityDescription;
+    @FXML
+    private TableColumn<Activity, LocalDate> tblClmActivityStartDate;
+    @FXML
+    private TableColumn<Activity, LocalDate> tblClmActivityEndDate;
+    @FXML
+    private TableColumn<Activity, String> tblClmActivityPriority;
+    @FXML
+    private TableColumn<Activity, String> tblClmActivityType;
+    @FXML
+    private TableColumn<Activity, String> tblClmActivityStatus;
+
 
     @FXML
     private void handleActivityButtons(ActionEvent event) throws IOException {
@@ -65,10 +99,30 @@ public class ActivitiesViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             // TODO
-
+            loadActivitiesData();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadActivitiesData() {
+
+        //getting the full list of books from file
+        List<Activity> activityList = activityController.getActivitiesList();
+        ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections.observableArrayList(activityList);
+
+        String activityType;
+
+        tblClmActivityId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tblClmActivityName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblClmActivityDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tblClmActivityStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        tblClmActivityEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        tblClmActivityPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        tblClmActivityType.setCellValueFactory(new PropertyValueFactory<>("activityType"));
+        tblClmActivityStatus.setCellValueFactory(new PropertyValueFactory<>("activityStatus"));
+
+        tblActivities.setItems(viewActivities);
     }
 
     @FXML

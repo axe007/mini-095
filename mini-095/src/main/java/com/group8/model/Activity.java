@@ -1,9 +1,11 @@
 package com.group8.model;
 
+import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@BsonDiscriminator
 public abstract class Activity {
 
     private ObjectId id;
@@ -13,7 +15,7 @@ public abstract class Activity {
     private LocalDate endDate;
     private ArrayList<ObjectId> assignee;
     private double priority;
-    private ActivityStatus status;
+    private ActivityStatus activityStatus;
 
     enum ActivityStatus {
         TODO("To do"),
@@ -21,7 +23,7 @@ public abstract class Activity {
         REVIEW("Review"),
         DONE("Done");
 
-        private final String simpleName;
+        public final String simpleName;
         ActivityStatus(String simpleName) {
             this.simpleName = simpleName;
         }
@@ -41,7 +43,7 @@ public abstract class Activity {
         this.endDate = endDate;
         this.assignee = null;
         this.priority = priority;
-        this.status = ActivityStatus.TODO;
+        this.activityStatus = ActivityStatus.TODO;
     }
 
     // Getters
@@ -63,7 +65,8 @@ public abstract class Activity {
     public double getPriority() {
         return this.priority ;
     }
-    public ActivityStatus getStatus() {return this.status; }
+    public ActivityStatus getActivityStatus() { return activityStatus; }
+    public String getActivityType() { return getClass().getSimpleName(); }
 
     // Setters
     public void setId(ObjectId id) {
@@ -84,14 +87,15 @@ public abstract class Activity {
     public void setPriority(double priority) {
         this.priority = priority;
     }
-    public void setActivityStatus(ActivityStatus status){
-        this.status = status;
-    }
 
     @Override
     public String toString() {
         return "ID: " + this.id +  " " + this.name +
          " : " + this.description + " Start: " + this.startDate + " End: " + this.endDate +
-          "priority: " + this.priority + " Completion Status: " + this.status ;
+          "priority: " + this.priority;
+    }
+
+    public String getClassName() {
+        return this.getClass().getSimpleName();
     }
 }

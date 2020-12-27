@@ -238,7 +238,7 @@
 }
 
 .combo-box-popup .list-view .list-cell:hover {
-	-fx-background-color: #5179d6;
+	-fx-background-color: #8fa9e5;
 	-fx-text-fill: #fff;
  }
 
@@ -378,7 +378,6 @@
 
 /* Scrum Board styling */
 
-
 .scrum-name-title {
 	-fx-text-fill: #fff;
 	-fx-font-size: 1.8em;
@@ -445,3 +444,12 @@
 	-fx-margin: 2px 0 2px 0;
 }
 
+/* ActivityView styles */
+
+.activity-list .combo-box-popup .list-cell {
+    -fx-padding: 4 0 4 20 ;
+}
+
+.activity-list .combo-box-popup .list-cell:section-header {
+    -fx-padding: 4 0 4 5;
+}

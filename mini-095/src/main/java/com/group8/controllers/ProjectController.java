@@ -73,15 +73,22 @@ public class ProjectController {
         System.out.println("Project details updated!");
     }
 
-    public List<ObjectId> getProjectUsers(ObjectId projectId) {
+    public List<ObjectId> getProjectList(ObjectId projectId, String listType) {
         Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects")).find(eq("_id", projectId)).first();
-        List<ObjectId> projectUsers = project.getDeveloperTeam();
-        return projectUsers;
+        List<ObjectId> projectList;
+        if (listType.equals("users")) {
+            projectList = project.getDeveloperTeam();
+        } else if (listType.equals("activities")) {
+            projectList = project.getActivities();
+        } else {
+            projectList = project.getSprints();
+        }
+        return projectList;
     }
 
     public ArrayList<String> getProjectUsernameList(ObjectId projectId) {
         ArrayList<String> projectUsernameList = new ArrayList<>();
-        List<ObjectId> projectCurrentUsers = getProjectUsers(projectId);
+        List<ObjectId> projectCurrentUsers = getProjectList(projectId, "users");
         UserController userController = new UserController();
         for (ObjectId userId : projectCurrentUsers) {
             String userName = userController.getUserDetail(userId, "username");

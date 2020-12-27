@@ -7,6 +7,9 @@ import java.util.List;
 import com.group8.model.*;
 import com.group8.model.Activity;
 import com.group8.helper.Helper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -16,19 +19,34 @@ public class ActivityController {
     private static DatabaseController mongoDb = new DatabaseController();
     private ProjectController projectController = new ProjectController();
 
-    public void createActivity(String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
+    public void createActivity(ObjectId parentId, String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
         Activity newActivity;
 
         if (activityType.equals("User story")) {
             newActivity = new UserStory(name, description, startDate, endDate, storyPoints, priority);
         } else if (activityType.equals("Task")) {
-            newActivity = new Task(name, description, startDate, endDate, estimatedHours, priority);
-            // users.add(manager);
+            newActivity = new Task(parentId, name, description, startDate, endDate, estimatedHours, priority);
         } else {
-            newActivity = new Bug(name, description, startDate, endDate, estimatedHours, priority);
+            newActivity = new Bug(parentId, name, description, startDate, endDate, estimatedHours, priority);
         }
 
         mongoDb.getActivityCollection().insertOne(newActivity);
+    }
+
+    public List<Activity> getActivitiesList() {
+        ObjectId openProject = Session.getOpenProjectId();
+        List<ObjectId> projectActivities = projectController.getProjectList(openProject, "activities");
+        List<Activity> activities = new ArrayList<>();
+        MongoCollection activitiesCollection = mongoDb.getActivityCollection().withCodecRegistry(mongoDb.createCodecRegistry("Activities"));
+
+        for (ObjectId objectId : projectActivities) {
+            Activity activity = (Activity) activitiesCollection.find(eq("_id", objectId)).first();
+            if (activity != null && activity.getId().equals(objectId)) {
+                activities.add(activity);
+            }
+        }
+        System.out.println(activities);
+        return activities;
     }
 
     public void updateActivitiesList(String activityName) {

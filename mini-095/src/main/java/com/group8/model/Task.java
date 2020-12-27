@@ -1,33 +1,42 @@
 package com.group8.model;
+
 import com.group8.model.User;
+import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.types.ObjectId;
+import com.group8.model.Activity.ActivityStatus;
 
 import java.util.*;
 import java.time.LocalDate;
 
+@BsonDiscriminator
 public class Task extends Activity {
 
-    private ActivityStatus status;
+    private ObjectId parentId;
     private Double estimatedHours;
+    private ActivityStatus activityStatus;
+
 
     public Task() {}
 
-    public Task(String name, String description, LocalDate startDate, LocalDate endDate, Double estimatedHours, double priority) {
+    public Task(ObjectId parentId, String name, String description, LocalDate startDate, LocalDate endDate, Double estimatedHours, double priority) {
         super(name, description, startDate, endDate, priority);
-        this.status = ActivityStatus.TODO;
+        this.parentId = parentId;
         this.estimatedHours = estimatedHours;
+        this.activityStatus = ActivityStatus.TODO;
     }
 
+    public ObjectId getParentId() { return parentId; }
     public double getEstimatedHours() { return this.estimatedHours; }
-    public ActivityStatus getActivityStatus() { return this.status; }
+    public ActivityStatus getActivityStatus() { return activityStatus; }
 
+    public void setParentId(ObjectId parentId) { this.parentId = parentId; }
     public void setEstimatedHours(double estimatedHours) { this.estimatedHours = estimatedHours; }
-    public void setActivityStatus(ActivityStatus status) { this.status = status; }
+    public void setActivityStatus(ActivityStatus status) { this.activityStatus = status; }
 
     @Override
     public String toString() {
         return "ID: " + this.getId() +  " " + this.getName() +
         " : " + this.getDescription() + " Start: " + this.getStartDate() + " End: " + this.getEndDate() +
-         "priority: " + this.getPriority() + " Current Status: " + this.getStatus();
+         "priority: " + this.getPriority() + " Current Status: " + this.getActivityStatus();
     }
 }

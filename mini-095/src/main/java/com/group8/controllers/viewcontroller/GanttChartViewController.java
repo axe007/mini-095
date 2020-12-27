@@ -72,14 +72,10 @@ public class GanttChartViewController implements Initializable {
                                 .getMiddleLevelID()) {
                             TreeItem bottomLevelItem = new TreeItem<>(bottomGanttChartActivity);
                             middleLevelItem.getChildren().add(bottomLevelItem);
-
                         }
-
                     }
                     topLevelItem.getChildren().add(middleLevelItem);
-
                 }
-
             }
             projectItem.getChildren().add(topLevelItem);
         }
