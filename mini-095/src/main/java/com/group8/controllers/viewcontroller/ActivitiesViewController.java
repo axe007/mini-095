@@ -49,7 +49,7 @@ public class ActivitiesViewController implements Initializable {
     private TableView<Activity> tblActivities = new TableView<Activity>();
 
     @FXML
-    private TableColumn<Activity, ObjectId> tblClmProjectId;
+    private TableColumn<Activity, ObjectId> tblClmProjectName;
 
     @FXML
     private TableColumn<Activity, ObjectId> tblClmActivityId;
@@ -146,7 +146,7 @@ public class ActivitiesViewController implements Initializable {
         List<Activity> activityList = activityController.getActivityList();
         ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections.observableArrayList(activityList);
 
-        tblClmProjectId.setCellValueFactory(new PropertyValueFactory<>("projectId"));
+        tblClmProjectName.setCellValueFactory(new PropertyValueFactory<>("projectName"));
         tblClmActivityId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tblClmActivityName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblClmActivityDescription.setCellValueFactory(new PropertyValueFactory<>("description"));

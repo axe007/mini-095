@@ -10,9 +10,15 @@ public class Bug extends Activity {
         super();
     }
 
-    public Bug(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+    // public Bug(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
 
-        super(projectId, name, description, startDate, endDate, priority, type);
+    //     super(projectId, name, description, startDate, endDate, priority, type);
+
+    // }
+    
+    public Bug(String projectName, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+
+        super(projectName, name, description, startDate, endDate, priority, type);
 
     }
     

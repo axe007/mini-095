@@ -20,9 +20,14 @@ public class UserStory extends Activity {
         
     // }
  
-    public UserStory (ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority,String type) {
-        super(projectId, name, description, startDate, endDate, priority, type);
+    // public UserStory (ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority,String type) {
+    //     super(projectId, name, description, startDate, endDate, priority, type);
         
+    // }
+    public UserStory (String projectName, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+
+        super(projectName, name, description, startDate, endDate, priority, type);
+
     }
     // public String getAcceptanceCriteria() {
     //     return acceptanceCriteria;

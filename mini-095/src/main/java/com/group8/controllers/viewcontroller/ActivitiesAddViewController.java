@@ -86,6 +86,7 @@ import java.util.ResourceBundle;
 import com.group8.model.Session;
 
 import org.bson.types.ObjectId;
+import com.group8.controllers.ProjectController;
 
 import com.group8.controllers.ActivityController;
 import com.group8.helper.UIHelper;
@@ -94,6 +95,7 @@ import com.group8.model.Project;
 
 public class ActivitiesAddViewController implements Initializable{
     private static ActivityController activityController = new ActivityController();
+    private static ProjectController projectController = new ProjectController();
 
     @FXML
     private StackPane dialogPane;
@@ -201,7 +203,9 @@ public class ActivitiesAddViewController implements Initializable{
         } else {
             if (Session.getWindowMode().equals("new")) {
                 ObjectId openProjectId = Session.getOpenProjectId();
-                activityController.createActivity(openProjectId, name, description, startDate, endDate, priority, type);
+                String openProjectName = projectController.getProjectDetail(openProjectId, "projectName");
+
+                activityController.createActivity(openProjectName, name, description, startDate, endDate, priority, type);
             } else if (Session.getWindowMode().equals("edit")) {
                 // projectController.modifyProject(name, startDate, endDate, type);
                 // alertHeading = "Edit project details";

@@ -15,14 +15,17 @@ import org.bson.types.ObjectId;
 public class ActivityController {
     private static DatabaseController mongoDb = new DatabaseController();
 
-    public boolean createActivity(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+    public boolean createActivity(String projectName, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
         Activity newActivity;
 
         if (type.equals("task")) {
-            newActivity = new Task(projectId, name, description, startDate, endDate, priority, type);
+            // newActivity = new Task(projectId, name, description, startDate, endDate, priority, type);
+            newActivity = new Task(projectName, name, description, startDate, endDate, priority, type);
+
             // users.add(developer);
         } else {
-            newActivity = new Bug(projectId, name, description, startDate, endDate, priority, type);
+            newActivity = new Bug(projectName, name, description, startDate, endDate, priority, type);
+            // newActivity = new Bug(projectId, name, description, startDate, endDate, priority, type);
             // users.add(manager);
         }
 

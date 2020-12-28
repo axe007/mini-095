@@ -34,7 +34,7 @@
          <center>
               <TableView fx:id="tblActivities" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" styleClass="contentview-tableview" BorderPane.alignment="CENTER">
                   <columns>
-                      <TableColumn fx:id="tblClmProjectId" prefWidth="50.0" text="Project" />
+                      <TableColumn fx:id="tblClmProjectName" prefWidth="50.0" text="Project" />
                       <TableColumn fx:id="tblClmActivityId" prefWidth="50.0" text="Activity Id" />
                       <TableColumn fx:id="tblClmActivityName" prefWidth="75.0" text="Activity Name" />
                       <TableColumn fx:id="tblClmActivityDescription" prefWidth="75.0" text="Activity Description" />

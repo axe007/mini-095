@@ -16,14 +16,26 @@ public abstract class Activity {
     private String priority;
     private boolean completion; 
     private ObjectId id;
-    private ObjectId projectId; 
+    // private ObjectId projectId; 
     private String type; // "task", "bug", "user story"
 
     public Activity() {
 
     }
-    public Activity (ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
-        this.projectId = projectId;
+    // public Activity (ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+    //     this.projectId = projectId;
+    //     this.name = name; 
+    //     this.description = description;
+    //     this.startDate = startDate;
+    //     this.endDate = endDate;
+    //     this.developerTeam =new ArrayList<>();
+    //     this.priority = priority;
+    //     this.completion = false;
+    //     this.type = type; 
+    // }
+    private String projectName; 
+    public Activity (String projectName, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
+        this.projectName = projectName;
         this.name = name; 
         this.description = description;
         this.startDate = startDate;
@@ -42,11 +54,17 @@ public abstract class Activity {
     public void setActivityType(String type) {
         this.type = type; 
     }
-    public ObjectId getProjectId() {
-        return projectId; 
+    // public ObjectId getProjectId() {
+    //     return projectId; 
+    // }
+    // public void setProjectId(ObjectId projectId) {
+    //     this.projectId = projectId;
+    // }
+    public String getProjectName() {
+        return projectName; 
     }
-    public void setProjectId(ObjectId projectId) {
-        this.projectId = projectId;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName; 
     }
     public void setId(ObjectId id) {
         this.id = id;
