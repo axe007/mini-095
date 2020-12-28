@@ -45,7 +45,6 @@ public class ActivityController {
                 activities.add(activity);
             }
         }
-        System.out.println(activities);
         return activities;
     }
 

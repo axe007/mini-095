@@ -96,6 +96,28 @@
   	-fx-effect: dropshadow(three-pass-box, #df4646, 10, 0, 0, 2);
 }
 
+.project-info-header {
+	-fx-text-fill: #5179d6;
+  	-fx-font-size: 1.2em;
+  	-fx-font-weight: 800;
+}
+
+.project-info-header-label {
+	-fx-text-fill: #272e38;
+  	-fx-font-size: 1.2em;
+  	-fx-font-weight: 800;
+}
+
+.project-info-label, .project-info-text {
+	-fx-text-fill: #272e38;
+  	-fx-font-size: 1.0em;
+  	-fx-font-weight: 600;
+}
+
+.project-breadcrumb-icon {
+	-fx-fill: #272e38;
+}
+
 /* LoginView styling */
 
 .login-textfield:focused {
@@ -379,7 +401,7 @@
 /* Scrum Board styling */
 
 .scrum-name-title {
-	-fx-text-fill: #fff;
+	-fx-text-fill: #272e38;
 	-fx-font-size: 1.8em;
 	-fx-font-weight: 800;
 	-fx-padding: 15px 0 6px 20px;

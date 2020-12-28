@@ -40,6 +40,8 @@ public class UserViewController implements Initializable {
     @FXML
     private StackPane userView;
     @FXML
+    private GridPane projectBreadcrumb;
+    @FXML
     private TableView<User> tblUsers = new TableView<User>();
     @FXML
     private TableColumn<User, ObjectId> tblClmUserId;
@@ -64,8 +66,6 @@ public class UserViewController implements Initializable {
     private Button userDeleteButton;
     @FXML
     private TextField activitySearch;
-    @FXML
-    private TextArea dbFeedback;
 
     @FXML
     private void handleUserButtons(ActionEvent event) throws IOException {
@@ -116,6 +116,8 @@ public class UserViewController implements Initializable {
         tblClmUserEmailAddress.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
 
         tblUsers.setItems(viewUsers);
+
+        uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
     }
 
     @Override

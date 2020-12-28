@@ -139,7 +139,6 @@ public class ProjectAddViewController implements Initializable {
 
                         };
                     }
-
                 };
 
                 startDate.setDayCellFactory(callB);

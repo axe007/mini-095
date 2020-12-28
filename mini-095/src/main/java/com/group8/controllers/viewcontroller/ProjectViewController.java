@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.bson.types.ObjectId;
 
@@ -21,6 +22,7 @@ import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -44,6 +46,12 @@ public class ProjectViewController implements Initializable {
     private Button projectArchiveButton;
     @FXML
     private TextField projectSearch;
+    @FXML
+    private GridPane projectBreadcrumb;
+    @FXML
+    private Label openProjectStartDate;
+    @FXML
+    private Label openProjectEndDate;
     @FXML
     private TableView<Project> tblProjects;
     @FXML
@@ -86,7 +94,7 @@ public class ProjectViewController implements Initializable {
                 boolean success = proController.openProject(project.getId());
                 if (success) {
                     uiHelper.alertDialogGenerator(projectView, "success", "Open project", "Successfully opened project:\n" + project.getName());
-                    System.out.println(Session.getOpenProjectId());
+                    uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
                 }
             }
 
@@ -103,6 +111,9 @@ public class ProjectViewController implements Initializable {
         try {
             // TODO
             loadProjectData();
+
+            uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

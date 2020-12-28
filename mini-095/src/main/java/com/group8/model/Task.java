@@ -15,7 +15,6 @@ public class Task extends Activity {
     private Double estimatedHours;
     private ActivityStatus activityStatus;
 
-
     public Task() {}
 
     public Task(ObjectId parentId, String name, String description, LocalDate startDate, LocalDate endDate, Double estimatedHours, double priority) {

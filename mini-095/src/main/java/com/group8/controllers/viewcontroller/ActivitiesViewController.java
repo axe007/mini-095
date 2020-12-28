@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.bson.types.ObjectId;
 
@@ -54,6 +55,8 @@ public class ActivitiesViewController implements Initializable {
     private Button activitiesRefresh;
     @FXML
     private TextField activitiesSearch;
+    @FXML
+    private GridPane projectBreadcrumb;
     @FXML
     private TableColumn<Activity, ObjectId> tblClmActivityId;
     @FXML
@@ -100,6 +103,7 @@ public class ActivitiesViewController implements Initializable {
         try {
             // TODO
             loadActivitiesData();
+            uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
         } catch (Exception e) {
             e.printStackTrace();
         }
