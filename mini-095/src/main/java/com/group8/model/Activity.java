@@ -1,6 +1,6 @@
 package com.group8.model;
 
-import com.group8.model.User;
+// import com.group8.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

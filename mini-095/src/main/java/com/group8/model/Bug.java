@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import org.bson.types.ObjectId;
 
 public class Bug extends Activity {
+    public Bug() {
+        super();
+    }
 
     public Bug(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
 

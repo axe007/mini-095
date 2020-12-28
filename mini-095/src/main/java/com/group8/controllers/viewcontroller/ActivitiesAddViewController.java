@@ -127,8 +127,8 @@ public class ActivitiesAddViewController implements Initializable{
     private RadioButton task;
     @FXML
     private RadioButton bug;
-    @FXML
-    private RadioButton userStory;
+    // @FXML
+    // private RadioButton userStory;
     @FXML
     private RadioButton one;
     @FXML

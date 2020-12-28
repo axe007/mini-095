@@ -4,10 +4,11 @@ import com.group8.model.Developer;
 import com.group8.model.Manager;
 import com.group8.model.Project;
 import com.group8.model.User;
+import com.group8.model.UserStory;
 import com.group8.model.Activity;
 import com.group8.model.Bug;
 import com.group8.model.Task;
-import com.group8.model.UserStory;
+// import com.group8.model.UserStory;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -108,6 +109,8 @@ public class DatabaseController {
             ClassModel<Task> taskModel = ClassModel.builder(Task.class).enableDiscriminator(true).build();
             ClassModel<Bug> bugModel = ClassModel.builder(Bug.class).enableDiscriminator(true).build();
             ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true).build();
+
+            // pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(activityModel, taskModel, bugModel).build();
 
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(activityModel, taskModel, bugModel,userStoryModel).build();
         }

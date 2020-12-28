@@ -154,6 +154,7 @@ public class ActivitiesViewController implements Initializable {
         tblClmActivityEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         tblClmActivityType.setCellValueFactory(new PropertyValueFactory<>("type"));
         tblClmActivityPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        
         // tblClmProjectStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         tblActivities.setItems(viewActivities);

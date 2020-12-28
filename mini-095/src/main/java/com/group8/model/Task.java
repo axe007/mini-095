@@ -6,6 +6,10 @@ import java.time.LocalDate;
 import org.bson.types.ObjectId;
 
 public class Task extends Activity{
+    public Task() {
+        super();
+    }
+
     public Task(ObjectId projectId, String name, String description, LocalDate startDate, LocalDate endDate, String priority, String type) {
 
         super(projectId, name, description, startDate, endDate, priority, type);
