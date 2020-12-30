@@ -2,7 +2,10 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.group8.model.*;
 import com.group8.model.Activity;
@@ -19,24 +22,24 @@ public class ActivityController {
     private static DatabaseController mongoDb = new DatabaseController();
     private ProjectController projectController = new ProjectController();
 
-    public void createActivity(ObjectId parentId, String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
+    public void createActivity(ObjectId grandId, ObjectId parentId, String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
         Activity newActivity;
 
         if (activityType.equals("User story")) {
             newActivity = new UserStory(name, description, startDate, endDate, storyPoints, priority);
         } else if (activityType.equals("Task")) {
-            newActivity = new Task(parentId, name, description, startDate, endDate, estimatedHours, priority);
+            newActivity = new Task(grandId, parentId, name, description, startDate, endDate, estimatedHours, priority);
         } else {
-            newActivity = new Bug(parentId, name, description, startDate, endDate, estimatedHours, priority);
+            newActivity = new Bug(grandId, parentId, name, description, startDate, endDate, estimatedHours, priority);
         }
 
         mongoDb.getActivityCollection().insertOne(newActivity);
     }
 
-    public List<Activity> getActivitiesList() {
+    public ArrayList<Activity> getActivitiesList() {
         ObjectId openProject = Session.getOpenProjectId();
         List<ObjectId> projectActivities = projectController.getProjectList(openProject, "activities");
-        List<Activity> activities = new ArrayList<>();
+        ArrayList<Activity> activities = new ArrayList<>();
         MongoCollection activitiesCollection = mongoDb.getActivityCollection().withCodecRegistry(mongoDb.createCodecRegistry("Activities"));
 
         for (ObjectId objectId : projectActivities) {
@@ -47,6 +50,8 @@ public class ActivityController {
         }
         return activities;
     }
+
+
 
     public void updateActivitiesList(String activityName) {
         ObjectId activityId = getActivityId("name", activityName);
@@ -70,6 +75,69 @@ public class ActivityController {
         Activity activity = mongoDb.getActivityCollection().withCodecRegistry(mongoDb.createCodecRegistry("Activities")).find(eq(findField, findValue)).first();
         ObjectId activityId = activity.getId();
         return activityId;
+    }
+
+    public ArrayList<ActivityTreeViewItem> generateTreeViewList() {
+        ArrayList<ActivityTreeViewItem> activityTreeViewItems = new ArrayList<>();
+        ArrayList<Activity> activitiesList = getActivitiesList();
+        ArrayList<Activity> topLevelList = new ArrayList<>();
+        ArrayList<Activity> midLevelList = new ArrayList<>();
+        ArrayList<Activity> bottomLevelList = new ArrayList<>();
+
+        int tid = 0;
+        int mid = 0;
+        int bid = 0;
+        for (Activity activity : activitiesList) {
+            if (activity instanceof UserStory) {
+                tid++;
+                ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tid, mid, bid, activity.getId());
+                activityTreeViewItems.add(treeItem);
+                topLevelList.add(activity);
+            } else if (activity instanceof Task && ((Task) activity).getParentId() == null) {
+                tid++;
+                ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tid, mid, bid, activity.getId());
+                activityTreeViewItems.add(treeItem);
+                topLevelList.add(activity);
+            } else if (activity instanceof Bug && ((Bug) activity).getParentId() == null) {
+                tid++;
+                ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tid, mid, bid, activity.getId());
+                activityTreeViewItems.add(treeItem);
+                topLevelList.add(activity);
+            } else {
+                midLevelList.add(activity);
+            }
+        }
+
+
+        for (Activity activity1 : topLevelList) {
+            ObjectId parentId = activity1.getId();
+
+            for (Activity activity2 : midLevelList) {
+                ObjectId parentIdToCheck;
+                if (activity2 instanceof Task) {
+                    parentIdToCheck = ((Task)activity2).getParentId();
+                } else {
+                    parentIdToCheck = ((Bug)activity2).getParentId();
+                }
+                if (parentId.equals(parentIdToCheck))  {
+                    int tidParent = 0;
+                    for (ActivityTreeViewItem treeItem : activityTreeViewItems) {
+                        if (parentId.equals(treeItem.getActivityId())) {
+                            tidParent = treeItem.getTid();
+                        }
+                    }
+                    mid++;
+                    ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tidParent, mid, bid, activity2.getId());
+                    activityTreeViewItems.add(treeItem);
+                } else {
+                    bottomLevelList.add(activity2);
+                }
+            }
+        }
+
+        System.out.println(activityTreeViewItems);
+
+        return activityTreeViewItems;
     }
 
 

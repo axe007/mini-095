@@ -25,10 +25,8 @@ public class UserController {
 
         if (userRole.equals("Developer")) {
             newUser = new Developer(username, password, fullname, emailAddress, userRole);
-            // users.add(developer);
         } else {
             newUser = new Manager(username, password, fullname, emailAddress, userRole);
-            // users.add(manager);
         }
 
         mongoDb.getUserCollection().insertOne(newUser);

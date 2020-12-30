@@ -61,7 +61,6 @@ public class UIHelper {
     }
 
     public Optional<ButtonType> alertDialogGenerator(StackPane root, String alertType, String title, String content) {
-
         Alert alert = null;
         DialogPane dialogPane = null;
         
@@ -116,33 +115,25 @@ public class UIHelper {
     }
 
     public void loadProjectBreadcrumbs(GridPane projectBreadcrumb) {
+        ObjectId projectId = Session.getOpenProjectId();
+        ProjectController projectController = new ProjectController();
+
         Label openProjectLabel = new Label();
         Label projectStartDateLabel = new Label();
         Label projectEndDateLabel = new Label();
-
         Label openProjectName = new Label();
         Label projectStartDate = new Label();
         Label projectEndDate = new Label();
 
         openProjectLabel.getStyleClass().add("project-info-header-label");
-        openProjectLabel.setPadding(new Insets(0, 0, 0, 10));
-        openProjectLabel.setText("Current project");
-
         projectStartDateLabel.getStyleClass().add("project-info-label");
-        projectStartDateLabel.setPadding(new Insets(0, 0, 0, 10));
-        projectStartDateLabel.setText("Start date");
-
         projectEndDateLabel.getStyleClass().add("project-info-label");
-        projectEndDateLabel.setPadding(new Insets(0, 0, 0, 10));
-        projectEndDateLabel.setText("End date");
-
-        openProjectName.setPadding(new Insets(0, 15, 0, 0));
         openProjectName.getStyleClass().add("project-info-header");
-
-        projectStartDate.setPadding(new Insets(0, 15, 0, 0));
         projectStartDate.getStyleClass().add("project-info-text");
-        projectEndDate.setPadding(new Insets(0, 15, 0, 0));
         projectEndDate.getStyleClass().add("project-info-text");
+        openProjectLabel.setText("Current project");
+        projectStartDateLabel.setText("Start date");
+        projectEndDateLabel.setText("End date");
 
         FontAwesomeIconView icon1 = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_LEFT, "18");
         icon1.getStyleClass().add("project-breadcrumb-icon");
@@ -150,9 +141,6 @@ public class UIHelper {
         icon2.getStyleClass().add("project-breadcrumb-icon");
         FontAwesomeIconView icon3 = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_LEFT, "18");
         icon3.getStyleClass().add("project-breadcrumb-icon");
-
-        ObjectId projectId = Session.getOpenProjectId();
-        ProjectController projectController = new ProjectController();
 
         projectBreadcrumb.getChildren().clear();
 
@@ -163,6 +151,8 @@ public class UIHelper {
             String projectName = projectController.getProjectDetail(projectId, "projectName");
             LocalDate startDate = projectController.getProjectDate(projectId, "startDate");
             LocalDate endDate = projectController.getProjectDate(projectId, "endDate");
+            Session.setProjectStartDate(startDate);
+            Session.setProjectEndDate(endDate);
             String startDateText = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
             String endDateText = endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
             projectStartDate.setText(startDateText);
@@ -172,15 +162,22 @@ public class UIHelper {
             projectBreadcrumb.add(icon2, 1, 1);
             projectBreadcrumb.add(icon3, 1, 2);
 
-            projectBreadcrumb.add(projectStartDateLabel, 2, 1);
             projectBreadcrumb.add(projectStartDate, 0, 1);
             projectBreadcrumb.add(projectEndDate, 0, 2);
+            projectBreadcrumb.add(projectStartDateLabel, 2, 1);
             projectBreadcrumb.add(projectEndDateLabel, 2, 2);
-
         }
         projectBreadcrumb.add(openProjectName, 0, 0);
         projectBreadcrumb.add(icon1, 1, 0);
         projectBreadcrumb.add(openProjectLabel, 2, 0);
 
+    }
+
+    public boolean uiValidator(String fieldName) {
+        boolean result = false;
+
+
+
+        return result;
     }
 }

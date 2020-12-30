@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 @BsonDiscriminator
-public abstract class Activity {
+public abstract class Activity implements Comparable<Activity> {
 
     private ObjectId id;
     private String name;
@@ -97,5 +97,10 @@ public abstract class Activity {
 
     public String getClassName() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public int compareTo(Activity o) {
+        return getStartDate().compareTo(o.getStartDate());
     }
 }

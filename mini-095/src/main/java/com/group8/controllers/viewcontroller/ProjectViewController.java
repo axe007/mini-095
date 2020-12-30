@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.bson.types.ObjectId;
@@ -87,16 +89,7 @@ public class ProjectViewController implements Initializable {
 
         } else if (event.getSource() == projectOpenButton) {
             // Open project window
-            Project project = tblProjects.getSelectionModel().getSelectedItem();
-            if (project == null) {
-                uiHelper.alertDialogGenerator(projectView,"error", "Open project", "No project exist or no project selected.\nPlease select a project and try again.");
-            } else {
-                boolean success = proController.openProject(project.getId());
-                if (success) {
-                    uiHelper.alertDialogGenerator(projectView, "success", "Open project", "Successfully opened project:\n" + project.getName());
-                    uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
-                }
-            }
+            openProject();
 
         } else if (event.getSource() == projectListButton) {
             // List all projects window
@@ -133,6 +126,14 @@ public class ProjectViewController implements Initializable {
         tblClmProjectStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         tblProjects.setItems(viewProjects);
+
+        tblProjects.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2) {
+                    openProject();
+                }
+            }
+        });
     }
 
     @FXML
@@ -147,11 +148,16 @@ public class ProjectViewController implements Initializable {
         loadProjectData();
     }
 
-    /*private void updateListView() {
-        employeeListView.getItems().clear();
-        for (UserWithoutPm user : UserWoPmController.userList) {
-            employeeListView.getItems().add(user);
+    private void openProject() {
+        Project project = tblProjects.getSelectionModel().getSelectedItem();
+        if (project == null) {
+            uiHelper.alertDialogGenerator(projectView,"error", "Open project", "No project exist or no project selected.\nPlease select a project and try again.");
+        } else {
+            boolean success = proController.openProject(project.getId());
+            if (success) {
+                uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+                uiHelper.alertDialogGenerator(projectView, "success", "Open project", "Successfully opened project:\n" + project.getName());
+            }
         }
-    }*/
-
+    }
 }

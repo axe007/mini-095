@@ -7,6 +7,7 @@ import com.group8.model.Project;
 import com.group8.model.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,15 +26,14 @@ import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ActivitiesViewController implements Initializable {
 
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
-    private List<Project> activitiesList = new ArrayList<>();
+    protected static List<Activity> activitiesList = new ArrayList<>();
 
     @FXML
     private StackPane activitiesView;
@@ -92,6 +92,7 @@ public class ActivitiesViewController implements Initializable {
 
         } else if (event.getSource() == activityListButton) {
             // List all projects window
+            activityController.generateTreeViewList();
 
         } else if (event.getSource() == activityArchiveButton) {
             // Archive project window
@@ -111,11 +112,32 @@ public class ActivitiesViewController implements Initializable {
 
     private void loadActivitiesData() {
 
-        //getting the full list of books from file
-        List<Activity> activityList = activityController.getActivitiesList();
-        ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections.observableArrayList(activityList);
+        Task<List<Activity>> loadDataTask = new Task<List<Activity>>() {
+            @Override
+            protected List<Activity> call() throws Exception {
+                activitiesList = activityController.getActivitiesList();
+                // load data and populate list ...
 
-        String activityType;
+                Collections.sort(activitiesList, new Comparator<Activity>() {
+                    public int compare(Activity o1, Activity o2) {
+                        return o1.getStartDate().compareTo(o2.getStartDate());
+                    }
+                });
+
+                return activitiesList;
+            }
+        };
+
+        loadDataTask.setOnSucceeded(e -> tblActivities.getItems().setAll(loadDataTask.getValue()));
+        loadDataTask.setOnFailed(e -> { /* handle errors... */ });
+
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        tblActivities.setPlaceholder(progressIndicator);
+
+        Thread loadDataThread = new Thread(loadDataTask);
+        loadDataThread.start();
+
+        ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections.observableArrayList(activitiesList);
 
         tblClmActivityId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tblClmActivityName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -127,6 +149,7 @@ public class ActivitiesViewController implements Initializable {
         tblClmActivityStatus.setCellValueFactory(new PropertyValueFactory<>("activityStatus"));
 
         tblActivities.setItems(viewActivities);
+
     }
 
     @FXML
@@ -139,9 +162,7 @@ public class ActivitiesViewController implements Initializable {
 
     @FXML
     private void btnRefreshOnAction(ActionEvent event) {
-        /*
-         * tblActivities.getItems().clear(); activitiesSearch.clear();
-         */
+        loadActivitiesData();
     }
 
     private boolean checkOpenProject(String requestedViewTitle) {
@@ -153,5 +174,9 @@ public class ActivitiesViewController implements Initializable {
             isProjectOpen = true;
         }
         return isProjectOpen;
+    }
+
+    protected List<Activity> getActivitiesList() {
+        return activitiesList;
     }
 }

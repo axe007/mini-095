@@ -2,11 +2,15 @@ package com.group8.model;
 
 import org.bson.types.ObjectId;
 
+import java.time.LocalDate;
+
 public class Session {
 
     private static Session instance;
     private static ObjectId sessionUserId;
     private static ObjectId openProjectId;
+    private static LocalDate projectStartDate;
+    private static LocalDate projectEndDate;
     private static String windowMode;
     private static Object openItem;
 
@@ -26,10 +30,12 @@ public class Session {
     public static ObjectId getSessionUserId() {
         return sessionUserId;
     }
-
     public static ObjectId getOpenProjectId() {
         return openProjectId;
     }
+    public static LocalDate getProjectStartDate() { return projectStartDate; }
+    public static LocalDate getProjectEndDate() { return projectEndDate; }
+
     public static String getWindowMode() {
         return windowMode;
     }
@@ -43,6 +49,9 @@ public class Session {
     public static void setOpenProjectId(ObjectId projectName) {
         openProjectId = projectName;
     }
+    public static void setProjectStartDate(LocalDate projectStartDate) { Session.projectStartDate = projectStartDate; }
+    public static void setProjectEndDate(LocalDate projectEndDate) { Session.projectEndDate = projectEndDate; }
+
     public static void setWindowMode(String windowModeSet) {
         windowMode = windowModeSet;
     }
