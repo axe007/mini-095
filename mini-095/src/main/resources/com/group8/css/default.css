@@ -432,3 +432,15 @@
 .scrum-activity-item {
 	-fx-margin: 2px 0 2px 0;
 }
+
+.gantt-chart-cell {
+	-fx-background-color: #00ff;
+}
+
+.gantt-chart-cell-empty {
+	-fx-background-color: #fff;
+}
+
+.gantt-chart-cell-holiday {
+	-fx-background-color: #ff0000;
+}
