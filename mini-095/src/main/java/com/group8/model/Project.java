@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
-<<<<<<< HEAD
-=======
 import com.group8.model.Activity;
->>>>>>> 4ffe827436dfda2b1f95a922098f026c1dea194d
 import org.bson.types.ObjectId;
 
 public class Project {

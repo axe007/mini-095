@@ -62,8 +62,6 @@ public class UserController {
         return users;
     }
 
-<<<<<<< HEAD
-=======
     // public String getUserDetail(String findField, String findValue, String
     // returnField) {
     // String returnValue = null;
@@ -96,7 +94,6 @@ public class UserController {
     // return returnValue;
     // }
 
->>>>>>> 4ffe827436dfda2b1f95a922098f026c1dea194d
     public ArrayList<String> getUserDetailList(String userAttribute) {
         ArrayList<String> userDetailList = new ArrayList<>();
         List<User> users = getUserList();

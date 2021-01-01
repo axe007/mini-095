@@ -19,7 +19,6 @@ public class ProjectController {
     private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
 
-
     public void createProject(String name, LocalDate startDate, LocalDate endDate, String type) {
         Project newProject = new Project(name, startDate, endDate, type);
         mongoDb.getProjectCollection().insertOne(newProject);
@@ -67,22 +66,17 @@ public class ProjectController {
     }
 
     public void modifyProject(String name, LocalDate startDate, LocalDate endDate, String type) {
-        Project project = (Project)Session.getOpenItem();
+        Project project = (Project) Session.getOpenItem();
         ObjectId id = project.getId();
 
-        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("startDate", startDate), set("endDate", endDate), set("type", type), set("status", "Open")));
+        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("startDate", startDate),
+                set("endDate", endDate), set("type", type), set("status", "Open")));
         System.out.println("Project details updated!");
     }
 
-<<<<<<< HEAD
-    public List<ObjectId> getProjectUsers(ObjectId projectId) {
+    public List<ObjectId> getProjectList(ObjectId projectId, String listType) {
         Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
                 .find(eq("_id", projectId)).first();
-        List<ObjectId> projectUsers = project.getDeveloperTeam();
-        return projectUsers;
-=======
-    public List<ObjectId> getProjectList(ObjectId projectId, String listType) {
-        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects")).find(eq("_id", projectId)).first();
         List<ObjectId> projectList;
         if (listType.equals("users")) {
             projectList = project.getDeveloperTeam();
@@ -92,7 +86,6 @@ public class ProjectController {
             projectList = project.getSprints();
         }
         return projectList;
->>>>>>> 4ffe827436dfda2b1f95a922098f026c1dea194d
     }
 
     public ArrayList<String> getProjectUsernameList(ObjectId projectId) {
@@ -119,17 +112,15 @@ public class ProjectController {
         mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("developerTeam", developerTeam));
     }
 
-<<<<<<< HEAD
-=======
     public void updateActivityList(List<ObjectId> activityId) {
         ObjectId projectId = Session.getOpenProjectId();
-        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects")).find(eq("_id", projectId)).first();
+        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
+                .find(eq("_id", projectId)).first();
         List<ObjectId> projectActivities = project.getActivities();
 
         for (ObjectId activity : activityId) {
             projectActivities.add(activity);
         }
         mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("activities", projectActivities));
->>>>>>> 4ffe827436dfda2b1f95a922098f026c1dea194d
     }
 }

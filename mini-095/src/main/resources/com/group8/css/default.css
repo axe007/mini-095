@@ -104,29 +104,29 @@
 
 .project-info-header {
 	-fx-text-fill: #5179d6;
-  	-fx-font-size: 1.2em;
-  	-fx-font-weight: 800;
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 800;
 	-fx-padding: 0 15 0 0;
 }
 
 .project-info-header-label {
 	-fx-text-fill: #272e38;
-  	-fx-font-size: 1.2em;
-  	-fx-font-weight: 800;
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 800;
 	-fx-padding: 0 0 0 10;
 }
 
 .project-info-label {
 	-fx-text-fill: #272e38;
-  	-fx-font-size: 1.0em;
-  	-fx-font-weight: 600;
+	-fx-font-size: 1.0em;
+	-fx-font-weight: 600;
 	-fx-padding: 0 0 0 10;
 }
 
 .project-info-text {
 	-fx-text-fill: #272e38;
-  	-fx-font-size: 1.0em;
-  	-fx-font-weight: 600;
+	-fx-font-size: 1.0em;
+	-fx-font-weight: 600;
 	-fx-padding: 0 15 0 0;
 }
 
@@ -136,14 +136,15 @@
 
 /* LoginView styling */
 
-.login-textfield:focused, .textfield-error-highlight {
+.login-textfield:focused,
+.textfield-error-highlight {
 	-fx-focus-color: #5179d6;
 	-fx-faint-focus-color: #5179d622;
 }
 
 .textfield-error-highlight:focused {
-	-fx-text-box-border: #B22222; 
-	-fx-focus-color: #B22222; 
+	-fx-text-box-border: #B22222;
+	-fx-focus-color: #B22222;
 	-fx-faint-focus-color: #B2222222
 }
 
@@ -268,36 +269,39 @@
 
 .combo-box-base:hover {
 	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+	-fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
 
 .combo-box-base:active {
 	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+	-fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
 
-.combo-box-base:focused, .textfield:focused, .text-area:focused, .slider:focused {
+.combo-box-base:focused,
+.textfield:focused,
+.text-area:focused,
+.slider:focused {
 	-fx-focus-color: #5179d6;
-    -fx-faint-focus-color: #5179d622;
+	-fx-faint-focus-color: #5179d622;
 }
 
 .combo-box-popup .cell:selected {
-    -fx-background-color: #c5d2f1;
+	-fx-background-color: #c5d2f1;
 }
 
 .combo-box-popup .list-view .list-cell:hover {
 	-fx-background-color: #8fa9e5;
 	-fx-text-fill: #fff;
- }
+}
 
 .slider .axis .axis-tick-mark {
-    -fx-fill: null;
-    -fx-stroke-width: 2;
-    -fx-stroke: linear-gradient(to left, red, yellow, green);
+	-fx-fill: null;
+	-fx-stroke-width: 2;
+	-fx-stroke: linear-gradient(to left, red, yellow, green);
 }
 
 .slider .track {
-    -fx-control-inner-background: #fff;
+	-fx-control-inner-background: #fff;
 }
 
 /* Sidebar styling */
@@ -497,7 +501,6 @@
 	-fx-margin: 2px 0 2px 0;
 }
 
-<<<<<<< HEAD
 .gantt-chart-cell {
 	-fx-background-color: #00ff;
 }
@@ -508,22 +511,20 @@
 
 .gantt-chart-cell-holiday {
 	-fx-background-color: #ff0000;
-=======
-/* ActivityView styles */
+	/* ActivityView styles */
 
-.activity-list .combo-box-popup .list-cell:section-header {
-    -fx-padding: 4 0 4 5;
-}
+	.activity-list .combo-box-popup .list-cell:section-header {
+		-fx-padding: 4 0 4 5;
+	}
 
-.activity-list-top .combo-box-popup .list-cell {
-    -fx-padding: 4 0 4 10;
-}
+	.activity-list-top .combo-box-popup .list-cell {
+		-fx-padding: 4 0 4 10;
+	}
 
-.activity-list-middle .combo-box-popup .list-cell {
-    -fx-padding: 4 0 4 15;
-}
+	.activity-list-middle .combo-box-popup .list-cell {
+		-fx-padding: 4 0 4 15;
+	}
 
-.activity-list-bottom .combo-box-popup .list-cell {
-    -fx-padding: 4 0 4 20;
->>>>>>> 4ffe827436dfda2b1f95a922098f026c1dea194d
-}
+	.activity-list-bottom .combo-box-popup .list-cell {
+		-fx-padding: 4 0 4 20;
+	}
