@@ -5,6 +5,7 @@ import com.group8.helper.UIHelper;
 import com.group8.model.Activity;
 import com.group8.model.Project;
 import com.group8.model.Session;
+import com.group8.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -44,7 +45,7 @@ public class ActivitiesViewController implements Initializable {
     @FXML
     private Button activityNewButton;
     @FXML
-    private Button activityOpenButton;
+    private Button activityEditButton;
     @FXML
     private Button activityAssignButton;
     @FXML
@@ -84,15 +85,31 @@ public class ActivitiesViewController implements Initializable {
                 Session.setWindowMode("new");
                 uiHelper.loadWindow("ActivityAddView", activityNewButton, "Create new activity");
             }
-        } else if (event.getSource() == activityOpenButton) {
-            // Open project window
+        } else if (event.getSource() == activityEditButton) {
+            // Edit activity details
+            Activity activity = (Activity) tblActivities.getSelectionModel().getSelectedItem();
+            Session.setSetOpenItem(activity);
+            if (activity == null) {
+                uiHelper.alertDialogGenerator(activitiesView, "error", "Edit activity",
+                        "No activity was selected.\nPlease select an activity and try again.");
+            } else {
+                Session.setWindowMode("edit");
+                uiHelper.loadWindow("ActivityAddView", activityEditButton, "Edit activity details");
+            }
 
         } else if (event.getSource() == activityAssignButton) {
-            // List all projects window
+            // Edit activity details
+            Activity activity = (Activity) tblActivities.getSelectionModel().getSelectedItem();
+            if (activity == null) {
+                uiHelper.alertDialogGenerator(activitiesView, "error", "Assign activity",
+                        "No activity was selected.\nPlease select an activity and try again.");
+            } else {
+                Session.setSetOpenItem(activity);
+                uiHelper.loadWindow("ActivityAssignView", activityEditButton, "Edit activity details");
+            }
 
         } else if (event.getSource() == activityListButton) {
             // List all projects window
-            activityController.generateTreeViewList();
 
         } else if (event.getSource() == activityArchiveButton) {
             // Archive project window
@@ -116,7 +133,6 @@ public class ActivitiesViewController implements Initializable {
             @Override
             protected List<Activity> call() throws Exception {
                 activitiesList = activityController.getActivitiesList();
-                // load data and populate list ...
 
                 Collections.sort(activitiesList, new Comparator<Activity>() {
                     public int compare(Activity o1, Activity o2) {

@@ -1,15 +1,19 @@
 package com.group8.controllers.viewcontroller;
 
+import com.group8.controllers.ActivityController;
 import com.group8.controllers.ProjectController;
 import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
+import com.group8.model.Activity;
 import com.group8.model.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -21,18 +25,20 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class UserAssignViewController implements Initializable {
+public class ActivityAssignViewController implements Initializable {
 
     private static UserController userController = new UserController();
     private static ProjectController projectController = new ProjectController();
-    private static UIHelper uiHelper = new UIHelper();
+    private static ActivityController activityController = new ActivityController();
 
     // Users
-    private ObservableList<String> allUsers = FXCollections.observableArrayList();
     private ObservableList<String> projectUsers = FXCollections.observableArrayList();
+    private ObservableList<String> activityUsers = FXCollections.observableArrayList();
 
     @FXML
     private StackPane dialogPane;
@@ -43,11 +49,11 @@ public class UserAssignViewController implements Initializable {
     @FXML
     private Button cancelButton;
     @FXML
-    private Text projectName;
+    private Text activityName;
     @FXML
-    private Text projectStartDate;
+    private Text activityStartDate;
     @FXML
-    private Text projectEndDate;
+    private Text activityEndDate;
     @FXML
     private ListView unassignedListView;
     @FXML
@@ -56,15 +62,17 @@ public class UserAssignViewController implements Initializable {
 
     @FXML
     private void handleSaveBtn(ActionEvent event) throws IOException {
+
         List<String> unassignedUsers = unassignedListView.getItems();
         List<String> assignedUsers = assignedListView.getItems();
-        projectController.updateDeveloperTeam(assignedUsers);
+        activityController.updateActivityAssignee(assignedUsers);
 
-        String alertHeading = "Assigning users";
-        String alertContent = "Current project users have been \nsuccessfully updated.";
-
+        String alertHeading = "Assigning activities";
+        String alertContent = "Current activity is assigned to \nselected users.";
+        UIHelper uiHelper = new UIHelper();
         Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
+
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
@@ -83,8 +91,8 @@ public class UserAssignViewController implements Initializable {
 
         if (user != null) {
             unassignedListView.getSelectionModel().clearSelection();
-            allUsers.remove(user);
-            projectUsers.add(user);
+            projectUsers.remove(user);
+            activityUsers.add(user);
         }
     }
 
@@ -94,32 +102,29 @@ public class UserAssignViewController implements Initializable {
 
         if (user != null) {
             assignedListView.getSelectionModel().clearSelection();
-            projectUsers.remove(user);
-            allUsers.add(user);
+            activityUsers.remove(user);
+            projectUsers.add(user);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObjectId openProjectId = Session.getOpenProjectId();
-        String openProjectName = projectController.getProjectDetail(openProjectId, "projectName");
-        LocalDate startDate = projectController.getProjectDate(openProjectId, "startDate");
-        LocalDate endDate = projectController.getProjectDate(openProjectId, "endDate");
+        Activity activity = (Activity) Session.getOpenItem();
+        String activityName = activity.getName();
+        LocalDate startDate = activity.getStartDate();
+        LocalDate endDate = activity.getEndDate();
 
-        String projectStartDate = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
-        String projectEndDate = endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+        String activityStartDate = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+        String activityEndDate = endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
 
-        this.projectName.setText(openProjectName);
-        this.projectStartDate.setText(projectStartDate);
-        this.projectEndDate.setText(projectEndDate);
-
-        //final ListView<String> unassignedList = new ListView<>(allUsers);
-        //final ListView<String> assignedList = new ListView<>(projectUsers);
+        this.activityName.setText(activityName);
+        this.activityStartDate.setText(activityStartDate);
+        this.activityEndDate.setText(activityEndDate);
 
         setListViews();
 
-        unassignedListView.setItems(allUsers);
-        assignedListView.setItems(projectUsers);
+        unassignedListView.setItems(projectUsers);
+        assignedListView.setItems(activityUsers);
 
         if (assignedListView.getItems() == null) {
             assignedListView.setPlaceholder(new Text("No user selected yet"));
@@ -127,14 +132,25 @@ public class UserAssignViewController implements Initializable {
     }
 
     private void setListViews() {
-        ArrayList<String> allUsernames = userController.getUserDetailList("username");
+        ObjectId projectId = Session.getOpenProjectId();
+        ArrayList<String> allProjectUsers = projectController.getProjectUsernameList(projectId);
+        System.out.println("All project users: " + allProjectUsers);
 
-        ObjectId openProjectId = Session.getOpenProjectId();
-        ArrayList<String> projectUsernames = projectController.getProjectUsernameList(openProjectId);
-        projectUsers.addAll(projectUsernames);
-        if (projectUsernames != null) {
-            allUsernames.removeAll(projectUsernames);
+        Activity activity = (Activity) Session.getOpenItem();
+        ArrayList<String> activityUsernames = new ArrayList<>();
+        ArrayList<ObjectId> activityUserIds = activity.getAssigneeList();
+
+        if (activityUserIds != null) {
+            for (ObjectId userId : activityUserIds) {
+                String username = userController.getUserDetail(userId, "username");
+                activityUsernames.add(username);
+            }
         }
-        allUsers.addAll(allUsernames);
+
+        activityUsers.addAll(activityUsernames);
+        if (activityUsernames != null) {
+            allProjectUsers.removeAll(activityUsernames);
+        }
+        projectUsers.addAll(allProjectUsers);
     }
 }

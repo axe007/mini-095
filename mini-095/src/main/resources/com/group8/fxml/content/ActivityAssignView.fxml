@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="dialogPane" prefHeight="420.0" prefWidth="540.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.UserAssignViewController">
+<StackPane fx:id="dialogPane" prefHeight="420.0" prefWidth="540.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ActivityAssignViewController">
     <children>
         <AnchorPane id="anchorPane" fx:id="mainContainer" prefHeight="376.0" prefWidth="490.0" StackPane.alignment="CENTER">
             <children>
                 <VBox fx:id="vboxPane" maxWidth="-Infinity" prefHeight="153.0" prefWidth="240.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" focusTraversable="false" prefWidth="420" styleClass="h2" text="Assign users to working project">
+                        <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" focusTraversable="false" styleClass="h2" text="Assign activity to users">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></Label>
@@ -29,12 +29,12 @@
                                   <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                               </rowConstraints>
                               <children>
-                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Project name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
-                                  <Text fx:id="projectName" text="projectName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Project start date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                                  <Text fx:id="projectStartDate" text="startDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Project end date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                                  <Text fx:id="projectEndDate" text="endDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                                  <Text fx:id="activityName" text="activityName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Start date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                  <Text fx:id="activityStartDate" text="startDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="End date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                  <Text fx:id="activityEndDate" text="endDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               </children>
                           </GridPane>
                       </top>
@@ -70,12 +70,12 @@
                                     <Insets left="10.0" />
                                  </GridPane.margin></Text>
                               <ListView fx:id="unassignedListView" focusTraversable="false" prefHeight="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" VBox.vgrow="ALWAYS" />
-                              <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" alignment="CENTER">
+                              <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <GridPane.margin>
                                     <Insets bottom="4.0" left="6.0" right="6.0" top="4.0" />
                                  </GridPane.margin>
                                  <children>
-                                     <Button fx:id="btnUserAssign" onAction="#handleAssignButton" alignment="CENTER" focusTraversable="false" styleClass="user-assign-action-button" GridPane.valignment="CENTER">
+                                     <Button fx:id="btnUserAssign" alignment="CENTER" focusTraversable="false" onAction="#handleAssignButton" styleClass="user-assign-action-button" GridPane.valignment="CENTER">
                                          <graphic>
                                              <FontAwesomeIconView glyphName="ANGLE_DOUBLE_RIGHT" size="20" />
                                          </graphic>
@@ -83,7 +83,7 @@
                                           <Insets bottom="8.0" />
                                        </VBox.margin>
                                      </Button>
-                                     <Button fx:id="btnUserUnassign" onAction="#handleUnassignButton" alignment="CENTER" focusTraversable="false" styleClass="user-assign-action-button" GridPane.valignment="CENTER">
+                                     <Button fx:id="btnUserUnassign" alignment="CENTER" focusTraversable="false" onAction="#handleUnassignButton" styleClass="user-assign-action-button" GridPane.valignment="CENTER">
                                          <graphic>
                                              <FontAwesomeIconView glyphName="ANGLE_DOUBLE_LEFT" size="20" />
                                          </graphic>

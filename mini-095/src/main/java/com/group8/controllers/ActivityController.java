@@ -16,6 +16,8 @@ import com.mongodb.client.MongoCursor;
 import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.set;
 
 public class ActivityController {
 
@@ -24,7 +26,6 @@ public class ActivityController {
 
     public void createActivity(ObjectId grandId, ObjectId parentId, String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
         Activity newActivity;
-
         if (activityType.equals("User story")) {
             newActivity = new UserStory(name, description, startDate, endDate, storyPoints, priority);
         } else if (activityType.equals("Task")) {
@@ -32,8 +33,26 @@ public class ActivityController {
         } else {
             newActivity = new Bug(grandId, parentId, name, description, startDate, endDate, estimatedHours, priority);
         }
-
         mongoDb.getActivityCollection().insertOne(newActivity);
+    }
+
+    public void modifyActivity(ObjectId grandId, ObjectId parentId, String activityType, String name, String description, LocalDate startDate, LocalDate endDate, double priority, Double storyPoints, Double estimatedHours) {
+        Activity activity = (Activity) Session.getOpenItem();
+        ObjectId id = activity.getId();
+
+        if (activityType.equals("User story")) {
+            mongoDb.getActivityCollection().updateOne(eq("_id", id),
+                    combine(set("name", name),set("description", description),set("startDate", startDate),set("endDate", endDate),set("priority", priority),set("storyPoints", storyPoints)));
+        } else if (activityType.equals("Task")) {
+            mongoDb.getActivityCollection().updateOne(eq("_id", id),
+                    combine(set("name", name),set("description", description),set("startDate", startDate),set("endDate", endDate),set("priority", priority),
+                            set("parentId", parentId),set("grandId", grandId),set("estimatedHours", estimatedHours)));
+        } else {
+            mongoDb.getActivityCollection().updateOne(eq("_id", id),
+                    combine(set("name", name),set("description", description),set("startDate", startDate),set("endDate", endDate),set("priority", priority),
+                            set("parentId", parentId),set("grandId", grandId),set("estimatedHours", estimatedHours)));
+        }
+        System.out.println("Activity details updated!");
     }
 
     public ArrayList<Activity> getActivitiesList() {
@@ -77,69 +96,17 @@ public class ActivityController {
         return activityId;
     }
 
-    public ArrayList<ActivityTreeViewItem> generateTreeViewList() {
-        ArrayList<ActivityTreeViewItem> activityTreeViewItems = new ArrayList<>();
-        ArrayList<Activity> activitiesList = getActivitiesList();
-        ArrayList<Activity> topLevelList = new ArrayList<>();
-        ArrayList<Activity> midLevelList = new ArrayList<>();
-        ArrayList<Activity> bottomLevelList = new ArrayList<>();
-
-        int tid = 0;
-        int mid = 0;
-        int bid = 0;
-        for (Activity activity : activitiesList) {
-            if (activity instanceof UserStory) {
-                tid++;
-                ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tid, mid, bid, activity.getId());
-                activityTreeViewItems.add(treeItem);
-                topLevelList.add(activity);
-            } else if (activity instanceof Task && ((Task) activity).getParentId() == null) {
-                tid++;
-                ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tid, mid, bid, activity.getId());
-                activityTreeViewItems.add(treeItem);
-                topLevelList.add(activity);
-            } else if (activity instanceof Bug && ((Bug) activity).getParentId() == null) {
-                tid++;
-                ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tid, mid, bid, activity.getId());
-                activityTreeViewItems.add(treeItem);
-                topLevelList.add(activity);
-            } else {
-                midLevelList.add(activity);
-            }
+    public void updateActivityAssignee(List<String> assignedUsers) {
+        UserController userController = new UserController();
+        List<ObjectId> assignedUserIds = new ArrayList<ObjectId>();
+        for (String user : assignedUsers) {
+            ObjectId userId = userController.getUserId("username", user);
+            assignedUserIds.add(userId);
         }
-
-
-        for (Activity activity1 : topLevelList) {
-            ObjectId parentId = activity1.getId();
-
-            for (Activity activity2 : midLevelList) {
-                ObjectId parentIdToCheck;
-                if (activity2 instanceof Task) {
-                    parentIdToCheck = ((Task)activity2).getParentId();
-                } else {
-                    parentIdToCheck = ((Bug)activity2).getParentId();
-                }
-                if (parentId.equals(parentIdToCheck))  {
-                    int tidParent = 0;
-                    for (ActivityTreeViewItem treeItem : activityTreeViewItems) {
-                        if (parentId.equals(treeItem.getActivityId())) {
-                            tidParent = treeItem.getTid();
-                        }
-                    }
-                    mid++;
-                    ActivityTreeViewItem treeItem = new ActivityTreeViewItem(tidParent, mid, bid, activity2.getId());
-                    activityTreeViewItems.add(treeItem);
-                } else {
-                    bottomLevelList.add(activity2);
-                }
-            }
-        }
-
-        System.out.println(activityTreeViewItems);
-
-        return activityTreeViewItems;
+        Activity activity = (Activity) Session.getOpenItem();
+        ObjectId activityId = activity.getId();
+        mongoDb.getActivityCollection().updateOne(eq("_id", activityId), set("assigneeList", assignedUserIds));
     }
-
 
     // public void logTime(Developer dev, String taskId, String projectId) {
     //     Map<String, Task> newMap = new HashMap<String, Task>(); 

@@ -13,7 +13,7 @@ public abstract class Activity implements Comparable<Activity> {
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    private ArrayList<ObjectId> assignee;
+    private ArrayList<ObjectId> assigneeList;
     private double priority;
     private ActivityStatus activityStatus;
 
@@ -41,7 +41,7 @@ public abstract class Activity implements Comparable<Activity> {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.assignee = null;
+        this.assigneeList = null;
         this.priority = priority;
         this.activityStatus = ActivityStatus.TODO;
     }
@@ -67,6 +67,7 @@ public abstract class Activity implements Comparable<Activity> {
     }
     public ActivityStatus getActivityStatus() { return activityStatus; }
     public String getActivityType() { return getClass().getSimpleName(); }
+    public ArrayList<ObjectId> getAssigneeList() { return assigneeList; }
 
     // Setters
     public void setId(ObjectId id) {
@@ -87,6 +88,7 @@ public abstract class Activity implements Comparable<Activity> {
     public void setPriority(double priority) {
         this.priority = priority;
     }
+    public void setAssigneeList(ArrayList<ObjectId> assigneeList) { this.assigneeList = assigneeList; }
 
     @Override
     public String toString() {

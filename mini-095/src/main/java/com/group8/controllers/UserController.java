@@ -57,8 +57,8 @@ public class UserController {
         return result;
     }
 
-    public List<User> getUserList() {
-        List<User> users = mongoDb.getUserCollection().find().into(new ArrayList<User>());
+    public ArrayList<User> getUserList() {
+        ArrayList<User> users = mongoDb.getUserCollection().find().into(new ArrayList<User>());
         return users;
     }
 

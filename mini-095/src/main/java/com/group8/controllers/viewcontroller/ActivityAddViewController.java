@@ -19,7 +19,6 @@ import javafx.util.*;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -81,6 +80,7 @@ public class ActivityAddViewController implements Initializable {
         Double storyPoints = 0.0;
         Double estimatedHours = 0.0;
         double priority;
+        ObjectId activityId;
         ObjectId grandId = null;
         ObjectId parentId = null;
         String parentItemName = null;
@@ -115,11 +115,26 @@ public class ActivityAddViewController implements Initializable {
         }
 
         // Validate activity name
+        Activity oldActivity = (Activity) Session.getOpenItem();
+        String activityOldName = "";
+        if (oldActivity != null) {
+            activityOldName = oldActivity.getName();
+        }
+
+        ArrayList<String> activityNames = new ArrayList<>();
         for (Activity activity : activitiesList) {
-            if (name.equals(activity.getName())) {
+            if (Session.getWindowMode().equals("new")) {
+                activityNames.add(activity.getName());
+            } else if (Session.getWindowMode().equals("edit") && !activity.getName().equals(activityOldName)) {
+                activityNames.add(activity.getName());
+            }
+        }
+
+        for (String activityName : activityNames) {
+            if (name.equals(activityName)) {
                 uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Duplicate activity name.\nPlease check activity name and try again.");
-                activityName.getStyleClass().add("textfield-error-highlight");
-                activityName.requestFocus();
+                this.activityName.getStyleClass().add("textfield-error-highlight");
+                this.activityName.requestFocus();
                 return;
             }
         }
@@ -150,38 +165,17 @@ public class ActivityAddViewController implements Initializable {
             return;
         }
 
-        // Print to console for testing purposes
-        System.out.println("Name: " + name);
-        System.out.println("Description: " + description);
-        System.out.println("Start date: " + String.valueOf(startDate));
-        System.out.println("End date: " + String.valueOf(endDate));
-        System.out.println("Activity type: " + activityType);
-        System.out.println("Priority: " + String.valueOf(priority));
-        System.out.println("Story points: " + String.valueOf(storyPoints));
-        System.out.println("Estimate hours: " + String.valueOf(estimatedHours));
-        System.out.println("Parent id: " + String.valueOf(parentId));
-        System.out.println("Parent item: " + parentItemName);
-        System.out.println("Grandparent id: " + String.valueOf(grandId));
-
-        UIHelper uiHelper = new UIHelper();
-
-        if (Session.getWindowMode().equals("new")) {
-
-        } else if (Session.getWindowMode().equals("edit")) {
-            alertHeading = "Edit user details";
-        }
-
         if (activityName.equals("") || activityDescription.equals("") || startDate.equals("") || endDate.equals("") ||
                 (activityType.equals("User story") && storyPoints == 0.0) || ((activityType.equals("Task") || activityType.equals("Bug")) && estimatedHours == 0.0)) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Some required fields are empty.\nPlease check activity details and try again.");
+                uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Some required fields are empty.\nPlease check activity details and try again.");
         } else {
             if (Session.getWindowMode().equals("new")) {
                 activityController.createActivity(grandId, parentId, activityType, name, description, startDate, endDate, priority, storyPoints, estimatedHours);
                 activityController.updateActivitiesList(name);
             } else if (Session.getWindowMode().equals("edit")) {
-                // userController.modifyUser(username, password, fullname, emailAddress, userRole);
-                alertHeading = "Edit user details";
-                alertContent = "User details successfully updated.\nPlease refresh in Users view.";
+                activityController.modifyActivity(grandId, parentId, activityType, name, description, startDate, endDate, priority, storyPoints, estimatedHours);
+                alertHeading = "Edit activity details";
+                alertContent = "Activity details successfully updated.\nPlease refresh in Activities view.";
             }
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
             if (result.get() == ButtonType.OK) {
@@ -231,83 +225,59 @@ public class ActivityAddViewController implements Initializable {
         try {
             if (Session.getWindowMode().equals("new")) {
                 windowModeTitle.setText("Enter new activity details:");
-                // final ComboBox activityType = new ComboBox();
                 setPrioritySlider();
-                activityType.getItems().addAll(
-                        "User story",
-                        "Task",
-                        "Bug");
-
-                activityType.setValue("User story");
-                vboxEstimatedHours.setVisible(false);
-                activityType.setCellFactory(
-                        new Callback<ListView<String>, ListCell<String>>() {
-                            @Override public ListCell<String> call(ListView<String> param) {
-                                final ListCell<String> cell = new ListCell<String>() {
-                                    @Override public void updateItem(String item, boolean empty) {
-                                        super.updateItem(item, empty);
-                                        if (item != null) {
-                                            setText(item);
-                                            if (item.contains("User story")) {
-                                                setTextFill(Color.GREEN);
-                                            } else if (item.contains("Task")){
-                                                setTextFill(Color.BLUE);
-                                            } else if (item.contains("Bug")){
-                                                setTextFill(Color.RED);
-                                            }
-                                        }
-                                        else {
-                                            setText(null);
-                                        }
-                                    }
-                                };
-                                return cell;
-                            }
-                        });
-
-                generateActivityListComboBox();
-
-                Callback<DatePicker, DateCell> projectDates = new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker param) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
-                                LocalDate projectStartDate = Session.getProjectStartDate();
-                                LocalDate projectEndDate = Session.getProjectEndDate();
-                                setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
-                            }
-
-                        };
-                    }
-                };
-
-                startDate.setDayCellFactory(projectDates);
-                endDate.setDayCellFactory(projectDates);
-
-                // Listener for updating the endDate as +1 from startDate selected
-                startDate.valueProperty().addListener((ov, oldValue, newValue) -> {
-                    endDate.setValue(newValue.plusDays(1));
-                });
+                generateActivityTypeSelector("User story");
+                generateActivityListComboBox(null);
+                generateActivityDatePickers(null, null);
 
 
             } else if (Session.getWindowMode().equals("edit")) {
                 windowModeTitle.setText("Edit activity details:");
+                String selectedType;
+                LocalDate startDate;
+                LocalDate endDate;
+                double storyPoints = 0.0;
+                double estimatedHours = 0.0;
+                ObjectId parentId = null;
+                String comboParentName = null;
 
                 Activity activity = (Activity) Session.getOpenItem();
-                // username.setText(user.getUsername());
-                // password.setText(user.getPassword());
-                // fullname.setText(user.getFullname());
-                // emailAddress.setText(user.getEmailAddress());
+                if (activity instanceof UserStory) {
+                    System.out.println("User Story");
+                    selectedType = "User story";
+                    this.storyPoints.setText(String.valueOf(((UserStory) activity).getStoryPoints()));
+                } else if (activity instanceof Task) {
+                    System.out.println("Task");
+                    selectedType = "Task";
+                    this.estimatedHours.setText(String.valueOf(((Task) activity).getEstimatedHours()));
+                    parentId = ((Task) activity).getParentId();
+                    vboxParentActivity.setVisible(true);
+                } else {
+                    selectedType = "Bug";
+                    this.estimatedHours.setText(String.valueOf(((Bug) activity).getEstimatedHours()));
+                    parentId = ((Bug) activity).getParentId();
+                    vboxParentActivity.setVisible(true);
+                }
 
-                /*if (user.getUserRole().equals("Developer")) {
-                    developer.setSelected(true);
-                } else if (user.getUserRole().equals("Project Manager")) {
-                    projectManager.setSelected(true);
-                } else if (user.getUserRole().equals("Scrum Master")) {
-                    scrumMaster.setSelected(true);
-                }*/
+                if (parentId != null) {
+                    for (Activity parentActivity : activitiesList) {
+                        if (parentId.equals(parentActivity.getId())) {
+                            comboParentName = parentActivity.getName();
+                        }
+                    }
+                }
+
+                generateActivityTypeSelector(selectedType);
+                activityName.setText(activity.getName());
+                activityDescription.setText(activity.getDescription());
+                activityPriority.setValue(activity.getPriority());
+                setPrioritySlider();
+                generateActivityListComboBox(comboParentName);
+
+                startDate = activity.getStartDate();
+                endDate = activity.getEndDate();
+                generateActivityDatePickers(startDate, endDate);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -344,7 +314,83 @@ public class ActivityAddViewController implements Initializable {
         });
     }
 
-    private void generateActivityListComboBox() {
+    private void generateActivityTypeSelector(String selectedType) {
+        activityType.getItems().addAll(
+                "User story",
+                "Task",
+                "Bug");
+
+        if (selectedType.equals(null) || selectedType.equals("User story")) {
+            vboxStoryPoints.setVisible(true);
+            vboxEstimatedHours.setVisible(false);
+        } else {
+            activityType.setValue(selectedType);
+            vboxEstimatedHours.setVisible(true);
+            vboxStoryPoints.setVisible(false);
+        }
+
+        activityType.setCellFactory(
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            @Override public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+                                    if (item.contains("User story")) {
+                                        setTextFill(Color.GREEN);
+                                    } else if (item.contains("Task")){
+                                        setTextFill(Color.BLUE);
+                                    } else if (item.contains("Bug")){
+                                        setTextFill(Color.RED);
+                                    }
+                                }
+                                else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                });
+    }
+
+    private void generateActivityDatePickers(LocalDate startDate, LocalDate endDate) {
+
+        Callback<DatePicker, DateCell> projectDates = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        LocalDate projectStartDate = Session.getProjectStartDate();
+                        LocalDate projectEndDate = Session.getProjectEndDate();
+                        setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
+                    }
+
+                };
+            }
+        };
+
+        this.startDate.setDayCellFactory(projectDates);
+        this.endDate.setDayCellFactory(projectDates);
+
+        if (Session.getWindowMode().equals("new")) {
+            // Listener for updating the endDate as +1 from startDate selected
+            this.startDate.valueProperty().addListener((ov, oldValue, newValue) -> {
+                this.endDate.setValue(newValue.plusDays(1));
+            });
+        } else if (Session.getWindowMode().equals("edit")) {
+            this.startDate.valueProperty().addListener((ov, oldValue, newValue) -> {
+                this.endDate.setValue(newValue.plusDays(1));
+            });
+            this.startDate.setValue(startDate);
+            this.endDate.setValue(endDate);
+        }
+    }
+
+    private void generateActivityListComboBox(String comboParentName) {
 
         final PseudoClass header = PseudoClass.getPseudoClass("section-header");
         Label parentActivityLabel = new Label();
@@ -356,14 +402,14 @@ public class ActivityAddViewController implements Initializable {
         parentActivityCombo = new ComboBox<>();
         parentActivityCombo.setPrefWidth(200.0);
 
-        // No parent item - Default item for non-selection
-        parentActivityCombo.getItems().add(new ComboBoxItem("No parent item",true, 0));
-        // Header line for Tasks
-        parentActivityCombo.getItems().add(new ComboBoxItem("User stories",false, 0));
-
         ObjectId topLevelActivityID = null;
         ObjectId midLevelActivityID = null;
         ArrayList<ComboBoxItem> comboBoxItems = new ArrayList<>();
+
+        // No parent item - Default item for non-selection
+        comboBoxItems.add(new ComboBoxItem("No parent item",true, 0));
+        // Header line for Tasks
+        comboBoxItems.add(new ComboBoxItem("User stories",false, 0));
 
         // Loop for top level User stories
         for (Activity activity : activitiesList) {
@@ -504,6 +550,9 @@ public class ActivityAddViewController implements Initializable {
                         setPadding(new Insets(0,0,0,20));
                         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOUBLE_RIGHT, "8");
                         setGraphic(icon);
+                    } else if (item.getName().equals(comboParentName)) {
+                        selectedProperty();
+                        System.out.println(comboParentName);
                     } else {
                         setTextFill(Color.BLACK);
                         setStyle("-fx-font-weight: normal;");
@@ -516,9 +565,19 @@ public class ActivityAddViewController implements Initializable {
                 }
             }
         });
-        vboxParentActivity.getChildren().add(parentActivityCombo);
-        parentActivityCombo.getSelectionModel().selectFirst();
 
+        if (comboParentName == null || comboParentName.equals("")) {
+            parentActivityCombo.getSelectionModel().selectFirst();
+        } else {
+            int index = 0;
+            for (ComboBoxItem boxItem : comboBoxItems) {
+                if (boxItem.getName().equals(comboParentName)) {
+                    index = comboBoxItems.indexOf(boxItem);
+                }
+            }
+            parentActivityCombo.getSelectionModel().select(index);
+        }
+        vboxParentActivity.getChildren().add(parentActivityCombo);
     }
 
     public static class ComboBoxItem {
