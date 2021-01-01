@@ -4,8 +4,10 @@ import com.group8.App;
 import com.group8.controllers.ApplicationController;
 import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
+import com.group8.model.Activity;
 import com.group8.model.Session;
 import com.group8.model.User;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,12 +27,15 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserAddViewController implements Initializable {
 
     private static UserController userController = new UserController();
+    private static UIHelper uiHelper = new UIHelper();
+    private static ArrayList<User> userList = new ArrayList<>();
 
     @FXML
     private StackPane dialogPane;
@@ -63,7 +68,6 @@ public class UserAddViewController implements Initializable {
     @FXML
     private Toggle scrumMaster;
 
-
     @FXML
     private void handleSaveUserBtn(ActionEvent event) throws IOException {
         // clear all text field
@@ -80,6 +84,40 @@ public class UserAddViewController implements Initializable {
         password = this.password.getText();
         emailAddress = this.emailAddress.getText();
 
+        // Validate user name
+        User oldUser = (User) Session.getOpenItem();
+        String userOldName = "";
+        ArrayList<String> userNames = new ArrayList<>();
+
+        if (oldUser != null) {
+            userOldName = oldUser.getUsername();
+        }
+        // Building existing username list
+        for (User user : userList) {
+            if (Session.getWindowMode().equals("new")) {
+                userNames.add(user.getUsername());
+            } else if (Session.getWindowMode().equals("edit") && !user.getUsername().equals(userOldName)) {
+                userNames.add(user.getUsername());
+            }
+        }
+
+        // Validate entered username
+        for (String userName : userNames) {
+            if (username.equals(userName)) {
+                uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Duplicate username.\nPlease enter a different username and try again.");
+                this.username.getStyleClass().add("textfield-error-highlight");
+                this.username.requestFocus();
+                return;
+            }
+        }
+
+        if (!uiHelper.validateEmailAddress(emailAddress)) {
+            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Invalid email address.\nPlease check email address and try again.");
+            this.emailAddress.getStyleClass().add("textfield-error-highlight");
+            this.emailAddress.requestFocus();
+            return;
+        }
+
         RadioButton selectedRadioButton = (RadioButton) userRoleToggle.getSelectedToggle();
         userRole = selectedRadioButton.getText();
 
@@ -94,7 +132,7 @@ public class UserAddViewController implements Initializable {
 
         if (username.equals("") || fullname.equals("") || password.equals("") || emailAddress.equals("")) {
             uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check user details and try again.");
-            validation = false;
+            return;
         } else {
             if (Session.getWindowMode().equals("new")) {
                 userController.createUser(username, password, fullname, emailAddress, userRole);
@@ -122,6 +160,9 @@ public class UserAddViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            userList.clear();
+            userList = userController.getUserList();
+
             if (Session.getWindowMode().equals("new")) {
                 windowModeTitle.setText("Enter new user details:");
             } else if (Session.getWindowMode().equals("edit")) {

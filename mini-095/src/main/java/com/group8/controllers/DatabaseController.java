@@ -60,21 +60,23 @@ public class DatabaseController {
     }
 
     public MongoCollection<User> getUserCollection() {
-
         MongoDatabase database = dbConnect().getDatabase(dbName);
         MongoCollection<User> collection = database.getCollection("users", User.class)
                 .withCodecRegistry(createCodecRegistry("Users"));
         return collection;
-
     }
 
     public MongoCollection<Project> getProjectCollection() {
-
         MongoDatabase database = dbConnect().getDatabase(dbName);
         MongoCollection<Project> collection = database.getCollection("projects", Project.class)
                 .withCodecRegistry(createCodecRegistry("Projects"));
         return collection;
+    }
 
+    public MongoCollection<Activity> getActivityCollection() {
+        MongoDatabase database = dbConnect().getDatabase(dbName);
+        MongoCollection<Activity> collection = database.getCollection("activities",Activity.class).withCodecRegistry(createCodecRegistry("Activities"));
+        return collection;
     }
 
     public CodecRegistry createCodecRegistry(String classType) {
@@ -92,8 +94,21 @@ public class DatabaseController {
 
         } else if (classType.equals("Projects")) {
             ClassModel<Project> projectModel = ClassModel.builder(Project.class).enableDiscriminator(true).build();
+<<<<<<< HEAD
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
                     .register(projectModel).build();
+=======
+            pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(projectModel).build();
+
+        } else if (classType.equals("Activities")){
+
+            ClassModel<Activity> activityModel = ClassModel.builder(Activity.class).enableDiscriminator(true).build();
+            ClassModel<Task> taskModel = ClassModel.builder(Task.class).enableDiscriminator(true).build();
+            ClassModel<Bug> bugModel = ClassModel.builder(Bug.class).enableDiscriminator(true).build();
+            ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true).build();
+
+            pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION)).register(activityModel, taskModel, bugModel,userStoryModel).build();
+>>>>>>> 4ffe827436dfda2b1f95a922098f026c1dea194d
         }
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 

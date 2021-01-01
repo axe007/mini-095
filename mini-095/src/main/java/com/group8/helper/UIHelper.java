@@ -1,21 +1,32 @@
 package com.group8.helper;
 
 import com.group8.App;
+import com.group8.controllers.ProjectController;
 import com.group8.model.Project;
 import com.group8.model.Session;
 import com.group8.model.*;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.bson.types.ObjectId;
+
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class UIHelper {
     public void loadWindow(String viewName, Button sourceButton, String stageTitle) throws IOException {
@@ -51,7 +62,6 @@ public class UIHelper {
     }
 
     public Optional<ButtonType> alertDialogGenerator(StackPane root, String alertType, String title, String content) {
-
         Alert alert = null;
         DialogPane dialogPane = null;
         
@@ -103,5 +113,79 @@ public class UIHelper {
         dialogPane.applyCss();
         HBox hboxDialogPane = (HBox) dialogPane.lookup(".container");
         hboxDialogPane.getChildren().add(spacer);
+    }
+
+    public void loadProjectBreadcrumbs(GridPane projectBreadcrumb) {
+        ObjectId projectId = Session.getOpenProjectId();
+        ProjectController projectController = new ProjectController();
+
+        Label openProjectLabel = new Label();
+        Label projectStartDateLabel = new Label();
+        Label projectEndDateLabel = new Label();
+        Label openProjectName = new Label();
+        Label projectStartDate = new Label();
+        Label projectEndDate = new Label();
+
+        openProjectLabel.getStyleClass().add("project-info-header-label");
+        projectStartDateLabel.getStyleClass().add("project-info-label");
+        projectEndDateLabel.getStyleClass().add("project-info-label");
+        openProjectName.getStyleClass().add("project-info-header");
+        projectStartDate.getStyleClass().add("project-info-text");
+        projectEndDate.getStyleClass().add("project-info-text");
+        openProjectLabel.setText("Current project");
+        projectStartDateLabel.setText("Start date");
+        projectEndDateLabel.setText("End date");
+
+        FontAwesomeIconView icon1 = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_LEFT, "18");
+        icon1.getStyleClass().add("project-breadcrumb-icon");
+        FontAwesomeIconView icon2 = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_LEFT, "18");
+        icon2.getStyleClass().add("project-breadcrumb-icon");
+        FontAwesomeIconView icon3 = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_LEFT, "18");
+        icon3.getStyleClass().add("project-breadcrumb-icon");
+
+        projectBreadcrumb.getChildren().clear();
+
+        if (projectId == null) {
+            openProjectName.setText("No project is open yet");
+            openProjectName.setStyle("-fx-text-fill: #eb7f6e");
+        } else {
+            String projectName = projectController.getProjectDetail(projectId, "projectName");
+            LocalDate startDate = projectController.getProjectDate(projectId, "startDate");
+            LocalDate endDate = projectController.getProjectDate(projectId, "endDate");
+            Session.setProjectStartDate(startDate);
+            Session.setProjectEndDate(endDate);
+            String startDateText = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            String endDateText = endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            projectStartDate.setText(startDateText);
+            projectEndDate.setText(endDateText);
+
+            openProjectName.setText(projectName);
+            projectBreadcrumb.add(icon2, 1, 1);
+            projectBreadcrumb.add(icon3, 1, 2);
+
+            projectBreadcrumb.add(projectStartDate, 0, 1);
+            projectBreadcrumb.add(projectEndDate, 0, 2);
+            projectBreadcrumb.add(projectStartDateLabel, 2, 1);
+            projectBreadcrumb.add(projectEndDateLabel, 2, 2);
+        }
+        projectBreadcrumb.add(openProjectName, 0, 0);
+        projectBreadcrumb.add(icon1, 1, 0);
+        projectBreadcrumb.add(openProjectLabel, 2, 0);
+
+    }
+
+    public boolean uiValidator(String fieldName) {
+        boolean result = false;
+
+
+
+        return result;
+    }
+
+    public static boolean validateEmailAddress(String emailID) {
+        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(emailID).matches();
     }
 }

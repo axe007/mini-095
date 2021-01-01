@@ -21,7 +21,7 @@
                       </Button>
                       <Button fx:id="projectModifyButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Modify Project">
                           <graphic>
-                              <FontAwesomeIconView glyphName="PLUS_SQUARE_ALT" size="30" styleClass="content-action-icon" />
+                              <FontAwesomeIconView glyphName="EDIT" size="30" styleClass="content-action-icon" />
                           </graphic>
                           <HBox.margin>
                               <Insets left="10.0" right="10.0" />
@@ -58,19 +58,42 @@
               </HBox>
          </bottom>
          <top>
-              <HBox alignment="CENTER" fillHeight="false" prefHeight="80.0" prefWidth="743.0" spacing="10.0" BorderPane.alignment="CENTER">
-                  <children>
-                      <TextField fx:id="projectSearch" onKeyReleased="#projectSearchOnKeyReleased" prefHeight="25.0" prefWidth="584.0" promptText="Search projects" />
-                      <Button fx:id="projectRefresh" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefHeight="31.0" prefWidth="31.0">
-                          <graphic>
-                              <FontAwesomeIconView glyphName="REFRESH" size="20" styleClass="content-action-icon" />
-                          </graphic>
-                          <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                          </HBox.margin>
-                      </Button>
-                  </children>
-              </HBox>
+            <GridPane prefHeight="100.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="360.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+               </rowConstraints>
+               <children>
+                  <GridPane fx:id="projectBreadcrumb" alignment="CENTER" GridPane.columnIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="200.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="18.0" prefWidth="18.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="140.0" prefWidth="140.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="-Infinity" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+                    <HBox alignment="CENTER" prefWidth="743.0">
+                        <children>
+                            <TextField fx:id="projectSearch" alignment="CENTER" onKeyReleased="#projectSearchOnKeyReleased" prefHeight="25.0" prefWidth="360.0" promptText="Search projects" />
+                            <Button fx:id="projectRefresh" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefHeight="31.0" prefWidth="31.0">
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="REFRESH" size="20" styleClass="content-action-icon" />
+                                </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                            </Button>
+                        </children>
+                    </HBox>
+               </children>
+            </GridPane>
          </top>
          <center>
               <TableView fx:id="tblProjects" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" styleClass="contentview-tableview" BorderPane.alignment="CENTER">
@@ -86,7 +109,7 @@
                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                   </columnResizePolicy>
                <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" />
                </BorderPane.margin>
               </TableView>
          </center>

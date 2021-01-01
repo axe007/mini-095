@@ -35,10 +35,12 @@ public class UserViewController implements Initializable {
 
     private static UserController userController = new UserController();
     private static UIHelper uiHelper = new UIHelper();
-    private List<User> userList = new ArrayList<>();
+    private static ArrayList<User> userList = new ArrayList<>();
 
     @FXML
     private StackPane userView;
+    @FXML
+    private GridPane projectBreadcrumb;
     @FXML
     private TableView<User> tblUsers = new TableView<User>();
     @FXML
@@ -64,8 +66,6 @@ public class UserViewController implements Initializable {
     private Button userDeleteButton;
     @FXML
     private TextField activitySearch;
-    @FXML
-    private TextArea dbFeedback;
 
     @FXML
     private void handleUserButtons(ActionEvent event) throws IOException {
@@ -77,11 +77,11 @@ public class UserViewController implements Initializable {
         } else if (event.getSource() == userModifyButton) {
             // Modify user details
             User user = tblUsers.getSelectionModel().getSelectedItem();
-            Session.setSetOpenItem(user);
             if (user == null) {
                 uiHelper.alertDialogGenerator(userView, "error", "Modify user",
                         "No user exist or no user selected.\nPlease select an user and try again.");
             } else {
+                Session.setSetOpenItem(user);
                 Session.setWindowMode("edit");
                 uiHelper.loadWindow("UserAddView", userModifyButton, "Edit user details");
             }
@@ -106,7 +106,7 @@ public class UserViewController implements Initializable {
     public void loadUserData() {
 
         // getting the full list of books from file
-        List<User> userList = userController.getUserList();
+        userList = userController.getUserList();
         ObservableList<User> viewUsers = (ObservableList<User>) FXCollections.observableArrayList(userList);
 
         tblClmUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -116,6 +116,8 @@ public class UserViewController implements Initializable {
         tblClmUserEmailAddress.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
 
         tblUsers.setItems(viewUsers);
+
+        uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.App;
+import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -16,6 +18,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ApplicationController implements Initializable {
+
+    private static UIHelper uiHelper = new UIHelper();
+
     // MARK: UI Entry Point
     @FXML
     private SplitPane mainSplitPane;
@@ -38,10 +43,6 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button logoutButton;
 
-    // sessionID1, userId, projectId, loginTime-24hours
-    // sessionID2, userId, projectId, loginTime-24hours
-    // updateSession();
-
     @FXML
     public void handleSidebarBtn(ActionEvent menuEvent) throws IOException {
         String viewName = "HomeView";
@@ -55,11 +56,23 @@ public class ApplicationController implements Initializable {
             viewName = "ProjectView";
             viewTitle = "Projects";
         } else if (menuEvent.getSource() == sprintboardButton) {
-            viewName = "ScrumboardView";
-            viewTitle = "Scrum Board";
+            ObjectId projectId = Session.getOpenProjectId();
+            if (projectId == null || projectId.equals(null)) {
+                uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
+                return;
+            } else {
+                viewName = "ScrumboardView";
+                viewTitle = "Scrum Board";
+            }
         } else if (menuEvent.getSource() == activitiesButton) {
-            viewName = "GanttChartView";
-            viewTitle = "Gantt Chart";
+            ObjectId projectId = Session.getOpenProjectId();
+            if (projectId == null || projectId.equals(null)) {
+                uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
+                return;
+            } else {
+                viewName = "ActivitiesView";
+                viewTitle = "Activities";
+            }
         } else if (menuEvent.getSource() == usersButton) {
             viewName = "UserView";
             viewTitle = "Users";
@@ -121,8 +134,8 @@ public class ApplicationController implements Initializable {
 
         String fullname;
         UserController userController = new UserController();
-        // fullname = userController.getUserDetail(loggedUserId, "fullname");
+        fullname = userController.getUserDetail(loggedUserId, "fullname");
 
-        // sessionUsername.setText(fullname);
+        sessionUsername.setText(fullname);
     }
 }

@@ -139,10 +139,10 @@ public class ProjectAddViewController implements Initializable {
 
                         };
                     }
-
                 };
 
                 startDate.setDayCellFactory(callB);
+                endDate.setDayCellFactory(callB);
                 startDate.setValue(LocalDate.now());
                 endDate.setValue(LocalDate.now());
             } else if (Session.getWindowMode().equals("edit")) {
