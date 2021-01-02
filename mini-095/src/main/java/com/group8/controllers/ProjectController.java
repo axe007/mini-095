@@ -2,12 +2,9 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import com.group8.model.*;
-import com.mongodb.client.model.Filters;
 import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -19,8 +16,8 @@ public class ProjectController {
     private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
 
-    public void createProject(String name, LocalDate startDate, LocalDate endDate, String type) {
-        Project newProject = new Project(name, startDate, endDate, type);
+    public void createProject(String name, String description, LocalDate startDate, LocalDate endDate, String type) {
+        Project newProject = new Project(name, description, startDate, endDate, type);
         mongoDb.getProjectCollection().insertOne(newProject);
     }
 
@@ -37,6 +34,7 @@ public class ProjectController {
                 .find(eq("_id", projectId)).first();
         switch (projectAttribute) {
             case "projectName" -> projectDetail = project.getName();
+            case "projectDescription" -> projectDetail = project.getDescription();
             case "projectType" -> projectDetail = project.getType();
             case "projectStatus" -> projectDetail = project.getStatus();
         }
@@ -65,11 +63,11 @@ public class ProjectController {
         return projects;
     }
 
-    public void modifyProject(String name, LocalDate startDate, LocalDate endDate, String type) {
+    public void modifyProject(String name, String description, LocalDate startDate, LocalDate endDate, String type) {
         Project project = (Project) Session.getOpenItem();
         ObjectId id = project.getId();
 
-        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("startDate", startDate),
+        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("description", description), set("startDate", startDate),
                 set("endDate", endDate), set("type", type), set("status", "Open")));
         System.out.println("Project details updated!");
     }

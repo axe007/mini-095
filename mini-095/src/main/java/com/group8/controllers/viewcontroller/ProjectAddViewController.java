@@ -45,6 +45,8 @@ public class ProjectAddViewController implements Initializable {
     @FXML
     private TextField name;
     @FXML
+    private TextArea description;
+    @FXML
     private DatePicker startDate;
     @FXML
     private DatePicker endDate;
@@ -62,6 +64,7 @@ public class ProjectAddViewController implements Initializable {
         UIHelper uiHelper = new UIHelper();
         // clear all text field
         String name;
+        String description;
         LocalDate startDate;
         LocalDate endDate;
         String type;
@@ -76,6 +79,7 @@ public class ProjectAddViewController implements Initializable {
         }
 
         name = this.name.getText();
+        description = this.description.getText();
         startDate = this.startDate.getValue();
         endDate = this.endDate.getValue();
 
@@ -98,9 +102,9 @@ public class ProjectAddViewController implements Initializable {
             uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check project details and try again.");
         } else {
             if (Session.getWindowMode().equals("new")) {
-                projectController.createProject(name, startDate, endDate, type);
+                projectController.createProject(name, description, startDate, endDate, type);
             } else if (Session.getWindowMode().equals("edit")) {
-                projectController.modifyProject(name, startDate, endDate, type);
+                projectController.modifyProject(name, description, startDate, endDate, type);
                 alertHeading = "Edit project details";
                 alertContent = "Project details successfully updated.\nPlease refresh in Projects view.";
             }
@@ -150,6 +154,7 @@ public class ProjectAddViewController implements Initializable {
 
                 Project project = (Project) Session.getOpenItem();
                 name.setText(project.getName());
+                description.setText(project.getDescription());
                 startDate.setValue(LocalDate.from(project.getStartDate()));
                 endDate.setValue(LocalDate.from(project.getEndDate()));
 

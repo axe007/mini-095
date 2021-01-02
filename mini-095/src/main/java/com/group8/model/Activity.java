@@ -1,11 +1,9 @@
 package com.group8.model;
 
-import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@BsonDiscriminator
 public abstract class Activity implements Comparable<Activity> {
 
     private ObjectId id;
@@ -15,24 +13,7 @@ public abstract class Activity implements Comparable<Activity> {
     private LocalDate endDate;
     private ArrayList<ObjectId> assigneeList;
     private double priority;
-    private ActivityStatus activityStatus;
-
-    enum ActivityStatus {
-        TODO("To do"),
-        INPROGRESS("In progress"),
-        REVIEW("Review"),
-        DONE("Done");
-
-        public final String simpleName;
-        ActivityStatus(String simpleName) {
-            this.simpleName = simpleName;
-        }
-
-        @Override
-        public String toString() {
-            return simpleName;
-        }
-    }
+    private String activityStatus;
 
     public Activity() {}
 
@@ -43,7 +24,7 @@ public abstract class Activity implements Comparable<Activity> {
         this.endDate = endDate;
         this.assigneeList = null;
         this.priority = priority;
-        this.activityStatus = ActivityStatus.TODO;
+        this.activityStatus = "TODO";
     }
 
     // Getters
@@ -65,7 +46,7 @@ public abstract class Activity implements Comparable<Activity> {
     public double getPriority() {
         return this.priority ;
     }
-    public ActivityStatus getActivityStatus() { return activityStatus; }
+    public String getActivityStatus() { return activityStatus; }
     public String getActivityType() { return getClass().getSimpleName(); }
     public ArrayList<ObjectId> getAssigneeList() { return assigneeList; }
 
@@ -87,6 +68,9 @@ public abstract class Activity implements Comparable<Activity> {
     }
     public void setPriority(double priority) {
         this.priority = priority;
+    }
+    public void setActivityStatus(String status) {
+        this.activityStatus = status;
     }
     public void setAssigneeList(ArrayList<ObjectId> assigneeList) { this.assigneeList = assigneeList; }
 

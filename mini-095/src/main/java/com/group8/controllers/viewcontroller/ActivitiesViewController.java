@@ -128,31 +128,12 @@ public class ActivitiesViewController implements Initializable {
     }
 
     private void loadActivitiesData() {
-
-        Task<List<Activity>> loadDataTask = new Task<List<Activity>>() {
-            @Override
-            protected List<Activity> call() throws Exception {
-                activitiesList = activityController.getActivitiesList();
-
-                Collections.sort(activitiesList, new Comparator<Activity>() {
-                    public int compare(Activity o1, Activity o2) {
-                        return o1.getStartDate().compareTo(o2.getStartDate());
-                    }
-                });
-
-                return activitiesList;
+        activitiesList = activityController.getActivitiesList();
+        Collections.sort(activitiesList, new Comparator<Activity>() {
+            public int compare(Activity o1, Activity o2) {
+                return o1.getStartDate().compareTo(o2.getStartDate());
             }
-        };
-
-        loadDataTask.setOnSucceeded(e -> tblActivities.getItems().setAll(loadDataTask.getValue()));
-        loadDataTask.setOnFailed(e -> { /* handle errors... */ });
-
-        ProgressIndicator progressIndicator = new ProgressIndicator();
-        tblActivities.setPlaceholder(progressIndicator);
-
-        Thread loadDataThread = new Thread(loadDataTask);
-        loadDataThread.start();
-
+        });
         ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections.observableArrayList(activitiesList);
 
         tblClmActivityId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -165,7 +146,6 @@ public class ActivitiesViewController implements Initializable {
         tblClmActivityStatus.setCellValueFactory(new PropertyValueFactory<>("activityStatus"));
 
         tblActivities.setItems(viewActivities);
-
     }
 
     @FXML

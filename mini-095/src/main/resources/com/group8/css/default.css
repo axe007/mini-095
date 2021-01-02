@@ -1,7 +1,6 @@
 /* Main font for the App */
 @font-face {
 	font-family: 'Inter';
-	src: url("fonts/Inter.ttf");
 }
 
 /* Root styling */
@@ -439,7 +438,6 @@
 	-fx-text-fill: #272e38;
 	-fx-font-size: 1.8em;
 	-fx-font-weight: 800;
-	-fx-padding: 15px 0 6px 20px;
 }
 
 .scrum-column-header-todo {
@@ -499,6 +497,41 @@
 
 .scrum-activity-item {
 	-fx-margin: 2px 0 2px 0;
+}
+
+.scrumboard-list-view .list-cell:odd {
+	-fx-background-color: #f9f9f9;
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 700;
+}
+.scrumboard-list-view .list-cell:even {
+	-fx-background-color: #fff;
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 700;
+}
+
+.scrumboard-list-view .list-cell:hover {
+	-fx-background-color: #c5d2f1;
+	-fx-text-fill: #3b4654;
+}
+
+.scrumboard-list-view .list-cell:hover .glyph-icon {
+	-fx-fill: #3b4654;
+}
+
+.scrumboard-list-view .list-cell:selected {
+	-fx-background-color: #5179d6;
+	-fx-text-fill: #fff;
+	-fx-font-weight: 700;
+}
+
+.scrumboard-list-view .list-cell:selected .glyph-icon {
+	-fx-fill: #fff;
+}
+
+.scrumboard-list-view-empty .list-cell:hover, .scrumboard-list-view-empty .list-cell:selected {
+	-fx-background-color: #fff;
+	-fx-text-fill: #fff;
 }
 
 .gantt-chart-week-column {
