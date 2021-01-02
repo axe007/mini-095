@@ -502,7 +502,35 @@
 }
 
 .gantt-chart-cell {
-	-fx-background-color: #00ff;
+	-fx-background-color: #e0effa;
+	-fx-text-fill: #e0effa;
+}
+
+.gantt-chart-week-column {
+	-fx-text-fill: #000;
+	-fx-font-weight: normal;
+	-fx-font-size: 0.8em;
+}
+
+.gantt-chart-day-column {
+	-fx-text-fill: #000;
+	-fx-font-weight: normal;
+	-fx-font-size: 0.7em;
+}
+
+.gantt-chart-day-column-weekend {
+	-fx-background-color: #e9ecef;
+	-fx-fill: #e56767;
+	-fx-text-fill: #e56767;
+	-fx-font-weight: normal;
+	-fx-font-size: 0.7em;
+}
+
+.gantt-chart-day-column-weekday {
+	-fx-background-color: #fff;
+	-fx-text-fill: #3b4654;
+	-fx-font-weight: normal;
+	-fx-font-size: 0.7em;
 }
 
 .gantt-chart-cell-empty {
@@ -510,21 +538,23 @@
 }
 
 .gantt-chart-cell-holiday {
-	-fx-background-color: #ff0000;
-	/* ActivityView styles */
+	-fx-background-color: #e56767;
+}
 
-	.activity-list .combo-box-popup .list-cell:section-header {
-		-fx-padding: 4 0 4 5;
-	}
+/* ActivityView styles */
 
-	.activity-list-top .combo-box-popup .list-cell {
-		-fx-padding: 4 0 4 10;
-	}
+.activity-list .combo-box-popup .list-cell:section-header {
+	-fx-padding: 4 0 4 5;
+}
 
-	.activity-list-middle .combo-box-popup .list-cell {
-		-fx-padding: 4 0 4 15;
-	}
+.activity-list-top .combo-box-popup .list-cell {
+	-fx-padding: 4 0 4 10;
+}
 
-	.activity-list-bottom .combo-box-popup .list-cell {
-		-fx-padding: 4 0 4 20;
-	}
+.activity-list-middle .combo-box-popup .list-cell {
+	-fx-padding: 4 0 4 15;
+}
+
+.activity-list-bottom .combo-box-popup .list-cell {
+	-fx-padding: 4 0 4 20;
+}

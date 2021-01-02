@@ -105,7 +105,7 @@ public class GanttChartViewController implements Initializable {
             }
         }
         TreeItem projectItem = new TreeItem<>(
-                new GanttChartActivity("Project", LocalDate.of(2020, 10, 20), LocalDate.of(2020, 12, 20), 0, 0, 0));
+                new GanttChartActivity("Project", LocalDate.of(2020, 10, 20), LocalDate.of(2020, 11, 20), 0, 0, 0));
 
         for (GanttChartActivity topGanttChartActivity : topLevelList) {
             TreeItem topLevelItem = new TreeItem<>(topGanttChartActivity);
@@ -126,8 +126,14 @@ public class GanttChartViewController implements Initializable {
         }
 
         TreeTableColumn<GanttChartActivity, String> treeTableColumn1 = new TreeTableColumn<>("Name");
-        TreeTableColumn<GanttChartActivity, String> treeTableColumn2 = new TreeTableColumn<>("StartDate");
-        TreeTableColumn<GanttChartActivity, String> treeTableColumn3 = new TreeTableColumn<>("EndDate");
+        treeTableColumn1.setPrefWidth(180.0);
+        treeTableColumn1.setMinWidth(180.0);
+        TreeTableColumn<GanttChartActivity, String> treeTableColumn2 = new TreeTableColumn<>("Start Date");
+        treeTableColumn2.setPrefWidth(80);
+        treeTableColumn2.setMinWidth(80.0);
+        TreeTableColumn<GanttChartActivity, String> treeTableColumn3 = new TreeTableColumn<>("End Date");
+        treeTableColumn3.setPrefWidth(80.0);
+        treeTableColumn3.setMinWidth(80.0);
 
         treeTableColumn1.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
         treeTableColumn2.setCellValueFactory(new TreeItemPropertyValueFactory<>("startDate"));
@@ -136,31 +142,47 @@ public class GanttChartViewController implements Initializable {
         ganttChartTreeTableView.getColumns().add(treeTableColumn1);
         ganttChartTreeTableView.getColumns().add(treeTableColumn2);
         ganttChartTreeTableView.getColumns().add(treeTableColumn3);
+        ganttChartTreeTableView.setColumnResizePolicy(ganttChartTreeTableView.CONSTRAINED_RESIZE_POLICY);
 
         // calender header
-
         LocalDate currentDate = projectActivityItem.getStartDate();
         TreeTableColumn<GanttChartActivity, String> currentWeekColumn;
-        Locale locale = new Locale("SE");
+        Locale locale = new Locale("EN");
 
         while (currentDate.get(WeekFields.of(locale).weekOfYear()) <= projectActivityItem.getEndDate()
                 .get(WeekFields.of(locale).weekOfYear())) {
-            int currentWeek = currentDate.get(WeekFields.of(locale).weekOfYear()) - 1;
+            int currentWeek = currentDate.get(WeekFields.of(locale).weekOfYear());
             int currentYear = currentDate.getYear();
+            // String firstDayOfWeekString = currentDate.with(DayOfWeek.MONDAY).format(DateTimeFormatter.ofPattern("LLLL dd"));
             String firstDayOfWeekString = currentDate.with(DayOfWeek.MONDAY)
-                    .format(DateTimeFormatter.ofPattern("LLLL dd"));
-            currentWeekColumn = new TreeTableColumn<>(
-                    currentYear + " Week " + (currentWeek + 1) + " " + firstDayOfWeekString);
+                    .format(DateTimeFormatter.ofPattern("LLL d"));
+            /*currentWeekColumn = new TreeTableColumn<>(
+                    currentYear + " Week " + (currentWeek + 1) + " " + firstDayOfWeekString);*/
+            currentWeekColumn = new TreeTableColumn<>(" Week " + (currentWeek) + " (" + firstDayOfWeekString + ")");
+            currentWeekColumn.getStyleClass().add("gantt-chart-week-column");
 
             Calendar cal = Calendar.getInstance();
-            cal.setWeekDate(currentYear, currentWeek, 1);
+            cal.setWeekDate(currentYear, currentWeek, 2);
 
             for (int i = 0; i < 7; i++) {
-                SimpleDateFormat format = new SimpleDateFormat("MM/dd");
+                // SimpleDateFormat format = new SimpleDateFormat("MM/dd");
+                SimpleDateFormat format = new SimpleDateFormat("dd");
 
                 Date date = cal.getTime();
                 TreeTableColumn<GanttChartActivity, String> currentDateColumn = new TreeTableColumn<>(
                         format.format(date));
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+
+                if ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+                        || (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)) {
+                    currentDateColumn.getStyleClass().add("gantt-chart-day-column-weekend");
+                } else {
+                    currentDateColumn.getStyleClass().add("gantt-chart-day-column-weekday");
+                }
+
+                // currentDateColumn.getStyleClass().add("gantt-chart-day-column");
 
                 currentWeekColumn.getColumns().add(currentDateColumn);
                 currentDateColumn.setCellFactory(
@@ -183,7 +205,8 @@ public class GanttChartViewController implements Initializable {
                                             int daysUntilActivityEnd = (int) ChronoUnit.DAYS.between(calenderStartDate,
                                                     activity.getEndDate());
                                             int columnIndex = columnCount % numberOfCalenderDays;
-                                            if (columnIndex % 7 == 0 || columnIndex % 7 == 6) {
+
+                                            /*if (columnIndex % 7 == 0 || columnIndex % 7 == 6) {
                                                 getStyleClass().add("gantt-chart-cell-holiday");
                                             } else if (columnIndex >= daysBeforeActivityStart
                                                     && columnIndex <= daysUntilActivityEnd) {
@@ -192,8 +215,16 @@ public class GanttChartViewController implements Initializable {
                                                 setText(Integer.toString(columnIndex - dayOffSets));
                                                 setTextFill(Color.GREEN);
                                                 getStyleClass().add("gantt-chart-cell");
-                                            }
+                                            }*/
 
+                                            if (columnIndex >= daysBeforeActivityStart
+                                                    && columnIndex <= daysUntilActivityEnd) {
+                                                int dayOffSets = (int) ChronoUnit.DAYS.between(calenderStartDate,
+                                                        projectActivityItem.getStartDate());
+                                                setText(Integer.toString(columnIndex - dayOffSets));
+                                                setTextFill(Color.GREEN);
+                                                getStyleClass().add("gantt-chart-cell");
+                                            }
                                         }
                                         columnCount++;
                                         if (columnCount == numberOfCalenderDays) {
@@ -206,11 +237,9 @@ public class GanttChartViewController implements Initializable {
                             }
                         });
                 cal.add(Calendar.DATE, 1);
-
             }
 
             ganttChartTreeTableView.getColumns().add(currentWeekColumn);
-
             currentDate = currentDate.plusDays(7);
         }
 
