@@ -511,6 +511,7 @@
 
 .gantt-chart-cell-holiday {
 	-fx-background-color: #ff0000;
+}
 	/* ActivityView styles */
 
 	.activity-list .combo-box-popup .list-cell:section-header {
