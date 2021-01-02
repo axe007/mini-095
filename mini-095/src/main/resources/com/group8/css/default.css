@@ -501,11 +501,6 @@
 	-fx-margin: 2px 0 2px 0;
 }
 
-.gantt-chart-cell {
-	-fx-background-color: #e0effa;
-	-fx-text-fill: #e0effa;
-}
-
 .gantt-chart-week-column {
 	-fx-text-fill: #000;
 	-fx-font-weight: normal;
@@ -540,6 +535,41 @@
 .gantt-chart-cell-holiday {
 	-fx-background-color: #e56767;
 }
+
+.gantt-chart-cell {
+	-fx-background-color: #e0effa;
+	-fx-text-fill: #e0effa;
+}
+
+.gantt-chart-cell1 {
+	-fx-background-color: #dce4f7;
+	-fx-text-fill: #dce4f7;
+}
+.gantt-chart-cell2 {
+	-fx-background-color: #e2e3e5;
+	-fx-text-fill: #e2e3e5;
+}
+.gantt-chart-cell3 {
+	-fx-background-color: #d6f4e8;
+	-fx-text-fill: #d6f4e8;
+}
+.gantt-chart-cell4 {
+	-fx-background-color: #deeefa;
+	-fx-text-fill: #deeefa;
+}
+.gantt-chart-cell5 {
+	-fx-background-color: #faefe1;
+	-fx-text-fill: #faefe1;
+}
+.gantt-chart-cell6 {
+	-fx-background-color: #fae1e1;
+	-fx-text-fill: #fae1e1;
+}
+.gantt-chart-cell7 {
+	-fx-background-color: #d6d8d9;
+	-fx-text-fill: #d6d8d9;
+}
+
 
 /* ActivityView styles */
 
