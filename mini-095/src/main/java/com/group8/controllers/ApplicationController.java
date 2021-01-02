@@ -39,6 +39,8 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button activitiesButton;
     @FXML
+    private Button reportsButton;
+    @FXML
     private Button usersButton;
     @FXML
     private Button logoutButton;
@@ -73,6 +75,9 @@ public class ApplicationController implements Initializable {
                 viewName = "ActivitiesView";
                 viewTitle = "Activities";
             }
+        } else if (menuEvent.getSource() == reportsButton) {
+            viewName = "GanttChartView";
+            viewTitle = "Gantt Chart";
         } else if (menuEvent.getSource() == usersButton) {
             viewName = "UserView";
             viewTitle = "Users";
