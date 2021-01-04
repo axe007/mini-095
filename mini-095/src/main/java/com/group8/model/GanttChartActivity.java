@@ -1,21 +1,18 @@
 package com.group8.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
+
+import org.bson.types.ObjectId;
 
 public class GanttChartActivity {
     // MARK: For trial only
     private String title;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int topLevelID;
-    private int middleLevelID;
-    private int bottomLevelID;
-    private ArrayList<Integer> workingSchedule;
+    private ObjectId topLevelID;
+    private ObjectId middleLevelID;
+    private ObjectId bottomLevelID;
+    // private ArrayList<Integer> workingSchedule;
 
     // public GanttChartActivity(String title, LocalDate startDate, LocalDate
     // endDate, int topLevelID, int middleLevelID,
@@ -29,8 +26,8 @@ public class GanttChartActivity {
     // this.workingSchedule = workingSchedule;
     // }
 
-    public GanttChartActivity(String title, LocalDate startDate, LocalDate endDate, int topLevelID, int middleLevelID,
-            int bottomLevelID) {
+    public GanttChartActivity(String title, LocalDate startDate, LocalDate endDate, ObjectId topLevelID,
+            ObjectId middleLevelID, ObjectId bottomLevelID) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -77,27 +74,27 @@ public class GanttChartActivity {
         this.endDate = endDate;
     }
 
-    public int getTopLevelID() {
+    public ObjectId getTopLevelID() {
         return topLevelID;
     }
 
-    public void setTopLevelID(int topLevelID) {
+    public void setTopLevelID(ObjectId topLevelID) {
         this.topLevelID = topLevelID;
     }
 
-    public int getMiddleLevelID() {
+    public ObjectId getMiddleLevelID() {
         return middleLevelID;
     }
 
-    public void setMiddleLevelID(int middleLevelID) {
+    public void setMiddleLevelID(ObjectId middleLevelID) {
         this.middleLevelID = middleLevelID;
     }
 
-    public int getBottomLevelID() {
+    public ObjectId getBottomLevelID() {
         return bottomLevelID;
     }
 
-    public void setBottomLevelID(int bottomLevelID) {
+    public void setBottomLevelID(ObjectId bottomLevelID) {
         this.bottomLevelID = bottomLevelID;
     }
 

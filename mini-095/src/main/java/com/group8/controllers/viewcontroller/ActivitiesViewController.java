@@ -34,7 +34,7 @@ public class ActivitiesViewController implements Initializable {
 
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
-    protected static List<Activity> activitiesList = new ArrayList<>();
+    public static List<Activity> activitiesList = new ArrayList<>();
 
     @FXML
     private StackPane activitiesView;
@@ -74,7 +74,6 @@ public class ActivitiesViewController implements Initializable {
     private TableColumn<Activity, String> tblClmActivityType;
     @FXML
     private TableColumn<Activity, String> tblClmActivityStatus;
-
 
     @FXML
     private void handleActivityButtons(ActionEvent event) throws IOException {
@@ -145,7 +144,8 @@ public class ActivitiesViewController implements Initializable {
         };
 
         loadDataTask.setOnSucceeded(e -> tblActivities.getItems().setAll(loadDataTask.getValue()));
-        loadDataTask.setOnFailed(e -> { /* handle errors... */ });
+        loadDataTask.setOnFailed(e -> {
+            /* handle errors... */ });
 
         ProgressIndicator progressIndicator = new ProgressIndicator();
         tblActivities.setPlaceholder(progressIndicator);
@@ -153,7 +153,8 @@ public class ActivitiesViewController implements Initializable {
         Thread loadDataThread = new Thread(loadDataTask);
         loadDataThread.start();
 
-        ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections.observableArrayList(activitiesList);
+        ObservableList<Activity> viewActivities = (ObservableList<Activity>) FXCollections
+                .observableArrayList(activitiesList);
 
         tblClmActivityId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tblClmActivityName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -185,7 +186,8 @@ public class ActivitiesViewController implements Initializable {
         boolean isProjectOpen = false;
         ObjectId projectId = Session.getOpenProjectId();
         if (projectId == null || projectId.equals(null)) {
-            uiHelper.alertDialogGenerator(activitiesView,"error", requestedViewTitle, "No project has been opened.\nPlease open a project in Projects window.");
+            uiHelper.alertDialogGenerator(activitiesView, "error", requestedViewTitle,
+                    "No project has been opened.\nPlease open a project in Projects window.");
         } else {
             isProjectOpen = true;
         }

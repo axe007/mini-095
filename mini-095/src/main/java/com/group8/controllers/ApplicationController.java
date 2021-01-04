@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.App;
+import com.group8.controllers.viewcontroller.ActivitiesViewController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 
@@ -60,7 +61,8 @@ public class ApplicationController implements Initializable {
         } else if (menuEvent.getSource() == sprintboardButton) {
             ObjectId projectId = Session.getOpenProjectId();
             if (projectId == null || projectId.equals(null)) {
-                uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
+                uiHelper.alertDialogGenerator(appContent, "error", "No project open",
+                        "No project has been opened.\nPlease open a project in Projects window.");
                 return;
             } else {
                 viewName = "ScrumboardView";
@@ -69,15 +71,28 @@ public class ApplicationController implements Initializable {
         } else if (menuEvent.getSource() == activitiesButton) {
             ObjectId projectId = Session.getOpenProjectId();
             if (projectId == null || projectId.equals(null)) {
-                uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
+                uiHelper.alertDialogGenerator(appContent, "error", "No project open",
+                        "No project has been opened.\nPlease open a project in Projects window.");
                 return;
             } else {
                 viewName = "ActivitiesView";
                 viewTitle = "Activities";
             }
         } else if (menuEvent.getSource() == reportsButton) {
-            viewName = "GanttChartView";
-            viewTitle = "Gantt Chart";
+            ObjectId projectId = Session.getOpenProjectId();
+            if (projectId == null || projectId.equals(null)) {
+                uiHelper.alertDialogGenerator(appContent, "error", "No project open",
+                        "No project has been opened.\nPlease open a project in Projects window.");
+                return;
+            } else if (ActivitiesViewController.activitiesList.isEmpty()
+                    || ActivitiesViewController.activitiesList.equals(null)) {
+                uiHelper.alertDialogGenerator(appContent, "error", "No activities is available",
+                        "No activities is available.\nPlease load or create activites in Activities window.");
+            } else {
+                viewName = "GanttChartView";
+                viewTitle = "Gantt Chart";
+            }
+
         } else if (menuEvent.getSource() == usersButton) {
             viewName = "UserView";
             viewTitle = "Users";
