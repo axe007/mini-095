@@ -121,9 +121,17 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" fillHeight="false" prefHeight="120.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="sprintNewButton" contentDisplay="TOP" mnemonicParsing="false" wrapText="true" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Start new sprint" textAlignment="CENTER">
+                  <Button fx:id="sprintNewButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Start new sprint" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <FontAwesomeIconView glyphName="OBJECT_GROUP" size="30" styleClass="content-action-icon" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="activityAssignButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Assign activities" wrapText="true" textAlignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="EXCHANGE" size="30" styleClass="content-action-icon" />
                      </graphic>
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
@@ -132,14 +140,6 @@
                   <Button fx:id="activityUpdateButton" alignment="BASELINE_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Update activity" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <FontAwesomeIconView glyphName="EDIT" size="30" styleClass="content-action-icon" />
-                     </graphic>
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="userAssignButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Assign team">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="USERS" size="30" styleClass="content-action-icon" />
                      </graphic>
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />

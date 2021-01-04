@@ -165,28 +165,32 @@ public class SprintAddViewController implements Initializable {
     private void generateSpringDatePickers(LocalDate startDate, LocalDate endDate) {
         LocalDate projectStartDate = Session.getProjectStartDate();
         LocalDate projectEndDate = Session.getProjectEndDate();
-        Callback<DatePicker, DateCell> projectDates = new Callback<DatePicker, DateCell>() {
-            @Override
-            public DateCell call(final DatePicker param) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
 
-                        setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
-                    }
+        if (Session.getWindowMode().equals("new")) {
+            Callback<DatePicker, DateCell> projectDates = new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker param) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
 
-                };
-            }
-        };
+                            setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
+                        }
 
-        this.sprintStartDate.setDayCellFactory(projectDates);
-        this.sprintEndDate.setDayCellFactory(projectDates);
-        this.sprintStartDate.valueProperty().addListener((ov, oldValue, newValue) -> {
-            this.sprintEndDate.setValue(newValue.plusDays(13));
-        });
+                    };
+                }
+            };
 
-        this.sprintStartDate.setValue(projectStartDate);
-        this.sprintEndDate.setValue(projectStartDate.plusDays(13));
+            this.sprintStartDate.setDayCellFactory(projectDates);
+            this.sprintEndDate.setDayCellFactory(projectDates);
+            this.sprintStartDate.valueProperty().addListener((ov, oldValue, newValue) -> {
+                this.sprintEndDate.setValue(newValue.plusDays(13));
+            });
+            this.sprintStartDate.setValue(projectStartDate);
+            this.sprintEndDate.setValue(projectStartDate.plusDays(13));
+        } else if (Session.getWindowMode().equals("edit")) {
+
+        }
     }
 }
