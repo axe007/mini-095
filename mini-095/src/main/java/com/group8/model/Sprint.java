@@ -1,78 +1,54 @@
 package com.group8.model;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Sprint {
+    private ObjectId id;
     private String name;
-    private UUID id;
     private LocalDate startDate;
     private LocalDate endDate;
-    public ArrayList<Activity> activities;
-    private double status;// 100% or use enum status
+    private boolean isComplete;// Sprint is either "ongoing"-False or "completed"-True.
+
+    public Sprint() { }
 
     public Sprint(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.id = UUID.randomUUID();
-        this.activities = null;
-        this.status = 0.0;
+        this.isComplete = false;
     }
 
-    @Override
-    public String toString() {
-        return "Some sprint";
+    public ObjectId getId() {
+        return this.id;
     }
-
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
     }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
     public LocalDate getEndDate() {
         return endDate;
     }
+    public boolean isComplete() {
+        return isComplete;
+    }
 
+    public void setId() { this.id = new ObjectId(); }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
-    public double getStatus() {
-        return status;
-    }
-
-    public void setStatus(double status) {
-        this.status = status;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
+    public void setComplete(boolean isComplete) { this.isComplete = isComplete; }
 
     @Override
     public boolean equals(Object obj) {
@@ -90,13 +66,4 @@ public class Sprint {
             return false;
         return true;
     }
-
-    public ArrayList<Activity> getActivities() {
-        return activities;
-    }
-
-    public void setActivities(ArrayList<Activity> activities) {
-        this.activities = activities;
-    }
-
 }

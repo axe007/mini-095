@@ -2,12 +2,9 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import com.group8.model.*;
-import com.mongodb.client.model.Filters;
 import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -19,14 +16,30 @@ public class ProjectController {
     private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
 
-    public void createProject(String name, LocalDate startDate, LocalDate endDate, String type) {
-        Project newProject = new Project(name, startDate, endDate, type);
+    public void createProject(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
+        Project newProject = new Project(name, description, startDate, endDate, type, sprintDuration);
         mongoDb.getProjectCollection().insertOne(newProject);
     }
 
-    public boolean openProject(ObjectId projectId) {
+    public boolean openProject(Project project) {
         // Receive selected project Id from Table View
-        Session.setOpenProjectId(projectId);
+        Session.setOpenProjectId(project.getId());
+        ObjectId sprintId = project.getCurrentSprint();
+        if (sprintId == null) {
+            Session.setCurrentSprintId(null);
+        } else {
+            Session.setCurrentSprintId(sprintId);
+        }
+
+        LocalDate projectStartDate = project.getStartDate();
+        LocalDate projectEndDate = project.getEndDate();
+        Session.setProjectStartDate(projectStartDate);
+        Session.setProjectEndDate(projectEndDate);
+
+        if (sprintId != null) {
+            Session.setCurrentSprintId(sprintId);
+        }
+
         boolean success = true;
         return success;
     }
@@ -37,6 +50,7 @@ public class ProjectController {
                 .find(eq("_id", projectId)).first();
         switch (projectAttribute) {
             case "projectName" -> projectDetail = project.getName();
+            case "projectDescription" -> projectDetail = project.getDescription();
             case "projectType" -> projectDetail = project.getType();
             case "projectStatus" -> projectDetail = project.getStatus();
         }
@@ -55,29 +69,24 @@ public class ProjectController {
         return projectDate;
     }
 
-    public void closeProject() {
-        // should go back to previous window here
-
-    }
-
     public List getProjectList() {
         List<Project> projects = mongoDb.getProjectCollection().find().into(new ArrayList<Project>());
         return projects;
     }
 
-    public void modifyProject(String name, LocalDate startDate, LocalDate endDate, String type) {
+    public void modifyProject(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
         Project project = (Project) Session.getOpenItem();
         ObjectId id = project.getId();
 
-        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("startDate", startDate),
-                set("endDate", endDate), set("type", type), set("status", "Open")));
+        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("description", description), set("startDate", startDate),
+                set("endDate", endDate), set("type", type), set("status", "Open"), set("sprintDuration", sprintDuration)));
         System.out.println("Project details updated!");
     }
 
-    public List<ObjectId> getProjectList(ObjectId projectId, String listType) {
+    public ArrayList<ObjectId> getProjectList(ObjectId projectId, String listType) {
         Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
                 .find(eq("_id", projectId)).first();
-        List<ObjectId> projectList;
+        ArrayList<ObjectId> projectList = new ArrayList<>();
         if (listType.equals("users")) {
             projectList = project.getDeveloperTeam();
         } else if (listType.equals("activities")) {
@@ -122,5 +131,47 @@ public class ProjectController {
             projectActivities.add(activity);
         }
         mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("activities", projectActivities));
+    }
+
+    public ObjectId getCurrentSprintId() {
+        ObjectId projectId = Session.getOpenProjectId();
+        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
+                .find(eq("_id", projectId)).first();
+        ObjectId currentSprintId = project.getCurrentSprint();
+
+        return currentSprintId;
+    }
+
+    public void updateSprints(ObjectId sprintId) {
+        ObjectId projectId = Session.getOpenProjectId();
+        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
+                .find(eq("_id", projectId)).first();
+
+        ArrayList<ObjectId> sprintList = project.getSprints();
+        sprintList.add(sprintId);
+        project.setSprints(sprintList);
+        project.setCurrentSprint(sprintId);
+
+        mongoDb.getProjectCollection().updateOne(eq("_id", projectId), combine(set("sprints", sprintList), set("currentSprint", sprintId)));
+        System.out.println("Project sprints updated!");
+    }
+
+
+    // TEST METHOD - DONT RUN
+    public void overwriteActivityListDelete() {
+        ActivityController activityController = new ActivityController();
+        ArrayList<Activity> allActivities = activityController.getActivitiesList();
+        ArrayList<ObjectId> allActivityIds = new ArrayList<>();
+
+        for (Activity activity : allActivities) {
+            ObjectId activityId = activity.getId();
+            allActivityIds.add(activityId);
+        }
+
+        ObjectId projectId = Session.getOpenProjectId();
+        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
+                .find(eq("_id", projectId)).first();
+        project.setActivities(allActivityIds);
+        mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("activities", allActivityIds));
     }
 }

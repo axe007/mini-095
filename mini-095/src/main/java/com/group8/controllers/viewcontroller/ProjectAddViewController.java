@@ -7,13 +7,17 @@ import com.group8.model.Project;
 import com.group8.model.ProjectType;
 import com.group8.model.Session;
 import com.group8.model.User;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -45,9 +49,13 @@ public class ProjectAddViewController implements Initializable {
     @FXML
     private TextField name;
     @FXML
+    private TextArea description;
+    @FXML
     private DatePicker startDate;
     @FXML
     private DatePicker endDate;
+    @FXML
+    private ComboBox<String> sprintDuration;
     @FXML
     private ToggleGroup projectTypeToggle;
     @FXML
@@ -62,10 +70,12 @@ public class ProjectAddViewController implements Initializable {
         UIHelper uiHelper = new UIHelper();
         // clear all text field
         String name;
+        String description;
         LocalDate startDate;
         LocalDate endDate;
         String type;
         String status = "In progress";
+        int sprintDuration = 2;
         String alertHeading = "Creating new Project";
         String alertContent = "New project successfully created.\nPlease refresh in projects view.";
 
@@ -76,8 +86,10 @@ public class ProjectAddViewController implements Initializable {
         }
 
         name = this.name.getText();
+        description = this.description.getText();
         startDate = this.startDate.getValue();
         endDate = this.endDate.getValue();
+        sprintDuration = Integer.getInteger(String.valueOf(this.sprintDuration.getValue().charAt(0)));
 
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
 
@@ -98,9 +110,9 @@ public class ProjectAddViewController implements Initializable {
             uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check project details and try again.");
         } else {
             if (Session.getWindowMode().equals("new")) {
-                projectController.createProject(name, startDate, endDate, type);
+                projectController.createProject(name, description, startDate, endDate, type, sprintDuration);
             } else if (Session.getWindowMode().equals("edit")) {
-                projectController.modifyProject(name, startDate, endDate, type);
+                projectController.modifyProject(name, description, startDate, endDate, type, sprintDuration);
                 alertHeading = "Edit project details";
                 alertContent = "Project details successfully updated.\nPlease refresh in Projects view.";
             }
@@ -145,13 +157,20 @@ public class ProjectAddViewController implements Initializable {
                 endDate.setDayCellFactory(callB);
                 startDate.setValue(LocalDate.now());
                 endDate.setValue(LocalDate.now());
+                sprintDuration.getItems().addAll("2 weeks","3 weeks","4 weeks", "5 weeks", "6 weeks");
+                sprintDuration.setValue("2 weeks");
+
             } else if (Session.getWindowMode().equals("edit")) {
                 windowModeTitle.setText("Edit project details:");
 
                 Project project = (Project) Session.getOpenItem();
                 name.setText(project.getName());
+                description.setText(project.getDescription());
                 startDate.setValue(LocalDate.from(project.getStartDate()));
                 endDate.setValue(LocalDate.from(project.getEndDate()));
+                sprintDuration.setValue(project.getSprintDuration() + " weeks");
+                sprintDuration.setDisable(true);
+                sprintDuration.setStyle("-fx-opacity: 1; -fx-text-fill: black;-fx-background-color: white");
 
                 if (project.getType().equals("Software")) {
                     software.setSelected(true);

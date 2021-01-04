@@ -1,29 +1,30 @@
 package com.group8.controllers.viewcontroller;
 
-import com.group8.App;
-import com.group8.controllers.UserController;
+import com.group8.controllers.ActivityController;
+import com.group8.controllers.SprintController;
 import com.group8.helper.UIHelper;
-import com.group8.model.Session;
-import com.group8.model.User;
+import com.group8.model.*;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxListCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ScrumboardViewController implements Initializable {
@@ -31,144 +32,217 @@ public class ScrumboardViewController implements Initializable {
     @FXML
     private StackPane scrumboardView;
     @FXML
-    private VBox listToDo;
+    private GridPane projectBreadcrumb;
     @FXML
-    private VBox listInProgress;
+    private ListView<ListCellItem> listToDo;
     @FXML
-    private ListView<String> listReview;
+    private ListView<ListCellItem> listInProgress;
     @FXML
-    private ListView<String> listDone;
+    private ListView<ListCellItem> listReview;
+    @FXML
+    private ListView<ListCellItem> listDone;
     @FXML
     private Button btnActivityItemAssign;
     @FXML
-    private Label activityName;
-
+    private Label sprintTitle;
     @FXML
-    private Button userNewButton;
+    private Label sprintPeriod;
     @FXML
-    private Button userModifyButton;
+    private Button sprintNewButton;
+    @FXML
+    private Button activityUpdateButton;
     @FXML
     private Button userAssignButton;
     @FXML
-    private Button userListButton;
+    private Button boardRefreshButton;
     @FXML
     private Button userDeleteButton;
     @FXML
     private TextField activitySearch;
-    @FXML
-    private TextArea dbFeedback;
 
+    private static SprintController sprintController = new SprintController();
+    private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
-    public ObservableList<String> names = FXCollections.observableArrayList();
+    // public ObservableList<String> names = FXCollections.observableArrayList();
 
     @FXML
-    private void handleUserButtons(ActionEvent event) throws IOException {
+    private void handleSprintButtons(ActionEvent event) throws IOException {
         // clear all text field
-        if (event.getSource() == userNewButton) {
-            // Session.setWindowMode("new");
-            // uiHelper.loadWindow("UserAddView", userNewButton, null);
-
-        } else if (event.getSource() == userModifyButton) {
-            // Modify user details
-            //User user = tblUsers.getSelectionModel().getSelectedItem();
-            // Session.setSetOpenItem(user);
-            /*if (user == null) {
-                uiHelper.alertDialogGenerator(userView,"error", "Modify user", "No user exist or no user selected.\nPlease select an user and try again.");
-            } else {
-                Session.setWindowMode("edit");
-                uiHelper.loadWindow("UserAddView", userModifyButton, user);
-            }*/
+        if (event.getSource() == sprintNewButton) {
+            uiHelper.loadWindow("SprintAddView", sprintNewButton, "Create new sprint");
+        } else if (event.getSource() == activityUpdateButton) {
+            ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
+            for (ListView list : listViews) {
+                ListCellItem listItem = (ListCellItem) list.getSelectionModel().getSelectedItem();
+                if (listItem !=null) {
+                    String name = listItem.getName();
+                    System.out.println(name);
+                } else if (listItem ==null) {
+                    uiHelper.alertDialogGenerator(scrumboardView,"error", "Update activity", "No activity selected.\nPlease select an activity and try again.");
+                    return;
+                }
+            }
 
         } else if (event.getSource() == userAssignButton) {
             // List all projects window
 
-        } else if (event.getSource() == userListButton) {
-            // List all projects window
-            // userController.getUser();
+        } else if (event.getSource() == boardRefreshButton) {
+            reloadBoard();
 
         } else if (event.getSource() == userDeleteButton) {
             // Archive project window
         }
     }
 
-    public void loadUserData() {
+    @FXML
+    private void handleSelection(MouseEvent event) throws IOException {
+        ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
 
-        //getting the full list of books from file
-        // List<User> userList = userController.getUserList();
-        // ObservableList<User> viewUsers = (ObservableList<User>) FXCollections.observableArrayList(userList);
-
-        /*tblClmUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tblClmUserName.setCellValueFactory(new PropertyValueFactory<>("username"));
-        tblClmUserFullname.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        tblClmUserRole.setCellValueFactory(new PropertyValueFactory<>("userRole"));
-        tblClmUserEmailAddress.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));*/
-
-        // tblUsers.setItems(viewUsers);
+        for (ListView list : listViews) {
+            if (event.getSource() != list) {
+                list.getSelectionModel().clearSelection();
+            }
+        }
     }
 
-    public void loadListToDo() {
+    public void loadListViews(ArrayList<Activity> activitiesList) {
+        ArrayList<ListCellItem> todoItems = new ArrayList<>();
+        ArrayList<ListCellItem> inprogressItems = new ArrayList<>();
+        ArrayList<ListCellItem> reviewItems = new ArrayList<>();
+        ArrayList<ListCellItem> doneItems = new ArrayList<>();
+        String activityName;
+        String activityType;
+        double activityPriority;
 
-        names.addAll(
-                "Adam", "Alex", "Alfred", "Albert",
-                "Brenda", "Connie", "Derek", "Donny",
-                "Lynne", "Myrtle", "Rose", "Rudolph",
-                "Tony", "Trudy", "Williams", "Zach"
-        );
-        names.addAll(
-                "Adams", "Alexander", "Alfred", "Albert",
-                "Brenda", "Connie", "Derek", "Donny",
-                "Lynne", "Myrtle", "Rose", "Rudolph",
-                "Tony", "Trudy", "Williams", "Zach"
-        );
-        names.addAll(
-                "Adams", "Alexander", "Alfred", "Albert",
-                "Brenda", "Connie", "Derek", "Donny",
-                "Lynne", "Myrtle", "Rose", "Rudolph",
-                "Tony", "Trudy", "Williams", "Zach"
-        );
+        for (Activity activity : activitiesList) {
+            activityName = activity.getName();
+            activityPriority = activity.getPriority();
+            if (activity instanceof UserStory) {
+                activityType = "User Story";
+            } else if (activity instanceof Task) {
+                activityType = "Task";
+            } else {
+                activityType = "Bug";
+            }
+            if (activity.getActivityStatus().equals("TODO")) {
+                todoItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+            } else if (activity.getActivityStatus().equals("INPROGRESS")) {
+                inprogressItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+            } else if (activity.getActivityStatus().equals("REVIEW")) {
+                reviewItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+            } else if (activity.getActivityStatus().equals("DONE")) {
+                doneItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+            }
+        }
 
-        // listToDo.setItems(names);
+        Callback<ListView<ListCellItem>, ListCell<ListCellItem>> cellFactory = new Callback<ListView<ListCellItem>, ListCell<ListCellItem>>() {
+            @Override
+            public ListCell<ListCellItem> call(ListView<ListCellItem> param) {
+                ListCell<ListCellItem> cell = new ListCell<ListCellItem>() {
+                    @Override
+                    protected void updateItem(ListCellItem item, boolean empty) {
 
+                        super.updateItem(item, empty);
+                        if (item != null && item.getType().equals("User Story")) {
+                            setPrefHeight(45.0);
+                            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.STACK_EXCHANGE, "12");
+                            icon.setFill(Color.rgb(8,97,8));
+                            setText(item.getName());
+                            setGraphic(icon);
+                            setTextFill(Color.rgb(8,97,8));
+                            int priority = item.getPriority();
+                            setBorder(paintPriority(priority));
+                        } else if (item != null && item.getType().equals("Task")){
+                            setPrefHeight(45);
+                            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.CODE_FORK, "12");
+                            icon.setFill(Color.rgb(0,5,221));
+                            setText(item.getName());
+                            setGraphic(icon);
+                            setTextFill(Color.rgb(0,5,221));
+                            int priority = item.getPriority();
+                            setBorder(paintPriority(priority));
+                        } else if (item != null && item.getType().equals("Bug")){
+                            setPrefHeight(45);
+                            FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.BUG, "12");
+                            icon.setFill(Color.rgb(200,13,13));
+                            setText(item.getName());
+                            setGraphic(icon);
+                            setTextFill(Color.rgb(200,13,13));
+                            int priority = item.getPriority();
+                            setBorder(paintPriority(priority));
+                        } else if (empty || item == null || item.getName().equals("")) {
+                            setVisible(false);
+                            setPrefHeight(0.0);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
+        for (ListView listView : listViews) {
+            listView.getItems().clear();
+            listView.setPlaceholder(new Label("No Activities"));
+            listView.setCellFactory(cellFactory);
+            if (!todoItems.isEmpty() && listView == listToDo) {
+                listView.getItems().addAll(todoItems);
+            } else if (!inprogressItems.isEmpty() && listView == listInProgress) {
+                listView.getItems().addAll(inprogressItems);
+            } else if (!reviewItems.isEmpty() && listView == listReview) {
+                listView.getItems().addAll(reviewItems);
+            } else if (!doneItems.isEmpty() && listView == listDone) {
+                listView.getItems().addAll(doneItems);
+            }
+        }
+    }
+
+    public Border paintPriority(int priority) {
+        // Border itemBorder = new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 4)));
+        Border itemBorder = null;
+        if (priority == 1) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xDDDDDD"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 2) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xcbea96"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 3) {
+            itemBorder = new Border(new BorderStroke(Color.web("0x41b337"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 4) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xffe56b"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 5) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xE56767"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        }
+        return itemBorder;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            // TODO
-            // initCol();
-            // loadUserData();
-
-            // loadListToDo();
-
-            Node[] nodes = new Node[20];
-            int i = 1;
-            for (Node node : nodes) {
-                try {
-
-                    node = FXMLLoader.load(App.class.getResource("fxml/content/ActivityItem.fxml"));
-                    Node finalNode = node;
-                    Node finalNode3 = node;
-
-                    //give the items some effect
-                    Node finalNode1 = node;
-                    node.setOnMouseEntered(event -> {
-                        finalNode1.setStyle("-fx-background-color : #d9e2f6");
-                    });
-                    Node finalNode2 = node;
-                    node.setOnMouseExited(event -> {
-                        finalNode2.setStyle("-fx-background-color : #fff");
-                    });
-                    //getactivityName.setText("Activity ID: " + String.valueOf(i));
-                    listToDo.getChildren().add(node);
-                    i++;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
+            reloadBoard();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void reloadBoard() {
+        uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+        ArrayList<Activity> activitiesList = new ArrayList<>();
+
+        ObjectId sprintId = Session.getCurrentSprintId();
+        if (sprintId == null) {
+            sprintTitle.setText("No active sprint");
+            sprintPeriod.setText("Please create and start sprint by clicking \"Start new sprint\" button.");
+        } else {
+            sprintTitle.setText(sprintController.getSprintName(sprintId));
+            LocalDate sprintStartDate = sprintController.getSprintDate(sprintId, "startDate");
+            LocalDate sprintEndDate = sprintController.getSprintDate(sprintId, "endDate");
+            String startDateText = sprintStartDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            String endDateText = sprintEndDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            sprintPeriod.setText("Sprint period: " + startDateText + " - " + endDateText);
+
+            activitiesList = activityController.getSprintActivities(sprintId);
+        }
+
+        loadListViews(activitiesList);
     }
 
     @FXML
@@ -182,14 +256,30 @@ public class ScrumboardViewController implements Initializable {
         activityController.activityName = activitiesSearch.getText();*/
     }
 
-    @FXML
-    private void btnRefreshOnAction(ActionEvent event) {
-        loadUserData();
-    }
+    public static class ListCellItem {
+        private final String name;
+        private final String type;
+        private final int priority;
 
-    @FXML
-    public void actionFeedback(String result) {
-        //dbFeedback.setText(result);
-        //System.out.println(result);
+        public ListCellItem(String name, String type, int priority) {
+            this.name = name;
+            this.type = type;
+            this.priority = priority;
+        }
+
+        public String getName() {
+            return name;
+        }
+        public String getType() {
+            return type;
+        }
+        public int getPriority() {
+            return priority;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

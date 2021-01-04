@@ -61,6 +61,8 @@ public class ProjectViewController implements Initializable {
     @FXML
     private TableColumn<Project, String> tblClmProjectName;
     @FXML
+    private TableColumn<Project, String> tblClmProjectDescription;
+    @FXML
     private TableColumn<Project, String> tblClmProjectStartDate;
     @FXML
     private TableColumn<Project, String> tblClmProjectEndDate;
@@ -96,6 +98,7 @@ public class ProjectViewController implements Initializable {
 
         } else if (event.getSource() == projectArchiveButton) {
             // Archive project window
+            // proController.overwriteActivityListDelete(); // DO NOT RUN UNLESS YOU KNOW WHAT IT IS
         }
     }
 
@@ -119,13 +122,18 @@ public class ProjectViewController implements Initializable {
         ObservableList<Project> viewProjects = (ObservableList<Project>) FXCollections.observableArrayList(projectList);
 
         tblClmProjectId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tblClmProjectId.setPrefWidth(50.0);
         tblClmProjectName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblClmProjectName.setPrefWidth(200.0);
+        tblClmProjectDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tblClmProjectDescription.setPrefWidth(320.0);
         tblClmProjectStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         tblClmProjectEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         tblClmProjectType.setCellValueFactory(new PropertyValueFactory<>("type"));
         tblClmProjectStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         tblProjects.setItems(viewProjects);
+        tblProjects.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         tblProjects.setOnMouseClicked((MouseEvent mouseEvent) -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
@@ -153,7 +161,8 @@ public class ProjectViewController implements Initializable {
         if (project == null) {
             uiHelper.alertDialogGenerator(projectView,"error", "Open project", "No project exist or no project selected.\nPlease select a project and try again.");
         } else {
-            boolean success = proController.openProject(project.getId());
+            boolean success = proController.openProject(project);
+
             if (success) {
                 uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
                 uiHelper.alertDialogGenerator(projectView, "success", "Open project", "Successfully opened project:\n" + project.getName());

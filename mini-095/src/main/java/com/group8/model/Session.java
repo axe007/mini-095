@@ -9,6 +9,7 @@ public class Session {
     private static Session instance;
     private static ObjectId sessionUserId;
     private static ObjectId openProjectId;
+    private static ObjectId currentSprintId;
     private static LocalDate projectStartDate;
     private static LocalDate projectEndDate;
     private static String windowMode;
@@ -33,9 +34,9 @@ public class Session {
     public static ObjectId getOpenProjectId() {
         return openProjectId;
     }
+    public static ObjectId getCurrentSprintId() { return currentSprintId; }
     public static LocalDate getProjectStartDate() { return projectStartDate; }
     public static LocalDate getProjectEndDate() { return projectEndDate; }
-
     public static String getWindowMode() {
         return windowMode;
     }
@@ -49,9 +50,9 @@ public class Session {
     public static void setOpenProjectId(ObjectId projectName) {
         openProjectId = projectName;
     }
+    public static void setCurrentSprintId(ObjectId currentSprintId) { Session.currentSprintId = currentSprintId; }
     public static void setProjectStartDate(LocalDate projectStartDate) { Session.projectStartDate = projectStartDate; }
     public static void setProjectEndDate(LocalDate projectEndDate) { Session.projectEndDate = projectEndDate; }
-
     public static void setWindowMode(String windowModeSet) {
         windowMode = windowModeSet;
     }

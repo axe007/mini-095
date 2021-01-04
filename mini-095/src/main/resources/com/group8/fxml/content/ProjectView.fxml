@@ -99,11 +99,12 @@
               <TableView fx:id="tblProjects" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" styleClass="contentview-tableview" BorderPane.alignment="CENTER">
                   <columns>
                       <TableColumn fx:id="tblClmProjectId" prefWidth="50.0" text="Project Id" />
-                      <TableColumn fx:id="tblClmProjectName" prefWidth="75.0" text="Project Name" />
-                      <TableColumn fx:id="tblClmProjectStartDate" prefWidth="100.0" text="Start Date" />
-                      <TableColumn fx:id="tblClmProjectEndDate" prefWidth="100.0" text="End Date" />
-                      <TableColumn fx:id="tblClmProjectType" prefWidth="100.0" text="Project type" />
-                      <TableColumn fx:id="tblClmProjectStatus" prefWidth="100.0" text="Project status" />
+                      <TableColumn fx:id="tblClmProjectName" prefWidth="200.0" text="Project Name" />
+                      <TableColumn fx:id="tblClmProjectDescription" prefWidth="300.0" text="Description" />
+                      <TableColumn fx:id="tblClmProjectStartDate" prefWidth="80.0" text="Start Date" />
+                      <TableColumn fx:id="tblClmProjectEndDate" prefWidth="80.0" text="End Date" />
+                      <TableColumn fx:id="tblClmProjectType" prefWidth="80.0" text="Project type" />
+                      <TableColumn fx:id="tblClmProjectStatus" prefWidth="60.0" text="Project status" />
                   </columns>
                   <columnResizePolicy>
                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

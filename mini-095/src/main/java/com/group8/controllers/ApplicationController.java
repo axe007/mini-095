@@ -50,6 +50,7 @@ public class ApplicationController implements Initializable {
     public void handleSidebarBtn(ActionEvent menuEvent) throws IOException {
         String viewName = "HomeView";
         String viewTitle = "Title";
+        ObjectId projectId = Session.getOpenProjectId();
 
         // clear all text field
         if (menuEvent.getSource() == dashboardButton) {
@@ -59,7 +60,6 @@ public class ApplicationController implements Initializable {
             viewName = "ProjectView";
             viewTitle = "Projects";
         } else if (menuEvent.getSource() == sprintboardButton) {
-            ObjectId projectId = Session.getOpenProjectId();
             if (projectId == null || projectId.equals(null)) {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
                         "No project has been opened.\nPlease open a project in Projects window.");
@@ -69,7 +69,6 @@ public class ApplicationController implements Initializable {
                 viewTitle = "Scrum Board";
             }
         } else if (menuEvent.getSource() == activitiesButton) {
-            ObjectId projectId = Session.getOpenProjectId();
             if (projectId == null || projectId.equals(null)) {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
                         "No project has been opened.\nPlease open a project in Projects window.");
@@ -79,7 +78,6 @@ public class ApplicationController implements Initializable {
                 viewTitle = "Activities";
             }
         } else if (menuEvent.getSource() == reportsButton) {
-            ObjectId projectId = Session.getOpenProjectId();
             if (projectId == null || projectId.equals(null)) {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
                         "No project has been opened.\nPlease open a project in Projects window.");
