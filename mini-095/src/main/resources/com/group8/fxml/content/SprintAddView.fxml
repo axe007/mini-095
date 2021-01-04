@@ -31,17 +31,30 @@
                               </rowConstraints>
                               <children>
                                   <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Sprint name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
-                                  <TextField fx:id="sprintName" maxWidth="180.0" prefWidth="180.0" styleClass="login-textfield" promptText="Enter sprint name ..." GridPane.columnIndex="1" />
+                              <StackPane alignment="CENTER_LEFT" GridPane.columnIndex="1">
+                                 <children>
+                                        <TextField fx:id="sprintName" maxWidth="180.0" prefWidth="180.0" promptText="Enter sprint name ..." styleClass="login-textfield" />
+                                        <Label fx:id="sprintNameEdit" text="" />
+                                 </children>
+                              </StackPane>
                                   <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Start date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                                  <DatePicker prefWidth="120.0" fx:id="sprintStartDate" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <StackPane alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin></DatePicker>
+                                 </GridPane.margin>
+                                 <children>
+                                        <DatePicker fx:id="sprintStartDate" prefWidth="120.0" />
+                                 </children>
+                              </StackPane>
                                   <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="End date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                                  <DatePicker prefWidth="120.0" fx:id="sprintEndDate" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <StackPane alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin></DatePicker>
+                                 </GridPane.margin>
+                                 <children>
+                                        <DatePicker fx:id="sprintEndDate" prefWidth="120.0" />
+                                 </children>
+                              </StackPane>
                                   <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Sprint duration:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                                   <Text fx:id="sprintDuration" text="2 weeks" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               </children>

@@ -31,8 +31,10 @@ public class ProjectController {
             Session.setCurrentSprintId(sprintId);
         }
 
+        String projectName = project.getName();
         LocalDate projectStartDate = project.getStartDate();
         LocalDate projectEndDate = project.getEndDate();
+        Session.setOpenProjectName(projectName);
         Session.setProjectStartDate(projectStartDate);
         Session.setProjectEndDate(projectEndDate);
 
