@@ -91,12 +91,16 @@ public class GanttChartViewController implements Initializable {
                                 .equals(bottomGanttChartActivity.getMiddleLevelID())) {
                             TreeItem<GanttChartActivity> bottomLevelItem = new TreeItem<>(bottomGanttChartActivity);
                             middleLevelItem.getChildren().add(bottomLevelItem);
+                            middleLevelItem.setExpanded(true);
                         }
                     }
                     topLevelItem.getChildren().add(middleLevelItem);
+                    topLevelItem.setExpanded(true);
                 }
             }
             projectItem.getChildren().add(topLevelItem);
+            projectItem.setExpanded(true);
+
         }
 
         TreeTableColumn<GanttChartActivity, String> treeTableColumn1 = new TreeTableColumn<>("Name");
@@ -253,16 +257,69 @@ public class GanttChartViewController implements Initializable {
     @FXML
     private void handleSearchButton(ActionEvent event) {
         if (!activitySearchTextField.getText().isEmpty()) {
+            int topLevelIndex = 0;
+            int middleLevelIndex = 0;
+            int bottomLevelIndex = 0;
+            boolean isTopItem = false;
+            boolean isMiddleItem = false;
+            boolean isBottomItem = false;
 
             ObservableList<TreeItem<GanttChartActivity>> activityList = ganttChartTreeTableView.getRoot().getChildren();
 
             for (TreeItem<GanttChartActivity> treeItem : activityList) {
                 if (treeItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
-                    int index = activityList.indexOf(treeItem);
-                    ganttChartTreeTableView.getRoot().setExpanded(true);
-                    ganttChartTreeTableView.getSelectionModel().clearAndSelect(index);
+                    topLevelIndex = activityList.indexOf(treeItem);
+                    isTopItem = true;
+
+                } else if (treeItem.getChildren() != null) {
+                    for (TreeItem<GanttChartActivity> childItem : treeItem.getChildren()) {
+                        if (childItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
+                            middleLevelIndex = activityList.indexOf(treeItem) + 1;
+
+                            isMiddleItem = true;
+
+                        } else if (childItem.getChildren() != null) {
+                            for (TreeItem<GanttChartActivity> grandChildItem : childItem.getChildren()) {
+                                if (grandChildItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
+                                    bottomLevelIndex = activityList.indexOf(treeItem) + 1;
+
+                                    isBottomItem = true;
+
+                                } else {
+                                    bottomLevelIndex++;
+                                }
+
+                            }
+                            middleLevelIndex += bottomLevelIndex;
+                            bottomLevelIndex = 0;
+
+                        } else {
+                            middleLevelIndex++;
+                        }
+                    }
+                    topLevelIndex += middleLevelIndex;
+                    middleLevelIndex = 0;
+                }
+
+                else {
+                    topLevelIndex++;
                 }
             }
+            int topOffSet = isTopItem ? 1 : 0;
+            int midOffSet = 0;
+            int bottomOffSet = 0;
+            if (isBottomItem) {
+                topOffSet = 1;
+                bottomOffSet = 1;
+                midOffSet = 1;
+
+            } else if (isMiddleItem) {
+                topOffSet = 1;
+                midOffSet = 1;
+            }
+            ganttChartTreeTableView.getRoot().setExpanded(true);
+            ganttChartTreeTableView.getSelectionModel().clearAndSelect(
+                    topLevelIndex + middleLevelIndex + bottomLevelIndex + topOffSet + midOffSet + bottomOffSet);
         }
 
     }
