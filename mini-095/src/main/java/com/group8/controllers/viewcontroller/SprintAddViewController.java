@@ -51,9 +51,15 @@ public class SprintAddViewController implements Initializable {
     @FXML
     private TextField sprintName;
     @FXML
+    private Label sprintNameEdit;
+    @FXML
     private DatePicker sprintStartDate;
     @FXML
     private DatePicker sprintEndDate;
+    @FXML
+    private Label sprintStartDateEdit;
+    @FXML
+    private Label sprintEndDateEdit;
     @FXML
     private Text sprintDuration;
     @FXML
@@ -66,23 +72,34 @@ public class SprintAddViewController implements Initializable {
     private void handleSaveBtn(ActionEvent event) throws IOException {
 
         String alertHeading = "Create new sprint";
-        String alertContent = "New sprint is created and \nactivities are assigned.";
+        String alertContent = "New sprint is created and activities are assigned.\nPlease reload the board.";
         UIHelper uiHelper = new UIHelper();
 
         String sprintName;
         LocalDate sprintStartDate;
         LocalDate sprintEndDate;
+        ObjectId sprintId = null;
 
-        sprintName = this.sprintName.getText();
-        sprintStartDate = this.sprintStartDate.getValue();
-        sprintEndDate = this.sprintEndDate.getValue();
+        if (Session.getWindowMode().equals("new")) {
+            sprintName = this.sprintName.getText();
+            sprintStartDate = this.sprintStartDate.getValue();
+            sprintEndDate = this.sprintEndDate.getValue();
+            sprintId = sprintController.createSprint(sprintName, sprintStartDate, sprintEndDate);
+            Session.setCurrentSprintId(sprintId);
+            projectController.updateSprints(sprintId);
 
-        ObjectId newSprintId = sprintController.createSprint(sprintName, sprintStartDate, sprintEndDate);
+        } else if (Session.getWindowMode().equals("edit")) {
+            sprintId = Session.getCurrentSprintId();
+            alertHeading = "Assigning activities";
+            alertContent = "Activities are successfully assigned.\nPlease reload the board.";
+        }
+
         List<String> unassignedActivities = unassignedListView.getItems();
         List<String> assignedActivities = assignedListView.getItems();
-        Session.setCurrentSprintId(newSprintId);
-        projectController.updateSprints(newSprintId);
-        activityController.updateActivitySprint(assignedActivities, newSprintId);
+
+        // Update Activity's sprintId
+        activityController.updateActivitySprint(assignedActivities, sprintId);
+        activityController.updateActivitySprint(unassignedActivities, null);
 
         Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
@@ -189,8 +206,25 @@ public class SprintAddViewController implements Initializable {
             });
             this.sprintStartDate.setValue(projectStartDate);
             this.sprintEndDate.setValue(projectStartDate.plusDays(13));
-        } else if (Session.getWindowMode().equals("edit")) {
+            this.sprintNameEdit.setVisible(false);
+            this.sprintStartDateEdit.setVisible(false);
+            this.sprintEndDateEdit.setVisible(false);
 
+
+        } else if (Session.getWindowMode().equals("edit")) {
+            ObjectId sprintId = Session.getCurrentSprintId();
+            String sprintName = sprintController.getSprintName(sprintId);
+            LocalDate sprintStartDate = sprintController.getSprintDate(sprintId, "startDate");
+            LocalDate sprintEndDate = sprintController.getSprintDate(sprintId, "endDate");
+            String startDateText = sprintStartDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            String endDateText = sprintEndDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            this.sprintName.setVisible(false);
+            this.sprintStartDate.setVisible(false);
+            this.sprintEndDate.setVisible(false);
+
+            this.sprintNameEdit.setText(sprintName);
+            this.sprintStartDateEdit.setText(startDateText);
+            this.sprintEndDateEdit.setText(endDateText);
         }
     }
 }

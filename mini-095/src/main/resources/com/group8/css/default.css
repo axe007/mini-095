@@ -279,7 +279,8 @@
 .combo-box-base:focused,
 .textfield:focused,
 .text-area:focused,
-.slider:focused {
+.slider:focused,
+.scroll-pane:focused {
 	-fx-focus-color: #5179d6;
 	-fx-faint-focus-color: #5179d622;
 }
@@ -295,8 +296,8 @@
 
 .slider .axis .axis-tick-mark {
 	-fx-fill: null;
-	-fx-stroke-width: 2;
-	-fx-stroke: linear-gradient(to left, red, yellow, green);
+	-fx-stroke-width: 3;
+	-fx-stroke: linear-gradient(to left, #E56767, #ffe56b, #41b337, #cbea96, #DDDDDD);
 }
 
 .slider .track {

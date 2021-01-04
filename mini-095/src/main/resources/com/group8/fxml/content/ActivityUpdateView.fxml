@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="dialogPane" prefHeight="521.0" prefWidth="480.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ActivityUpdateViewController">
+   <children>
+      <AnchorPane id="anchorPane" prefHeight="640.0" prefWidth="440.0" StackPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="vboxPane" layoutX="38.0" layoutY="32.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" focusTraversable="false" prefWidth="560.0" styleClass="h2" text="Update activity status">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></Label>
+                  <GridPane alignment="BASELINE_CENTER" styleClass="user-assign-projectinfo" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                        <Text fx:id="activityName" text="Activity name" wrappingWidth="265.0" GridPane.columnIndex="1" />
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Parent items:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <Text fx:id="parentItems" text="None" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity dates:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <Text fx:id="activityDates" text="dates" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <StackPane alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="estimatedHours" focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Estimated hours:" />
+                              <Label fx:id="storyPoints" focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Story points:" />
+                           </children>
+                        </StackPane>
+                        <Text fx:id="activityEstimate" text="5 hours" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Priority:" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Text fx:id="activityPriority" text="Normal" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                     </children>
+                  </GridPane>
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" layoutX="10.0" layoutY="319.0" prefHeight="20.0" styleClass="user-assign-projectinfo-label" text="Activity description:">
+                     <padding>
+                        <Insets left="1.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane focusTraversable="false" minHeight="120.0" minWidth="398.0" maxHeight="120.0">
+                     <VBox.margin>
+                        <Insets left="1.0" right="1.0" />
+                     </VBox.margin>
+                     <content>
+                        <Text fx:id="description" text="Description text" wrappingWidth="380.0" />
+                     </content>
+                  </ScrollPane>
+                  <GridPane>
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity status:" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="1.0" />
+                           </padding>
+                        </Label>
+                        <Text text="Current status" GridPane.columnIndex="1" />
+                        <Text layoutX="105.0" layoutY="30.0" text="New status" GridPane.columnIndex="2" />
+                        <Text fx:id="currentStatus" layoutX="105.0" layoutY="30.0" text="TO DO" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="newStatusCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Update notes:">
+                     <VBox.margin>
+                        <Insets bottom="3.0" top="12.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="1.0" />
+                     </padding></Label>
+                  <TextArea fx:id="noteContent" prefHeight="100.0" prefWidth="398.0" promptText="Enter activity update information ...">
+                     <padding>
+                        <Insets left="1.0" right="1.0" />
+                     </padding></TextArea>
+                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="404.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="saveButton" onAction="#handleSaveActivityBtn" prefWidth="100.0" styleClass="submit-button" text="Save" />
+                        <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" onAction="#handleCancel" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

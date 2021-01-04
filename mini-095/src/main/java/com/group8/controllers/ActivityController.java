@@ -109,6 +109,11 @@ public class ActivityController {
         return activityId;
     }
 
+    public Activity getActivity(String findField, String findValue) {
+        Activity activity = mongoDb.getActivityCollection().withCodecRegistry(mongoDb.createCodecRegistry("Activities")).find(eq(findField, findValue)).first();
+        return activity;
+    }
+
     public void updateActivityAssignee(List<String> assignedUsers) {
         UserController userController = new UserController();
         List<ObjectId> assignedUserIds = new ArrayList<ObjectId>();
@@ -129,8 +134,12 @@ public class ActivityController {
         }
     }
 
+    public void updateActivityStatus(ObjectId activityId, String activityStatus) {
+        MongoCollection activityCollection = mongoDb.getActivityCollection();
+        activityCollection.updateOne(eq("_id", activityId), set("activityStatus", activityStatus));
+    }
+
     public ArrayList<Activity> getSprintActivities(ObjectId sprintId) {
-        System.out.println("Sprint Id at getSprintActivities: " + sprintId);
         ArrayList<Activity> sprintActivities = new ArrayList<>();
         if (sprintId !=null) {
             MongoCollection activityCollection = mongoDb.getActivityCollection();
