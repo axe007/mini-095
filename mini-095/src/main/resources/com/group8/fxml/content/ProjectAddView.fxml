@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <StackPane fx:id="dialogPane" prefHeight="480.0" prefWidth="400.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ProjectAddViewController">
     <children>
@@ -26,14 +27,14 @@
                         </TextField>
                         <Label focusTraversable="false" styleClass="textfield-label" text="Description">
                             <VBox.margin>
-                                <Insets top="12.0" />
+                                <Insets top="10.0" />
                             </VBox.margin>
                             <padding>
                                 <Insets left="1.0" />
                             </padding></Label>
                         <TextArea fx:id="description" minHeight="-Infinity" prefHeight="100.0" promptText="Enter short description">
                      <VBox.margin>
-                        <Insets bottom="15.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin></TextArea>
                         <GridPane>
                             <columnConstraints>
@@ -41,8 +42,8 @@
                                 <ColumnConstraints hgrow="SOMETIMES" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="8.0" valignment="BOTTOM" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                                <RowConstraints valignment="BOTTOM" vgrow="SOMETIMES" />
+                                <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" styleClass="textfield-label" text="Start Date">
@@ -60,12 +61,19 @@
                                 <DatePicker fx:id="endDate" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                             <VBox.margin>
-                                <Insets top="12.0" />
+                                <Insets bottom="10.0" />
                             </VBox.margin>
                         </GridPane>
+                  <Label text="Sprint duration" />
+                  <ComboBox fx:id="sprintDuration" prefWidth="150.0"  />
+                  <Label styleClass="textfield-remark" text="* cannot be changed later">
+                     <VBox.margin>
+                        <Insets top="-5.0" left="1.0" />
+                     </VBox.margin>
+                  </Label>
                             <Label fx:id="type" styleClass="textfield-label" text="Project type">
                              <VBox.margin>
-                                <Insets bottom="5.0" top="25.0" />
+                                <Insets bottom="5.0" top="10.0" />
                              </VBox.margin>
                             </Label>
                             <fx:define>

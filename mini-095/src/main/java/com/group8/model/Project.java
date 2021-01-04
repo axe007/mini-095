@@ -17,11 +17,13 @@ public class Project {
     private LocalDate startDate;
     private LocalDate endDate;
     private String type;
+    private int sprintDuration;
     private String status;
+    private ObjectId currentSprint;
 
     public Project() {}
 
-    public Project(String name, String description, LocalDate startDate, LocalDate endDate, String type) {
+    public Project(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
         this.name = name;
         this.description = description;
         this.activities = new ArrayList<>();
@@ -30,6 +32,8 @@ public class Project {
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = type;
+        this.sprintDuration = sprintDuration;
+        this.currentSprint = null;
         this.status = "Open";
     }
 
@@ -58,6 +62,8 @@ public class Project {
     public String getType() {
         return type;
     }
+    public int getSprintDuration() { return sprintDuration; }
+    public ObjectId getCurrentSprint() { return currentSprint; }
     public String getStatus() {
         return status;
     }
@@ -85,6 +91,8 @@ public class Project {
     public void setType(String type) {
         this.type = type;
     }
+    public void setSprintDuration(int sprintDuration) { this.sprintDuration = sprintDuration; }
+    public void setCurrentSprint(ObjectId currentSprint) { this.currentSprint = currentSprint; }
     public void setStatus(String status) { this.status = status; }
 
     @Override

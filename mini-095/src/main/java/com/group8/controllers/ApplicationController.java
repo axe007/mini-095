@@ -49,6 +49,7 @@ public class ApplicationController implements Initializable {
     public void handleSidebarBtn(ActionEvent menuEvent) throws IOException {
         String viewName = "HomeView";
         String viewTitle = "Title";
+        ObjectId projectId = Session.getOpenProjectId();
 
         // clear all text field
         if (menuEvent.getSource() == dashboardButton) {
@@ -57,25 +58,16 @@ public class ApplicationController implements Initializable {
         } else if (menuEvent.getSource() == projectButton) {
             viewName = "ProjectView";
             viewTitle = "Projects";
-        } else if (menuEvent.getSource() == sprintboardButton) {
-            ObjectId projectId = Session.getOpenProjectId();
-            if (projectId == null || projectId.equals(null)) {
-                uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
-                return;
-            } else {
-                viewName = "ScrumboardView";
-                viewTitle = "Scrum Board";
-            }
-        } else if (menuEvent.getSource() == activitiesButton) {
-            ObjectId projectId = Session.getOpenProjectId();
-            if (projectId == null || projectId.equals(null)) {
-                uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
-                return;
-            } else {
-                viewName = "ActivitiesView";
-                viewTitle = "Activities";
-            }
-        } else if (menuEvent.getSource() == reportsButton) {
+        } else if (projectId == null && (menuEvent.getSource() == sprintboardButton || menuEvent.getSource() == activitiesButton || menuEvent.getSource() == reportsButton)) {
+            uiHelper.alertDialogGenerator(appContent,"error", "No project open", "No project has been opened.\nPlease open a project in Projects window.");
+            return;
+        } else if (projectId != null && menuEvent.getSource() == sprintboardButton) {
+            viewName = "ScrumboardView";
+            viewTitle = "Scrum Board";
+        } else if (projectId != null && menuEvent.getSource() == activitiesButton) {
+            viewName = "ActivitiesView";
+            viewTitle = "Activities";
+        } else if (projectId != null && menuEvent.getSource() == reportsButton) {
             viewName = "GanttChartView";
             viewTitle = "Gantt Chart";
         } else if (menuEvent.getSource() == usersButton) {

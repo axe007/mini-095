@@ -11,14 +11,14 @@ public class Sprint {
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
-    public ArrayList<Activity> activities;
     private boolean isComplete;// Sprint is either "ongoing"-False or "completed"-True.
+
+    public Sprint() { }
 
     public Sprint(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.activities = null;
         this.isComplete = false;
     }
 
@@ -38,6 +38,7 @@ public class Sprint {
         return isComplete;
     }
 
+    public void setId() { this.id = new ObjectId(); }
     public void setName(String name) {
         this.name = name;
     }

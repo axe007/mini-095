@@ -16,12 +16,15 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ScrumboardViewController implements Initializable {
@@ -41,11 +44,13 @@ public class ScrumboardViewController implements Initializable {
     @FXML
     private Button btnActivityItemAssign;
     @FXML
-    private Label activityName;
+    private Label sprintTitle;
     @FXML
-    private Button userNewButton;
+    private Label sprintPeriod;
     @FXML
-    private Button userModifyButton;
+    private Button sprintNewButton;
+    @FXML
+    private Button activityUpdateButton;
     @FXML
     private Button userAssignButton;
     @FXML
@@ -54,30 +59,35 @@ public class ScrumboardViewController implements Initializable {
     private Button userDeleteButton;
     @FXML
     private TextField activitySearch;
-    @FXML
-    private TextArea dbFeedback;
 
     private static SprintController sprintController = new SprintController();
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
-    public ObservableList<String> names = FXCollections.observableArrayList();
-    private static ArrayList<Activity> activitiesList = new ArrayList<>();
+    // public ObservableList<String> names = FXCollections.observableArrayList();
 
     @FXML
-    private void handleUserButtons(ActionEvent event) throws IOException {
+    private void handleSprintButtons(ActionEvent event) throws IOException {
         // clear all text field
-        if (event.getSource() == userNewButton) {
-            // Session.setWindowMode("new");
-            // uiHelper.loadWindow("UserAddView", userNewButton, null);
-
-        } else if (event.getSource() == userModifyButton) {
-            // Modify user details
+        if (event.getSource() == sprintNewButton) {
+            uiHelper.loadWindow("SprintAddView", sprintNewButton, "Create new sprint");
+        } else if (event.getSource() == activityUpdateButton) {
+            ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
+            for (ListView list : listViews) {
+                ListCellItem listItem = (ListCellItem) list.getSelectionModel().getSelectedItem();
+                if (listItem !=null) {
+                    String name = listItem.getName();
+                    System.out.println(name);
+                } else if (listItem ==null) {
+                    uiHelper.alertDialogGenerator(scrumboardView,"error", "Update activity", "No activity selected.\nPlease select an activity and try again.");
+                    return;
+                }
+            }
 
         } else if (event.getSource() == userAssignButton) {
             // List all projects window
 
         } else if (event.getSource() == boardRefreshButton) {
-            loadListToDo();
+            reloadBoard();
 
         } else if (event.getSource() == userDeleteButton) {
             // Archive project window
@@ -95,23 +105,7 @@ public class ScrumboardViewController implements Initializable {
         }
     }
 
-    public void loadUserData() {
-
-        //getting the full list of books from file
-        // List<User> userList = userController.getUserList();
-        // ObservableList<User> viewUsers = (ObservableList<User>) FXCollections.observableArrayList(userList);
-
-        /*tblClmUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tblClmUserName.setCellValueFactory(new PropertyValueFactory<>("username"));
-        tblClmUserFullname.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        tblClmUserRole.setCellValueFactory(new PropertyValueFactory<>("userRole"));
-        tblClmUserEmailAddress.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));*/
-
-        // tblUsers.setItems(viewUsers);
-    }
-
-    public void loadListToDo() {
-
+    public void loadListViews(ArrayList<Activity> activitiesList) {
         ArrayList<ListCellItem> todoItems = new ArrayList<>();
         ArrayList<ListCellItem> inprogressItems = new ArrayList<>();
         ArrayList<ListCellItem> reviewItems = new ArrayList<>();
@@ -131,19 +125,15 @@ public class ScrumboardViewController implements Initializable {
                 activityType = "Bug";
             }
             if (activity.getActivityStatus().equals("TODO")) {
-                todoItems.add(new ListCellItem(activityName, activityType, activityPriority));
+                todoItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
             } else if (activity.getActivityStatus().equals("INPROGRESS")) {
-                inprogressItems.add(new ListCellItem(activityName, activityType, activityPriority));
+                inprogressItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
             } else if (activity.getActivityStatus().equals("REVIEW")) {
-                reviewItems.add(new ListCellItem(activityName, activityType, activityPriority));
+                reviewItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
             } else if (activity.getActivityStatus().equals("DONE")) {
-                doneItems.add(new ListCellItem(activityName, activityType, activityPriority));
+                doneItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
             }
         }
-
-        inprogressItems.add(new ListCellItem("Test 1", "User Story", 3.0));
-        reviewItems.add(new ListCellItem("Test 2", "Task", 3.0));
-        doneItems.add(new ListCellItem("Test 3", "Bug", 3.0));
 
         Callback<ListView<ListCellItem>, ListCell<ListCellItem>> cellFactory = new Callback<ListView<ListCellItem>, ListCell<ListCellItem>>() {
             @Override
@@ -160,6 +150,8 @@ public class ScrumboardViewController implements Initializable {
                             setText(item.getName());
                             setGraphic(icon);
                             setTextFill(Color.rgb(8,97,8));
+                            int priority = item.getPriority();
+                            setBorder(paintPriority(priority));
                         } else if (item != null && item.getType().equals("Task")){
                             setPrefHeight(45);
                             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.CODE_FORK, "12");
@@ -167,6 +159,8 @@ public class ScrumboardViewController implements Initializable {
                             setText(item.getName());
                             setGraphic(icon);
                             setTextFill(Color.rgb(0,5,221));
+                            int priority = item.getPriority();
+                            setBorder(paintPriority(priority));
                         } else if (item != null && item.getType().equals("Bug")){
                             setPrefHeight(45);
                             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.BUG, "12");
@@ -174,6 +168,8 @@ public class ScrumboardViewController implements Initializable {
                             setText(item.getName());
                             setGraphic(icon);
                             setTextFill(Color.rgb(200,13,13));
+                            int priority = item.getPriority();
+                            setBorder(paintPriority(priority));
                         } else if (empty || item == null || item.getName().equals("")) {
                             setVisible(false);
                             setPrefHeight(0.0);
@@ -184,36 +180,69 @@ public class ScrumboardViewController implements Initializable {
             }
         };
 
-        listToDo.getItems().clear();
-        listToDo.setCellFactory(cellFactory);
-        listToDo.getItems().addAll(todoItems);
+        ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
+        for (ListView listView : listViews) {
+            listView.getItems().clear();
+            listView.setPlaceholder(new Label("No Activities"));
+            listView.setCellFactory(cellFactory);
+            if (!todoItems.isEmpty() && listView == listToDo) {
+                listView.getItems().addAll(todoItems);
+            } else if (!inprogressItems.isEmpty() && listView == listInProgress) {
+                listView.getItems().addAll(inprogressItems);
+            } else if (!reviewItems.isEmpty() && listView == listReview) {
+                listView.getItems().addAll(reviewItems);
+            } else if (!doneItems.isEmpty() && listView == listDone) {
+                listView.getItems().addAll(doneItems);
+            }
+        }
+    }
 
-        listInProgress.getItems().clear();
-        listInProgress.setCellFactory(cellFactory);
-        listInProgress.getItems().addAll(inprogressItems);
-
-        listReview.getItems().clear();
-        listReview.setCellFactory(cellFactory);
-        listReview.getItems().addAll(reviewItems);
-
-        listDone.getItems().clear();
-        listDone.setCellFactory(cellFactory);
-        listDone.getItems().addAll(doneItems);
-
+    public Border paintPriority(int priority) {
+        // Border itemBorder = new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 4)));
+        Border itemBorder = null;
+        if (priority == 1) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xDDDDDD"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 2) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xcbea96"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 3) {
+            itemBorder = new Border(new BorderStroke(Color.web("0x41b337"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 4) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xffe56b"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        } else if (priority == 5) {
+            itemBorder = new Border(new BorderStroke(Color.web("0xE56767"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+        }
+        return itemBorder;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            activitiesList.clear();
-            activitiesList = activityController.getActivitiesList();
-
-            loadListToDo();
-            uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
-
+            reloadBoard();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void reloadBoard() {
+        uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+        ArrayList<Activity> activitiesList = new ArrayList<>();
+
+        ObjectId sprintId = Session.getCurrentSprintId();
+        if (sprintId == null) {
+            sprintTitle.setText("No active sprint");
+            sprintPeriod.setText("Please create and start sprint by clicking \"Start new sprint\" button.");
+        } else {
+            sprintTitle.setText(sprintController.getSprintName(sprintId));
+            LocalDate sprintStartDate = sprintController.getSprintDate(sprintId, "startDate");
+            LocalDate sprintEndDate = sprintController.getSprintDate(sprintId, "endDate");
+            String startDateText = sprintStartDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            String endDateText = sprintEndDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+            sprintPeriod.setText("Sprint period: " + startDateText + " - " + endDateText);
+
+            activitiesList = activityController.getSprintActivities(sprintId);
+        }
+
+        loadListViews(activitiesList);
     }
 
     @FXML
@@ -230,9 +259,9 @@ public class ScrumboardViewController implements Initializable {
     public static class ListCellItem {
         private final String name;
         private final String type;
-        private final double priority;
+        private final int priority;
 
-        public ListCellItem(String name, String type, double priority) {
+        public ListCellItem(String name, String type, int priority) {
             this.name = name;
             this.type = type;
             this.priority = priority;
@@ -244,7 +273,7 @@ public class ScrumboardViewController implements Initializable {
         public String getType() {
             return type;
         }
-        public double getPriority() {
+        public int getPriority() {
             return priority;
         }
 

@@ -98,6 +98,7 @@ public class ProjectViewController implements Initializable {
 
         } else if (event.getSource() == projectArchiveButton) {
             // Archive project window
+            // proController.overwriteActivityListDelete(); // DO NOT RUN UNLESS YOU KNOW WHAT IT IS
         }
     }
 
@@ -160,7 +161,8 @@ public class ProjectViewController implements Initializable {
         if (project == null) {
             uiHelper.alertDialogGenerator(projectView,"error", "Open project", "No project exist or no project selected.\nPlease select a project and try again.");
         } else {
-            boolean success = proController.openProject(project.getId());
+            boolean success = proController.openProject(project);
+
             if (success) {
                 uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
                 uiHelper.alertDialogGenerator(projectView, "success", "Open project", "Successfully opened project:\n" + project.getName());

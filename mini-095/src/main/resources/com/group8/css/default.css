@@ -519,7 +519,7 @@
 	-fx-fill: #3b4654;
 }
 
-.scrumboard-list-view .list-cell:selected {
+.scrumboard-list-view .list-cell:selected, .scrumboard-list-view .list-cell:pressed {
 	-fx-background-color: #5179d6;
 	-fx-text-fill: #fff;
 	-fx-font-weight: 700;
@@ -529,9 +529,32 @@
 	-fx-fill: #fff;
 }
 
-.scrumboard-list-view-empty .list-cell:hover, .scrumboard-list-view-empty .list-cell:selected {
-	-fx-background-color: #fff;
-	-fx-text-fill: #fff;
+.priority3 .list-cell:odd {
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 700;
+	-fx-background-color: #ff0, #f9f9f9;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0 0 0 4;
+}
+
+.priority3 .list-cell:even {
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 700;
+	-fx-background-color: #0f0, #fff;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0 0 0 4;
+}
+
+.priority4 .list-cell {
+	-fx-background-color: #0f0, #d9e1f4;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0 0 0 4;
+}
+
+.scrumboard-list-view .priority3 .list-cell {
+	-fx-background-color: #f00, #d9e1f4;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0 0 0 4;
 }
 
 .gantt-chart-week-column {

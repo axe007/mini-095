@@ -7,17 +7,19 @@ import java.util.ArrayList;
 public abstract class Activity implements Comparable<Activity> {
 
     private ObjectId id;
+    private ObjectId sprintId;
     private String name;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
     private ArrayList<ObjectId> assigneeList;
-    private double priority;
+    private Double priority;
     private String activityStatus;
 
     public Activity() {}
 
     public Activity(String name, String description, LocalDate startDate, LocalDate endDate, double priority) {
+        this.sprintId = null;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -31,47 +33,25 @@ public abstract class Activity implements Comparable<Activity> {
     public ObjectId getId(){
         return this.id;
     }
-    public String getName() {
-        return this.name; 
-    }
-    public String getDescription() {
-        return this.description;
-    }
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-    public double getPriority() {
-        return this.priority ;
-    }
+    public ObjectId getSprintId() { return sprintId; }
+    public String getName() { return this.name; }
+    public String getDescription() { return this.description; }
+    public LocalDate getStartDate() { return startDate; }
+    public LocalDate getEndDate() { return endDate; }
+    public double getPriority() { return this.priority; }
     public String getActivityStatus() { return activityStatus; }
     public String getActivityType() { return getClass().getSimpleName(); }
     public ArrayList<ObjectId> getAssigneeList() { return assigneeList; }
 
     // Setters
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-    public void setName(String name) {
-        this.name = name; 
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate; 
-    }
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-    public void setPriority(double priority) {
-        this.priority = priority;
-    }
-    public void setActivityStatus(String status) {
-        this.activityStatus = status;
-    }
+    public void setId(ObjectId id) { this.id = id; }
+    public void setSprintId(ObjectId sprintId) { this.sprintId = sprintId; }
+    public void setName(String name) { this.name = name; }
+    public void setDescription(String description) { this.description = description; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+    public void setPriority(double priority) { this.priority = priority; }
+    public void setActivityStatus(String status) { this.activityStatus = status; }
     public void setAssigneeList(ArrayList<ObjectId> assigneeList) { this.assigneeList = assigneeList; }
 
     @Override

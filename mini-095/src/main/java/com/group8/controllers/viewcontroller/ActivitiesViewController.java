@@ -3,12 +3,11 @@ package com.group8.controllers.viewcontroller;
 import com.group8.controllers.ActivityController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Activity;
-import com.group8.model.Project;
 import com.group8.model.Session;
-import com.group8.model.User;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,16 +18,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.util.Callback;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ActivitiesViewController implements Initializable {
 
@@ -142,8 +139,45 @@ public class ActivitiesViewController implements Initializable {
         tblClmActivityStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         tblClmActivityEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         tblClmActivityPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        tblClmActivityPriority.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Activity, String> p) {
+                Double priority = p.getValue().getPriority();
+                if (priority == 1.0) {
+                    return new SimpleStringProperty("Very low");
+                } else if (priority == 2.0) {
+                    return new SimpleStringProperty("Low");
+                } else if (priority == 3.0) {
+                    return new SimpleStringProperty("Normal");
+                } else if (priority == 4.0) {
+                    return new SimpleStringProperty("High");
+                } else if (priority == 5.0) {
+                    return new SimpleStringProperty("Urgent");
+                } else {
+                    return new SimpleStringProperty("<no value>");
+                }
+            }
+        });
+
         tblClmActivityType.setCellValueFactory(new PropertyValueFactory<>("activityType"));
         tblClmActivityStatus.setCellValueFactory(new PropertyValueFactory<>("activityStatus"));
+        tblClmActivityStatus.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Activity, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Activity, String> p) {
+                String status = p.getValue().getActivityStatus();
+                if (status.equals("TODO")) {
+                    return new SimpleStringProperty("To do");
+                } else if (status.equals("INPROGRESS")) {
+                    return new SimpleStringProperty("In Progress");
+                } else if (status.equals("REVIEW")) {
+                    return new SimpleStringProperty("Review");
+                } else if (status.equals("DONE")) {
+                    return new SimpleStringProperty("Done");
+                } else {
+                    return new SimpleStringProperty("<no value>");
+                }
+            }
+        });
 
         tblActivities.setItems(viewActivities);
     }

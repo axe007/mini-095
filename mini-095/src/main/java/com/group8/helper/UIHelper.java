@@ -150,8 +150,8 @@ public class UIHelper {
             openProjectName.setStyle("-fx-text-fill: #eb7f6e");
         } else {
             String projectName = projectController.getProjectDetail(projectId, "projectName");
-            LocalDate startDate = projectController.getProjectDate(projectId, "startDate");
-            LocalDate endDate = projectController.getProjectDate(projectId, "endDate");
+            LocalDate startDate = Session.getProjectStartDate();
+            LocalDate endDate = Session.getProjectEndDate();
             Session.setProjectStartDate(startDate);
             Session.setProjectEndDate(endDate);
             String startDateText = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));

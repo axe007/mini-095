@@ -202,6 +202,7 @@ public class ActivityAddViewController implements Initializable {
             vboxEstimatedHours.setVisible(false);
             vboxStoryPoints.setVisible(true);
             vboxParentActivity.setVisible(false);
+            parentActivityCombo.setVisibleRowCount(20);
         } else if (activityTypeSelected.equals("Task")) {
             activityNameLabel.setText("Task name");
             vboxEstimatedHours.setVisible(true);
@@ -321,6 +322,7 @@ public class ActivityAddViewController implements Initializable {
                 "Bug");
 
         if (selectedType.equals(null) || selectedType.equals("User story")) {
+            activityType.setValue("User story");
             vboxStoryPoints.setVisible(true);
             vboxEstimatedHours.setVisible(false);
         } else {
@@ -356,6 +358,8 @@ public class ActivityAddViewController implements Initializable {
     }
 
     private void generateActivityDatePickers(LocalDate startDate, LocalDate endDate) {
+        LocalDate projectStartDate = Session.getProjectStartDate();
+        LocalDate projectEndDate = Session.getProjectEndDate();
 
         Callback<DatePicker, DateCell> projectDates = new Callback<DatePicker, DateCell>() {
             @Override
@@ -364,8 +368,7 @@ public class ActivityAddViewController implements Initializable {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        LocalDate projectStartDate = Session.getProjectStartDate();
-                        LocalDate projectEndDate = Session.getProjectEndDate();
+
                         setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
                     }
 
