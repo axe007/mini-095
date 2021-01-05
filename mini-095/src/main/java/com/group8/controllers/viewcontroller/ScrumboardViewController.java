@@ -6,6 +6,8 @@ import com.group8.helper.UIHelper;
 import com.group8.model.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,6 +62,7 @@ public class ScrumboardViewController implements Initializable {
     private static SprintController sprintController = new SprintController();
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
+    public static BooleanProperty isUpdated = new SimpleBooleanProperty();
     // public ObservableList<String> names = FXCollections.observableArrayList();
 
     @FXML
@@ -245,6 +248,14 @@ public class ScrumboardViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isUpdated.addListener((observable, oldValue, newValue) -> {
+            // Only if completed
+            if (newValue == true) {
+                reloadBoard();
+                isUpdated.setValue(false);
+            }
+
+        });
     }
 
     public void reloadBoard() {
