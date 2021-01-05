@@ -117,7 +117,7 @@ public class ApplicationController implements Initializable {
     @FXML
     public void setActiveButton(Object activeButton) {
         Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, sprintboardButton, activitiesButton,
-                usersButton };
+                usersButton, reportsButton };
 
         for (Button button : sidebarButtons) {
             if (button.equals(activeButton)) {

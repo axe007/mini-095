@@ -1,5 +1,6 @@
 package com.group8.model;
 
+import com.group8.controllers.viewcontroller.ScrumboardViewController;
 import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,8 +52,22 @@ public abstract class Activity implements Comparable<Activity> {
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
     public void setPriority(double priority) { this.priority = priority; }
-    public void setActivityStatus(String status) { this.activityStatus = status; }
+    public void setActivityStatus(String status) { this.activityStatus = status; } // "TODO", "INPROGRESS", "REVIEW", "DONE"
     public void setAssigneeList(ArrayList<ObjectId> assigneeList) { this.assigneeList = assigneeList; }
+
+    public String getSimpleStatus(String activityStatus) {
+        String simpleStatus = "To Do";
+        if (activityStatus.equals("TODO")) {
+            simpleStatus = "To Do";
+        } else if (activityStatus.equals("INPROGRESS")) {
+            simpleStatus = "In Progress";
+        } else if (activityStatus.equals("REVIEW")) {
+            simpleStatus = "Review";
+        } else if (activityStatus.equals("DONE")) {
+            simpleStatus = "Done";
+        }
+        return simpleStatus;
+    }
 
     @Override
     public String toString() {

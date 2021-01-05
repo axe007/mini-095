@@ -44,6 +44,7 @@
                                  </GridPane.margin>
                                  <children>
                                         <DatePicker fx:id="sprintStartDate" prefWidth="120.0" />
+                                        <Label fx:id="sprintStartDateEdit" text="" />
                                  </children>
                               </StackPane>
                                   <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="End date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
@@ -53,6 +54,7 @@
                                  </GridPane.margin>
                                  <children>
                                         <DatePicker fx:id="sprintEndDate" prefWidth="120.0" />
+                                        <Label fx:id="sprintEndDateEdit" text="" />
                                  </children>
                               </StackPane>
                                   <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Sprint duration:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />

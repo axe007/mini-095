@@ -52,7 +52,7 @@ public class ScrumboardViewController implements Initializable {
     @FXML
     private Button activityUpdateButton;
     @FXML
-    private Button userAssignButton;
+    private Button activityAssignButton;
     @FXML
     private Button boardRefreshButton;
     @FXML
@@ -67,24 +67,32 @@ public class ScrumboardViewController implements Initializable {
 
     @FXML
     private void handleSprintButtons(ActionEvent event) throws IOException {
-        // clear all text field
         if (event.getSource() == sprintNewButton) {
+            Session.setWindowMode("new");
             uiHelper.loadWindow("SprintAddView", sprintNewButton, "Create new sprint");
+        } else if (event.getSource() == activityAssignButton) {
+            Session.setWindowMode("edit");
+            uiHelper.loadWindow("SprintAddView", activityAssignButton, "Sprint activities");
+
         } else if (event.getSource() == activityUpdateButton) {
             ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
+            ListCellItem listItem = null;
             for (ListView list : listViews) {
-                ListCellItem listItem = (ListCellItem) list.getSelectionModel().getSelectedItem();
-                if (listItem !=null) {
-                    String name = listItem.getName();
-                    System.out.println(name);
-                } else if (listItem ==null) {
-                    uiHelper.alertDialogGenerator(scrumboardView,"error", "Update activity", "No activity selected.\nPlease select an activity and try again.");
-                    return;
+                if (!list.getSelectionModel().isEmpty()) {
+                    listItem = (ListCellItem) list.getSelectionModel().getSelectedItem();
                 }
             }
 
-        } else if (event.getSource() == userAssignButton) {
-            // List all projects window
+            if (listItem == null) {
+                uiHelper.alertDialogGenerator(scrumboardView,"error", "Update activity", "No activity selected.\nPlease select an activity and try again.");
+                return;
+            } else {
+                String name = listItem.getName();
+                Activity activity = activityController.getActivity("name", name);
+                Session.setSetOpenItem(activity);
+                uiHelper.loadWindow("ActivityUpdateView", activityUpdateButton, "Update activity");
+            }
+
 
         } else if (event.getSource() == boardRefreshButton) {
             reloadBoard();

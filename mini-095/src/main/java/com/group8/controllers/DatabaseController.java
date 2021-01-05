@@ -32,7 +32,7 @@ public class DatabaseController {
     String dbName = "mini95";
     String authdbName = "admin"; // the name of the database in which the user is defined
     String dbServer = "mongodb.altansukh.com";
-    // String dbServer = "localhost";
+    //String dbServer = "localhost";
     int dbPort = 27017;
 
     public MongoClient dbConnect() {
