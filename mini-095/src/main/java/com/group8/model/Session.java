@@ -9,8 +9,8 @@ public class Session {
     private static Session instance;
     private static ObjectId sessionUserId;
     private static ObjectId openProjectId;
-    private static ObjectId currentSprintId;
     private static String openProjectName;
+    private static ObjectId currentSprintId;
     private static LocalDate projectStartDate;
     private static LocalDate projectEndDate;
     private static String windowMode;

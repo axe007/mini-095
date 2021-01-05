@@ -145,7 +145,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="userDeleteButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Complete sprint" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="sprintCompleteButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSprintButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Complete sprint" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <FontAwesomeIconView glyphName="CHECK_SQUARE_ALT" size="30" styleClass="content-action-icon" />
                      </graphic>

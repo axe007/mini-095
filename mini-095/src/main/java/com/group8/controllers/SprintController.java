@@ -1,6 +1,8 @@
 package com.group8.controllers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.group8.model.Activity;
 import com.group8.helper.Helper;
@@ -14,6 +16,7 @@ import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.set;
 
 public class SprintController {
     private static DatabaseController mongoDb = new DatabaseController();
@@ -39,6 +42,10 @@ public class SprintController {
         return sprintId;
     }
 
+    public void completeSprint(ObjectId sprintId) {
+        mongoDb.getSprintCollection().updateOne(eq("_id", sprintId),combine(set("isComplete", true)));
+    }
+
     public String getSprintName(ObjectId sprintId) {
         String sprintName = "";
         Sprint sprint = mongoDb.getSprintCollection().withCodecRegistry(mongoDb.createCodecRegistry("Sprints"))
@@ -58,6 +65,18 @@ public class SprintController {
             default -> throw new IllegalStateException("Unexpected value: " + date);
         }
         return sprintDate;
+    }
+
+    public ArrayList<Sprint> getProjectSprintList(ObjectId projectId) {
+        ArrayList<Sprint> projectSprints = new ArrayList<>();
+        ArrayList<ObjectId> sprintsList = projectController.getProjectList(projectId, "sprints");
+        for (ObjectId sprintId : sprintsList) {
+            Sprint sprint = mongoDb.getSprintCollection().withCodecRegistry(mongoDb.createCodecRegistry("Sprints"))
+                    .find(eq("_id", sprintId)).first();
+            projectSprints.add(sprint);
+        }
+
+        return projectSprints;
     }
 
 }

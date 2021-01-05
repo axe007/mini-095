@@ -6,8 +6,6 @@ import com.group8.helper.UIHelper;
 import com.group8.model.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,12 +18,11 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ScrumboardViewController implements Initializable {
 
@@ -56,7 +53,7 @@ public class ScrumboardViewController implements Initializable {
     @FXML
     private Button boardRefreshButton;
     @FXML
-    private Button userDeleteButton;
+    private Button sprintCompleteButton;
     @FXML
     private TextField activitySearch;
 
@@ -68,12 +65,25 @@ public class ScrumboardViewController implements Initializable {
     @FXML
     private void handleSprintButtons(ActionEvent event) throws IOException {
         if (event.getSource() == sprintNewButton) {
-            Session.setWindowMode("new");
-            uiHelper.loadWindow("SprintAddView", sprintNewButton, "Create new sprint");
+            if (Session.getCurrentSprintId() != null) {
+                uiHelper.alertDialogGenerator(scrumboardView,"error", "New sprint", "Current sprint is not completed.\nPlease complete the current sprint and try again.");
+                return;
+            } else if (validateNewSprintDate()) {
+                    String alertHeading = "Create new sprint";
+                    String alertContent = "Previous sprint ended on project's end date.\nUnable to create next sprint.\n Please update project dates and try again.";
+                    uiHelper.alertDialogGenerator(scrumboardView,"error", alertHeading, alertContent);
+            } else {
+                Session.setWindowMode("new");
+                uiHelper.loadWindow("SprintAddView", sprintNewButton, "Create new sprint");
+            }
         } else if (event.getSource() == activityAssignButton) {
-            Session.setWindowMode("edit");
-            uiHelper.loadWindow("SprintAddView", activityAssignButton, "Sprint activities");
-
+            if (Session.getCurrentSprintId() == null) {
+                uiHelper.alertDialogGenerator(scrumboardView,"error", "Assign activities", "No sprint has been created.\nPlease start a new sprint and try again.");
+                return;
+            } else {
+                Session.setWindowMode("edit");
+                uiHelper.loadWindow("SprintAddView", activityAssignButton, "Sprint activities");
+            }
         } else if (event.getSource() == activityUpdateButton) {
             ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
             ListCellItem listItem = null;
@@ -97,8 +107,13 @@ public class ScrumboardViewController implements Initializable {
         } else if (event.getSource() == boardRefreshButton) {
             reloadBoard();
 
-        } else if (event.getSource() == userDeleteButton) {
-            // Archive project window
+        } else if (event.getSource() == sprintCompleteButton) {
+            if (Session.getCurrentSprintId() == null) {
+                uiHelper.alertDialogGenerator(scrumboardView,"error", "Complete a sprint", "No sprint has been created.\nPlease start a new sprint and try again.");
+                return;
+            } else {
+                uiHelper.loadWindow("SprintCompleteView", sprintNewButton, "Complete a sprint");
+            }
         }
     }
 
@@ -181,6 +196,7 @@ public class ScrumboardViewController implements Initializable {
                         } else if (empty || item == null || item.getName().equals("")) {
                             setVisible(false);
                             setPrefHeight(0.0);
+                            setGraphic(null);
                         }
                     }
                 };
@@ -290,4 +306,42 @@ public class ScrumboardViewController implements Initializable {
             return name;
         }
     }
+
+    public boolean validateNewSprintDate() {
+        boolean valid;
+        LocalDate projectStartDate = Session.getProjectStartDate();
+        LocalDate projectEndDate = Session.getProjectEndDate();
+
+        ObjectId projectId = Session.getOpenProjectId();
+        ArrayList<Sprint> projectSprints = sprintController.getProjectSprintList(projectId);
+
+        if (projectSprints.isEmpty() || projectSprints == null) {
+            valid = false;
+        } else {
+            Collections.sort(projectSprints, new Comparator<Sprint>() {
+                public int compare(Sprint o1, Sprint o2) {
+                    return o2.getEndDate().compareTo(o1.getEndDate());
+                }
+            });
+
+            Sprint lastSprint = projectSprints.get(0);
+            LocalDate lastSprintEndDate = lastSprint.getEndDate();
+            DayOfWeek day = lastSprintEndDate.getDayOfWeek();
+            LocalDate sprintStartDate;
+
+            if (day == DayOfWeek.SATURDAY) {
+                sprintStartDate = lastSprintEndDate.plusDays(2);
+            } else {
+                sprintStartDate = lastSprintEndDate.plusDays(1);
+            }
+
+            if ((sprintStartDate.compareTo(projectEndDate) >= 0)) {
+                    valid = true;
+            } else {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
 }

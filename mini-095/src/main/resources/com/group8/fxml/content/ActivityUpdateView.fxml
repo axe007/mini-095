@@ -31,7 +31,7 @@
                         <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
                         <Text fx:id="activityName" text="Activity name" wrappingWidth="265.0" GridPane.columnIndex="1" />
                         <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Parent items:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <Text fx:id="parentItems" text="None" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Text fx:id="parentItems" text="None" wrappingWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity dates:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                         <Text fx:id="activityDates" text="dates" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <StackPane alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -56,7 +56,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ScrollPane focusTraversable="false" minHeight="120.0" minWidth="398.0" maxHeight="120.0">
+                  <ScrollPane focusTraversable="false" maxHeight="120.0" minHeight="120.0" minWidth="398.0">
                      <VBox.margin>
                         <Insets left="1.0" right="1.0" />
                      </VBox.margin>
