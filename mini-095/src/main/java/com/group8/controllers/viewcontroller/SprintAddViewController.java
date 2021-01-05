@@ -71,7 +71,6 @@ public class SprintAddViewController implements Initializable {
     @FXML
     private ListView<String> assignedListView;
 
-
     @FXML
     private void handleSaveBtn(ActionEvent event) throws IOException {
 
@@ -105,11 +104,12 @@ public class SprintAddViewController implements Initializable {
         activityController.updateActivitySprint(assignedActivities, sprintId);
         activityController.updateActivitySprint(unassignedActivities, null);
 
-        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
+        ScrumboardViewController.isUpdated.setValue(true);
     }
 
     @FXML
@@ -127,6 +127,7 @@ public class SprintAddViewController implements Initializable {
             backlogActivities.remove(activity);
             sprintActivities.add(activity);
         }
+        ScrumboardViewController.isUpdated.setValue(true);
     }
 
     @FXML
@@ -137,6 +138,8 @@ public class SprintAddViewController implements Initializable {
             sprintActivities.remove(activity);
             backlogActivities.add(activity);
         }
+        ScrumboardViewController.isUpdated.setValue(true);
+
     }
 
     @Override
@@ -198,7 +201,8 @@ public class SprintAddViewController implements Initializable {
                         public void updateItem(LocalDate item, boolean empty) {
                             super.updateItem(item, empty);
 
-                            setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
+                            setDisable((empty || item.compareTo(projectStartDate) < 0)
+                                    || (empty || item.compareTo(projectEndDate) > 0));
                         }
 
                     };
@@ -246,7 +250,6 @@ public class SprintAddViewController implements Initializable {
             this.sprintNameEdit.setVisible(false);
             this.sprintStartDateEdit.setVisible(false);
             this.sprintEndDateEdit.setVisible(false);
-
 
         } else if (Session.getWindowMode().equals("edit")) {
             ObjectId sprintId = Session.getCurrentSprintId();

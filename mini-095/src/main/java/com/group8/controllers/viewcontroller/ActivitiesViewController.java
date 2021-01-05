@@ -4,6 +4,9 @@ import com.group8.controllers.ActivityController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Activity;
 import com.group8.model.Session;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,6 +35,7 @@ public class ActivitiesViewController implements Initializable {
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
     public static List<Activity> activitiesList = new ArrayList<>();
+    public static BooleanProperty isUpdated = new SimpleBooleanProperty();
 
     @FXML
     private StackPane activitiesView;
@@ -121,6 +125,14 @@ public class ActivitiesViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isUpdated.addListener((observable, oldValue, newValue) -> {
+            // Only if completed
+            if (newValue == true) {
+                loadActivitiesData();
+                uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+            }
+
+        });
     }
 
     private void loadActivitiesData() {

@@ -80,7 +80,8 @@ public class ActivityUpdateViewController implements Initializable {
         ObjectId activityId = activity.getId();
 
         if (newStatusCombo.getValue() == null) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "You did not select new status.\nPlease select activity's new status and try again.");
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "You did not select new status.\nPlease select activity's new status and try again.");
             return;
         } else {
             newStatusText = newStatusCombo.getValue();
@@ -88,7 +89,7 @@ public class ActivityUpdateViewController implements Initializable {
 
         System.out.println("Note text: " + noteContent.getText());
 
-        switch(newStatusText) {
+        switch (newStatusText) {
             case "To Do" -> newStatusSet = "TODO";
             case "In Progress" -> newStatusSet = "INPROGRESS";
             case "Review" -> newStatusSet = "REVIEW";
@@ -97,11 +98,13 @@ public class ActivityUpdateViewController implements Initializable {
 
         activityController.updateActivityStatus(activityId, newStatusSet);
 
-        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
+        ActivitiesViewController.isUpdated.setValue(true);
+
     }
 
     @FXML
@@ -130,7 +133,7 @@ public class ActivityUpdateViewController implements Initializable {
         activityName = activity.getName();
 
         startDate = activity.getStartDate();
-        endDate  = activity.getEndDate();
+        endDate = activity.getEndDate();
         String startDateText = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         String endDateText = endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         activityDates.setText(startDateText + " - " + endDateText);
@@ -140,7 +143,7 @@ public class ActivityUpdateViewController implements Initializable {
             this.activityEstimate.setText(String.valueOf(((UserStory) activity).getStoryPoints()) + " story points");
         } else if (activity instanceof Task) {
             this.storyPoints.setVisible(false);
-            this.activityEstimate.setText(String.valueOf(((Task) activity).getEstimatedHours())  + " hours");
+            this.activityEstimate.setText(String.valueOf(((Task) activity).getEstimatedHours()) + " hours");
             grandId = ((Task) activity).getGrandId();
             parentId = ((Task) activity).getParentId();
         } else {
@@ -173,21 +176,26 @@ public class ActivityUpdateViewController implements Initializable {
         }
 
         priority = activity.getPriority();
-        if ((int)priority == 1) {
+        if ((int) priority == 1) {
             activityPriority.setText("Very low");
-            activityPriority.setStyle("-fx-font-weight: 800; -fx-fill: #DDD; -fx-effect: dropshadow(one-pass-box, #4c4c4c, 1, 0, 1, 1);");
-        } else if ((int)priority == 2) {
+            activityPriority.setStyle(
+                    "-fx-font-weight: 800; -fx-fill: #DDD; -fx-effect: dropshadow(one-pass-box, #4c4c4c, 1, 0, 1, 1);");
+        } else if ((int) priority == 2) {
             activityPriority.setText("Low");
-            activityPriority.setStyle("-fx-font-weight: 800;-fx-fill: #cbea96; -fx-effect: dropshadow(one-pass-box, #6d767e, 1, 0, 1, 1);");
-        } else if ((int)priority == 3) {
+            activityPriority.setStyle(
+                    "-fx-font-weight: 800;-fx-fill: #cbea96; -fx-effect: dropshadow(one-pass-box, #6d767e, 1, 0, 1, 1);");
+        } else if ((int) priority == 3) {
             activityPriority.setText("Normal");
-            activityPriority.setStyle("-fx-font-weight: 800;-fx-fill: #41b337; -fx-effect: dropshadow(one-pass-box, #6d767e, 1, 0, 1, 1);");
-        } else if ((int)priority == 4) {
+            activityPriority.setStyle(
+                    "-fx-font-weight: 800;-fx-fill: #41b337; -fx-effect: dropshadow(one-pass-box, #6d767e, 1, 0, 1, 1);");
+        } else if ((int) priority == 4) {
             activityPriority.setText("High");
-            activityPriority.setStyle("-fx-font-weight: 800;-fx-fill: #ffe56b; -fx-effect: dropshadow(one-pass-box, #4c4c4c, 1, 0, 1, 1);");
+            activityPriority.setStyle(
+                    "-fx-font-weight: 800;-fx-fill: #ffe56b; -fx-effect: dropshadow(one-pass-box, #4c4c4c, 1, 0, 1, 1);");
         } else {
             activityPriority.setText("Urgent");
-            activityPriority.setStyle("-fx-font-weight: 800;-fx-fill: #E56767; -fx-text-fill: #E56767; -fx-effect: dropshadow(one-pass-box,#ddd, 1, 0, 1, 1);");
+            activityPriority.setStyle(
+                    "-fx-font-weight: 800;-fx-fill: #E56767; -fx-text-fill: #E56767; -fx-effect: dropshadow(one-pass-box,#ddd, 1, 0, 1, 1);");
         }
 
         ArrayList<String> statusStrings = new ArrayList<>(Arrays.asList("TODO", "INPROGRESS", "REVIEW", "DONE"));

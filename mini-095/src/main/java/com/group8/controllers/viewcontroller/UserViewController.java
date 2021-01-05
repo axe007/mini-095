@@ -5,6 +5,10 @@ import com.group8.controllers.*;
 import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 import com.group8.model.User;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +40,7 @@ public class UserViewController implements Initializable {
     private static UserController userController = new UserController();
     private static UIHelper uiHelper = new UIHelper();
     private static ArrayList<User> userList = new ArrayList<>();
+    public static BooleanProperty isUpdated = new SimpleBooleanProperty();
 
     @FXML
     private StackPane userView;
@@ -89,7 +94,8 @@ public class UserViewController implements Initializable {
             // List all projects window
             ObjectId projectId = Session.getOpenProjectId();
             if (projectId == null || projectId.equals(null)) {
-                uiHelper.alertDialogGenerator(userView,"error", "Assign user", "No project has been opened.\nPlease open a project in Projects window.");
+                uiHelper.alertDialogGenerator(userView, "error", "Assign user",
+                        "No project has been opened.\nPlease open a project in Projects window.");
             } else {
                 uiHelper.loadWindow("UserAssignView", userAssignButton, "Assign users to project");
             }
@@ -129,6 +135,14 @@ public class UserViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isUpdated.addListener((observable, oldValue, newValue) -> {
+            // Only if completed
+            if (newValue == true) {
+                loadUserData();
+                isUpdated.setValue(false);
+            }
+
+        });
 
     }
 

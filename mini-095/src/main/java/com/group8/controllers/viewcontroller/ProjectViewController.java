@@ -6,6 +6,9 @@ import com.group8.helper.UIHelper;
 import com.group8.model.Project;
 import com.group8.model.Session;
 import com.group8.model.User;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import org.bson.types.ObjectId;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class ProjectViewController implements Initializable {
     private static ProjectController proController = new ProjectController();
     private static UIHelper uiHelper = new UIHelper();
     private List<Project> projectList = new ArrayList<>();
+    public static BooleanProperty isUpdated = new SimpleBooleanProperty();
 
     @FXML
     private StackPane projectView;
@@ -83,7 +86,8 @@ public class ProjectViewController implements Initializable {
             Project project = tblProjects.getSelectionModel().getSelectedItem();
             Session.setSetOpenItem(project);
             if (project == null) {
-                uiHelper.alertDialogGenerator(projectView,"error", "Modify project", "No project exist or no project selected.\nPlease select a project and try again.");
+                uiHelper.alertDialogGenerator(projectView, "error", "Modify project",
+                        "No project exist or no project selected.\nPlease select a project and try again.");
             } else {
                 Session.setWindowMode("edit");
                 uiHelper.loadWindow("ProjectAddView", projectModifyButton, project);
@@ -98,7 +102,8 @@ public class ProjectViewController implements Initializable {
 
         } else if (event.getSource() == projectArchiveButton) {
             // Archive project window
-            // proController.overwriteActivityListDelete(); // DO NOT RUN UNLESS YOU KNOW WHAT IT IS
+            // proController.overwriteActivityListDelete(); // DO NOT RUN UNLESS YOU KNOW
+            // WHAT IT IS
         }
     }
 
@@ -113,11 +118,20 @@ public class ProjectViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isUpdated.addListener((observable, oldValue, newValue) -> {
+            // Only if completed
+            if (newValue == true) {
+                loadProjectData();
+                uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+                isUpdated.setValue(false);
+            }
+
+        });
     }
 
     public void loadProjectData() {
 
-        //getting the full list of books from file
+        // getting the full list of books from file
         List<Project> projectList = proController.getProjectList();
         ObservableList<Project> viewProjects = (ObservableList<Project>) FXCollections.observableArrayList(projectList);
 
@@ -136,8 +150,8 @@ public class ProjectViewController implements Initializable {
         tblProjects.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         tblProjects.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() == 2) {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
                     openProject();
                 }
             }
@@ -146,9 +160,10 @@ public class ProjectViewController implements Initializable {
 
     @FXML
     private void projectSearchOnKeyReleased(KeyEvent event) {
-        /*tblSellView.getItems().clear();
-        projectController.projectID = projectSearch.getText();
-        sellCartGerway.searchView(sellCart);*/
+        /*
+         * tblSellView.getItems().clear(); projectController.projectID =
+         * projectSearch.getText(); sellCartGerway.searchView(sellCart);
+         */
     }
 
     @FXML
@@ -159,13 +174,15 @@ public class ProjectViewController implements Initializable {
     private void openProject() {
         Project project = tblProjects.getSelectionModel().getSelectedItem();
         if (project == null) {
-            uiHelper.alertDialogGenerator(projectView,"error", "Open project", "No project exist or no project selected.\nPlease select a project and try again.");
+            uiHelper.alertDialogGenerator(projectView, "error", "Open project",
+                    "No project exist or no project selected.\nPlease select a project and try again.");
         } else {
             boolean success = proController.openProject(project);
 
             if (success) {
                 uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
-                uiHelper.alertDialogGenerator(projectView, "success", "Open project", "Successfully opened project:\n" + project.getName());
+                uiHelper.alertDialogGenerator(projectView, "success", "Open project",
+                        "Successfully opened project:\n" + project.getName());
             }
         }
     }

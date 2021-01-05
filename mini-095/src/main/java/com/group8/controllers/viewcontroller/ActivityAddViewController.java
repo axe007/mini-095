@@ -134,7 +134,8 @@ public class ActivityAddViewController implements Initializable {
 
         for (String activityName : activityNames) {
             if (name.equals(activityName)) {
-                uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Duplicate activity name.\nPlease check activity name and try again.");
+                uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                        "Duplicate activity name.\nPlease check activity name and try again.");
                 this.activityName.getStyleClass().add("textfield-error-highlight");
                 this.activityName.requestFocus();
                 return;
@@ -145,15 +146,17 @@ public class ActivityAddViewController implements Initializable {
         String storyPointsString = this.storyPoints.getText();
         String estimatedHoursString = this.estimatedHours.getText();
 
-        if (activityType.equals("User story") && (storyPointsString.equals("")) )  {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Story point missing.\nPlease check the field and try again.");
+        if (activityType.equals("User story") && (storyPointsString.equals(""))) {
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "Story point missing.\nPlease check the field and try again.");
             this.storyPoints.getStyleClass().add("textfield-error-highlight");
             this.storyPoints.requestFocus();
             return;
-        } else if (activityType.equals("User story") && (!storyPointsString.equals("")) )  {
+        } else if (activityType.equals("User story") && (!storyPointsString.equals(""))) {
             storyPoints = Double.parseDouble(this.storyPoints.getText());
-        } else if ((activityType.equals("Task") || activityType.equals("Bug")) && (estimatedHoursString.equals("")) )  {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Estimated hours missing.\nPlease check the field and try again.");
+        } else if ((activityType.equals("Task") || activityType.equals("Bug")) && (estimatedHoursString.equals(""))) {
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "Estimated hours missing.\nPlease check the field and try again.");
             this.storyPoints.getStyleClass().add("textfield-error-highlight");
             this.storyPoints.requestFocus();
             return;
@@ -163,28 +166,35 @@ public class ActivityAddViewController implements Initializable {
 
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
         if (daysBetween < 1) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "End date cannot be earlier than Start Date.\nPlease check activity dates and try again.");
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "End date cannot be earlier than Start Date.\nPlease check activity dates and try again.");
             return;
         }
 
-        if (activityName.equals("") || activityDescription.equals("") || startDate.equals("") || endDate.equals("") ||
-                (activityType.equals("User story") && storyPoints == 0.0) || ((activityType.equals("Task") || activityType.equals("Bug")) && estimatedHours == 0.0)) {
-                uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Some required fields are empty.\nPlease check activity details and try again.");
+        if (activityName.equals("") || activityDescription.equals("") || startDate.equals("") || endDate.equals("")
+                || (activityType.equals("User story") && storyPoints == 0.0)
+                || ((activityType.equals("Task") || activityType.equals("Bug")) && estimatedHours == 0.0)) {
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "Some required fields are empty.\nPlease check activity details and try again.");
         } else {
             if (Session.getWindowMode().equals("new")) {
-                activityController.createActivity(grandId, parentId, activityType, name, description, startDate, endDate, priority, storyPoints, estimatedHours);
+                activityController.createActivity(grandId, parentId, activityType, name, description, startDate,
+                        endDate, priority, storyPoints, estimatedHours);
                 activityController.updateActivitiesList(name);
             } else if (Session.getWindowMode().equals("edit")) {
-                activityController.modifyActivity(grandId, parentId, activityType, name, description, startDate, endDate, priority, storyPoints, estimatedHours);
+                activityController.modifyActivity(grandId, parentId, activityType, name, description, startDate,
+                        endDate, priority, storyPoints, estimatedHours);
                 alertHeading = "Edit activity details";
                 alertContent = "Activity details successfully updated.\nPlease refresh in Activities view.";
             }
-            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
+                    alertContent);
             if (result.get() == ButtonType.OK) {
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             }
         }
+        ActivitiesViewController.isUpdated.setValue(true);
     }
 
     @FXML
@@ -232,7 +242,6 @@ public class ActivityAddViewController implements Initializable {
                 generateActivityTypeSelector("User story");
                 generateActivityListComboBox(null);
                 generateActivityDatePickers(null, null);
-
 
             } else if (Session.getWindowMode().equals("edit")) {
                 windowModeTitle.setText("Edit activity details:");
@@ -291,10 +300,14 @@ public class ActivityAddViewController implements Initializable {
         activityPriority.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double n) {
-                if (n < 6 && n > 4) return "Urgent";
-                if (n < 5 && n > 3) return "High";
-                if (n < 3 && n > 1) return "Low";
-                if (n < 2 && n > 0) return "Very low";
+                if (n < 6 && n > 4)
+                    return "Urgent";
+                if (n < 5 && n > 3)
+                    return "High";
+                if (n < 3 && n > 1)
+                    return "Low";
+                if (n < 2 && n > 0)
+                    return "Very low";
                 return "Normal";
             }
 
@@ -318,10 +331,7 @@ public class ActivityAddViewController implements Initializable {
     }
 
     private void generateActivityTypeSelector(String selectedType) {
-        activityType.getItems().addAll(
-                "User story",
-                "Task",
-                "Bug");
+        activityType.getItems().addAll("User story", "Task", "Bug");
 
         if (selectedType.equals(null) || selectedType.equals("User story")) {
             activityType.setValue("User story");
@@ -333,30 +343,30 @@ public class ActivityAddViewController implements Initializable {
             vboxStoryPoints.setVisible(false);
         }
 
-        activityType.setCellFactory(
-                new Callback<ListView<String>, ListCell<String>>() {
-                    @Override public ListCell<String> call(ListView<String> param) {
-                        final ListCell<String> cell = new ListCell<String>() {
-                            @Override public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (item != null) {
-                                    setText(item);
-                                    if (item.contains("User story")) {
-                                        setTextFill(Color.GREEN);
-                                    } else if (item.contains("Task")){
-                                        setTextFill(Color.BLUE);
-                                    } else if (item.contains("Bug")){
-                                        setTextFill(Color.RED);
-                                    }
-                                }
-                                else {
-                                    setText(null);
-                                }
+        activityType.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> param) {
+                final ListCell<String> cell = new ListCell<String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item);
+                            if (item.contains("User story")) {
+                                setTextFill(Color.GREEN);
+                            } else if (item.contains("Task")) {
+                                setTextFill(Color.BLUE);
+                            } else if (item.contains("Bug")) {
+                                setTextFill(Color.RED);
                             }
-                        };
-                        return cell;
+                        } else {
+                            setText(null);
+                        }
                     }
-                });
+                };
+                return cell;
+            }
+        });
     }
 
     private void generateActivityDatePickers(LocalDate startDate, LocalDate endDate) {
@@ -371,7 +381,8 @@ public class ActivityAddViewController implements Initializable {
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
 
-                        setDisable((empty || item.compareTo(projectStartDate) < 0) || (empty || item.compareTo(projectEndDate) > 0));
+                        setDisable((empty || item.compareTo(projectStartDate) < 0)
+                                || (empty || item.compareTo(projectEndDate) > 0));
                     }
 
                 };
@@ -400,7 +411,7 @@ public class ActivityAddViewController implements Initializable {
         final PseudoClass header = PseudoClass.getPseudoClass("section-header");
         Label parentActivityLabel = new Label();
         parentActivityLabel.setText("Parent activity");
-        parentActivityLabel.setPadding(new Insets(0,0,3,1));
+        parentActivityLabel.setPadding(new Insets(0, 0, 3, 1));
         vboxParentActivity.getChildren().clear();
         vboxParentActivity.getChildren().add(parentActivityLabel);
 
@@ -412,9 +423,9 @@ public class ActivityAddViewController implements Initializable {
         ArrayList<ComboBoxItem> comboBoxItems = new ArrayList<>();
 
         // No parent item - Default item for non-selection
-        comboBoxItems.add(new ComboBoxItem("No parent item",true, 0));
+        comboBoxItems.add(new ComboBoxItem("No parent item", true, 0));
         // Header line for Tasks
-        comboBoxItems.add(new ComboBoxItem("User stories",false, 0));
+        comboBoxItems.add(new ComboBoxItem("User stories", false, 0));
 
         // Loop for top level User stories
         for (Activity activity : activitiesList) {
@@ -426,40 +437,50 @@ public class ActivityAddViewController implements Initializable {
                 // Loop for middle level tasks and bugs
                 for (Activity activity2 : activitiesList) {
                     midLevelActivityID = activity2.getId();
-                    if ((activity2 instanceof Task) && ((Task ) activity2).getGrandId() == null && ((Task ) activity2).getParentId() != null)  {
+                    if ((activity2 instanceof Task) && ((Task) activity2).getGrandId() == null
+                            && ((Task) activity2).getParentId() != null) {
                         if (((Task) activity2).getParentId().equals(topLevelActivityID)) {
                             String midLevelActivityName = activity2.getName();
                             comboBoxItems.add(new ComboBoxItem(midLevelActivityName, true, 2));
                             // Loop for bottom level tasks and bug under Middle level tasks
                             for (Activity activity3 : activitiesList) {
-                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null && ((Task) activity3).getParentId() != null)  {
-                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID) && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
+                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null
+                                        && ((Task) activity3).getParentId() != null) {
+                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
-                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null && ((Bug) activity3).getParentId() != null) {
-                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID) && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
+                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null
+                                        && ((Bug) activity3).getParentId() != null) {
+                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
                                 }
                             }
                         }
-                    } else if ((activity2 instanceof Bug) && ((Bug) activity2).getGrandId() == null && ((Bug) activity2).getGrandId() != null) {
+                    } else if ((activity2 instanceof Bug) && ((Bug) activity2).getGrandId() == null
+                            && ((Bug) activity2).getGrandId() != null) {
                         if (((Bug) activity2).getParentId().equals(topLevelActivityID)) {
                             String midLevelActivityName = activity2.getName();
                             comboBoxItems.add(new ComboBoxItem(midLevelActivityName, true, 2));
                             // Loop for bottom level tasks and bug under Middle level bugs
                             for (Activity activity3 : activitiesList) {
-                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null && ((Task) activity3).getParentId() != null)  {
-                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID) && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
+                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null
+                                        && ((Task) activity3).getParentId() != null) {
+                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
-                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null && ((Bug) activity3).getParentId() != null) {
-                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID) && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
+                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null
+                                        && ((Bug) activity3).getParentId() != null) {
+                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
                                 }
                             }
@@ -470,11 +491,12 @@ public class ActivityAddViewController implements Initializable {
         }
 
         // Header line for Tasks
-        comboBoxItems.add(new ComboBoxItem("Tasks",false,0));
+        comboBoxItems.add(new ComboBoxItem("Tasks", false, 0));
 
         // Loop for top level Tasks and subtasks (or bugs)
         for (Activity activity : activitiesList) {
-            if ((activity instanceof Task) && ((Task ) activity).getGrandId() == null && ((Task ) activity).getParentId() == null) {
+            if ((activity instanceof Task) && ((Task) activity).getGrandId() == null
+                    && ((Task) activity).getParentId() == null) {
                 String activityName = activity.getName();
                 comboBoxItems.add(new ComboBoxItem(activityName, true, 1));
                 topLevelActivityID = activity.getId();
@@ -482,40 +504,50 @@ public class ActivityAddViewController implements Initializable {
                 // Loop for middle level tasks and bugs
                 for (Activity activity2 : activitiesList) {
                     midLevelActivityID = activity2.getId();
-                    if ((activity2 instanceof Task) && ((Task ) activity2).getGrandId() == null && ((Task ) activity2).getParentId() != null)  {
+                    if ((activity2 instanceof Task) && ((Task) activity2).getGrandId() == null
+                            && ((Task) activity2).getParentId() != null) {
                         if (((Task) activity2).getParentId().equals(topLevelActivityID)) {
                             String midLevelActivityName = activity2.getName();
                             comboBoxItems.add(new ComboBoxItem(midLevelActivityName, true, 2));
                             // Loop for bottom level tasks and bug under Middle level tasks
                             for (Activity activity3 : activitiesList) {
-                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null && ((Task) activity3).getParentId() != null)  {
-                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID) && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
+                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null
+                                        && ((Task) activity3).getParentId() != null) {
+                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
-                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null && ((Bug) activity3).getParentId() != null) {
-                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID) && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
+                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null
+                                        && ((Bug) activity3).getParentId() != null) {
+                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
                                 }
                             }
                         }
-                    } else if ((activity2 instanceof Bug) && ((Bug) activity2).getGrandId() == null && ((Bug) activity2).getGrandId() != null) {
+                    } else if ((activity2 instanceof Bug) && ((Bug) activity2).getGrandId() == null
+                            && ((Bug) activity2).getGrandId() != null) {
                         if (((Bug) activity2).getParentId().equals(topLevelActivityID)) {
                             String midLevelActivityName = activity2.getName();
                             comboBoxItems.add(new ComboBoxItem(midLevelActivityName, true, 2));
                             // Loop for bottom level tasks and bug under Middle level bugs
                             for (Activity activity3 : activitiesList) {
-                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null && ((Task) activity3).getParentId() != null)  {
-                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID) && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
+                                if ((activity3 instanceof Task) && ((Task) activity3).getGrandId() != null
+                                        && ((Task) activity3).getParentId() != null) {
+                                    if (((Task) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Task) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
-                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null && ((Bug) activity3).getParentId() != null) {
-                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID) && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
+                                } else if ((activity3 instanceof Bug) && ((Bug) activity3).getGrandId() != null
+                                        && ((Bug) activity3).getParentId() != null) {
+                                    if (((Bug) activity3).getGrandId().equals(topLevelActivityID)
+                                            && ((Bug) activity3).getParentId().equals(midLevelActivityID)) {
                                         String bottomLevelActivityName = activity3.getName();
-                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false,3));
+                                        comboBoxItems.add(new ComboBoxItem(bottomLevelActivityName, false, 3));
                                     }
                                 }
                             }
@@ -540,19 +572,19 @@ public class ActivityAddViewController implements Initializable {
                     if (item.getName().equals("User stories")) {
                         setTextFill(Color.WHITE);
                         setStyle("-fx-font-weight: 900;-fx-background-color: #30c78d;");
-                        setPadding(new Insets(0,0,0,5));
+                        setPadding(new Insets(0, 0, 0, 5));
                     } else if (item.getName().equals("Tasks")) {
                         setTextFill(Color.WHITE);
                         setStyle("-fx-font-weight: 900;-fx-background-color: #5179d6;");
-                        setPadding(new Insets(0,0,0,5));
+                        setPadding(new Insets(0, 0, 0, 5));
                     } else if (item.getLevel() == 1) {
-                        setPadding(new Insets(0,0,0,10));
+                        setPadding(new Insets(0, 0, 0, 10));
                     } else if (item.getLevel() == 2) {
-                        setPadding(new Insets(0,0,0,15));
+                        setPadding(new Insets(0, 0, 0, 15));
                         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_RIGHT, "8");
                         setGraphic(icon);
                     } else if (item.getLevel() == 3) {
-                        setPadding(new Insets(0,0,0,20));
+                        setPadding(new Insets(0, 0, 0, 20));
                         FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.ANGLE_DOUBLE_RIGHT, "8");
                         setGraphic(icon);
                     } else if (item.getName().equals(comboParentName)) {
@@ -564,9 +596,9 @@ public class ActivityAddViewController implements Initializable {
                     }
 
                     setText(item.toString());
-                    setDisable(! item.isSelectable());
+                    setDisable(!item.isSelectable());
 
-                    pseudoClassStateChanged(header, ! item.isSelectable());
+                    pseudoClassStateChanged(header, !item.isSelectable());
                 }
             }
         });
@@ -599,9 +631,11 @@ public class ActivityAddViewController implements Initializable {
         public String getName() {
             return name;
         }
+
         public boolean isSelectable() {
             return selectable;
         }
+
         public int getLevel() {
             return level;
         }
