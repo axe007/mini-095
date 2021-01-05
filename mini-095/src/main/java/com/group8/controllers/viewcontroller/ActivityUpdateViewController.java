@@ -75,7 +75,7 @@ public class ActivityUpdateViewController implements Initializable {
         String newStatusText;
         String newStatusSet = "TODO";
         String alertHeading = "Update activity status";
-        String alertContent = "Activity status successfully updated.\nPlease reload the Scrum board.";
+        String alertContent = "Activity status successfully updated.";
         Activity activity = (Activity) Session.getOpenItem();
         ObjectId activityId = activity.getId();
 

@@ -83,6 +83,7 @@ public class SprintCompleteViewController implements Initializable {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
+        ScrumboardViewController.isUpdated.setValue(true);
     }
 
     @FXML

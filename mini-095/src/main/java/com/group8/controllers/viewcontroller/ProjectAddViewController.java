@@ -77,7 +77,7 @@ public class ProjectAddViewController implements Initializable {
         String status = "In progress";
         int sprintDuration = 2;
         String alertHeading = "Creating new Project";
-        String alertContent = "New project successfully created.\nPlease refresh in projects view.";
+        String alertContent = "New project successfully created.";
 
         if (Session.getWindowMode().equals("new")) {
             System.out.println("Creating new project ...");
@@ -115,7 +115,7 @@ public class ProjectAddViewController implements Initializable {
             } else if (Session.getWindowMode().equals("edit")) {
                 projectController.modifyProject(name, description, startDate, endDate, type, sprintDuration);
                 alertHeading = "Edit project details";
-                alertContent = "Project details successfully updated.\nPlease refresh in Projects view.";
+                alertContent = "Project details successfully updated.";
             }
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
             if (result.get() == ButtonType.OK) {
@@ -123,6 +123,7 @@ public class ProjectAddViewController implements Initializable {
                 stage.close();
             }
         }
+        ProjectViewController.isUpdated.setValue(true);
     }
 
     @FXML

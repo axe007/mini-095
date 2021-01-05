@@ -75,7 +75,7 @@ public class SprintAddViewController implements Initializable {
     private void handleSaveBtn(ActionEvent event) throws IOException {
 
         String alertHeading = "Create new sprint";
-        String alertContent = "New sprint is created and activities are assigned.\nPlease reload the board.";
+        String alertContent = "New sprint is created and activities are assigned.";
         UIHelper uiHelper = new UIHelper();
 
         String sprintName;
@@ -94,7 +94,7 @@ public class SprintAddViewController implements Initializable {
         } else if (Session.getWindowMode().equals("edit")) {
             sprintId = Session.getCurrentSprintId();
             alertHeading = "Assigning activities";
-            alertContent = "Activities are successfully assigned.\nPlease reload the board.";
+            alertContent = "Activities are successfully assigned.";
         }
 
         List<String> unassignedActivities = unassignedListView.getItems();
