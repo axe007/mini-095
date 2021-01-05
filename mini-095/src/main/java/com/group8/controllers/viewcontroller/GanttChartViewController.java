@@ -182,11 +182,6 @@ public class GanttChartViewController implements Initializable {
                                                 setTextFill(Color.GREEN);
                                                 getStyleClass().add("gantt-chart-cell" + rowIndex);
 
-                                                // if (columnIndex % 7 == 6) {
-                                                // setStyle(
-                                                // "-fx-border-color: transparent red transparent transparent");
-                                                // }
-
                                             } else if (columnIndex % 7 == 6 || columnIndex % 7 == 5) {
                                                 getStyleClass().add("gantt-chart-day-column-weekend");
 
@@ -304,7 +299,7 @@ public class GanttChartViewController implements Initializable {
             }
             if (findItem) {
                 ganttChartTreeTableView.getSelectionModel().clearAndSelect(count);
-                System.out.println(count);
+
             }
 
         }
