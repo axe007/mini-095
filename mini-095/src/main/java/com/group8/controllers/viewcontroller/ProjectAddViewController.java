@@ -89,7 +89,8 @@ public class ProjectAddViewController implements Initializable {
         description = this.description.getText();
         startDate = this.startDate.getValue();
         endDate = this.endDate.getValue();
-        sprintDuration = Integer.getInteger(String.valueOf(this.sprintDuration.getValue().charAt(0)));
+
+        sprintDuration = Integer.parseInt(String.valueOf(this.sprintDuration.getValue().charAt(0)));
 
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
 

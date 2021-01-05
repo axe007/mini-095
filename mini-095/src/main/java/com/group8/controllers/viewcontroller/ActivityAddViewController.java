@@ -7,7 +7,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -115,10 +114,13 @@ public class ActivityAddViewController implements Initializable {
         }
 
         // Validate activity name
-        Activity oldActivity = (Activity) Session.getOpenItem();
         String activityOldName = "";
-        if (oldActivity != null) {
-            activityOldName = oldActivity.getName();
+        if (Session.getWindowMode().equals("edit")) {
+            Activity oldActivity = (Activity) Session.getOpenItem();
+
+            if (oldActivity != null) {
+                activityOldName = oldActivity.getName();
+            }
         }
 
         ArrayList<String> activityNames = new ArrayList<>();
