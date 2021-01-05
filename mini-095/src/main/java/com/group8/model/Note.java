@@ -1,60 +1,16 @@
 package com.group8.model;
 
+import java.time.LocalDate;
+
+import org.bson.types.ObjectId;
+
 public class Note {
-    private String noteID;
-    private String title;
+    private ObjectId noteID;
+    private ObjectId projectID;
+    private ObjectId targetID; // SprintID or ActivityID or projectID
+    private String type;// SprintNote or ActivityNote or ProjectNote
+    private ObjectId userID;
+    private LocalDate createDate;
     private String content;
-    private String date;
 
-
-    public Note (String noteID, String title, String content, String date){
-        this.noteID = noteID;
-        this.title = title;
-        this.content = content;
-        this.date = date; //TODO: should be set to whatever the date actually is.
-    }
-
-    public String getNoteID() {
-        return noteID;
-    }
-
-    public void setNoteID(String noteID) {
-        this.noteID = noteID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Note{" +
-                "noteID='" + noteID + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", date='" + date + '\'' +
-                '}';
-    }
 }
-

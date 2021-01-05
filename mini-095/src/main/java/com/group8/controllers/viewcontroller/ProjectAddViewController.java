@@ -89,15 +89,17 @@ public class ProjectAddViewController implements Initializable {
         description = this.description.getText();
         startDate = this.startDate.getValue();
         endDate = this.endDate.getValue();
-        sprintDuration = Integer.getInteger(String.valueOf(this.sprintDuration.getValue().charAt(0)));
+        sprintDuration = Integer.parseInt(String.valueOf(this.sprintDuration.getValue().charAt(0)));
 
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
 
         if (daysBetween < 1) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "End date cannot be earlier than Start Date.\nPlease check project dates and try again.");
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "End date cannot be earlier than Start Date.\nPlease check project dates and try again.");
         } else if (daysBetween == 1) {
             alertContent = "Project duration looks to be only 1 day.\n Are you sure?";
-            Optional<ButtonType> dateConfirm = uiHelper.alertDialogGenerator(dialogPane,"confirm", alertHeading, alertContent);
+            Optional<ButtonType> dateConfirm = uiHelper.alertDialogGenerator(dialogPane, "confirm", alertHeading,
+                    alertContent);
             if (dateConfirm.get() == ButtonType.CANCEL) {
                 return;
             }
@@ -107,7 +109,8 @@ public class ProjectAddViewController implements Initializable {
         type = selectedRadioButton.getText();
 
         if (name.equals("") || startDate.equals("") || endDate.equals("")) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check project details and try again.");
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "No fields can be empty.\nPlease check project details and try again.");
         } else {
             if (Session.getWindowMode().equals("new")) {
                 projectController.createProject(name, description, startDate, endDate, type, sprintDuration);
@@ -116,12 +119,14 @@ public class ProjectAddViewController implements Initializable {
                 alertHeading = "Edit project details";
                 alertContent = "Project details successfully updated.\nPlease refresh in Projects view.";
             }
-            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
+                    alertContent);
             if (result.get() == ButtonType.OK) {
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             }
         }
+        ProjectViewController.isUpdated.setValue(true);
     }
 
     @FXML
@@ -144,7 +149,8 @@ public class ProjectAddViewController implements Initializable {
                         return new DateCell() {
                             @Override
                             public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
+                                super.updateItem(item, empty); // To change body of generated methods, choose Tools |
+                                                               // Templates.
                                 LocalDate today = LocalDate.now();
                                 setDisable(empty || item.compareTo(today) < 0);
                             }
@@ -157,7 +163,7 @@ public class ProjectAddViewController implements Initializable {
                 endDate.setDayCellFactory(callB);
                 startDate.setValue(LocalDate.now());
                 endDate.setValue(LocalDate.now());
-                sprintDuration.getItems().addAll("2 weeks","3 weeks","4 weeks", "5 weeks", "6 weeks");
+                sprintDuration.getItems().addAll("2 weeks", "3 weeks", "4 weeks", "5 weeks", "6 weeks");
                 sprintDuration.setValue("2 weeks");
 
             } else if (Session.getWindowMode().equals("edit")) {
@@ -177,7 +183,7 @@ public class ProjectAddViewController implements Initializable {
                 } else if (project.getType().equals("Personal")) {
                     personal.setSelected(true);
                 } else if (project.getType().equals("Business")) {
-                   business.setSelected(true);
+                    business.setSelected(true);
                 }
             }
         } catch (Exception e) {

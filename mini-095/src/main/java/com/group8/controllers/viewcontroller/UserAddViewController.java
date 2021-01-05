@@ -104,7 +104,8 @@ public class UserAddViewController implements Initializable {
         // Validate entered username
         for (String userName : userNames) {
             if (username.equals(userName)) {
-                uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Duplicate username.\nPlease enter a different username and try again.");
+                uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                        "Duplicate username.\nPlease enter a different username and try again.");
                 this.username.getStyleClass().add("textfield-error-highlight");
                 this.username.requestFocus();
                 return;
@@ -112,7 +113,8 @@ public class UserAddViewController implements Initializable {
         }
 
         if (!uiHelper.validateEmailAddress(emailAddress)) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "Invalid email address.\nPlease check email address and try again.");
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "Invalid email address.\nPlease check email address and try again.");
             this.emailAddress.getStyleClass().add("textfield-error-highlight");
             this.emailAddress.requestFocus();
             return;
@@ -131,7 +133,8 @@ public class UserAddViewController implements Initializable {
         }
 
         if (username.equals("") || fullname.equals("") || password.equals("") || emailAddress.equals("")) {
-            uiHelper.alertDialogGenerator(dialogPane,"error", alertHeading, "No fields can be empty.\nPlease check user details and try again.");
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "No fields can be empty.\nPlease check user details and try again.");
             return;
         } else {
             if (Session.getWindowMode().equals("new")) {
@@ -141,12 +144,14 @@ public class UserAddViewController implements Initializable {
                 alertHeading = "Edit user details";
                 alertContent = "User details successfully updated.\nPlease refresh in Users view.";
             }
-            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+            Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
+                    alertContent);
             if (result.get() == ButtonType.OK) {
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             }
         }
+        UserViewController.isUpdated.setValue(true);
     }
 
     @FXML
