@@ -1,19 +1,18 @@
 package com.group8.controllers.viewcontroller;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
+import com.group8.controllers.ActivityController;
 import com.group8.model.Activity;
 import com.group8.model.Bug;
 import com.group8.model.GanttChartActivity;
@@ -26,7 +25,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -43,6 +41,7 @@ public class GanttChartViewController implements Initializable {
     private ArrayList<GanttChartActivity> topLevelList;
     private ArrayList<GanttChartActivity> middleLevelList;
     private ArrayList<GanttChartActivity> bottomLevelList;
+    private ArrayList<Activity> activitiesList = new ArrayList<>();
 
     private static LocalDate calenderStartDate;
     private static LocalDate calenderEndDate;
@@ -58,8 +57,9 @@ public class GanttChartViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        GanttChartActivity projectActivityItem = new GanttChartActivity("Project", Session.getProjectStartDate(),
-                Session.getProjectEndDate(), null, null, null);
+        GanttChartActivity projectActivityItem = new GanttChartActivity(Session.getOpenProjectName(),
+                Session.getProjectStartDate(), Session.getProjectEndDate(), null, null, null);
+        loadActivitiesData();
         if (projectActivityItem.getStartDate().getDayOfWeek().equals(DayOfWeek.MONDAY)) {
             calenderStartDate = projectActivityItem.getStartDate();
         } else {
@@ -70,8 +70,7 @@ public class GanttChartViewController implements Initializable {
         } else {
             calenderEndDate = projectActivityItem.getEndDate().plusWeeks(1).with(DayOfWeek.SUNDAY);
         }
-        System.out.println(calenderEndDate);
-        System.out.println(calenderStartDate);
+
         numberOfCalenderDays = (int) ChronoUnit.DAYS.between(calenderStartDate, calenderEndDate) + 1;
 
         topLevelList = new ArrayList<>();
@@ -219,7 +218,7 @@ public class GanttChartViewController implements Initializable {
     }
 
     public void convertActivityToGanttChartActivity() {
-        for (Activity activity : ActivitiesViewController.activitiesList) {
+        for (Activity activity : activitiesList) {
 
             if (activity instanceof UserStory) {
                 GanttChartActivity ganttUserStory = new GanttChartActivity(activity.getName(), activity.getStartDate(),
@@ -254,72 +253,60 @@ public class GanttChartViewController implements Initializable {
         }
     }
 
+    private void loadActivitiesData() {
+        ActivityController activityController = new ActivityController();
+        activitiesList = activityController.getActivitiesList();
+        Collections.sort(activitiesList, new Comparator<Activity>() {
+            public int compare(Activity o1, Activity o2) {
+                return o1.getStartDate().compareTo(o2.getStartDate());
+            }
+        });
+    }
+
     @FXML
     private void handleSearchButton(ActionEvent event) {
         if (!activitySearchTextField.getText().isEmpty()) {
-            int topLevelIndex = 0;
-            int middleLevelIndex = 0;
-            int bottomLevelIndex = 0;
-            boolean isTopItem = false;
-            boolean isMiddleItem = false;
-            boolean isBottomItem = false;
-
+            int count = 0;
+            boolean findItem = false;
             ObservableList<TreeItem<GanttChartActivity>> activityList = ganttChartTreeTableView.getRoot().getChildren();
+            toploop: for (TreeItem<GanttChartActivity> activity : activityList) {
+                count++;
+                if (activity.getValue().getTitle().contains(activitySearchTextField.getText())) {
+                    findItem = true;
+                    break;
+                } else {
+                    if (!activity.isLeaf()) {
+                        for (TreeItem<GanttChartActivity> childItem : activity.getChildren()) {
+                            count++;
+                            if (childItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
+                                findItem = true;
+                                break toploop;
+                            } else {
+                                if (!childItem.isLeaf()) {
+                                    for (TreeItem<GanttChartActivity> grandChildItem : childItem.getChildren()) {
+                                        count++;
+                                        if (grandChildItem.getValue().getTitle()
+                                                .contains(activitySearchTextField.getText())) {
+                                            findItem = true;
+                                            break toploop;
+                                        }
 
-            for (TreeItem<GanttChartActivity> treeItem : activityList) {
-                if (treeItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
-                    topLevelIndex = activityList.indexOf(treeItem);
-                    isTopItem = true;
+                                    }
 
-                } else if (treeItem.getChildren() != null) {
-                    for (TreeItem<GanttChartActivity> childItem : treeItem.getChildren()) {
-                        if (childItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
-                            middleLevelIndex = activityList.indexOf(treeItem) + 1;
-
-                            isMiddleItem = true;
-
-                        } else if (childItem.getChildren() != null) {
-                            for (TreeItem<GanttChartActivity> grandChildItem : childItem.getChildren()) {
-                                if (grandChildItem.getValue().getTitle().contains(activitySearchTextField.getText())) {
-                                    bottomLevelIndex = activityList.indexOf(treeItem) + 1;
-
-                                    isBottomItem = true;
-
-                                } else {
-                                    bottomLevelIndex++;
                                 }
 
                             }
-                            middleLevelIndex += bottomLevelIndex;
-                            bottomLevelIndex = 0;
-
-                        } else {
-                            middleLevelIndex++;
                         }
+
                     }
-                    topLevelIndex += middleLevelIndex;
-                    middleLevelIndex = 0;
                 }
 
-                else {
-                    topLevelIndex++;
-                }
             }
-            int topOffSet = isTopItem ? 1 : 0;
-            int midOffSet = 0;
-            int bottomOffSet = 0;
-            if (isBottomItem) {
-                topOffSet = 1;
-                bottomOffSet = 1;
-                midOffSet = 1;
+            if (findItem) {
+                ganttChartTreeTableView.getSelectionModel().clearAndSelect(count);
+                System.out.println(count);
+            }
 
-            } else if (isMiddleItem) {
-                topOffSet = 1;
-                midOffSet = 1;
-            }
-            ganttChartTreeTableView.getRoot().setExpanded(true);
-            ganttChartTreeTableView.getSelectionModel().clearAndSelect(
-                    topLevelIndex + middleLevelIndex + bottomLevelIndex + topOffSet + midOffSet + bottomOffSet);
         }
 
     }

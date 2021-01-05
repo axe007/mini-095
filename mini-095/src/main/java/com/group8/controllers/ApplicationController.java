@@ -82,10 +82,6 @@ public class ApplicationController implements Initializable {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
                         "No project has been opened.\nPlease open a project in Projects window.");
                 return;
-            } else if (ActivitiesViewController.activitiesList.isEmpty()
-                    || ActivitiesViewController.activitiesList.equals(null)) {
-                uiHelper.alertDialogGenerator(appContent, "error", "No activities is available",
-                        "No activities is available.\nPlease load or create activites in Activities window.");
             } else {
                 viewName = "GanttChartView";
                 viewTitle = "Gantt Chart";

@@ -576,14 +576,14 @@
 	-fx-fill: #e56767;
 	-fx-text-fill: #e56767;
 	-fx-font-weight: normal;
-	-fx-font-size: 0.7em;
+	-fx-font-size: 0.8em;
 }
 
 .gantt-chart-day-column-weekday {
 	-fx-background-color: #fff;
 	-fx-text-fill: #3b4654;
 	-fx-font-weight: normal;
-	-fx-font-size: 0.7em;
+	-fx-font-size: 0.8em;
 }
 
 .gantt-chart-cell-empty {
