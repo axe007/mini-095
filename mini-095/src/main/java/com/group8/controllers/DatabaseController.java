@@ -24,6 +24,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class DatabaseController {
 
     String dbUser = "MongoAdmin";
@@ -40,9 +41,8 @@ public class DatabaseController {
 
         MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, 27017))))
-                .build());
-        // .credential(credential).build());
-
+                // .build());
+                .credential(credential).build());
         return mongoClient;
     }
 
@@ -81,15 +81,20 @@ public class DatabaseController {
         return collection;
     }
 
-    public CodecRegistry createCodecRegistry(String classType) {
+    public MongoCollection<TimeLog> getTimeLogCollection() {
+        MongoDatabase database = dbConnect().getDatabase(dbName);
+        MongoCollection<TimeLog> collection = database.getCollection("timelogs", TimeLog.class)
+                .withCodecRegistry(createCodecRegistry("TimeLogs"));
+        return collection;
+    }
 
+    public CodecRegistry createCodecRegistry(String classType) {
         PojoCodecProvider pojoCodecProvider = null;
         CodecRegistry pojoCodecRegistry;
 
         if (classType.equals("Users")) {
             ClassModel<User> userModel = ClassModel.builder(User.class).enableDiscriminator(true).build();
-            ClassModel<Developer> developerUserModel = ClassModel.builder(Developer.class).enableDiscriminator(true)
-                    .build();
+            ClassModel<Developer> developerUserModel = ClassModel.builder(Developer.class).enableDiscriminator(true).build();
             ClassModel<Manager> managerUserModel = ClassModel.builder(Manager.class).enableDiscriminator(true).build();
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
                     .register(userModel, developerUserModel, managerUserModel).build();
@@ -105,21 +110,25 @@ public class DatabaseController {
                     .register(sprintModel).build();
 
         } else if (classType.equals("Activities")) {
-
             ClassModel<Activity> activityModel = ClassModel.builder(Activity.class).enableDiscriminator(true).build();
             ClassModel<Task> taskModel = ClassModel.builder(Task.class).enableDiscriminator(true).build();
             ClassModel<Bug> bugModel = ClassModel.builder(Bug.class).enableDiscriminator(true).build();
-            ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true)
-                    .build();
+            ClassModel<UserStory> userStoryModel = ClassModel.builder(UserStory.class).enableDiscriminator(true).build();
 
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
                     .register(activityModel, taskModel, bugModel, userStoryModel).build();
+
+        } else if (classType.equals("TimeLogs")) {
+            ClassModel<TimeLog> timeLogModel = ClassModel.builder(TimeLog.class).enableDiscriminator(true).build();
+            pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
+                    .register(timeLogModel).build();
         } else if (classType.equals("Notes")) {
             ClassModel<Note> noteModel = ClassModel.builder(Note.class).enableDiscriminator(true).build();
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
                     .register(noteModel).build();
 
         }
+
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
         return pojoCodecRegistry;
