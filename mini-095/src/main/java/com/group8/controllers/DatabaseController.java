@@ -24,15 +24,14 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class DatabaseController {
 
     String dbUser = "MongoAdmin";
     char[] dbPassword = "Mini095GU".toCharArray(); // the password as a character array
     String dbName = "mini95";
     String authdbName = "admin"; // the name of the database in which the user is defined
-    // String dbServer = "mongodb.altansukh.com";
-    String dbServer = "localhost";
+    String dbServer = "mongodb.altansukh.com";
+    // String dbServer = "localhost";
     int dbPort = 27017;
 
     public MongoClient dbConnect() {
@@ -42,7 +41,7 @@ public class DatabaseController {
         MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, 27017))))
                 .build());
-                //.credential(credential).build());
+        // .credential(credential).build());
 
         return mongoClient;
     }
@@ -72,6 +71,13 @@ public class DatabaseController {
         MongoDatabase database = dbConnect().getDatabase(dbName);
         MongoCollection<Activity> collection = database.getCollection("activities", Activity.class)
                 .withCodecRegistry(createCodecRegistry("Activities"));
+        return collection;
+    }
+
+    public MongoCollection<Note> getNoteCollection() {
+        MongoDatabase database = dbConnect().getDatabase(dbName);
+        MongoCollection<Note> collection = database.getCollection("notes", Note.class)
+                .withCodecRegistry(createCodecRegistry("Notes"));
         return collection;
     }
 
@@ -108,6 +114,11 @@ public class DatabaseController {
 
             pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
                     .register(activityModel, taskModel, bugModel, userStoryModel).build();
+        } else if (classType.equals("Notes")) {
+            ClassModel<Note> noteModel = ClassModel.builder(Note.class).enableDiscriminator(true).build();
+            pojoCodecProvider = PojoCodecProvider.builder().conventions(List.of(ANNOTATION_CONVENTION))
+                    .register(noteModel).build();
+
         }
         pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
