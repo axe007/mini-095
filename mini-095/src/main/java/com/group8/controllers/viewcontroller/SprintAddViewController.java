@@ -8,34 +8,36 @@ import com.group8.helper.UIHelper;
 import com.group8.model.Activity;
 import com.group8.model.Session;
 import com.group8.model.Sprint;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SprintAddViewController implements Initializable {
 
     private static ProjectController projectController = new ProjectController();
     private static ActivityController activityController = new ActivityController();
     private static SprintController sprintController = new SprintController();
+    private static UIHelper uiHelper = new UIHelper();
 
     private ObservableList<String> backlogActivities = FXCollections.observableArrayList();
     private ObservableList<String> sprintActivities = FXCollections.observableArrayList();
@@ -43,7 +45,7 @@ public class SprintAddViewController implements Initializable {
     @FXML
     private StackPane dialogPane;
     @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane anchorPaneSprint;
     @FXML
     private Button saveButton;
     @FXML
@@ -56,6 +58,8 @@ public class SprintAddViewController implements Initializable {
     private DatePicker sprintStartDate;
     @FXML
     private DatePicker sprintEndDate;
+    @FXML
+    private Label windowModeTitle;
     @FXML
     private Label sprintStartDateEdit;
     @FXML
@@ -71,7 +75,7 @@ public class SprintAddViewController implements Initializable {
     private void handleSaveBtn(ActionEvent event) throws IOException {
 
         String alertHeading = "Create new sprint";
-        String alertContent = "New sprint is created and activities are assigned.\nPlease reload the board.";
+        String alertContent = "New sprint is created and activities are assigned.";
         UIHelper uiHelper = new UIHelper();
 
         String sprintName;
@@ -90,7 +94,7 @@ public class SprintAddViewController implements Initializable {
         } else if (Session.getWindowMode().equals("edit")) {
             sprintId = Session.getCurrentSprintId();
             alertHeading = "Assigning activities";
-            alertContent = "Activities are successfully assigned.\nPlease reload the board.";
+            alertContent = "Activities are successfully assigned.";
         }
 
         List<String> unassignedActivities = unassignedListView.getItems();
@@ -140,15 +144,17 @@ public class SprintAddViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (Session.getWindowMode().equals("edit")) {
+            windowModeTitle.setText("Current sprint activities");
+        }
         setListViews();
-        generateSpringDatePickers(null, null);
-
         unassignedListView.setItems(backlogActivities);
         assignedListView.setItems(sprintActivities);
 
         if (assignedListView.getItems() == null) {
-            assignedListView.setPlaceholder(new Text("No user selected yet"));
+            assignedListView.setPlaceholder(new Text("No activities selected yet"));
         }
+        generateSpringDatePickers(null, null);
     }
 
     private void setListViews() {
@@ -203,13 +209,44 @@ public class SprintAddViewController implements Initializable {
                 }
             };
 
+            ObjectId projectId = Session.getOpenProjectId();
+            ArrayList<Sprint> projectSprints = sprintController.getProjectSprintList(projectId);
+
+            if (projectSprints.isEmpty() || projectSprints == null) {
+                this.sprintStartDate.setValue(projectStartDate);
+                this.sprintEndDate.setValue(projectStartDate.plusDays(13));
+            } else {
+                Collections.sort(projectSprints, new Comparator<Sprint>() {
+                    public int compare(Sprint o1, Sprint o2) {
+                        return o2.getEndDate().compareTo(o1.getEndDate());
+                    }
+                });
+
+                Sprint lastSprint = projectSprints.get(0);
+                LocalDate lastSprintEndDate = lastSprint.getEndDate();
+                DayOfWeek day = lastSprintEndDate.getDayOfWeek();
+                LocalDate sprintStartDate;
+                LocalDate sprintEndDate;
+
+                if (day == DayOfWeek.SATURDAY) {
+                    sprintStartDate = lastSprintEndDate.plusDays(2);
+                } else {
+                    sprintStartDate = lastSprintEndDate.plusDays(1);
+                }
+                sprintEndDate = sprintStartDate.plusDays(13);
+                if (sprintEndDate.compareTo(projectEndDate) > 0) {
+                    sprintEndDate = projectEndDate;
+                }
+
+                this.sprintStartDate.setValue(sprintStartDate);
+                this.sprintEndDate.setValue(sprintEndDate);
+            }
+
             this.sprintStartDate.setDayCellFactory(projectDates);
             this.sprintEndDate.setDayCellFactory(projectDates);
             this.sprintStartDate.valueProperty().addListener((ov, oldValue, newValue) -> {
                 this.sprintEndDate.setValue(newValue.plusDays(13));
             });
-            this.sprintStartDate.setValue(projectStartDate);
-            this.sprintEndDate.setValue(projectStartDate.plusDays(13));
             this.sprintNameEdit.setVisible(false);
             this.sprintStartDateEdit.setVisible(false);
             this.sprintEndDateEdit.setVisible(false);

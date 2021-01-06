@@ -75,7 +75,7 @@ public class ActivityUpdateViewController implements Initializable {
         String newStatusText;
         String newStatusSet = "TODO";
         String alertHeading = "Update activity status";
-        String alertContent = "Activity status successfully updated.\nPlease reload the Scrum board.";
+        String alertContent = "Activity status successfully updated.";
         Activity activity = (Activity) Session.getOpenItem();
         ObjectId activityId = activity.getId();
 
@@ -158,12 +158,19 @@ public class ActivityUpdateViewController implements Initializable {
         for (Activity parentActivity : activitiesList) {
             if (grandId != null) {
                 if (grandId.equals(parentActivity.getId())) {
-                    grandName = parentActivity.getName() + " / ";
+                    grandName = parentActivity.getName();
+                    if (grandName.length() > 23) {
+                        grandName = grandName.substring(0, Math.min(grandName.length(), 22)) + "...";
+                    }
+                    grandName = grandName + " / ";
                 }
             }
             if (parentId != null) {
                 if (parentId.equals(parentActivity.getId())) {
                     parentName = parentActivity.getName();
+                    if (grandId != null && parentName.length() > 23) {
+                        parentName = parentName.substring(0, Math.min(parentName.length(), 22)) + "...";
+                    }
                 }
             }
         }

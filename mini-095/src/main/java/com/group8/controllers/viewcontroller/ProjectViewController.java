@@ -1,11 +1,9 @@
 package com.group8.controllers.viewcontroller;
 
-import com.group8.controllers.ApplicationController;
 import com.group8.controllers.ProjectController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Project;
 import com.group8.model.Session;
-import com.group8.model.User;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -26,7 +24,6 @@ import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -112,7 +109,6 @@ public class ProjectViewController implements Initializable {
         try {
             // TODO
             loadProjectData();
-
             uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
 
         } catch (Exception e) {

@@ -7,7 +7,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -86,7 +85,7 @@ public class ActivityAddViewController implements Initializable {
         String parentItemName = null;
 
         String alertHeading = "Creating new activity";
-        String alertContent = "New activity successfully created.\nPlease refresh in Activities view.";
+        String alertContent = "New activity successfully created.";
 
         name = this.activityName.getText();
         description = this.activityDescription.getText();
@@ -115,10 +114,13 @@ public class ActivityAddViewController implements Initializable {
         }
 
         // Validate activity name
-        Activity oldActivity = (Activity) Session.getOpenItem();
         String activityOldName = "";
-        if (oldActivity != null) {
-            activityOldName = oldActivity.getName();
+        if (Session.getWindowMode().equals("edit")) {
+            Activity oldActivity = (Activity) Session.getOpenItem();
+
+            if (oldActivity != null) {
+                activityOldName = oldActivity.getName();
+            }
         }
 
         ArrayList<String> activityNames = new ArrayList<>();
@@ -183,7 +185,7 @@ public class ActivityAddViewController implements Initializable {
                 activityController.modifyActivity(grandId, parentId, activityType, name, description, startDate,
                         endDate, priority, storyPoints, estimatedHours);
                 alertHeading = "Edit activity details";
-                alertContent = "Activity details successfully updated.\nPlease refresh in Activities view.";
+                alertContent = "Activity details successfully updated.";
             }
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
                     alertContent);

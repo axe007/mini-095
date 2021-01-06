@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="dialogPane" prefHeight="540.0" prefWidth="600.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.SprintCompleteViewController">
+    <children>
+        <AnchorPane id="anchorPane" fx:id="mainContainer" prefHeight="376.0" prefWidth="490.0" StackPane.alignment="CENTER">
+            <children>
+                <VBox fx:id="vboxPane" maxWidth="-Infinity" prefHeight="153.0" prefWidth="240.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" focusTraversable="false" styleClass="h2" text="Complete a sprint">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></Label>
+                  <BorderPane prefHeight="300.0" prefWidth="200.0">
+                      <top>
+                          <GridPane alignment="BASELINE_CENTER" styleClass="user-assign-projectinfo" BorderPane.alignment="CENTER">
+                              <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
+                                  <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Sprint name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                                  <Text fx:id="currentSprintName" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
+                                  <Label contentDisplay="TOP" focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Start date:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                  <Text fx:id="sprintStartDate" text="start date" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="End date:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                  <Text fx:id="sprintEndDate" text="end date" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                              </children>
+                          </GridPane>
+                      </top>
+                     <bottom>
+                              <HBox alignment="CENTER" spacing="25.0" BorderPane.alignment="CENTER">
+                                  <children>
+                                      <Button fx:id="saveButton" onAction="#handleSaveBtn" prefWidth="100.0" styleClass="submit-button" text="Complete" />
+                                      <Button fx:id="cancelButton" onAction="#handleCancel" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
+                                  </children>
+                           <BorderPane.margin>
+                              <Insets top="30.0" />
+                           </BorderPane.margin>
+                              </HBox>
+                     </bottom>
+                     <center>
+                        <VBox BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets top="20.0" />
+                           </BorderPane.margin>
+                           <children>
+                              <GridPane minHeight="240.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="ALWAYS" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="20.0" prefWidth="20.0" />
+                                  <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                                  <RowConstraints vgrow="ALWAYS" />
+                                </rowConstraints>
+                                 <children>
+                                    <Text styleClass="user-assign-listview-label" text="Ongoing activities" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </Text>
+                                     <Text styleClass="user-assign-listview-label" text="Completed activities" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </Text>
+                                    <ListView fx:id="ongoingListView" focusTraversable="false" prefHeight="300.0" GridPane.columnIndex="0" GridPane.rowIndex="1" VBox.vgrow="ALWAYS" />
+                                    <ListView fx:id="completeListView" focusTraversable="false" prefHeight="300.0" GridPane.columnIndex="2" GridPane.rowIndex="1" VBox.vgrow="ALWAYS" />
+
+                                     <Label focusTraversable="false" styleClass="textfield-remark" text="* all ongoing activities will be assigned back to the project backlog" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="3">
+                                         <padding>
+                                             <Insets left="1.0" />
+                                         </padding></Label>
+
+                                 </children>
+                              </GridPane>
+                              <Label styleClass="user-assign-projectinfo-label" text="Sprint completion notes:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin></Label>
+                              <TextArea fx:id="sprintNoteContent" minHeight="120.0" prefHeight="120.0" prefWidth="398.0" />
+                           </children>
+                        </VBox>
+                     </center>
+                  </BorderPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+            </children>
+         <StackPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </StackPane.margin>
+        </AnchorPane>
+    </children>
+</StackPane>

@@ -31,8 +31,8 @@ public class DatabaseController {
     char[] dbPassword = "Mini095GU".toCharArray(); // the password as a character array
     String dbName = "mini95";
     String authdbName = "admin"; // the name of the database in which the user is defined
-    String dbServer = "mongodb.altansukh.com";
-    //String dbServer = "localhost";
+    // String dbServer = "mongodb.altansukh.com";
+    String dbServer = "localhost";
     int dbPort = 27017;
 
     public MongoClient dbConnect() {
@@ -41,8 +41,8 @@ public class DatabaseController {
 
         MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, 27017))))
-                //.build());
-                .credential(credential).build());
+                .build());
+                //.credential(credential).build());
 
         return mongoClient;
     }

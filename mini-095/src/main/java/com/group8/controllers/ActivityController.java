@@ -78,7 +78,7 @@ public class ActivityController {
 
         for (ObjectId objectId : projectActivities) {
             Activity activity = (Activity) activitiesCollection.find(eq("_id", objectId)).first();
-            if (activity != null && activity.getId().equals(objectId)) {
+            if (activity != null && activity.getId().equals(objectId) && activity.getSprintId() == null) {
                 activities.add(activity);
             }
         }
@@ -128,7 +128,6 @@ public class ActivityController {
 
     public void updateActivitySprint(List<String> assignedActivities, ObjectId sprintId) {
         MongoCollection activityCollection = mongoDb.getActivityCollection();
-
         for (String activityName : assignedActivities) {
             activityCollection.updateOne(eq("name", activityName), set("sprintId", sprintId));
         }

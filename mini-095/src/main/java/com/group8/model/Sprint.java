@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Sprint {
+public class Sprint implements Comparable<Sprint> {
     private ObjectId id;
     private String name;
     private LocalDate startDate;
@@ -65,5 +65,21 @@ public class Sprint {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    @Override
+    public int compareTo(Sprint o) {
+        return getStartDate().compareTo(o.getStartDate());
+    }
+
+    @Override
+    public String toString() {
+        return "Sprint{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", isComplete=" + isComplete +
+                '}';
     }
 }

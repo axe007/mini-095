@@ -77,7 +77,7 @@ public class UserAddViewController implements Initializable {
         String emailAddress;
         String userRole;
         String alertHeading = "Creating new user";
-        String alertContent = "New user successfully created.\nPlease refresh in Users view.";
+        String alertContent = "New user successfully created.";
 
         username = this.username.getText();
         fullname = this.fullname.getText();
@@ -142,7 +142,7 @@ public class UserAddViewController implements Initializable {
             } else if (Session.getWindowMode().equals("edit")) {
                 userController.modifyUser(username, password, fullname, emailAddress, userRole);
                 alertHeading = "Edit user details";
-                alertContent = "User details successfully updated.\nPlease refresh in Users view.";
+                alertContent = "User details successfully updated.";
             }
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
                     alertContent);

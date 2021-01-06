@@ -86,6 +86,10 @@ public class ProjectController {
     }
 
     public ArrayList<ObjectId> getProjectList(ObjectId projectId, String listType) {
+        if (projectId == null || projectId.equals(null)) {
+            projectId = Session.getOpenProjectId();
+        }
+
         Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
                 .find(eq("_id", projectId)).first();
         ArrayList<ObjectId> projectList = new ArrayList<>();
@@ -155,7 +159,13 @@ public class ProjectController {
         project.setCurrentSprint(sprintId);
 
         mongoDb.getProjectCollection().updateOne(eq("_id", projectId), combine(set("sprints", sprintList), set("currentSprint", sprintId)));
-        System.out.println("Project sprints updated!");
+    }
+
+    public void completeSprint() {
+        ObjectId projectId = Session.getOpenProjectId();
+        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
+                .find(eq("_id", projectId)).first();
+        mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("currentSprint", null));
     }
 
 
