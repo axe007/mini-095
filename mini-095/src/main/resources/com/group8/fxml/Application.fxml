@@ -5,8 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.icons525.* ?>
 
-<SplitPane fx:id="mainSplitPane" dividerPositions="0.1" maxHeight="Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" scaleShape="false" styleClass="main-split-pane" stylesheets="../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ApplicationController">
+<SplitPane fx:id="mainSplitPane" dividerPositions="0.1" maxHeight="Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" scaleShape="false" styleClass="main-split-pane" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ApplicationController">
   <items>
     <AnchorPane maxHeight="Infinity" maxWidth="-Infinity" minHeight="480.0" prefWidth="360.0">
          <children>
@@ -15,11 +16,7 @@
                      <children>
                          <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="dashboard">
                              <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-home.png" />
-                                     </image>
-                                 </ImageView>
+                                 <FontAwesomeIconView glyphName="HOME" size="42" styleClass="sidebar-icon" />
                              </graphic>
                              <opaqueInsets>
                                  <Insets />
@@ -33,35 +30,15 @@
                          </Button>
                          <Button fx:id="projectButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="projects">
                              <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-projects.png" />
-                                     </image>
-                                 </ImageView>
+                                 <Icons525View glyphName="PROJECT" size="48" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="sprintboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="sprintboard">
+                         <Button fx:id="scrumboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="scrumboard">
                              <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-scrumboard.png" />
-                                     </image>
-                                 </ImageView>
-                             </graphic>
-                             <padding>
-                                 <Insets left="50.0" />
-                             </padding>
-                         </Button>
-                         <Button fx:id="activitiesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="activities">
-                             <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-activities.png" />
-                                     </image>
-                                 </ImageView>
+                                 <FontAwesomeIconView glyphName="OBJECT_GROUP" size="42" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
@@ -69,11 +46,15 @@
                          </Button>
                          <Button fx:id="reportsButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="gantt chart">
                              <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-activities.png" />
-                                     </image>
-                                 </ImageView>
+                                 <FontAwesomeIconView glyphName="TASKS" size="42" styleClass="sidebar-icon" />
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="activitiesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="activities">
+                             <graphic>
+                                 <FontAwesomeIconView glyphName="LIST_OL" size="42" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
@@ -81,11 +62,7 @@
                          </Button>
                          <Button fx:id="usersButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="users">
                              <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-users.png" />
-                                     </image>
-                                 </ImageView>
+                                 <FontAwesomeIconView glyphName="USERS" size="42" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
@@ -93,11 +70,7 @@
                          </Button>
                          <Button fx:id="logoutButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="log out">
                              <graphic>
-                                 <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                     <image>
-                                         <Image url="@../images/icon-logout.png" />
-                                     </image>
-                                 </ImageView>
+                                 <Icons525View glyphName="GO2" size="42" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />

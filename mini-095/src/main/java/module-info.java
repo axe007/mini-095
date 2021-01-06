@@ -3,6 +3,7 @@ module com.group8  {
     requires javafx.controls;
     requires javafx.fxml;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires de.jensd.fx.glyphs.iconsfivetwofive;
     requires java.logging;
     requires org.mongodb.driver.core;
     requires org.mongodb.driver.sync.client;

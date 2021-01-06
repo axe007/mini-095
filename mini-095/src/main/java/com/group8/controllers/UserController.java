@@ -1,14 +1,13 @@
 package com.group8.controllers;
 
-import com.group8.model.Developer;
-import com.group8.model.Manager;
-import com.group8.model.Session;
-import com.group8.model.User;
+import com.group8.model.*;
 import com.group8.helper.Helper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.types.ObjectId;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class UserController {
 
     private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
+    private ActivityController activityController = new ActivityController();
 
     public void createUser(String username, String password, String fullname, String emailAddress, String userRole) {
         User newUser;
@@ -61,38 +61,6 @@ public class UserController {
         ArrayList<User> users = mongoDb.getUserCollection().find().into(new ArrayList<User>());
         return users;
     }
-
-    // public String getUserDetail(String findField, String findValue, String
-    // returnField) {
-    // String returnValue = null;
-    // User user =
-    // mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq(findField,
-    // findValue)).first();
-    // switch (returnField) {
-    // case "id" -> returnValue = String.valueOf(user.getId());
-    // case "username" -> returnValue = user.getUsername();
-    // case "password" -> returnValue = user.getPassword();
-    // case "fullname" -> returnValue = user.getFullname();
-    // case "emailAddress" -> returnValue = user.getEmailAddress();
-    // case "userRole" -> returnValue = user.getUserRole();
-    // }
-    // return returnValue;
-    // }
-
-    // public String getUserDetail(ObjectId findValue, String returnField) {
-    // String returnValue = null;
-    // User user =
-    // mongoDb.getUserCollection().withCodecRegistry(mongoDb.createCodecRegistry("Users")).find(eq("_id",
-    // findValue)).first();
-    // switch (returnField) {
-    // case "username" -> returnValue = user.getUsername();
-    // case "password" -> returnValue = user.getPassword();
-    // case "fullname" -> returnValue = user.getFullname();
-    // case "emailAddress" -> returnValue = user.getEmailAddress();
-    // case "userRole" -> returnValue = user.getUserRole();
-    // }
-    // return returnValue;
-    // }
 
     public ArrayList<String> getUserDetailList(String userAttribute) {
         ArrayList<String> userDetailList = new ArrayList<>();
@@ -152,5 +120,33 @@ public class UserController {
         System.out.print("Enter username to display: ");
         Helper helper = new Helper();
         String username = helper.getString();
+    }
+
+    public void recordTimeLog(ObjectId projectId, ObjectId sprintId, ObjectId activityId, ObjectId userId, double hours, LocalDate createdDate) {
+        TimeLog timeLog = new TimeLog(projectId, sprintId, activityId, userId, hours, createdDate);
+        mongoDb.getTimeLogCollection().insertOne(timeLog);
+    }
+
+    public ArrayList<TimeLog> retrieveTimeLogList(ObjectId objectId, String listType) {
+        ArrayList<TimeLog> timeLogs = new ArrayList<>();
+
+        if (listType.equals("project")) {
+            timeLogs = mongoDb.getTimeLogCollection().find(eq("projectId", objectId)).into(new ArrayList<TimeLog>());
+        } else if (listType.equals("sprint")) {
+            timeLogs = mongoDb.getTimeLogCollection().find(eq("sprintId", objectId)).into(new ArrayList<TimeLog>());
+        } else if (listType.equals("project")) {
+            timeLogs = mongoDb.getTimeLogCollection().find(eq("projectId", objectId)).into(new ArrayList<TimeLog>());
+        } else if (listType.equals("activity")) {
+            timeLogs = mongoDb.getTimeLogCollection().find(eq("activityId", objectId)).into(new ArrayList<TimeLog>());
+        } else if (listType.equals("user")) {
+            timeLogs = mongoDb.getTimeLogCollection().find(eq("userId", objectId)).into(new ArrayList<TimeLog>());
+        }
+
+        return timeLogs;
+    }
+
+    public ArrayList<TimeLog> retrieveTimeLogList() {
+        ArrayList<TimeLog> timeLogs = mongoDb.getTimeLogCollection().find().into(new ArrayList<TimeLog>());
+        return timeLogs;
     }
 }

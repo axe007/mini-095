@@ -202,6 +202,7 @@
 	-fx-background-color: #ffffff;
 	-fx-padding: 0.167em;
 	-fx-background-radius: 0 0 5 5, 0 0 4 4, 0 0 3 3;
+	-fx-border-color: none;
 }
 
 .split-pane *.split-pane-divider {
@@ -317,6 +318,13 @@
 	-fx-font-weight: 800;
 	-fx-background-radius: 0;
 	-fx-background-insets: 0, 0 0 0 0;
+}
+
+.sidebar-icon {
+	-fx-border-color: #5179d6;
+	-fx-border-width: 1 1 1 1;
+	-fx-fill: #6d767e;
+	-fx-background-radius: 5 5 5 5, 4 4 4 4, 3 3 3 3;
 }
 
 .sidebar-button:hover {
@@ -444,10 +452,19 @@
 	-fx-background-color: #ffce89;
 }
 
-.scrum-column-header-todo .label {
+.scrum-column-header-todo .label, .scrum-column-header-inprogress .label,
+.scrum-column-header-review .label, .scrum-column-header-done .label{
 	-fx-text-fill: #fff;
 	-fx-font-size: 1.4em;
 	-fx-font-weight: 800;
+	-fx-padding: 0px 0px 0px 15px;
+	-fx-effect: dropshadow(three-pass-box, #4c4c4c, 2, 0, 1, 1);
+}
+
+.scrum-activity-status {
+	-fx-text-fill: #fff;
+	-fx-font-size: 1.0em;
+	-fx-font-weight: 900;
 	-fx-padding: 0px 0px 0px 15px;
 	-fx-effect: dropshadow(three-pass-box, #4c4c4c, 2, 0, 1, 1);
 }
@@ -456,36 +473,12 @@
 	-fx-background-color: #ffd66b;
 }
 
-.scrum-column-header-inprogress .label {
-	-fx-text-fill: #fff;
-	-fx-font-size: 1.4em;
-	-fx-font-weight: 800;
-	-fx-padding: 0px 0px 0px 15px;
-	-fx-effect: dropshadow(three-pass-box, #4c4c4c, 2, 0, 1, 1);
-}
-
 .scrum-column-header-review {
 	-fx-background-color: #adce74;
 }
 
-.scrum-column-header-review .label {
-	-fx-text-fill: #fff;
-	-fx-font-size: 1.4em;
-	-fx-font-weight: 800;
-	-fx-padding: 0px 0px 0px 15px;
-	-fx-effect: dropshadow(three-pass-box, #4c4c4c, 2, 0, 1, 1);
-}
-
 .scrum-column-header-done {
 	-fx-background-color: #61b15a;
-}
-
-.scrum-column-header-done .label {
-	-fx-text-fill: #fff;
-	-fx-font-size: 1.4em;
-	-fx-font-weight: 800;
-	-fx-padding: 0px 0px 0px 15px;
-	-fx-effect: dropshadow(three-pass-box, #4c4c4c, 2, 0, 1, 1);
 }
 
 .scrum-column-header .label {
@@ -651,4 +644,69 @@
 
 .activity-list-bottom .combo-box-popup .list-cell {
 	-fx-padding: 4 0 4 20;
+}
+
+/* Dashboard styles */
+
+.dashboard-titled-pane {
+	-fx-text-fill: #fff;
+	-fx-box-border: none;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0.4, 4.0, 4.0);
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0 0 0 0;
+}
+
+.dashboard-titled-pane > .title .arrow-button
+{
+	-fx-fill: #fff;
+	-fx-background-color: null;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+	-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+}
+
+.dashboard-titled-pane > .title .arrow-button .arrow
+{
+	-fx-background-color: #fff;
+	-fx-padding: 0.4em 0.5em 0.4em 0.5em; /* 3 3.75 3 3.75 */
+	-fx-shape: "M 0 0 h 7 l -3.5 4 z";
+	-fx-fill: #fff;
+	-fx-stroke: #fff;
+}
+
+.dashboard-titled-pane > .title .label
+{
+	-fx-padding: 0 0 0 5;
+}
+
+.dashboard-titled-pane:focused {
+	-fx-text-fill: #fff;
+}
+
+.dashboard-titled-pane > .title {
+	-fx-background-color: #5179d6;
+	-fx-font-size: 1.4em;
+	-fx-font-weight: 900;
+	-fx-padding: 8 0 8 10;
+	/* 2 10 3 10 */
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0 0 0 0;
+}
+
+.dashboard-titled-pane > .content {
+	-fx-background-color: #ffffff;
+	-fx-padding: 0.167em;
+	-fx-border-color: #dfdfdf;
+}
+
+.dashboard-info-label {
+	-fx-text-fill: #6c757d;
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 900;
+}
+
+.dashboard-info-content {
+	-fx-text-fill: #3b4654;
+	-fx-font-size: 1.5em;
+	-fx-font-weight: 800;
 }

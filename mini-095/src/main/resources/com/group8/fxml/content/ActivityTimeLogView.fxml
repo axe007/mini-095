@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="dialogPane" prefHeight="521.0" prefWidth="480.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ActivityTimeLogViewController">
+   <children>
+      <AnchorPane id="anchorPane" prefHeight="640.0" prefWidth="440.0" StackPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="vboxPane" layoutX="38.0" layoutY="32.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" focusTraversable="false" prefWidth="560.0" styleClass="h2" text="Activity time log">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></Label>
+                  <GridPane alignment="BASELINE_CENTER" styleClass="user-assign-projectinfo" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="25.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity name:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <Text fx:id="activityName" text="Activity name" wrappingWidth="265.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Parent items:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <Text fx:id="parentItems" text="None" wrappingWidth="275.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Activity dates:" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <Text fx:id="activityDates" text="dates" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <StackPane alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                           <children>
+                              <Label fx:id="estimatedHours" focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Estimated hours:" />
+                              <Label fx:id="storyPoints" focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Story points:" />
+                           </children>
+                        </StackPane>
+                        <Text fx:id="activityEstimate" text="5 hours" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Priority:" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                        <Text fx:id="activityPriority" text="Normal" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                        <Label focusTraversable="false" layoutX="78.0" layoutY="117.0" styleClass="user-assign-projectinfo-label" text="Current status:" />
+                        <VBox fx:id="currentStatusPane" maxHeight="20.0" maxWidth="-Infinity" minHeight="20.0" minWidth="-Infinity" prefHeight="20.0" prefWidth="40.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                           <children>
+                              <Text fx:id="currentStatus" fill="WHITE" styleClass="scrum-activity-status" text="Normal">
+                                 <VBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets bottom="4.0" left="5.0" right="5.0" top="1.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </GridPane>
+                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" layoutX="10.0" layoutY="319.0" prefHeight="20.0" styleClass="user-assign-projectinfo-label" text="Activity description:">
+                     <padding>
+                        <Insets left="1.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane focusTraversable="false" maxHeight="120.0" minHeight="120.0" minWidth="398.0">
+                     <VBox.margin>
+                        <Insets left="1.0" right="1.0" />
+                     </VBox.margin>
+                     <content>
+                        <Text fx:id="description" text="Description text" wrappingWidth="380.0" />
+                     </content>
+                  </ScrollPane>
+                  <GridPane>
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="35.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Hours spent:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="1.0" />
+                           </padding>
+                        </Label>
+                        <DatePicker fx:id="createdDate" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
+                        <Label focusTraversable="false" layoutX="10.0" layoutY="53.0" styleClass="user-assign-projectinfo-label" text="Time log date:" GridPane.halignment="RIGHT">
+                           <padding>
+                              <Insets left="1.0" />
+                           </padding>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                           <children>
+                              <TextField fx:id="timeLogHours" alignment="CENTER" focusTraversable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" promptText="0.0" styleClass="login-textfield" />
+                              <Text text=" hours" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+                  <Label focusTraversable="false" styleClass="user-assign-projectinfo-label" text="Time log notes:">
+                     <VBox.margin>
+                        <Insets bottom="3.0" top="12.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="1.0" />
+                     </padding></Label>
+                  <TextArea fx:id="noteContent" prefHeight="100.0" prefWidth="398.0" promptText="Enter time log description...">
+                     <padding>
+                        <Insets left="1.0" right="1.0" />
+                     </padding></TextArea>
+                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="404.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="saveButton" onAction="#handleSaveActivityBtn" prefWidth="100.0" styleClass="submit-button" text="Save" />
+                        <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" onAction="#handleCancel" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
