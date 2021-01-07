@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button projectButton;
     @FXML
-    private Button sprintboardButton;
+    private Button scrumboardButton;
     @FXML
     private Button activitiesButton;
     @FXML
@@ -54,12 +53,12 @@ public class ApplicationController implements Initializable {
 
         // clear all text field
         if (menuEvent.getSource() == dashboardButton) {
-            viewName = "HomeView";
-            viewTitle = "Welcome";
+            viewName = "DashboardView";
+            viewTitle = "Dashboard";
         } else if (menuEvent.getSource() == projectButton) {
             viewName = "ProjectView";
             viewTitle = "Projects";
-        } else if (menuEvent.getSource() == sprintboardButton) {
+        } else if (menuEvent.getSource() == scrumboardButton) {
             if (projectId == null || projectId.equals(null)) {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
                         "No project has been opened.\nPlease open a project in Projects window.");
@@ -116,7 +115,7 @@ public class ApplicationController implements Initializable {
 
     @FXML
     public void setActiveButton(Object activeButton) {
-        Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, sprintboardButton, activitiesButton,
+        Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, scrumboardButton, activitiesButton,
                 usersButton, reportsButton };
 
         for (Button button : sidebarButtons) {

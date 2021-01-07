@@ -70,6 +70,11 @@ public class ActivityController {
         return activities;
     }
 
+    public ArrayList<Activity> getFullActivitiesList() {
+        ArrayList<Activity> activities = mongoDb.getActivityCollection().find().into(new ArrayList<Activity>());
+        return activities;
+    }
+
     public ArrayList<Activity> getBacklogList() {
         ObjectId openProject = Session.getOpenProjectId();
         List<ObjectId> projectActivities = projectController.getProjectList(openProject, "activities");

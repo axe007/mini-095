@@ -21,7 +21,6 @@ public class User {
         this.fullname = fullname;
         this.emailAddress = emailAddress;
         this.userRole = userRole;
-
     }
 
     // Getters
@@ -47,42 +46,6 @@ public class User {
     public void setFullname(String fullname) { this.fullname = fullname; }
     public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
     public void setUserRole(String userRole) { this.userRole = userRole; }
-
-
-    /*@Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        User user = (User) o;
-
-        if (getUsername() != user.getUsername()) {
-            return false;
-        }
-        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) {
-            return false;
-        }
-        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null) {
-            return false;
-        }
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null) {
-            return false;
-        }
-        if (getFullname() != null ? !getFullname().equals(user.getFullname()) : user.getFullname() != null) {
-            return false;
-        }
-        if (getEmailAddress() != null ? !getEmailAddress().equals(user.getEmailAddress()) : user.getEmailAddress() != null) {
-            return false;
-        }
-        if (getUserRole() != null ? !getUserRole().equals(user.getUserRole()) : user.getUserRole() != null) {
-            return false;
-        }
-        return true;
-    }*/
 
     @Override
     public int hashCode() {

@@ -71,8 +71,8 @@ public class ProjectController {
         return projectDate;
     }
 
-    public List getProjectList() {
-        List<Project> projects = mongoDb.getProjectCollection().find().into(new ArrayList<Project>());
+    public ArrayList<Project> getProjectList() {
+        ArrayList<Project> projects = mongoDb.getProjectCollection().find().into(new ArrayList<Project>());
         return projects;
     }
 

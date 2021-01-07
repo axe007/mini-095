@@ -67,6 +67,11 @@ public class SprintController {
         return sprintDate;
     }
 
+    public ArrayList<Sprint> getSprintList() {
+        ArrayList<Sprint> sprints = mongoDb.getSprintCollection().find().into(new ArrayList<Sprint>());
+        return sprints;
+    }
+
     public ArrayList<Sprint> getProjectSprintList(ObjectId projectId) {
         ArrayList<Sprint> projectSprints = new ArrayList<>();
         ArrayList<ObjectId> sprintsList = projectController.getProjectList(projectId, "sprints");

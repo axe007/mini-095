@@ -11,23 +11,6 @@
          <bottom>
               <HBox alignment="CENTER_RIGHT" fillHeight="false" prefHeight="120.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                   <children>
-                      <Button fx:id="projectNewButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="New Project">
-                          <graphic>
-                              <FontAwesomeIconView glyphName="PLUS_SQUARE_ALT" size="30" styleClass="content-action-icon" />
-                          </graphic>
-                          <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                          </HBox.margin>
-                      </Button>
-                      <Button fx:id="projectModifyButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Modify Project">
-                          <graphic>
-                              <FontAwesomeIconView glyphName="EDIT" size="30" styleClass="content-action-icon" />
-                          </graphic>
-                          <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                          </HBox.margin>
-                      </Button>
-
                       <Button fx:id="projectOpenButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Open Project">
                           <graphic>
                               <FontAwesomeIconView glyphName="FOLDER_OPEN_ALT" size="30" styleClass="content-action-icon" />
@@ -36,20 +19,28 @@
                               <Insets left="10.0" right="10.0" />
                           </HBox.margin>
                       </Button>
-                      <Button fx:id="projectArchiveButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Close Project">
+                      <Button fx:id="projectNewButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="New Project">
+                          <graphic>
+                              <FontAwesomeIconView glyphName="PLUS_SQUARE_ALT" size="30" styleClass="content-action-icon" />
+                          </graphic>
+                          <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                          </HBox.margin>
+                      </Button>
+                      <Button fx:id="projectModifyButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" wrapText="true" textAlignment="CENTER" text="Edit project details">
+                          <graphic>
+                              <FontAwesomeIconView glyphName="EDIT" size="30" styleClass="content-action-icon" />
+                          </graphic>
+                          <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                          </HBox.margin>
+                      </Button>
+                      <Button fx:id="projectCloseButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Close Project">
                           <graphic>
                               <FontAwesomeIconView glyphName="ARCHIVE" size="30" styleClass="content-action-icon" />
                           </graphic>
                           <HBox.margin>
                               <Insets left="10.0" right="10.0" /></HBox.margin>
-                      </Button>
-                      <Button fx:id="projectListButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleProjectButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="All projects">
-                          <graphic>
-                              <FontAwesomeIconView glyphName="LIST" size="30" styleClass="content-action-icon" />
-                          </graphic>
-                          <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                          </HBox.margin>
                       </Button>
                   </children>
                   <BorderPane.margin>
@@ -81,15 +72,6 @@
                   </GridPane>
                     <HBox alignment="CENTER" prefWidth="743.0">
                         <children>
-                            <TextField fx:id="projectSearch" alignment="CENTER" onKeyReleased="#projectSearchOnKeyReleased" prefHeight="25.0" prefWidth="360.0" promptText="Search projects" />
-                            <Button fx:id="projectRefresh" mnemonicParsing="false" onAction="#btnRefreshOnAction" prefHeight="31.0" prefWidth="31.0">
-                                <graphic>
-                                    <FontAwesomeIconView glyphName="REFRESH" size="20" styleClass="content-action-icon" />
-                                </graphic>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                            </Button>
                         </children>
                     </HBox>
                </children>

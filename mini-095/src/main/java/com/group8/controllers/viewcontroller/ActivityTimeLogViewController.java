@@ -1,24 +1,20 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.controllers.ActivityController;
+import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.*;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.css.PseudoClass;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -26,12 +22,15 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class ActivityUpdateViewController implements Initializable {
+public class ActivityTimeLogViewController implements Initializable {
 
     private static ActivityController activityController = new ActivityController();
+    private static UserController userController = new UserController();
     private static UIHelper uiHelper = new UIHelper();
     private static ArrayList<Activity> activitiesList = new ArrayList<>();
 
@@ -56,13 +55,17 @@ public class ActivityUpdateViewController implements Initializable {
     @FXML
     private Text currentStatus;
     @FXML
+    private VBox currentStatusPane;
+    @FXML
     private Label estimatedHours;
     @FXML
     private Label storyPoints;
     @FXML
+    private TextField timeLogHours;
+    @FXML
     private TextArea noteContent;
     @FXML
-    private ComboBox<String> newStatusCombo;
+    private DatePicker createdDate;
     @FXML
     private Button saveButton;
     @FXML
@@ -74,30 +77,45 @@ public class ActivityUpdateViewController implements Initializable {
         String noteContentText = "";
         String newStatusText;
         String newStatusSet = "TODO";
-        String alertHeading = "Update activity status";
-        String alertContent = "Activity status successfully updated.";
+        String alertHeading = "Activity time log";
+        String alertContent = "Time log successfully recorded.";
         Activity activity = (Activity) Session.getOpenItem();
-        ObjectId activityId = activity.getId();
+        ObjectId activityId;
+        activityId = activity.getId();
 
-        if (newStatusCombo.getValue() == null) {
+        ObjectId projectId;
+        ObjectId sprintId;
+        ObjectId userId;
+        LocalDate createdDate;
+        double timeLogHours;
+
+        projectId = Session.getOpenProjectId();
+        sprintId = Session.getCurrentSprintId();
+        userId = Session.getSessionUserId();
+
+
+        try{
+            timeLogHours = Double.parseDouble(this.timeLogHours.getText());
+        }
+        catch (Exception e){
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
-                    "You did not select new status.\nPlease select activity's new status and try again.");
+                    "You need to enter numbers (2.5) for hours.\nPlease check the hours and try again.");
+            this.timeLogHours.getStyleClass().add("textfield-error-highlight");
+            this.timeLogHours.requestFocus();
+            return;
+        }
+
+        if (this.createdDate.getValue().equals(null) || this.createdDate.getValue().equals("")) {
+            uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
+                    "You need to specify the created date.\nPlease check the date and try again.");
+            this.createdDate.getStyleClass().add("textfield-error-highlight");
+            this.createdDate.requestFocus();
             return;
         } else {
-            newStatusText = newStatusCombo.getValue();
+            createdDate = this.createdDate.getValue();
         }
 
-        System.out.println("Note text: " + noteContent.getText());
-
-        switch (newStatusText) {
-            case "To Do" -> newStatusSet = "TODO";
-            case "In Progress" -> newStatusSet = "INPROGRESS";
-            case "Review" -> newStatusSet = "REVIEW";
-            case "Done" -> newStatusSet = "DONE";
-        }
-
-        activityController.updateActivityStatus(activityId, newStatusSet);
-
+        userController.recordTimeLog(projectId, sprintId, activityId, userId, timeLogHours, createdDate);
         Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
@@ -197,22 +215,54 @@ public class ActivityUpdateViewController implements Initializable {
                     "-fx-font-weight: 800;-fx-fill: #E56767; -fx-text-fill: #E56767; -fx-effect: dropshadow(one-pass-box,#ddd, 1, 0, 1, 1);");
         }
 
-        ArrayList<String> statusStrings = new ArrayList<>(Arrays.asList("TODO", "INPROGRESS", "REVIEW", "DONE"));
-        for (String status : statusStrings) {
-            if (activity.getActivityStatus().equals(status)) {
-                currentStatus.setText(activity.getSimpleStatus(status));
-                currentStatus.setStyle("-fx-font-weight: 800");
-            } else {
-                newStatusCombo.getItems().add(activity.getSimpleStatus(status));
-                newStatusCombo.setPromptText("Select here ...");
-            }
-        }
+        String status = activity.getSimpleStatus(activity.getActivityStatus());
 
+        if (status.equals("To Do")) {
+            currentStatusPane.getStyleClass().add("scrum-column-header-todo");
+            currentStatusPane.setPrefWidth(58);
+        } else if (status.equals("In Progress")) {
+            currentStatusPane.getStyleClass().add("scrum-column-header-inprogress");
+            currentStatusPane.setPrefWidth(87);
+        } else if (status.equals("Review")) {
+            currentStatusPane.getStyleClass().add("scrum-column-header-review");
+            currentStatusPane.setPrefWidth(62);
+        } else if (status.equals("Done")) {
+            currentStatusPane.getStyleClass().add("scrum-column-header-done");
+            currentStatusPane.setPrefWidth(52);
+        }
+        currentStatus.setText(status);
+        //currentStatus.getStyleClass().add("scrum-activity-status");
         this.activityName.setText(activityName);
         this.parentItems.setText(grandName + parentName);
 
         description.setText(activity.getDescription());
-        startDate = activity.getStartDate();
-        endDate = activity.getEndDate();
+
+        LocalDate projectStartDate = Session.getProjectStartDate();
+        LocalDate projectEndDate = Session.getProjectEndDate();
+
+        Callback<DatePicker, DateCell> projectDates = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable((empty || item.compareTo(projectStartDate) < 0)
+                                || (empty || item.compareTo(projectEndDate) > 0));
+                    }
+
+                };
+            }
+        };
+
+        this.createdDate.setDayCellFactory(projectDates);
+        this.createdDate.setValue(startDate);
+        
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                timeLogHours.requestFocus();
+            }
+        });
     }
 }

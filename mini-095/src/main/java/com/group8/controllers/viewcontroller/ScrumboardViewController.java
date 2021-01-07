@@ -27,7 +27,6 @@ import java.time.format.FormatStyle;
 import java.util.*;
 
 public class ScrumboardViewController implements Initializable {
-
     @FXML
     private StackPane scrumboardView;
     @FXML
@@ -53,7 +52,7 @@ public class ScrumboardViewController implements Initializable {
     @FXML
     private Button activityAssignButton;
     @FXML
-    private Button boardRefreshButton;
+    private Button activityTimeLogButton;
     @FXML
     private Button sprintCompleteButton;
     @FXML
@@ -63,10 +62,10 @@ public class ScrumboardViewController implements Initializable {
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
     public static BooleanProperty isUpdated = new SimpleBooleanProperty();
-    // public ObservableList<String> names = FXCollections.observableArrayList();
 
     @FXML
     private void handleSprintButtons(ActionEvent event) throws IOException {
+        isUpdated.setValue(false);
         if (event.getSource() == sprintNewButton) {
             if (Session.getCurrentSprintId() != null) {
                 uiHelper.alertDialogGenerator(scrumboardView,"error", "New sprint", "Current sprint is not completed.\nPlease complete the current sprint and try again.");
@@ -87,7 +86,7 @@ public class ScrumboardViewController implements Initializable {
                 Session.setWindowMode("edit");
                 uiHelper.loadWindow("SprintAddView", activityAssignButton, "Sprint activities");
             }
-        } else if (event.getSource() == activityUpdateButton) {
+        } else if (event.getSource() == activityUpdateButton || event.getSource() == activityTimeLogButton) {
             ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
             ListCellItem listItem = null;
             for (ListView list : listViews) {
@@ -103,14 +102,13 @@ public class ScrumboardViewController implements Initializable {
                 String name = listItem.getName();
                 Activity activity = activityController.getActivity("name", name);
                 Session.setSetOpenItem(activity);
-                uiHelper.loadWindow("ActivityUpdateView", activityUpdateButton, "Update activity");
+                if (event.getSource() == activityUpdateButton) {
+                    uiHelper.loadWindow("ActivityUpdateView", activityUpdateButton, "Update activity");
+                } else if (event.getSource() == activityTimeLogButton) {
+                    uiHelper.loadWindow("ActivityTimeLogView", activityUpdateButton, "Update time log");
+                }
             }
-
-
-        } else if (event.getSource() == boardRefreshButton) {
-            reloadBoard();
-
-        } else if (event.getSource() == sprintCompleteButton) {
+        }  else if (event.getSource() == sprintCompleteButton) {
             if (Session.getCurrentSprintId() == null) {
                 uiHelper.alertDialogGenerator(scrumboardView,"error", "Complete a sprint", "No sprint has been created.\nPlease start a new sprint and try again.");
                 return;

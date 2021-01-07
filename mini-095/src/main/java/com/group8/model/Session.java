@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Session {
 
     private static Session instance;
+    private static boolean localDb;
     private static ObjectId sessionUserId;
     private static ObjectId openProjectId;
     private static String openProjectName;
@@ -20,6 +21,8 @@ public class Session {
         this.sessionUserId = sessionUserId;
         this.openProjectId = null;
         this.windowMode = null;
+        this.localDb = false;
+
     }
 
     synchronized public static Session getInstance(ObjectId userId) {
@@ -32,6 +35,7 @@ public class Session {
     public static ObjectId getSessionUserId() {
         return sessionUserId;
     }
+    public static boolean isLocalDb() { return localDb; }
     public static ObjectId getOpenProjectId() {
         return openProjectId;
     }
@@ -49,6 +53,7 @@ public class Session {
     public static void setSessionUserId(ObjectId loggedUsername) {
         sessionUserId = loggedUsername;
     }
+    public static void setLocalDb(boolean localDb) { Session.localDb = localDb; }
     public static void setOpenProjectId(ObjectId projectName) {
         openProjectId = projectName;
     }

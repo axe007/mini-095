@@ -1,6 +1,7 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.controllers.ProjectController;
+import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Project;
 import com.group8.model.Session;
@@ -43,17 +44,11 @@ public class ProjectViewController implements Initializable {
     @FXML
     private Button projectOpenButton;
     @FXML
-    private Button projectListButton;
-    @FXML
-    private Button projectArchiveButton;
+    private Button projectCloseButton;
     @FXML
     private TextField projectSearch;
     @FXML
     private GridPane projectBreadcrumb;
-    @FXML
-    private Label openProjectStartDate;
-    @FXML
-    private Label openProjectEndDate;
     @FXML
     private TableView<Project> tblProjects;
     @FXML
@@ -73,34 +68,42 @@ public class ProjectViewController implements Initializable {
 
     @FXML
     private void handleProjectButtons(ActionEvent event) throws IOException {
-        // clear all text field
-        if (event.getSource() == projectNewButton) {
-            Session.setWindowMode("new");
-            uiHelper.loadWindow("ProjectAddView", projectNewButton, (Project) null);
+        if (event.getSource() == projectNewButton || event.getSource() == projectModifyButton || event.getSource() == projectCloseButton) {
+            ObjectId loggedUserId = Session.getSessionUserId();
+            UserController userController = new UserController();
+            String userRole = userController.getUserDetail(loggedUserId, "userRole");
 
-        } else if (event.getSource() == projectModifyButton) {
-            // Modify project details
-            Project project = tblProjects.getSelectionModel().getSelectedItem();
-            Session.setSetOpenItem(project);
-            if (project == null) {
-                uiHelper.alertDialogGenerator(projectView, "error", "Modify project",
-                        "No project exist or no project selected.\nPlease select a project and try again.");
+            if (userRole.equals("Developer")) {
+                // Deny access
+                uiHelper.alertDialogGenerator(projectView, "error", "Unauthorized action",
+                        "You have to be either \"Project Manager\" or\n \"Scrum Master\" user to perform this action.");
+                return;
+
             } else {
-                Session.setWindowMode("edit");
-                uiHelper.loadWindow("ProjectAddView", projectModifyButton, project);
-            }
+                if (event.getSource() == projectNewButton) {
+                    Session.setWindowMode("new");
+                    uiHelper.loadWindow("ProjectAddView", projectNewButton, (Project) null);
 
+                } else if (event.getSource() == projectModifyButton) {
+                    // Modify project details
+                    Project project = tblProjects.getSelectionModel().getSelectedItem();
+                    Session.setSetOpenItem(project);
+                    if (project == null) {
+                        uiHelper.alertDialogGenerator(projectView, "error", "Modify project",
+                                "No project exist or no project selected.\nPlease select a project and try again.");
+                    } else {
+                        Session.setWindowMode("edit");
+                        uiHelper.loadWindow("ProjectAddView", projectModifyButton, project);
+                    }
+
+                } else if (event.getSource() == projectCloseButton) {
+                    // Method for closing a project
+
+                }
+            }
         } else if (event.getSource() == projectOpenButton) {
             // Open project window
             openProject();
-
-        } else if (event.getSource() == projectListButton) {
-            // List all projects window
-
-        } else if (event.getSource() == projectArchiveButton) {
-            // Archive project window
-            // proController.overwriteActivityListDelete(); // DO NOT RUN UNLESS YOU KNOW
-            // WHAT IT IS
         }
     }
 
@@ -128,7 +131,7 @@ public class ProjectViewController implements Initializable {
     public void loadProjectData() {
 
         // getting the full list of books from file
-        List<Project> projectList = proController.getProjectList();
+        ArrayList<Project> projectList = proController.getProjectList();
         ObservableList<Project> viewProjects = (ObservableList<Project>) FXCollections.observableArrayList(projectList);
 
         tblClmProjectId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -160,11 +163,6 @@ public class ProjectViewController implements Initializable {
          * tblSellView.getItems().clear(); projectController.projectID =
          * projectSearch.getText(); sellCartGerway.searchView(sellCart);
          */
-    }
-
-    @FXML
-    private void btnRefreshOnAction(ActionEvent event) {
-        loadProjectData();
     }
 
     private void openProject() {
