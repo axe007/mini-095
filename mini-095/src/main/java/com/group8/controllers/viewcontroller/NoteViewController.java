@@ -177,8 +177,9 @@ public class NoteViewController implements Initializable {
                 parentItem.setExpanded(true);
 
                 for (Note note : noteList) {
-                    if (note.getTargetID().equals(activity.getId())) {
+                    if (note.getTargetName().equals(activity.getName())) {
                         parentItem.getChildren().add(new TreeItem<Note>(note));
+
                     }
                 }
 
@@ -195,7 +196,7 @@ public class NoteViewController implements Initializable {
                 TreeItem<Note> parentItem = new TreeItem<Note>(parentNote);
                 parentItem.setExpanded(true);
                 for (Note note : noteList) {
-                    if (note.getTargetID().equals(sprint.getId())) {
+                    if (note.getTargetName().equals(sprint.getName())) {
                         parentItem.getChildren().add(new TreeItem<Note>(note));
                     }
                 }

@@ -59,7 +59,7 @@ public class NoteController {
     public ArrayList<Note> getActitivyNoteList() {
         ArrayList<Note> noteList = new ArrayList<>();
         for (Note note : allNotesOfCurrentProject) {
-            if (note.getType().equals(NoteType.PROJECT_NOTE)) {
+            if (note.getType().equals(NoteType.ACTIVITY_NOTE)) {
                 noteList.add(note);
             }
         }
