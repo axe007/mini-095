@@ -153,15 +153,4 @@ public class UserViewController implements Initializable {
          * activitiesSearch.getText();
          */
     }
-
-    @FXML
-    private void btnRefreshOnAction(ActionEvent event) {
-        loadUserData();
-    }
-
-    @FXML
-    public void actionFeedback(String result) {
-        // dbFeedback.setText(result);
-        // System.out.println(result);
-    }
 }

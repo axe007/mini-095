@@ -164,8 +164,6 @@ public class SprintAddViewController implements Initializable {
             String backlogName = activity.getName();
             backlogActivityNames.add(backlogName);
         }
-        System.out.println("Backlog items:");
-        System.out.println(backlogActivityNames);
 
         ObjectId sprintId = Session.getCurrentSprintId();
         ArrayList<Activity> sprintList = activityController.getSprintActivities(sprintId);
@@ -176,9 +174,6 @@ public class SprintAddViewController implements Initializable {
                 sprintActivityNames.add(activityName);
             }
         }
-
-        System.out.println("Sprint items:");
-        System.out.println(sprintActivityNames);
 
         this.sprintActivities.addAll(sprintActivityNames);
         if (sprintActivityNames != null) {

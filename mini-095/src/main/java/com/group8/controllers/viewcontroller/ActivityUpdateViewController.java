@@ -87,7 +87,7 @@ public class ActivityUpdateViewController implements Initializable {
             newStatusText = newStatusCombo.getValue();
         }
 
-        System.out.println("Note text: " + noteContent.getText());
+        // System.out.println("Note text: " + noteContent.getText());
 
         switch (newStatusText) {
             case "To Do" -> newStatusSet = "TODO";

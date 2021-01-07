@@ -16,7 +16,6 @@ import static com.mongodb.client.model.Updates.*;
 
 public class UserController {
 
-    private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
     private ActivityController activityController = new ActivityController();
 
@@ -30,7 +29,6 @@ public class UserController {
         }
 
         mongoDb.getUserCollection().insertOne(newUser);
-        System.out.println("New user created successfully!");
     }
 
     public void modifyUser(String username, String password, String fullname, String emailAddress, String userRole) {
@@ -40,7 +38,6 @@ public class UserController {
         mongoDb.getUserCollection().updateOne(eq("_id", id),
                 combine(set("username", username), set("password", password), set("fullname", fullname),
                         set("userRole", userRole), set("emailAddress", emailAddress)));
-        System.out.println("User details updated!");
     }
 
     public boolean authenticateUser(String username, String password) {
@@ -114,12 +111,6 @@ public class UserController {
                 .find(eq(findField, findValue)).first();
         ObjectId userId = user.getId();
         return userId;
-    }
-
-    public void getUserInfo() {
-        System.out.print("Enter username to display: ");
-        Helper helper = new Helper();
-        String username = helper.getString();
     }
 
     public void recordTimeLog(ObjectId projectId, ObjectId sprintId, ObjectId activityId, ObjectId userId, double hours, LocalDate createdDate) {

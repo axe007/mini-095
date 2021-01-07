@@ -278,17 +278,6 @@ public class ScrumboardViewController implements Initializable {
         loadListViews(activitiesList);
     }
 
-    @FXML
-    private void btnActivityItemAssign(MouseEvent event) {
-        System.out.println("Button pressed: " + event.getSource());
-    }
-
-    @FXML
-    private void userSearchOnKeyReleased(KeyEvent event) {
-        /*tblActivities.getItems().clear();
-        activityController.activityName = activitiesSearch.getText();*/
-    }
-
     public static class ListCellItem {
         private final String name;
         private final String type;

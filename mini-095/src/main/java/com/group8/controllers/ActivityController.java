@@ -52,7 +52,6 @@ public class ActivityController {
                     combine(set("name", name),set("description", description),set("startDate", startDate),set("endDate", endDate),set("priority", priority),
                             set("parentId", parentId),set("grandId", grandId),set("estimatedHours", estimatedHours)));
         }
-        System.out.println("Activity details updated!");
     }
 
     public ArrayList<Activity> getActivitiesList() {

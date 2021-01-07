@@ -79,9 +79,7 @@ public class ProjectAddViewController implements Initializable {
         String alertHeading = "Creating new Project";
         String alertContent = "New project successfully created.";
 
-        if (Session.getWindowMode().equals("new")) {
-            System.out.println("Creating new project ...");
-        } else if (Session.getWindowMode().equals("edit")) {
+        if (Session.getWindowMode().equals("edit")) {
             alertHeading = "Edit project details";
         }
 

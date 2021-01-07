@@ -29,9 +29,7 @@ public class SprintController {
 
         newSprint.setId(new ObjectId());
         sprintCollection.insertOne(newSprint);
-
         ObjectId sprintId = newSprint.getId();
-        System.out.println("Id: " + sprintId);
 
         return sprintId;
     }

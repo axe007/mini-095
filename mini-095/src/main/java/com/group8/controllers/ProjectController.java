@@ -13,7 +13,6 @@ import static com.mongodb.client.model.Updates.set;
 
 public class ProjectController {
 
-    private static String EOL = System.lineSeparator();
     private static DatabaseController mongoDb = new DatabaseController();
 
     public void createProject(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
@@ -82,7 +81,6 @@ public class ProjectController {
 
         mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("description", description), set("startDate", startDate),
                 set("endDate", endDate), set("type", type), set("status", "Open"), set("sprintDuration", sprintDuration)));
-        System.out.println("Project details updated!");
     }
 
     public ArrayList<ObjectId> getProjectList(ObjectId projectId, String listType) {

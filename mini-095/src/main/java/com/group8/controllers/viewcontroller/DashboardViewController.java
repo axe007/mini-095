@@ -14,9 +14,11 @@ import javafx.scene.layout.*;
 import org.bson.types.ObjectId;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static javafx.geometry.Pos.CENTER;
 
 public class DashboardViewController implements Initializable {
@@ -40,6 +42,19 @@ public class DashboardViewController implements Initializable {
     @FXML
     private AnchorPane activitiesInfoContent;
 
+    // project stats
+    @FXML
+    private Label sprintsCount;
+    @FXML
+    private Label activitiesCount;
+    @FXML
+    private Label usersCount;
+    @FXML
+    private Label projectDuration;
+    @FXML
+    private Label totalHoursCurrentProject;
+    @FXML
+    private GridPane projectInfoGrid;
     @FXML
     private Label userRole;
     @FXML
@@ -50,6 +65,33 @@ public class DashboardViewController implements Initializable {
     private Label userHoursProjects;
     @FXML
     private Label userHoursCurrentProject;
+
+    @FXML
+    private Label todoItems;
+    @FXML
+    private Label inprogressItems;
+    @FXML
+    private Label reviewItems;
+    @FXML
+    private Label doneItems;
+    @FXML
+    private Label totalHoursCurrentSprint;
+    @FXML
+    private GridPane sprintInfoGrid;
+
+    // activities stats
+    @FXML
+    private Label numberOfActivities;
+    @FXML
+    private Label numberOfBacklogItems;
+    @FXML
+    private Label numberOfUserStories;
+    @FXML
+    private Label numberOfTasks;
+    @FXML
+    private Label numberOfBugs;
+    @FXML
+    private GridPane activitiesInfoGrid;
 
     private static ProjectController projectController = new ProjectController();
     private static ActivityController activityController = new ActivityController();
@@ -159,12 +201,35 @@ public class DashboardViewController implements Initializable {
         {
             if (currentProjectId == null) {
                 projectInfo.setPrefHeight(120.0);
-                projectInfoContent.getChildren().removeAll();
+                projectInfoContent.getChildren().remove(projectInfoGrid);
                 VBox vbox = noProjectOpenLabel();
                 projectInfoContent.getChildren().add(vbox);
             } else {
                 // Show project info
+                double totalHoursCurrentProject = 0.0;
+                LocalDate startDate = Session.getProjectStartDate();
+                LocalDate endDate = Session.getProjectEndDate();
+                long daysBetween = DAYS.between(startDate, endDate);
+                ArrayList<String> projectDeveloperList = projectController.getProjectUsernameList(currentProjectId);
+                ArrayList<ObjectId> projectSprintList = new ArrayList<>();
+                ArrayList<ObjectId> projectActivitiesList = new ArrayList<>();
+                for (Project project : projectsList) {
+                    if (project.getId().equals(currentProjectId)) {
+                        projectSprintList = project.getSprints();
+                        projectActivitiesList = project.getActivities();
+                    }
+                }
 
+                for (TimeLog timelog : timeLogList) {
+                    if (timelog.getProjectId().equals(currentProjectId)) {
+                        totalHoursCurrentProject = totalHoursCurrentProject + timelog.getHours();
+                    }
+                }
+                this.sprintsCount.setText(String.valueOf(projectSprintList.size()));
+                this.activitiesCount.setText(String.valueOf(projectActivitiesList.size()));
+                this.usersCount.setText(String.valueOf(projectDeveloperList.size()) + " users");
+                this.projectDuration.setText(String.valueOf(daysBetween) + " days");
+                this.totalHoursCurrentProject.setText(String.valueOf(totalHoursCurrentProject) + " hours");
             }
         }
     }
@@ -175,11 +240,40 @@ public class DashboardViewController implements Initializable {
         {
             if (currentProjectId == null) {
                 sprintInfo.setPrefHeight(120.0);
-                sprintInfoContent.getChildren().removeAll();
+                sprintInfoContent.getChildren().remove(sprintInfoGrid);
                 VBox vbox = noProjectOpenLabel();
                 sprintInfoContent.getChildren().add(vbox);
             } else {
-                // Show project info
+                // Show sprint info
+                ObjectId sprintId = Session.getCurrentSprintId();
+                ArrayList<Activity> sprintActivitiesList = activityController.getSprintActivities(sprintId);
+                int todoCount = 0;
+                int inprogressCount = 0;
+                int reviewCount = 0;
+                int doneCount = 0;
+                double totalHoursCurrentSprint = 0.0;
+                for (Activity activity : sprintActivitiesList) {
+                    if (activity.getActivityStatus().equals("TODO")) {
+                        todoCount = todoCount + 1;
+                    } else if (activity.getActivityStatus().equals("INPROGRESS")) {
+                        inprogressCount = inprogressCount + 1;
+                    } else if (activity.getActivityStatus().equals("REVIEW")) {
+                        reviewCount = reviewCount + 1;
+                    } else if (activity.getActivityStatus().equals("DONE")) {
+                        doneCount = doneCount + 1;
+                    }
+                }
+                for (TimeLog timelog : timeLogList) {
+                    if (timelog.getSprintId().equals(sprintId)) {
+                        totalHoursCurrentSprint = totalHoursCurrentSprint + timelog.getHours();
+                    }
+                }
+                this.todoItems.setText(String.valueOf(todoCount));
+                this.inprogressItems.setText(String.valueOf(inprogressCount));
+                this.reviewItems.setText(String.valueOf(reviewCount));
+                this.doneItems.setText(String.valueOf(doneCount));
+                this.totalHoursCurrentSprint.setText(String.valueOf(totalHoursCurrentSprint) + " hours");
+
 
             }
         }
@@ -191,19 +285,41 @@ public class DashboardViewController implements Initializable {
         {
             if (currentProjectId == null) {
                 activitiesInfo.setPrefHeight(120.0);
-                activitiesInfoContent.getChildren().removeAll();
+                activitiesInfoContent.getChildren().remove(activitiesInfoGrid);
                 VBox vbox = noProjectOpenLabel();
                 activitiesInfoContent.getChildren().add(vbox);
             } else {
-                // Show project info
-
+                // Show acitivites info
+                int activityCount = 0;
+                int backlogCount = 0;
+                int userStoryCount = 0;
+                int taskCount = 0;
+                int bugCount = 0;
+                for (Activity activity : activitiesList) {
+                    activityCount = activityCount + 1;
+                    if (activity instanceof UserStory) {
+                        userStoryCount = userStoryCount + 1;
+                    } else if (activity instanceof Task) {
+                        taskCount = taskCount + 1;
+                    } else if (activity instanceof Bug) {
+                        bugCount = bugCount + 1;
+                    }
+                    if (activity.getSprintId() == null) {
+                        backlogCount = backlogCount + 1;
+                    }
+                }
+                this.numberOfActivities.setText(String.valueOf(activityCount));
+                this.numberOfBacklogItems.setText(String.valueOf(backlogCount));
+                this.numberOfUserStories.setText(String.valueOf(userStoryCount));
+                this.numberOfTasks.setText(String.valueOf(taskCount));
+                this.numberOfBugs.setText(String.valueOf(bugCount));
             }
         }
     }
 
     @FXML
     private VBox noProjectOpenLabel() {
-        Label message = new Label("No project open yet");
+        Label message = new Label("No project is open yet");
         VBox vbox = new VBox();
         vbox.setFillWidth(true);
         vbox.setPrefHeight(80.0);

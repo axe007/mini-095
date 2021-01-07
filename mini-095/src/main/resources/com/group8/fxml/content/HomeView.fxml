@@ -56,17 +56,17 @@
                                                               <Icons525View glyphName="CIRCLE_3" size="15" styleClass="sidebar-icon" />
                                                           </graphic>
                                                       </Label>
-                                                      <Label styleClass="homeview-intro-text" text=" Intro text 4">
+                                                      <Label styleClass="homeview-intro-text" text=" Project sprint duration is fixed once project is created. Choose wisely.">
                                                           <graphic>
                                                               <Icons525View glyphName="CIRCLE_4" size="15" styleClass="sidebar-icon" />
                                                           </graphic>
                                                       </Label>
-                                                      <Label styleClass="homeview-intro-text" text=" Intro text 5 jfoire jfoi jeroifj reo fjior jfiorej fiorej iofe ferf e">
+                                                      <Label styleClass="homeview-intro-text" text=" We assume that you will follow a good naming conventions for Activity names etc.">
                                                           <graphic>
                                                               <Icons525View glyphName="CIRCLE_5" size="15" styleClass="sidebar-icon" />
                                                           </graphic>
                                                       </Label>
-                                                      <Label styleClass="homeview-intro-text" text=" Intro text 6">
+                                                      <Label wrapText="true" styleClass="homeview-intro-text" text=" User inputs are validated, however not strictly enforced. Please be kind. Thank you.">
                                                           <graphic>
                                                               <Icons525View glyphName="CIRCLE_6" size="15" styleClass="sidebar-icon" />
                                                           </graphic>

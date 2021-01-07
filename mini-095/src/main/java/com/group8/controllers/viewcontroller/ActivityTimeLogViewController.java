@@ -93,7 +93,6 @@ public class ActivityTimeLogViewController implements Initializable {
         sprintId = Session.getCurrentSprintId();
         userId = Session.getSessionUserId();
 
-
         try{
             timeLogHours = Double.parseDouble(this.timeLogHours.getText());
         }

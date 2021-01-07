@@ -59,7 +59,6 @@ public class ActivityAssignViewController implements Initializable {
     @FXML
     private ListView assignedListView;
 
-
     @FXML
     private void handleSaveBtn(ActionEvent event) throws IOException {
 
@@ -72,7 +71,6 @@ public class ActivityAssignViewController implements Initializable {
         UIHelper uiHelper = new UIHelper();
         Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
-
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
@@ -134,8 +132,6 @@ public class ActivityAssignViewController implements Initializable {
     private void setListViews() {
         ObjectId projectId = Session.getOpenProjectId();
         ArrayList<String> allProjectUsers = projectController.getProjectUsernameList(projectId);
-        System.out.println("All project users: " + allProjectUsers);
-
         Activity activity = (Activity) Session.getOpenItem();
         ArrayList<String> activityUsernames = new ArrayList<>();
         ArrayList<ObjectId> activityUserIds = activity.getAssigneeList();
