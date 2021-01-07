@@ -115,15 +115,15 @@ public class ProjectController {
     }
 
     public void updateDeveloperTeam(List<String> assignedUsers) {
+        ObjectId projectId = Session.getOpenProjectId();
+        List<ObjectId> developerTeam = new ArrayList<>();
         UserController userController = new UserController();
-        List<ObjectId> developerTeam = new ArrayList<ObjectId>();
 
         for (String user : assignedUsers) {
             ObjectId userId = userController.getUserId("username", user);
             developerTeam.add(userId);
         }
-
-        ObjectId projectId = Session.getOpenProjectId();
+        mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("developerTeam", null));
         mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("developerTeam", developerTeam));
     }
 

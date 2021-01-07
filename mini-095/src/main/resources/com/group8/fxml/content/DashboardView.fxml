@@ -70,13 +70,13 @@
                                           <Label styleClass="dashboard-info-label" text="user role" />
                                           <Label fx:id="userRole" styleClass="dashboard-info-content" text="Scrum Master" GridPane.columnIndex="1" />
                                           <Label layoutX="10.0" layoutY="6.0" styleClass="dashboard-info-label" text="projects assigned to" GridPane.rowIndex="1" />
-                                          <Label fx:id="userProjects" layoutX="310.0" layoutY="3.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label fx:id="userProjects" layoutX="310.0" layoutY="3.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <Label layoutX="10.0" layoutY="36.0" styleClass="dashboard-info-label" text="activities assigned to" GridPane.rowIndex="2" />
-                                          <Label fx:id="userActivities" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label fx:id="userActivities" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           <Label layoutX="20.0" layoutY="95.0" styleClass="dashboard-info-label" text="hours worked on projects" GridPane.rowIndex="3" />
-                                           <Label fx:id="userHoursProjects" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                           <Label fx:id="userHoursProjects" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <Label layoutX="20.0" layoutY="130.0" styleClass="dashboard-info-label" text="hours worked on current project" GridPane.rowIndex="4" />
-                                           <Label fx:id="userHoursCurrentProject" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                           <Label fx:id="userHoursCurrentProject" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -89,9 +89,39 @@
                            </VBox.margin>
                         </TitledPane>
                         <TitledPane fx:id="sprintInfo" animated="false" styleClass="dashboard-titled-pane" text="Sprint info">
-                          <content>
-                            <AnchorPane fx:id="sprintInfoContent" minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="200.0" />
-                          </content>
+                            <content>
+                            <AnchorPane fx:id="sprintInfoContent" minHeight="0.0" minWidth="0.0" prefHeight="190.0">
+                                <children>
+                                    <GridPane fx:id="sprintInfoGrid" alignment="CENTER" hgap="5.0" vgap="5.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="270.0" prefWidth="270.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                        <children>
+                                            <Label styleClass="dashboard-info-label" text="to do activities" />
+                                            <Label fx:id="todoItems" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" />
+                                            <Label layoutX="10.0" layoutY="6.0" styleClass="dashboard-info-label" text="in progress activities" GridPane.rowIndex="1" />
+                                            <Label fx:id="inprogressItems" layoutX="310.0" layoutY="3.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <Label layoutX="10.0" layoutY="36.0" styleClass="dashboard-info-label" text="review activities" GridPane.rowIndex="2" />
+                                            <Label fx:id="reviewItems" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            <Label layoutX="20.0" layoutY="95.0" styleClass="dashboard-info-label" text="done activities" GridPane.rowIndex="3" />
+                                            <Label fx:id="doneItems" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                            <Label layoutX="20.0" layoutY="130.0" styleClass="dashboard-info-label" text="hours worked on current sprint" GridPane.rowIndex="4" />
+                                            <Label fx:id="totalHoursCurrentSprint" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0 hours" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        </padding>
+                                    </GridPane>
+                                </children></AnchorPane>
+                            </content>
                            <VBox.margin>
                               <Insets bottom="30.0" />
                            </VBox.margin>
@@ -104,17 +134,77 @@
                   <VBox fx:id="dashboardRightBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                      <children>
                         <TitledPane fx:id="projectInfo" animated="false" styleClass="dashboard-titled-pane" text="Project info">
-                          <content>
-                            <AnchorPane fx:id="projectInfoContent" minHeight="0.0" minWidth="0.0" />
-                          </content>
+                            <content>
+                                <AnchorPane fx:id="projectInfoContent" minHeight="0.0" minWidth="0.0" prefHeight="190.0">
+                                    <children>
+                                        <GridPane fx:id="projectInfoGrid" alignment="CENTER" hgap="5.0" vgap="5.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="270.0" prefWidth="270.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label styleClass="dashboard-info-label" text="number of sprints" />
+                                                <Label fx:id="sprintsCount" styleClass="dashboard-info-content" text="Scrum Master" GridPane.columnIndex="1" />
+                                                <Label layoutX="10.0" layoutY="6.0" styleClass="dashboard-info-label" text="number of activities" GridPane.rowIndex="1" />
+                                                <Label fx:id="activitiesCount" layoutX="310.0" layoutY="3.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label layoutX="10.0" layoutY="36.0" styleClass="dashboard-info-label" text="project users" GridPane.rowIndex="2" />
+                                                <Label fx:id="usersCount" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label layoutX="20.0" layoutY="95.0" styleClass="dashboard-info-label" text="project duration" GridPane.rowIndex="3" />
+                                                <Label fx:id="projectDuration" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Label layoutX="20.0" layoutY="130.0" styleClass="dashboard-info-label" text="hours worked on current project" GridPane.rowIndex="4" />
+                                                <Label fx:id="totalHoursCurrentProject" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="10" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </padding>
+                                        </GridPane>
+                                    </children></AnchorPane>
+                            </content>
                            <VBox.margin>
                               <Insets bottom="35.0" />
                            </VBox.margin>
                         </TitledPane>
                         <TitledPane fx:id="activitiesInfo" animated="false" styleClass="dashboard-titled-pane" text="Activities">
-                          <content>
-                            <AnchorPane fx:id="activitiesInfoContent" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
+                            <content>
+                                <AnchorPane fx:id="activitiesInfoContent" minHeight="0.0" minWidth="0.0" prefHeight="190.0">
+                                    <children>
+                                        <GridPane fx:id="activitiesInfoGrid" alignment="CENTER" hgap="5.0" vgap="5.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="270.0" prefWidth="270.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" prefWidth="150.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label styleClass="dashboard-info-label" text="number of activities" />
+                                                <Label fx:id="numberOfActivities" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" />
+                                                <Label layoutX="10.0" layoutY="6.0" styleClass="dashboard-info-label" text="backlog activities" GridPane.rowIndex="1" />
+                                                <Label fx:id="numberOfBacklogItems" layoutX="310.0" layoutY="3.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label layoutX="10.0" layoutY="36.0" styleClass="dashboard-info-label" text="number of user stories" GridPane.rowIndex="2" />
+                                                <Label fx:id="numberOfUserStories" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label layoutX="20.0" layoutY="95.0" styleClass="dashboard-info-label" text="number of tasks" GridPane.rowIndex="3" />
+                                                <Label fx:id="numberOfTasks" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Label layoutX="20.0" layoutY="130.0" styleClass="dashboard-info-label" text="number of bugs" GridPane.rowIndex="4" />
+                                                <Label fx:id="numberOfBugs" layoutX="310.0" layoutY="33.0" styleClass="dashboard-info-content" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </padding>
+                                        </GridPane>
+                                    </children></AnchorPane>
+                            </content>
                            <VBox.margin>
                               <Insets bottom="30.0" />
                            </VBox.margin>
