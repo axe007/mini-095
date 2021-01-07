@@ -21,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -184,11 +183,47 @@ public class NoteAddViewController implements Initializable {
 
             } else {
                 if (Session.getWindowMode().equals("new")) {
+                    boolean findMatchID = false;
+                    ObjectId matchID = null;
+                    switch (noteTypeComboBox.getValue()) {
+                        case NoteType.PROJECT_NOTE:
+                            matchID = currentProjectID;
+                            findMatchID = true;
+                            break;
+                        case NoteType.ACTIVITY_NOTE:
+                            for (Activity activity : NoteViewController.activityList) {
+                                if (activity.getName().equals(topicComboBox.getValue())) {
+                                    matchID = activity.getId();
+                                    findMatchID = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        case NoteType.SPRINT_NOTE:
+                            for (Sprint sprint : NoteViewController.sprintList) {
+                                if (sprint.getName().equals(topicComboBox.getValue())) {
+                                    matchID = sprint.getId();
+                                    findMatchID = true;
+                                    break;
+                                }
+                            }
+                            break;
+                    }
+                    if (findMatchID && matchID != null) {
+                        Note newNote = new Note(currentProjectID, currentProjectID, topicComboBox.getValue(),
+                                noteTypeComboBox.getValue(), currentUserID, currentUserName, LocalDate.now(),
+                                noteNameTextField.getText(), noteDescription.getText());
+                        noteController.createNote(newNote);
 
-                    Note newNote = new Note(currentProjectID, currentProjectID, currentProjectName,
-                            NoteType.PROJECT_NOTE, currentUserID, currentUserName, LocalDate.now(),
-                            noteNameTextField.getText(), noteDescription.getText());
-                    noteController.createNote(newNote);
+                    } else if (!findMatchID) {
+                        uiHelper.alertDialogGenerator(dialogPane, "error", "Can't find related topic",
+                                "Can't find related topic.\nPlease check and try again.");
+                        return;
+                    } else {
+                        uiHelper.alertDialogGenerator(dialogPane, "error", "System mistake",
+                                "Something is wrong with the system.\nPlease check and try again.");
+                        return;
+                    }
 
                 } else if (Session.getWindowMode().equals("edit")) {
                     Note editNote = (Note) Session.getOpenItem();
@@ -237,6 +272,9 @@ public class NoteAddViewController implements Initializable {
 
                 }
                 NoteViewController.isUpdated.setValue(true);
+                Stage stage;
+                stage = (Stage) cancelButton.getScene().getWindow();
+                stage.close();
 
             }
 

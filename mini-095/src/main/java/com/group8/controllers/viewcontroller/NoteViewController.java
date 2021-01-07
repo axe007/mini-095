@@ -82,6 +82,7 @@ public class NoteViewController implements Initializable {
         noteTreeTableSetUp(activityTreeTableView, false);
 
         loadNotes();
+        editNoteButton.setDisable(true);
 
         isUpdated.addListener((observable, oldValue, newValue) -> {
             // Only if completed
@@ -157,7 +158,7 @@ public class NoteViewController implements Initializable {
     }
 
     public void addNoteToTreeTableView(ArrayList<Note> noteList, TreeTableView<Note> treeView) {
-
+        treeView.getRoot().getChildren().clear();
         for (Note note : noteList) {
             treeView.getRoot().getChildren().add(new TreeItem<Note>(note));
         }
@@ -165,11 +166,12 @@ public class NoteViewController implements Initializable {
     }
 
     public void addChildNoteToTreeTableView(ArrayList<Note> noteList, TreeTableView<Note> treeView, String type) {
+        treeView.getRoot().getChildren().clear();
         if (type.equals(NoteType.ACTIVITY_NOTE)) {
             ActivityController activityController = new ActivityController();
             activityList = activityController.getActivitiesList();
             for (Activity activity : activityList) {
-                Note parentNote = new Note(currentProjectID, currentProjectID, activity.getId(), activity.getName(),
+                Note parentNote = new Note(currentProjectID, activity.getId(), activity.getName(),
                         NoteType.ACTIVITY_NOTE, currentUserID, "", null, activity.getName(), "");
                 TreeItem<Note> parentItem = new TreeItem<Note>(parentNote);
                 parentItem.setExpanded(true);
@@ -188,8 +190,8 @@ public class NoteViewController implements Initializable {
             SprintController sprintController = new SprintController();
             sprintList = sprintController.getSprintList();
             for (Sprint sprint : sprintList) {
-                Note parentNote = new Note(currentProjectID, currentProjectID, sprint.getId(), sprint.getName(),
-                        NoteType.SPRINT_NOTE, currentUserID, "", null, sprint.getName(), "");
+                Note parentNote = new Note(currentProjectID, sprint.getId(), sprint.getName(), NoteType.SPRINT_NOTE,
+                        currentUserID, "", null, sprint.getName(), "");
                 TreeItem<Note> parentItem = new TreeItem<Note>(parentNote);
                 parentItem.setExpanded(true);
                 for (Note note : noteList) {
@@ -224,8 +226,8 @@ public class NoteViewController implements Initializable {
         treeView.getColumns().add(projectTreeTableColumn2);
         treeView.getColumns().add(projectTreeTableColumn3);
 
-        Note projectRootNote = new Note(currentProjectID, currentProjectID, currentProjectID, currentProjectName,
-                NoteType.PROJECT_NOTE, currentUserID, "", null, currentProjectName, "");
+        Note projectRootNote = new Note(currentProjectID, currentProjectID, currentProjectName, NoteType.PROJECT_NOTE,
+                currentUserID, "", null, currentProjectName, "");
         TreeItem<Note> projectRootItem = new TreeItem<Note>(projectRootNote);
         projectRootItem.setExpanded(true);
 
@@ -244,7 +246,7 @@ public class NoteViewController implements Initializable {
         Note projectNote = projectTreeTableView.getSelectionModel().getSelectedItem().getValue();
         Note sprintNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
         Note activityNote = activityTreeTableView.getSelectionModel().getSelectedItem().getValue();
-        if (projectNote == null || sprintNote == null || activityNote == null) {
+        if (projectNote == null && sprintNote == null && activityNote == null) {
             uiHelper.alertDialogGenerator(noteView, "error", "Edit Note",
                     "No Note was selected.\nPlease select a Note and try again.");
         } else {
@@ -253,12 +255,10 @@ public class NoteViewController implements Initializable {
             if (projectNote != null) {
                 Session.setSetOpenItem(projectNote);
 
-            }
-            if (sprintNote != null) {
+            } else if (sprintNote != null) {
                 Session.setSetOpenItem(sprintNote);
 
-            }
-            if (activityNote != null) {
+            } else if (activityNote != null) {
                 Session.setSetOpenItem(activityNote);
 
             }

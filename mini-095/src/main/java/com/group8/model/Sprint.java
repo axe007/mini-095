@@ -13,7 +13,8 @@ public class Sprint implements Comparable<Sprint> {
     private LocalDate endDate;
     private boolean isComplete;// Sprint is either "ongoing"-False or "completed"-True.
 
-    public Sprint() { }
+    public Sprint() {
+    }
 
     public Sprint(String name, LocalDate startDate, LocalDate endDate) {
         this.name = name;
@@ -25,30 +26,42 @@ public class Sprint implements Comparable<Sprint> {
     public ObjectId getId() {
         return this.id;
     }
+
     public String getName() {
         return name;
     }
+
     public LocalDate getStartDate() {
         return startDate;
     }
+
     public LocalDate getEndDate() {
         return endDate;
     }
+
     public boolean isComplete() {
         return isComplete;
     }
 
-    public void setId() { this.id = new ObjectId(); }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
+
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-    public void setComplete(boolean isComplete) { this.isComplete = isComplete; }
+
+    public void setComplete(boolean isComplete) {
+        this.isComplete = isComplete;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -74,12 +87,7 @@ public class Sprint implements Comparable<Sprint> {
 
     @Override
     public String toString() {
-        return "Sprint{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", isComplete=" + isComplete +
-                '}';
+        return "Sprint{" + "id=" + id + ", name='" + name + '\'' + ", startDate=" + startDate + ", endDate=" + endDate
+                + ", isComplete=" + isComplete + '}';
     }
 }
