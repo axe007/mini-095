@@ -255,9 +255,11 @@ public class ActivityAddViewController implements Initializable {
 
                 Activity activity = (Activity) Session.getOpenItem();
                 if (activity instanceof UserStory) {
+                    System.out.println("User Story");
                     selectedType = "User story";
                     this.storyPoints.setText(String.valueOf(((UserStory) activity).getStoryPoints()));
                 } else if (activity instanceof Task) {
+                    System.out.println("Task");
                     selectedType = "Task";
                     this.estimatedHours.setText(String.valueOf(((Task) activity).getEstimatedHours()));
                     parentId = ((Task) activity).getParentId();
@@ -587,6 +589,7 @@ public class ActivityAddViewController implements Initializable {
                         setGraphic(icon);
                     } else if (item.getName().equals(comboParentName)) {
                         selectedProperty();
+                        System.out.println(comboParentName);
                     } else {
                         setTextFill(Color.BLACK);
                         setStyle("-fx-font-weight: normal;");

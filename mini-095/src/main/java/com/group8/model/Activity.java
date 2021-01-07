@@ -1,5 +1,6 @@
 package com.group8.model;
 
+import com.group8.controllers.viewcontroller.ScrumboardViewController;
 import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;

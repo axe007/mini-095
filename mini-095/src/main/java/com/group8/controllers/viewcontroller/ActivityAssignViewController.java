@@ -134,6 +134,7 @@ public class ActivityAssignViewController implements Initializable {
     private void setListViews() {
         ObjectId projectId = Session.getOpenProjectId();
         ArrayList<String> allProjectUsers = projectController.getProjectUsernameList(projectId);
+        System.out.println("All project users: " + allProjectUsers);
 
         Activity activity = (Activity) Session.getOpenItem();
         ArrayList<String> activityUsernames = new ArrayList<>();
