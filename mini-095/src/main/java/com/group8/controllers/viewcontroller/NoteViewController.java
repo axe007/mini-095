@@ -40,9 +40,9 @@ public class NoteViewController implements Initializable {
     private ObjectId currentProjectID = Session.getOpenProjectId();
     private String currentProjectName = Session.getOpenProjectName();
     private UserController userController = new UserController();
-    private ArrayList<Note> projectNoteList;
-    private ArrayList<Note> sprintNoteList;
-    private ArrayList<Note> activityNoteList;
+    public static ArrayList<Note> projectNoteList;
+    public static ArrayList<Note> sprintNoteList;
+    public static ArrayList<Note> activityNoteList;
     public static ArrayList<Sprint> sprintList;
     public static ArrayList<Activity> activityList;
     public static BooleanProperty isUpdated = new SimpleBooleanProperty();
@@ -102,6 +102,12 @@ public class NoteViewController implements Initializable {
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
             }
+            if (!parentNote.getUserID().equals(currentUserID)) {
+                editNoteButton.setDisable(true);
+            } else {
+                editNoteButton.setDisable(false);
+
+            }
         });
         sprintTreeTableView.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
             Note parentNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
@@ -112,6 +118,12 @@ public class NoteViewController implements Initializable {
             } else {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
+            }
+            if (!parentNote.getUserID().equals(currentUserID)) {
+                editNoteButton.setDisable(true);
+            } else {
+                editNoteButton.setDisable(false);
+
             }
         });
 
@@ -124,6 +136,12 @@ public class NoteViewController implements Initializable {
             } else {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 sprintTreeTableView.getSelectionModel().clearSelection();
+            }
+            if (!parentNote.getUserID().equals(currentUserID)) {
+                editNoteButton.setDisable(true);
+            } else {
+                editNoteButton.setDisable(false);
+
             }
         });
     }

@@ -30,6 +30,19 @@ public class Note {
         this.content = content;
     }
 
+    public Note(ObjectId projectID, ObjectId targetID, String targetName, String type, ObjectId userID, String userName,
+            LocalDate createDate, String noteTitle, String content) {
+        this.projectID = projectID;
+        this.targetID = targetID;
+        this.targetName = targetName;
+        this.type = type;
+        this.userID = userID;
+        this.userName = userName;
+        this.createDate = createDate;
+        this.noteTitle = noteTitle;
+        this.content = content;
+    }
+
     public ObjectId getNoteID() {
         return noteID;
     }

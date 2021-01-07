@@ -51,7 +51,7 @@
                                     <Insets bottom="3.0" left="1.0" />
                                  </VBox.margin>
                               </Label>
-                              <ComboBox fx:id="topComboBox" onAction="#onTopicChange" prefHeight="27.0" prefWidth="403.0" promptText="Select topic..." />
+                              <ComboBox fx:id="topicComboBox" onAction="#onTopicChange" prefHeight="27.0" prefWidth="403.0" promptText="Select topic..." />
                            </children>
                         </VBox>
                      </children>
