@@ -27,7 +27,6 @@ import java.time.format.FormatStyle;
 import java.util.*;
 
 public class ScrumboardViewController implements Initializable {
-
     @FXML
     private StackPane scrumboardView;
     @FXML
@@ -63,10 +62,10 @@ public class ScrumboardViewController implements Initializable {
     private static ActivityController activityController = new ActivityController();
     private static UIHelper uiHelper = new UIHelper();
     public static BooleanProperty isUpdated = new SimpleBooleanProperty();
-    // public ObservableList<String> names = FXCollections.observableArrayList();
 
     @FXML
     private void handleSprintButtons(ActionEvent event) throws IOException {
+        isUpdated.setValue(false);
         if (event.getSource() == sprintNewButton) {
             if (Session.getCurrentSprintId() != null) {
                 uiHelper.alertDialogGenerator(scrumboardView,"error", "New sprint", "Current sprint is not completed.\nPlease complete the current sprint and try again.");

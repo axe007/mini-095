@@ -6,11 +6,8 @@ import com.group8.controllers.SprintController;
 import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.*;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.*;
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.CENTER;
-import static javafx.geometry.Pos.TOP_CENTER;
 
 public class DashboardViewController implements Initializable {
 

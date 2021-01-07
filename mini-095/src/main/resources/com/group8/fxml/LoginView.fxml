@@ -35,7 +35,7 @@
                            <Insets bottom="5.0" left="10.0" top="5.0" />
                         </GridPane.margin></TextField>
                       <Label focusTraversable="false" styleClass="h3" text="Password" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                      <PasswordField fx:id="passwordField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="150.0" onAction="#handleLoginButton" promptText="Enter your password..." styleClass="login-textfield" text="password" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                      <PasswordField fx:id="passwordField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLoginButton" prefWidth="150.0" promptText="Enter your password..." styleClass="login-textfield" text="password" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <GridPane.margin>
                            <Insets bottom="5.0" left="10.0" top="5.0" />
                         </GridPane.margin>
@@ -45,6 +45,11 @@
                      <Insets top="30.0" />
                   </VBox.margin>
                </GridPane>
+               <CheckBox fx:id="localDb" mnemonicParsing="false" text="Use localhost database?">
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin>
+               </CheckBox>
                <HBox alignment="CENTER">
                   <children>
                           <Button fx:id="loginSubmitBtn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleLoginButton" prefWidth="120.0" styleClass="submit-button" text=" Submit ">

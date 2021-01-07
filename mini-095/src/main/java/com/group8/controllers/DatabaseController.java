@@ -18,6 +18,8 @@ import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import static org.bson.codecs.pojo.Conventions.ANNOTATION_CONVENTION;
+
+import com.mongodb.client.internal.MongoClientImpl;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.ClassModel;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -32,17 +34,23 @@ public class DatabaseController {
     String dbName = "mini95";
     String authdbName = "admin"; // the name of the database in which the user is defined
     String dbServer = "mongodb.altansukh.com";
-    // String dbServer = "localhost";
+    String dbLocalServer = "localhost";
     int dbPort = 27017;
 
     public MongoClient dbConnect() {
+        boolean localDb = Session.isLocalDb();
+        MongoClient mongoClient;
 
-        MongoCredential credential = MongoCredential.createCredential(dbUser, authdbName, dbPassword);
-
-        MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()
-                .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, 27017))))
-                // .build());
-                .credential(credential).build());
+        if (localDb) {
+            mongoClient = MongoClients.create(MongoClientSettings.builder()
+                    .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbLocalServer, dbPort))))
+                    .build());
+        } else {
+            MongoCredential credential = MongoCredential.createCredential(dbUser, authdbName, dbPassword);
+            mongoClient = MongoClients.create(MongoClientSettings.builder()
+                    .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, dbPort))))
+                    .credential(credential).build());
+        }
         return mongoClient;
     }
 
@@ -133,5 +141,4 @@ public class DatabaseController {
 
         return pojoCodecRegistry;
     }
-
 }

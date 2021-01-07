@@ -78,6 +78,7 @@ public class ActivitiesViewController implements Initializable {
 
     @FXML
     private void handleActivityButtons(ActionEvent event) throws IOException {
+        isUpdated.setValue(false);
         // clear all text field
         if (event.getSource() == activityNewButton) {
             // Create new activity window
