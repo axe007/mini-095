@@ -1,16 +1,8 @@
 package com.group8.model;
 
-public enum NoteType {
-    ProjectNote("Project Note"), SprintNote("Sprint Note"), ActivityNote("Activity Note");
+public class NoteType {
+    public static final String PROJECT_NOTE = "Project Note";
+    public static final String SPRINT_NOTE = "Sprint Note";
+    public static final String ACTIVITY_NOTE = "Activity Note";
 
-    public final String label;
-
-    private NoteType(String label) {
-        this.label = label;
-    }
-
-    @Override
-    public String toString() {
-        return this.label;
-    }
 }

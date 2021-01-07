@@ -83,8 +83,8 @@ public class ApplicationController implements Initializable {
                         "No project has been opened.\nPlease open a project in Projects window.");
                 return;
             } else {
-                viewName = "GanttChartView";
-                viewTitle = "Gantt Chart";
+                viewName = "NoteView";
+                viewTitle = "Notes";
             }
 
         } else if (menuEvent.getSource() == usersButton) {

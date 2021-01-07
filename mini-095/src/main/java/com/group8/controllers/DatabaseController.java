@@ -40,8 +40,8 @@ public class DatabaseController {
 
         MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, 27017))))
-                .build());
-        // .credential(credential).build());
+                // .build());
+                .credential(credential).build());
 
         return mongoClient;
     }

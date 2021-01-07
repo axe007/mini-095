@@ -9,14 +9,15 @@ public class Note {
     private ObjectId projectID;
     private ObjectId targetID; // SprintID or ActivityID or projectID
     private String targetName;
-    private NoteType type;// SprintNote or ActivityNote or ProjectNote
+    private String type;// SprintNote or ActivityNote or ProjectNote
     private ObjectId userID;
     private String userName;
     private LocalDate createDate;
+    private String noteTitle;
     private String content;
 
-    public Note(ObjectId noteID, ObjectId projectID, ObjectId targetID, String targetName, NoteType type,
-            ObjectId userID, String userName, LocalDate createDate, String content) {
+    public Note(ObjectId noteID, ObjectId projectID, ObjectId targetID, String targetName, String type, ObjectId userID,
+            String userName, LocalDate createDate, String noteTitle, String content) {
         this.noteID = noteID;
         this.projectID = projectID;
         this.targetID = targetID;
@@ -25,6 +26,7 @@ public class Note {
         this.userID = userID;
         this.userName = userName;
         this.createDate = createDate;
+        this.noteTitle = noteTitle;
         this.content = content;
     }
 
@@ -52,11 +54,11 @@ public class Note {
         this.targetID = targetID;
     }
 
-    public NoteType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(NoteType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -98,6 +100,14 @@ public class Note {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getNoteTitle() {
+        return noteTitle;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
     }
 
 }
