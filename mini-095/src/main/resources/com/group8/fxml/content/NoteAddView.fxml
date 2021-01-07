@@ -31,6 +31,7 @@
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
                      </rowConstraints>
                      <children>
                         <VBox>
@@ -40,7 +41,7 @@
                                     <Insets bottom="3.0" left="1.0" />
                                  </VBox.margin>
                               </Label>
-                              <ComboBox fx:id="noteTypeComboBox" onAction="#activityTypeSwitch" prefWidth="150.0" promptText="Select type ..." />
+                              <ComboBox fx:id="noteTypeComboBox" onAction="#onNoteTypeChange" prefWidth="150.0" promptText="Select type ..." />
                            </children>
                         </VBox>
                         <VBox GridPane.rowIndex="1" GridPane.rowSpan="2">
@@ -50,7 +51,7 @@
                                     <Insets bottom="3.0" left="1.0" />
                                  </VBox.margin>
                               </Label>
-                              <ComboBox fx:id="noteTypeComboBox1" onAction="#activityTypeSwitch" prefHeight="27.0" prefWidth="403.0" promptText="Select topic..." />
+                              <ComboBox fx:id="topicComboBox" onAction="#onTopicChange" prefHeight="27.0" prefWidth="403.0" promptText="Select topic..." />
                            </children>
                         </VBox>
                      </children>
@@ -59,7 +60,7 @@
                      <VBox.margin>
                         <Insets bottom="3.0" left="1.0" top="12.0" />
                      </VBox.margin></Label>
-                  <TextField fx:id="activityName" maxWidth="-Infinity" prefWidth="180.0" promptText="Enter new activity name" styleClass="login-textfield" />
+                  <TextField fx:id="noteNameTextField" maxWidth="-Infinity" prefWidth="180.0" promptText="Enter new activity name" styleClass="login-textfield" />
                   <Label focusTraversable="false" styleClass="textfield-remark" text="* short and concise naming convention recommended">
                      <padding>
                         <Insets left="1.0" />
@@ -71,7 +72,7 @@
                      <padding>
                         <Insets left="1.0" />
                      </padding></Label>
-                  <TextArea fx:id="activityDescription" prefHeight="84.0" prefWidth="217.0" promptText="Enter new activity description" />
+                  <TextArea fx:id="noteDescription" prefHeight="84.0" prefWidth="217.0" promptText="Enter new activity description" />
                   <StackPane>
                      <children>
                         <VBox fx:id="vboxStoryPoints" />
@@ -83,8 +84,8 @@
                   <HBox alignment="CENTER" />
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="404.0" spacing="30.0">
                      <children>
-                        <Button fx:id="saveButton" onAction="#handleSaveActivityBtn" prefWidth="100.0" styleClass="submit-button" text="Save" />
-                        <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" onAction="#handleCancel" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
+                        <Button fx:id="saveButton" onAction="#handleSaveButton" prefWidth="100.0" styleClass="submit-button" text="Save" />
+                        <Button fx:id="cancelButton" layoutX="10.0" layoutY="10.0" onAction="#handleCancelButton" prefWidth="100.0" styleClass="reset-button" text="Cancel" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" top="20.0" />

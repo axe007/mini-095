@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import org.bson.types.ObjectId;
 
 public class Note {
-    private ObjectId noteID;
+    private ObjectId id;
     private ObjectId projectID;
     private ObjectId targetID; // SprintID or ActivityID or projectID
     private String targetName;
@@ -16,9 +16,11 @@ public class Note {
     private String noteTitle;
     private String content;
 
-    public Note(ObjectId noteID, ObjectId projectID, ObjectId targetID, String targetName, String type, ObjectId userID,
-            String userName, LocalDate createDate, String noteTitle, String content) {
-        this.noteID = noteID;
+    public Note() {
+    }
+
+    public Note(ObjectId projectID, ObjectId targetID, String targetName, String type, ObjectId userID, String userName,
+            LocalDate createDate, String noteTitle, String content) {
         this.projectID = projectID;
         this.targetID = targetID;
         this.targetName = targetName;
@@ -28,14 +30,6 @@ public class Note {
         this.createDate = createDate;
         this.noteTitle = noteTitle;
         this.content = content;
-    }
-
-    public ObjectId getNoteID() {
-        return noteID;
-    }
-
-    public void setNoteID(ObjectId noteID) {
-        this.noteID = noteID;
     }
 
     public ObjectId getProjectID() {
@@ -108,6 +102,14 @@ public class Note {
 
     public void setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
 }

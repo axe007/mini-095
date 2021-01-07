@@ -131,6 +131,7 @@ public class ActivitiesViewController implements Initializable {
             if (newValue == true) {
                 loadActivitiesData();
                 uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+                isUpdated.setValue(false);
             }
 
         });

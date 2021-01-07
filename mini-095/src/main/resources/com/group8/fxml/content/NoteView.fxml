@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.NoteViewController">
+<StackPane fx:id="noteView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.NoteViewController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -42,8 +42,8 @@
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="newNoteButton" mnemonicParsing="false" text="New Note" />
-                  <Button fx:id="editNoteButton" mnemonicParsing="false" text="Edit Note" />
+                  <Button fx:id="newNoteButton" mnemonicParsing="false" onAction="#handelNewButton" text="New Note" />
+                  <Button fx:id="editNoteButton" mnemonicParsing="false" onAction="#handelEditButton" text="Edit Note" />
                </children>
             </HBox>
          </bottom>

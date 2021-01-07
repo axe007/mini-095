@@ -20,7 +20,7 @@ public class NoteController {
     }
 
     public void modifyNote(Note note) {
-        ObjectId noteId = note.getNoteID();
+        ObjectId noteId = note.getId();
 
         mongoDb.getNoteCollection().updateOne(eq("_id", noteId),
                 combine(set("projectID", note.getProjectID()), set("targetID", note.getTargetID()),
@@ -30,11 +30,6 @@ public class NoteController {
 
     }
 
-    // public ArrayList<Note> getUserList() {
-    // ArrayList<Note> notes = mongoDb.getNoteCollection().find().into(new
-    // ArrayList<Note>());
-    // return notes;
-    // }
     public ArrayList<Note> getNoteListForCurrentProject(ObjectId projectId) {
         allNotesOfCurrentProject = mongoDb.getNoteCollection().find(eq("projectID", projectId))
                 .into(new ArrayList<Note>());

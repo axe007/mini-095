@@ -24,9 +24,10 @@ public class SprintController {
 
     public ObjectId createSprint(String name, LocalDate sprintStartDate, LocalDate sprintEndDate) {
         final Sprint newSprint = new Sprint(name, sprintStartDate, sprintEndDate);
-        MongoCollection sprintCollection = mongoDb.getSprintCollection().withCodecRegistry(mongoDb.createCodecRegistry("Sprints"));
+        MongoCollection sprintCollection = mongoDb.getSprintCollection()
+                .withCodecRegistry(mongoDb.createCodecRegistry("Sprints"));
 
-        newSprint.setId();
+        newSprint.setId(new ObjectId());
         sprintCollection.insertOne(newSprint);
 
         ObjectId sprintId = newSprint.getId();
@@ -43,7 +44,7 @@ public class SprintController {
     }
 
     public void completeSprint(ObjectId sprintId) {
-        mongoDb.getSprintCollection().updateOne(eq("_id", sprintId),combine(set("isComplete", true)));
+        mongoDb.getSprintCollection().updateOne(eq("_id", sprintId), combine(set("isComplete", true)));
     }
 
     public String getSprintName(ObjectId sprintId) {
