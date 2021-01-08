@@ -44,7 +44,7 @@
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="scheduleButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="gantt_chart">
+                         <Button fx:id="scheduleButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="gantt chart">
                              <graphic>
                                  <FontAwesomeIconView glyphName="BAR_CHART" rotate="90.0" size="36" styleClass="sidebar-icon" />
                              </graphic>

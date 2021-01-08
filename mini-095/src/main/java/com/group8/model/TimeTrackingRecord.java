@@ -21,8 +21,6 @@ public class TimeTrackingRecord {
     private double totalHours;
     private String activityStatus;
 
-
-
     public TimeTrackingRecord() { }
 
     public TimeTrackingRecord(String activityType, String activityName, String userFullname,
