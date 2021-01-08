@@ -40,7 +40,7 @@ public class LoginViewController {
             initializeApp("admin", localDb);
         } else if (userController.authenticateUser(username, password)) {
             initializeApp(username, localDb);
-        }else {
+        } else {
             // display error info
             loginErrorMsg.setVisible(true);
         }
@@ -57,8 +57,10 @@ public class LoginViewController {
 
     @FXML
     private void handleResetButton(ActionEvent event) throws IOException {
+
         usernameField.clear();
         passwordField.clear();
         loginErrorMsg.setVisible(false);
     }
+
 }
