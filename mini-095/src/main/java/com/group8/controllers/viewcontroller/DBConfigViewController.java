@@ -1,10 +1,16 @@
 package com.group8.controllers.viewcontroller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.group8.controllers.DatabaseController;
+import com.group8.controllers.ServerInfoImportor;
 import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 
@@ -22,6 +28,13 @@ import javafx.stage.Stage;
 public class DBConfigViewController implements Initializable {
     private final String WITHOUTAUTH = "Without Authentication";
     private final String WITHAUTH = "With Authentication";
+    // private int port = 27017;
+    // private String localDBAddress = "localhost";
+    // private String serverAddress = "";
+    // private String userName;
+    // private String userPassword;
+    // private String authCollection;
+
     UIHelper uiHelper = new UIHelper();
     @FXML
     private TextField dbUsernameField;
@@ -54,25 +67,36 @@ public class DBConfigViewController implements Initializable {
         authSelectComboBox.getItems().add(WITHAUTH);
         authSelectComboBox.getItems().add(WITHOUTAUTH);
         authSelectComboBox.setValue(WITHAUTH);
-        // TODO: presist db info
+
+        dbAddressTextField.setText(DatabaseController.dbServer);
+        dbPortTextField.setText(String.valueOf(DatabaseController.dbPort));
+        authCollactionTextField.setText(DatabaseController.authdbName);
+        dbUsernameField.setText(DatabaseController.dbUser);
+        dbPasswordField.setText(DatabaseController.dbPassword);
+        authCollactionTextField.setText(DatabaseController.authdbName);
+
     }
 
     @FXML
     private void handleSaveButton(ActionEvent event) {
         if (validateInput()) {
             if (authSelectComboBox.getValue().equals(WITHOUTAUTH)) {
-                Session.setLocalDb(true);
-                DatabaseController.dbLocalServer = dbAddressTextField.getText();
+                DatabaseController.dbServer = dbAddressTextField.getText();
                 DatabaseController.dbPort = Integer.parseInt(dbPortTextField.getText());
+                DatabaseController.isAuth = false;
+                ServerInfoImportor.saveServerDataToFile();
 
-            } else if (authSelectComboBox.getValue().equals(WITHOUTAUTH)) {
-                Session.setLocalDb(false);
+            } else if (authSelectComboBox.getValue().equals(WITHAUTH)) {
                 DatabaseController.dbUser = dbUsernameField.getText();
-                DatabaseController.dbPassword = dbPasswordField.getText().toCharArray();
+                DatabaseController.dbPassword = dbPasswordField.getText();
                 DatabaseController.authdbName = authCollactionTextField.getText();
                 DatabaseController.dbServer = dbAddressTextField.getText();
+                DatabaseController.dbPort = Integer.parseInt(dbPortTextField.getText());
+                DatabaseController.isAuth = true;
+                ServerInfoImportor.saveServerDataToFile();
 
             }
+
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", "Database Setting",
                     "Database setting updated successfully.");
             if (result.get() == ButtonType.OK) {

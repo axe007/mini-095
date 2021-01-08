@@ -56,6 +56,7 @@ public class LoginViewController {
         Session.setLocalDb(localDb);
         App app = new App();
         app.setRoot("Application");
+        ServerInfoImportor.loadServerDataFromFile();
     }
 
     @FXML
