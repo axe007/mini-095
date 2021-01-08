@@ -28,7 +28,7 @@ You can also modify the code and build by yourself.
 2. Install maven or open this project with IDE which support maven,
 3. Modify the code as your wish,
 4. Open terminal and enter "mvn clean package",
-5. Ta-ta-ang, you will find a JAR file under the targe folder.
+5. Ta-ta-ang, you will find a JAR file with name mini-095-1.0-SNAPSHOT.jar under the targe folder.
 
 ## Connect to the mongoDB
 <img src="/mini-095/pic/screenshot.png" alt="drawing" width="400"/>
