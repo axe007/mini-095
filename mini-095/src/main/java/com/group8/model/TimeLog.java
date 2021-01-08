@@ -29,27 +29,21 @@ public class TimeLog {
     public ObjectId getId() {
         return id;
     }
-
     public ObjectId getProjectId() {
         return projectId;
     }
-
     public ObjectId getSprintId() {
         return sprintId;
     }
-
     public ObjectId getActivityId() {
         return activityId;
     }
-
     public ObjectId getUserId() {
         return userId;
     }
-
     public double getHours() {
         return hours;
     }
-
     public LocalDate getCreatedDate() {
         return createdDate;
     }
@@ -57,34 +51,28 @@ public class TimeLog {
     public void setId(ObjectId id) {
         this.id = id;
     }
-
     public void setProjectId(ObjectId projectId) {
         this.projectId = projectId;
     }
-
     public void setSprintId(ObjectId sprintId) {
         this.sprintId = sprintId;
     }
-
     public void setActivityId(ObjectId activityId) {
         this.activityId = activityId;
     }
-
     public void setUserId(ObjectId userId) {
         this.userId = userId;
     }
-
     public void setHours(double hours) {
         this.hours = hours;
     }
-
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
 
     @Override
     public String toString() {
-        return "TimeLog{" + "id=" + id + ", projectId=" + projectId + ", sprintId=" + sprintId + ", activityId="
+        return "TimeLog{" + "id = " + getId() + ", projectId=" + projectId + ", sprintId=" + sprintId + ", activityId="
                 + activityId + ", userId=" + userId + ", hours=" + hours + ", createdDate=" + createdDate + '}';
     }
 }

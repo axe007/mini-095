@@ -4,6 +4,8 @@ import com.group8.model.*;
 
 import com.mongodb.BasicDBObject;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
