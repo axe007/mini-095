@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import com.group8.controllers.ActivityController;
 import com.group8.controllers.NoteController;
 import com.group8.controllers.SprintController;
-import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Activity;
 import com.group8.model.Note;
@@ -23,23 +22,19 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableRow;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 
 public class NoteViewController implements Initializable {
     private NoteController noteController = new NoteController();
     private ObjectId currentUserID = Session.getSessionUserId();
     private ObjectId currentProjectID = Session.getOpenProjectId();
     private String currentProjectName = Session.getOpenProjectName();
-    private UserController userController = new UserController();
     public static ArrayList<Note> projectNoteList;
     public static ArrayList<Note> sprintNoteList;
     public static ArrayList<Note> activityNoteList;
@@ -47,16 +42,7 @@ public class NoteViewController implements Initializable {
     public static ArrayList<Activity> activityList;
     public static BooleanProperty isUpdated = new SimpleBooleanProperty();
     private static UIHelper uiHelper = new UIHelper();
-
-    // private ObjectId noteID;
-    // private ObjectId projectID;
-    // private ObjectId targetID; // SprintID or ActivityID or projectID
-    // private String targetName;
-    // private String type;// SprintNote or ActivityNote or ProjectNote
-    // private ObjectId userID;
-    // private String userName;
-    // private LocalDate createDate;
-    // private String content;
+    private int selectedTable = 0;
 
     @FXML
     private Button newNoteButton;
@@ -75,7 +61,6 @@ public class NoteViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         noteController.getNoteListForCurrentProject(currentProjectID);
-        String currentUserName = userController.getUserDetail(currentUserID, "fullname");
 
         noteTreeTableSetUp(projectTreeTableView, true);
         noteTreeTableSetUp(sprintTreeTableView, false);
@@ -88,7 +73,10 @@ public class NoteViewController implements Initializable {
             // Only if completed
             if (newValue == true) {
                 loadNotes();
-
+                projectTreeTableView.getSelectionModel().clearSelection();
+                sprintTreeTableView.getSelectionModel().clearSelection();
+                activityTreeTableView.getSelectionModel().clearSelection();
+                selectedTable = 0;
                 isUpdated.setValue(false);
             }
 
@@ -100,18 +88,19 @@ public class NoteViewController implements Initializable {
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
                 editNoteButton.setDisable(true);
-
+                selectedTable = 0;
             } else {
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
-                editNoteButton.setDisable(false);
-            }
-            if (!parentNote.getUserID().equals(currentUserID)) {
-                editNoteButton.setDisable(true);
-            } else {
-                editNoteButton.setDisable(false);
+                if (!parentNote.getUserID().equals(currentUserID)) {
+                    editNoteButton.setDisable(true);
+                } else {
+                    editNoteButton.setDisable(false);
+                    selectedTable = 1;
 
+                }
             }
+
         });
         sprintTreeTableView.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
             Note parentNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
@@ -120,17 +109,19 @@ public class NoteViewController implements Initializable {
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
                 editNoteButton.setDisable(true);
+                selectedTable = 0;
             } else {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
-                editNoteButton.setDisable(false);
-            }
-            if (!parentNote.getUserID().equals(currentUserID)) {
-                editNoteButton.setDisable(true);
-            } else {
-                editNoteButton.setDisable(false);
+                if (!parentNote.getUserID().equals(currentUserID)) {
+                    editNoteButton.setDisable(true);
+                } else {
+                    editNoteButton.setDisable(false);
+                    selectedTable = 2;
 
+                }
             }
+
         });
 
         activityTreeTableView.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
@@ -140,17 +131,19 @@ public class NoteViewController implements Initializable {
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
                 editNoteButton.setDisable(true);
+                selectedTable = 0;
             } else {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 sprintTreeTableView.getSelectionModel().clearSelection();
-                editNoteButton.setDisable(false);
-            }
-            if (!parentNote.getUserID().equals(currentUserID)) {
-                editNoteButton.setDisable(true);
-            } else {
-                editNoteButton.setDisable(false);
+                if (!parentNote.getUserID().equals(currentUserID)) {
+                    editNoteButton.setDisable(true);
+                } else {
+                    editNoteButton.setDisable(false);
+                    selectedTable = 3;
 
+                }
             }
+
         });
     }
 
@@ -167,6 +160,7 @@ public class NoteViewController implements Initializable {
     public void addNoteToTreeTableView(ArrayList<Note> noteList, TreeTableView<Note> treeView) {
         treeView.getRoot().getChildren().clear();
         for (Note note : noteList) {
+
             treeView.getRoot().getChildren().add(new TreeItem<Note>(note));
         }
 
@@ -225,14 +219,19 @@ public class NoteViewController implements Initializable {
         TreeTableColumn<Note, String> projectTreeTableColumn3 = new TreeTableColumn<>("User");
         projectTreeTableColumn3.setPrefWidth(80.0);
         projectTreeTableColumn3.setMinWidth(80.0);
+        TreeTableColumn<Note, String> projectTreeTableColumn4 = new TreeTableColumn<>("Content");
+        projectTreeTableColumn3.setPrefWidth(80.0);
+        projectTreeTableColumn3.setMinWidth(80.0);
 
         projectTreeTableColumn1.setCellValueFactory(new TreeItemPropertyValueFactory<>("noteTitle"));
         projectTreeTableColumn2.setCellValueFactory(new TreeItemPropertyValueFactory<>("createDate"));
         projectTreeTableColumn3.setCellValueFactory(new TreeItemPropertyValueFactory<>("userName"));
+        projectTreeTableColumn4.setCellValueFactory(new TreeItemPropertyValueFactory<>("content"));
 
         treeView.getColumns().add(projectTreeTableColumn1);
         treeView.getColumns().add(projectTreeTableColumn2);
         treeView.getColumns().add(projectTreeTableColumn3);
+        treeView.getColumns().add(projectTreeTableColumn4);
 
         Note projectRootNote = new Note(currentProjectID, currentProjectID, currentProjectName, NoteType.PROJECT_NOTE,
                 currentUserID, "", null, currentProjectName, "");
@@ -251,27 +250,32 @@ public class NoteViewController implements Initializable {
 
     @FXML
     private void handelEditButton(ActionEvent event) throws IOException {
-        Note projectNote = projectTreeTableView.getSelectionModel().getSelectedItem().getValue();
-        Note sprintNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
-        Note activityNote = activityTreeTableView.getSelectionModel().getSelectedItem().getValue();
-        if (projectNote == null && sprintNote == null && activityNote == null) {
+        boolean withSelectedItem = false;
+        if (selectedTable == 1) {
+            Note projectNote = projectTreeTableView.getSelectionModel().getSelectedItem().getValue();
+            Session.setSetOpenItem(projectNote);
+            withSelectedItem = true;
+        } else if (selectedTable == 2) {
+            Note sprintNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
+            Session.setSetOpenItem(sprintNote);
+            withSelectedItem = true;
+
+        } else if (selectedTable == 3) {
+            Note activityNote = activityTreeTableView.getSelectionModel().getSelectedItem().getValue();
+            Session.setSetOpenItem(activityNote);
+            withSelectedItem = true;
+
+        } else {
             uiHelper.alertDialogGenerator(noteView, "error", "Edit Note",
                     "No Note was selected.\nPlease select a Note and try again.");
-        } else {
 
+        }
+
+        if (withSelectedItem) {
             Session.setWindowMode("edit");
-            if (projectNote != null) {
-                Session.setSetOpenItem(projectNote);
-
-            } else if (sprintNote != null) {
-                Session.setSetOpenItem(sprintNote);
-
-            } else if (activityNote != null) {
-                Session.setSetOpenItem(activityNote);
-
-            }
 
             uiHelper.loadWindow("NoteAddView", editNoteButton, "Edit note details");
+
         }
 
     }
