@@ -28,13 +28,12 @@ import java.util.List;
 public class DatabaseController {
 
         public static String dbUser = "MongoAdmin";
-        public static String dbPassword = "Mini095GU"; // the password as a character array
+        public static char[] dbPassword = "Mini095GU".toCharArray(); // the password as a character array
         public static String dbName = "mini95";
         public static String authdbName = "admin"; // the name of the database in which the user is defined
         public static String dbServer = "mongodb.altansukh.com";
         public static String dbLocalServer = "localhost";
         public static int dbPort = 27017;
-        public static boolean isAuth = true;
 
         public MongoClient dbConnect() {
                 boolean localDb = Session.isLocalDb();
@@ -46,21 +45,10 @@ public class DatabaseController {
                                                         .hosts(Arrays.asList(new ServerAddress(dbLocalServer, dbPort))))
                                         .build());
                 } else {
-                        if (isAuth) {
-                                MongoCredential credential = MongoCredential.createCredential(dbUser, authdbName,
-                                                dbPassword.toCharArray());
-                                mongoClient = MongoClients.create(MongoClientSettings.builder()
-                                                .applyToClusterSettings(builder -> builder.hosts(
-                                                                Arrays.asList(new ServerAddress(dbServer, dbPort))))
-                                                .credential(credential).build());
-                        } else {
-                                mongoClient = MongoClients.create(MongoClientSettings.builder()
-                                                .applyToClusterSettings(builder -> builder.hosts(
-                                                                Arrays.asList(new ServerAddress(dbServer, dbPort))))
-                                                .build());
-
-                        }
-
+                        MongoCredential credential = MongoCredential.createCredential(dbUser, authdbName, dbPassword);
+                        mongoClient = MongoClients.create(MongoClientSettings.builder().applyToClusterSettings(
+                                        builder -> builder.hosts(Arrays.asList(new ServerAddress(dbServer, dbPort))))
+                                        .credential(credential).build());
                 }
                 return mongoClient;
         }

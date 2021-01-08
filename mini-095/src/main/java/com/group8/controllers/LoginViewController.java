@@ -56,15 +56,17 @@ public class LoginViewController {
         Session.setLocalDb(localDb);
         App app = new App();
         app.setRoot("Application");
-        ServerInfoImportor.loadServerDataFromFile();
     }
 
     @FXML
     private void handleResetButton(ActionEvent event) throws IOException {
+        usernameField.clear();
+        passwordField.clear();
+        loginErrorMsg.setVisible(false);
+    }
 
-        // usernameField.clear();
-        // passwordField.clear();
-        // loginErrorMsg.setVisible(false);
+    @FXML
+    private void handleDBSettingsButton(ActionEvent event) throws IOException {
         UIHelper uiHelper = new UIHelper();
         uiHelper.loadWindow("DBConfigView", loginResetBtn, "Database Configuration");
 

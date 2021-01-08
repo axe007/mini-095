@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<StackPane fx:id="dialogPane" prefHeight="521.0" prefWidth="480.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.DBConfigViewController">
+<StackPane fx:id="dialogPane" prefWidth="440.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.DBConfigViewController">
    <children>
-      <AnchorPane id="anchorPane" prefHeight="640.0" prefWidth="440.0">
+      <AnchorPane id="anchorPane" prefWidth="400.0">
          <children>
-            <VBox fx:id="vboxPane" layoutX="38.0" layoutY="32.0" prefWidth="400.0">
+            <VBox fx:id="vboxPane" alignment="CENTER" prefWidth="400.0">
                <children>
                   <Label fx:id="windowModeTitle" alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="560.0" styleClass="h2" text="Database Configuration">
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin></Label>
                   <GridPane>
                   <columnConstraints>
@@ -32,30 +22,42 @@
                   <rowConstraints>
                         <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="26.0" minHeight="10.0" prefHeight="18.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                      <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
                      <RowConstraints valignment="CENTER" />
                   </rowConstraints>
                   <children>
-                      <Label fx:id="dbUsernameLabel" focusTraversable="false" styleClass="h3" text="Database Username" GridPane.rowIndex="4" />
-                      <TextField fx:id="dbUsernameField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="244.0" promptText="Enter your username..." styleClass="login-textfield" text="MongoAdmin" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                      <Label fx:id="dbUsernameLabel" focusTraversable="false" styleClass="h3" text="Database username" GridPane.rowIndex="4" />
+                      <TextField fx:id="dbUsernameField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" promptText="Enter your username..." styleClass="login-textfield" text="MongoAdmin" GridPane.columnIndex="1" GridPane.rowIndex="4">
                         <GridPane.margin>
-                           <Insets bottom="5.0" left="10.0" top="5.0" />
+                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                         </GridPane.margin></TextField>
                       <Label fx:id="dbPasswordLabel" focusTraversable="false" styleClass="h3" text="Database Password" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                      <PasswordField fx:id="dbPasswordField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="268.0" promptText="Enter your password..." styleClass="login-textfield" text="Mini095GU" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                      <PasswordField fx:id="dbPasswordField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" promptText="Enter your password..." styleClass="login-textfield" text="Mini095GU" GridPane.columnIndex="1" GridPane.rowIndex="5">
                         <GridPane.margin>
-                           <Insets bottom="5.0" left="10.0" top="5.0" />
+                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                         </GridPane.margin>
                      </PasswordField>
-                        <Label fx:id="authCollectionLabel" focusTraversable="false" styleClass="h3" text="Auth Collaction" GridPane.rowIndex="3" />
-                        <TextField fx:id="authCollactionTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="244.0" promptText="Enter your username..." styleClass="login-textfield" text="admin" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="authCollectionLabel" focusTraversable="false" styleClass="h3" text="Auth. collection" GridPane.rowIndex="3" />
+                        <TextField fx:id="authCollactionTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" promptText="Enter your username..." styleClass="login-textfield" text="admin" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
                         <Label focusTraversable="false" styleClass="h3" text="Port:" GridPane.rowIndex="1" />
-                        <TextField fx:id="dbPortTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="244.0" promptText="Enter port number..." styleClass="login-textfield" text="27021" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="dbAddressTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="244.0" promptText="Enter database address..." styleClass="login-textfield" text="mongodb.altansukh.com" GridPane.columnIndex="1" />
-                        <Label focusTraversable="false" styleClass="h3" text="Server Addrss:" />
-                        <ComboBox fx:id="authSelectComboBox" onAction="#onAuthComboBoxChange" prefHeight="27.0" prefWidth="249.0" promptText="Without Authentication" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="dbPortTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" promptText="Enter port number..." styleClass="login-textfield" text="27021" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="dbAddressTextField" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" promptText="Enter database address..." styleClass="login-textfield" text="mongodb.altansukh.com" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <Label focusTraversable="false" styleClass="h3" text="Server address:" />
+                        <ComboBox fx:id="authSelectComboBox" onAction="#onAuthComboBoxChange" prefHeight="27.0" prefWidth="200.0" promptText="Without Authentication" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></ComboBox>
                   </children>
                   <VBox.margin>
                      <Insets top="30.0" />
@@ -73,6 +75,9 @@
                </children>
             </VBox>
          </children>
+         <StackPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </StackPane.margin>
       </AnchorPane>
    </children>
 </StackPane>
