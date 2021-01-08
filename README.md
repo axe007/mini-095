@@ -11,9 +11,10 @@ Please download these in order for the software to setup successfully
 2. Download the correct file depending on your OS
 
 ### MongoDB
-1. Go to <!--Link-->
+1. You can use our live server or install your own MongoDB
+2. To install your own MongoDB, please check the link <!--Link-->
 [MongoDB installation](https://docs.mongodb.com/manual/installation/)
-2. You might have to install <!--Link-->
+3. You might have to install if you are using MacOS <!--Link-->
 [Homebrew](https://brew.sh/#install) before you can install MongoDB
 
 
