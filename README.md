@@ -15,7 +15,7 @@ Please download these in order for the software to setup successfully
 [MongoDB installation](https://docs.mongodb.com/manual/installation/)
 2. You might have to install <!--Link-->
 [Homebrew](https://brew.sh/#install) before you can install MongoDB
-3. After installation, you have a few options running the application, check the installation guide for
+
 
 
 ## Install the software
@@ -31,7 +31,7 @@ You can also modify the code and build by yourself.
 5. Ta-ta-ang, you will find a JAR file under the targe folder.
 
 ## Connect to the mongoDB
-As showned in the picture, you can customize
+As showned in the picture, you can customize the URI to connect to your own MongoDB database.
 
 
 ## License
