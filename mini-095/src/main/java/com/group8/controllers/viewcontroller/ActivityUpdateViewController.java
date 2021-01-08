@@ -1,6 +1,8 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.controllers.ActivityController;
+import com.group8.controllers.NoteController;
+import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.*;
 
@@ -73,6 +75,21 @@ public class ActivityUpdateViewController implements Initializable {
         String alertContent = "Activity status successfully updated.";
         Activity activity = (Activity) Session.getOpenItem();
         ObjectId activityId = activity.getId();
+        String noteContent = this.noteContent.getText();
+
+        if (!noteContent.isEmpty() || !noteContent.equals("")) {
+            UserController userController = new UserController();
+            ObjectId projectID = Session.getOpenProjectId();
+            ObjectId userId = Session.getSessionUserId();
+            String userName = userController.getUserDetail(userId, "fullname");
+            String activityName = this.activityName.getText();
+            LocalDate createDate = LocalDate.now();
+
+            Note newNote = new Note(projectID, activityId, activityName, "Activity Note", userId, userName, createDate, "Activity update", noteContent);
+
+            NoteController noteController = new NoteController();
+            noteController.createNote(newNote);
+        }
 
         if (newStatusCombo.getValue() == null) {
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,

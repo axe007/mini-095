@@ -38,7 +38,7 @@ public class DatabaseController {
         public MongoClient dbConnect() {
                 boolean localDb = Session.isLocalDb();
                 MongoClient mongoClient;
-
+/**/
                 if (localDb) {
                         mongoClient = MongoClients.create(MongoClientSettings.builder()
                                         .applyToClusterSettings(builder -> builder

@@ -1,6 +1,7 @@
 package com.group8.controllers.viewcontroller;
 
 import com.group8.controllers.ActivityController;
+import com.group8.controllers.NoteController;
 import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.*;
@@ -91,6 +92,20 @@ public class ActivityTimeLogViewController implements Initializable {
         projectId = Session.getOpenProjectId();
         sprintId = Session.getCurrentSprintId();
         userId = Session.getSessionUserId();
+
+        String noteContent = this.noteContent.getText();
+
+        if (!noteContent.isEmpty() || !noteContent.equals("")) {
+            UserController userController = new UserController();
+            String userName = userController.getUserDetail(userId, "fullname");
+            String activityName = this.activityName.getText();
+            LocalDate createDate = LocalDate.now();
+
+            Note newNote = new Note(projectId, activityId, activityName, "Activity Note", userId, userName, createDate, "Time log notes", noteContent);
+
+            NoteController noteController = new NoteController();
+            noteController.createNote(newNote);
+        }
 
         try {
             timeLogHours = Double.parseDouble(this.timeLogHours.getText());

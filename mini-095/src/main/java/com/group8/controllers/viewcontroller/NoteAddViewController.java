@@ -71,9 +71,7 @@ public class NoteAddViewController implements Initializable {
             setUpTypeComboBox(editNote.getType());
             setupTopicCombox(editNote.getType());
             topicComboBox.setValue(editNote.getTargetName());
-
         }
-
     }
 
     public void setUpTypeComboBox(String type) {
