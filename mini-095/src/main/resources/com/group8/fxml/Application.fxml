@@ -60,6 +60,14 @@
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
+                         <Button fx:id="notesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="notes">
+                             <graphic>
+                                 <Icons525View glyphName="ONENOTE" size="42" styleClass="sidebar-icon" />
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
                          <Button fx:id="usersButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="users">
                              <graphic>
                                  <FontAwesomeIconView glyphName="USERS" size="42" styleClass="sidebar-icon" />

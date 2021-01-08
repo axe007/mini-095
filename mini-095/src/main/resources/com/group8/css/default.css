@@ -710,3 +710,119 @@
 	-fx-font-size: 1.5em;
 	-fx-font-weight: 800;
 }
+
+/* Note Tabbed Pane */
+
+.tab-pane
+{
+	-fx-tab-min-height: 2em; /* 24 */
+	-fx-tab-max-height: 2em; /* 24 */
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0.4, 4.0, 4.0);
+}
+
+.tab-pane *.tab-header-background {
+	-fx-background-color: null;
+}
+.tab-pane *.tab-header-area
+{
+	-fx-background-color: null;
+}
+
+.tab .tab-label
+{
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 900;
+	-fx-text-fill: #2e363c;
+	-fx-alignment: CENTER;
+}
+
+.tab-content-area
+{
+	-fx-background-color: #e9ecef;
+	-fx-padding: 0.2em;
+}
+.tab
+{
+	-fx-background-color: #e2e2e2, #e9ecef;
+	-fx-background-insets: 0, 4 0 0 0;
+	-fx-padding: 12 25 12 25;
+	-fx-background-radius: 0;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {-fx-border-color: null}
+.tab-pane:focused .focus-indicator {-fx-border-color: null}
+
+
+/*.tab:top
+{
+	-fx-background-color: -fx-tab-border-color, -fx-inner-border, -fx-body-color;
+}
+.tab:right
+{
+	-fx-background-color: -fx-tab-border-color, -fx-inner-border-bottomup, -fx-body-color-bottomup;
+}
+.tab:bottom
+{
+	-fx-background-color: -fx-tab-border-color, -fx-inner-border-bottomup, -fx-body-color-bottomup;
+}
+.tab:left
+{
+	-fx-background-color: -fx-tab-border-color, -fx-inner-border, -fx-body-color;
+}*/
+
+.tab:hover {
+	-fx-background-color: #5179d6, #e9ecef;
+	-fx-background-insets: 0, 4 0 0 0;
+	-fx-background-radius: 0;
+	-fx-text-fill: #fff;
+}
+
+.tab:selected
+{
+	-fx-text-fill: #fff;
+	-fx-background-color: #00226f, #5179d6;
+	-fx-background-insets: 0, 4 0 0 0;
+	-fx-background-radius: 0;
+}
+
+.tab:selected:hover {
+	-fx-text-fill: #fff;
+	-fx-background-color: #fff, #5179d6;
+	-fx-background-insets: 0, 4 0 0 0;
+	-fx-background-radius: 0;
+}
+
+.tab:selected .tab-label
+{
+	-fx-font-size: 1.2em;
+	-fx-font-weight: 900;
+	-fx-text-fill: #fff;
+	-fx-alignment: CENTER;
+}
+
+/* FLOATING TABS CUSTOMISATION */
+.tab-pane.floating *.tab-header-background {
+	-fx-background-color: null;
+}
+.tab-pane.floating *.tab-header-area
+{
+	-fx-background-color: null;
+}
+.tab-pane.floating *.tab-content-area
+{
+	-fx-background-color: -fx-tab-border-color, -fx-control-inner-background;
+	-fx-background-insets: 0, 1;
+	-fx-background-radius: 5, 4;
+}
+.tab-pane.floating *.tab
+{
+	-fx-background-color: -fx-tab-border-color, -fx-inner-border, -fx-body-color;
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+}
+.tab-pane.floating *.tab:selected
+{
+	-fx-background-color: -fx-tab-border-color, -fx-control-inner-background;
+	-fx-background-insets: 0 0 -1 0, 1 1 -1 1;
+	-fx-background-radius: 5 5 0 0, 4 4 0 0;
+}

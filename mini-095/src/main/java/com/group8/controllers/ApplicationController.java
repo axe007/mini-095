@@ -40,6 +40,8 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button reportsButton;
     @FXML
+    private Button notesButton;
+    @FXML
     private Button usersButton;
     @FXML
     private Button logoutButton;
@@ -81,6 +83,15 @@ public class ApplicationController implements Initializable {
                         "No project has been opened.\nPlease open a project in Projects window.");
                 return;
             } else {
+                viewName = "GanttChartView";
+                viewTitle = "Project schedule";
+            }
+        } else if (menuEvent.getSource() == notesButton) {
+            if (projectId == null || projectId.equals(null)) {
+                uiHelper.alertDialogGenerator(appContent, "error", "No project open",
+                        "No project has been opened.\nPlease open a project in Projects window.");
+                return;
+            } else {
                 viewName = "NoteView";
                 viewTitle = "Notes";
             }
@@ -115,7 +126,7 @@ public class ApplicationController implements Initializable {
     @FXML
     public void setActiveButton(Object activeButton) {
         Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, scrumboardButton, activitiesButton,
-                usersButton, reportsButton };
+                usersButton, reportsButton, notesButton };
 
         for (Button button : sidebarButtons) {
             if (button.equals(activeButton)) {
