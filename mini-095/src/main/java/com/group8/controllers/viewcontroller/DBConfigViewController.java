@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.group8.controllers.DatabaseController;
+import com.group8.controllers.ServerInfoImportor;
 import com.group8.helper.UIHelper;
-import com.group8.model.Session;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,16 +61,17 @@ public class DBConfigViewController implements Initializable {
     private void handleSaveButton(ActionEvent event) {
         if (validateInput()) {
             if (authSelectComboBox.getValue().equals(WITHOUTAUTH)) {
-                Session.setLocalDb(true);
+                DatabaseController.isAuth = false;
                 DatabaseController.dbLocalServer = dbAddressTextField.getText();
                 DatabaseController.dbPort = Integer.parseInt(dbPortTextField.getText());
-
-            } else if (authSelectComboBox.getValue().equals(WITHOUTAUTH)) {
-                Session.setLocalDb(false);
+                ServerInfoImportor.saveServerDataToFile();
+            } else if (authSelectComboBox.getValue().equals(WITHAUTH)) {
+                DatabaseController.isAuth = true;
                 DatabaseController.dbUser = dbUsernameField.getText();
-                DatabaseController.dbPassword = dbPasswordField.getText().toCharArray();
+                DatabaseController.dbPassword = dbPasswordField.getText();
                 DatabaseController.authdbName = authCollactionTextField.getText();
                 DatabaseController.dbServer = dbAddressTextField.getText();
+                ServerInfoImportor.saveServerDataToFile();
 
             }
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", "Database Setting",
