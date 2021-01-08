@@ -20,7 +20,7 @@ Please download these in order for the software to setup successfully
 
 ## Install the software
 ### Get JAR file
-1. Download the JAR file from the release folder
+1. Download the JAR file (name: mini-095-1.0-SNAPSHOT.jar) from the release folder 
 2. Click and run!
 ### Build from source code
 You can also modify the code and build by yourself.
@@ -31,7 +31,9 @@ You can also modify the code and build by yourself.
 5. Ta-ta-ang, you will find a JAR file under the targe folder.
 
 ## Connect to the mongoDB
-<img src="/mini-095/pic/screenshot.png" alt="drawing" width="200"/>
+<img src="/mini-095/pic/screenshot.png" alt="drawing" width="400"/>
+
+
 As showned in the picture, you can customize the URI to connect to your own MongoDB database.
 
 
