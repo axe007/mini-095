@@ -21,29 +21,26 @@ public class ProjectController {
         mongoDb.getProjectCollection().insertOne(newProject);
     }
 
-    public boolean openProject(Project project) {
+    public void openProject(Project project) {
         // Receive selected project Id from Table View
         Session.setOpenProjectId(project.getId());
+        Session.setSetOpenItem(project);
         ObjectId sprintId = project.getCurrentSprint();
         if (sprintId == null) {
             Session.setCurrentSprintId(null);
         } else {
             Session.setCurrentSprintId(sprintId);
+            String projectName = project.getName();
+            LocalDate projectStartDate = project.getStartDate();
+            LocalDate projectEndDate = project.getEndDate();
+            Session.setOpenProjectName(projectName);
+            Session.setProjectStartDate(projectStartDate);
+            Session.setProjectEndDate(projectEndDate);
+
+            if (sprintId != null) {
+                Session.setCurrentSprintId(sprintId);
+            }
         }
-
-        String projectName = project.getName();
-        LocalDate projectStartDate = project.getStartDate();
-        LocalDate projectEndDate = project.getEndDate();
-        Session.setOpenProjectName(projectName);
-        Session.setProjectStartDate(projectStartDate);
-        Session.setProjectEndDate(projectEndDate);
-
-        if (sprintId != null) {
-            Session.setCurrentSprintId(sprintId);
-        }
-
-        boolean success = true;
-        return success;
     }
 
     public String getProjectDetail(ObjectId projectId, String projectAttribute) {
@@ -85,6 +82,10 @@ public class ProjectController {
                 combine(set("name", name), set("description", description), set("startDate", startDate),
                         set("endDate", endDate), set("type", type), set("status", "Open"),
                         set("sprintDuration", sprintDuration)));
+    }
+
+    public void closeProject(ObjectId projectId) {
+        mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("status", "Closed"));
     }
 
     public ArrayList<ObjectId> getProjectList(ObjectId projectId, String listType) {

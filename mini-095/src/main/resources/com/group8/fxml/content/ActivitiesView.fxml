@@ -32,7 +32,6 @@
                      </GridPane>
                      <HBox alignment="CENTER" fillHeight="false" prefHeight="80.0" prefWidth="743.0" spacing="10.0" BorderPane.alignment="CENTER">
                          <children>
-                             <TextField fx:id="activitiesSearch" onKeyReleased="#activitiesSearchOnKeyReleased" prefHeight="25.0" prefWidth="584.0" promptText="Search user stories, tasks and bug reports" />
                          </children>
                      </HBox>
                  </children>
@@ -80,14 +79,6 @@
                       <Button fx:id="activityAssignButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleActivityButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Assign to users" textAlignment="CENTER" wrapText="true">
                           <graphic>
                               <FontAwesomeIconView glyphName="EXCHANGE" size="30" styleClass="content-action-icon" />
-                          </graphic>
-                          <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                          </HBox.margin>
-                      </Button>
-                      <Button fx:id="activityArchiveButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleActivityButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Close">
-                          <graphic>
-                              <FontAwesomeIconView glyphName="CHECK_SQUARE_ALT" size="30" styleClass="content-action-icon" />
                           </graphic>
                           <HBox.margin>
                               <Insets left="10.0" right="10.0" />

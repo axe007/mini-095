@@ -112,8 +112,6 @@ public class UIHelper {
 
     public void loadProjectBreadcrumbs(GridPane projectBreadcrumb) {
         ObjectId projectId = Session.getOpenProjectId();
-        ProjectController projectController = new ProjectController();
-
         Label openProjectLabel = new Label();
         Label projectStartDateLabel = new Label();
         Label projectEndDateLabel = new Label();
@@ -144,9 +142,11 @@ public class UIHelper {
             openProjectName.setText("No project is open yet");
             openProjectName.setStyle("-fx-text-fill: #eb7f6e");
         } else {
-            String projectName = projectController.getProjectDetail(projectId, "projectName");
-            LocalDate startDate = Session.getProjectStartDate();
-            LocalDate endDate = Session.getProjectEndDate();
+
+            Project project = (Project) Session.getOpenItem();
+            String projectName = project.getName();
+            LocalDate startDate = project.getStartDate();
+            LocalDate endDate = project.getEndDate();
             Session.setProjectStartDate(startDate);
             Session.setProjectEndDate(endDate);
             String startDateText = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));

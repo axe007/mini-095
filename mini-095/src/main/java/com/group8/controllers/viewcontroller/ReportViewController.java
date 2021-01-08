@@ -93,7 +93,6 @@ public class ReportViewController implements Initializable {
             usersList = userController.getUserList();
             timeLogList = userController.retrieveTimeLogList();
             activitiesList = activityController.getActivitiesList();
-            System.out.println(activitiesList);
 
             String activityType = "n/a";
             String activityName = "n/a";
@@ -126,7 +125,6 @@ public class ReportViewController implements Initializable {
                 if (activityUsers != null) {
                     // Loop for each report record
                     for (ObjectId projectUser : activityUsers) {
-                        System.out.println(projectUser);
                         // Lookup user details
                         for (User systemUser : usersList) {
                             if (systemUser.getId().equals(projectUser)) {
@@ -137,10 +135,7 @@ public class ReportViewController implements Initializable {
                         // Lookup time log projectUser
                         totalHours = 0.0;
                         for (TimeLog timelog : timeLogList) {
-                            System.out.println(activityId);
-
                             if (timelog.getActivityId().equals(activityId) && timelog.getUserId().equals(projectUser)) {
-                                System.out.println(timelog.getHours());
                                 double itemHour = timelog.getHours();
                                 totalHours = totalHours + itemHour;
                             }
