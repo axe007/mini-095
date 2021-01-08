@@ -2,9 +2,6 @@ package com.group8.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.UUID;
-
-import com.group8.model.Activity;
 import org.bson.types.ObjectId;
 
 public class Project {
@@ -21,9 +18,11 @@ public class Project {
     private String status;
     private ObjectId currentSprint;
 
-    public Project() {}
+    public Project() {
+    }
 
-    public Project(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
+    public Project(String name, String description, LocalDate startDate, LocalDate endDate, String type,
+            int sprintDuration) {
         this.name = name;
         this.description = description;
         this.activities = new ArrayList<>();
@@ -40,60 +39,98 @@ public class Project {
     public ObjectId getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
-    public String getDescription() { return description; }
+
+    public String getDescription() {
+        return description;
+    }
+
     public ArrayList<ObjectId> getActivities() {
         return activities;
     }
+
     public ArrayList<ObjectId> getDeveloperTeam() {
         return developerTeam;
     }
+
     public ArrayList<ObjectId> getSprints() {
         return sprints;
     }
+
     public LocalDate getStartDate() {
         return startDate;
     }
+
     public LocalDate getEndDate() {
         return endDate;
     }
+
     public String getType() {
         return type;
     }
-    public int getSprintDuration() { return sprintDuration; }
-    public ObjectId getCurrentSprint() { return currentSprint; }
+
+    public int getSprintDuration() {
+        return sprintDuration;
+    }
+
+    public ObjectId getCurrentSprint() {
+        return currentSprint;
+    }
+
     public String getStatus() {
         return status;
     }
 
-    public void setId(ObjectId id) { this.id = id; }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
-    public void setDescription(String description) { this.description = description; }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setActivities(ArrayList<ObjectId> activities) {
         this.activities = activities;
     }
+
     public void setDeveloperTeam(ArrayList<ObjectId> developerTeam) {
         this.developerTeam = developerTeam;
     }
+
     public void setSprints(ArrayList<ObjectId> sprints) {
         this.sprints = sprints;
     }
+
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
+
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+
     public void setType(String type) {
         this.type = type;
     }
-    public void setSprintDuration(int sprintDuration) { this.sprintDuration = sprintDuration; }
-    public void setCurrentSprint(ObjectId currentSprint) { this.currentSprint = currentSprint; }
-    public void setStatus(String status) { this.status = status; }
+
+    public void setSprintDuration(int sprintDuration) {
+        this.sprintDuration = sprintDuration;
+    }
+
+    public void setCurrentSprint(ObjectId currentSprint) {
+        this.currentSprint = currentSprint;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {

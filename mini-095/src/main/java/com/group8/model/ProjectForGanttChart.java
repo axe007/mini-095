@@ -3,7 +3,6 @@ package com.group8.model;
 import java.time.LocalDate;
 
 public class ProjectForGanttChart {
-    // TODO: Merge with Project class
     private String title;
     private LocalDate startDate;
     private LocalDate endDate;

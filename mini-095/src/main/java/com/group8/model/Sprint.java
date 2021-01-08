@@ -3,8 +3,6 @@ package com.group8.model;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class Sprint implements Comparable<Sprint> {
     private ObjectId id;

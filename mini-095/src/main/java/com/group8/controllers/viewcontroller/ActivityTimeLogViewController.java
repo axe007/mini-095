@@ -102,7 +102,7 @@ public class ActivityTimeLogViewController implements Initializable {
             return;
         }
 
-        if (this.createdDate.getValue().equals(null) || this.createdDate.getValue().equals("")) {
+        if (this.createdDate.getValue().equals(null) || this.createdDate.getValue().toString().equals("")) {
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
                     "You need to specify the created date.\nPlease check the date and try again.");
             this.createdDate.getStyleClass().add("textfield-error-highlight");

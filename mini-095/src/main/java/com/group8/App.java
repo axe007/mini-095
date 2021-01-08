@@ -1,10 +1,6 @@
 package com.group8;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.fxml.FXMLLoader;

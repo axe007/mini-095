@@ -100,7 +100,7 @@ public class ProjectAddViewController implements Initializable {
         RadioButton selectedRadioButton = (RadioButton) projectTypeToggle.getSelectedToggle();
         type = selectedRadioButton.getText();
 
-        if (name.equals("") || startDate.equals("") || endDate.equals("")) {
+        if (name.equals("") || startDate.toString().equals("") || endDate.toString().equals("")) {
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
                     "No fields can be empty.\nPlease check project details and try again.");
         } else {

@@ -1,6 +1,5 @@
 package com.group8.model;
 
-import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
 public class User {
@@ -13,7 +12,8 @@ public class User {
     private String userRole; // "Developer", "Project Manager", "Scrum master"
 
     // Constructors
-    public User() { }
+    public User() {
+    }
 
     public User(String username, String password, String fullname, String emailAddress, String userRole) {
         this.username = username;
@@ -24,28 +24,54 @@ public class User {
     }
 
     // Getters
-    public ObjectId getId() { return id; }
+    public ObjectId getId() {
+        return id;
+    }
+
     public String getUsername() {
         return username;
     }
+
     public String getPassword() {
         return password;
     }
-    public String getFullname() { return fullname; }
-    public String getEmailAddress() { return emailAddress; }
-    public String getUserRole() { return userRole; }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
 
     // Setters
-    public void setId(ObjectId id) { this.id = id; }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
-    public void setFullname(String fullname) { this.fullname = fullname; }
-    public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
-    public void setUserRole(String userRole) { this.userRole = userRole; }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
 
     @Override
     public int hashCode() {
@@ -60,13 +86,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{"
-                + "id='" + getId() + "'"
-                + ", username='" + username + "'"
-                + ", fullname=" + fullname
-                + ", password=" + password
-                + ", emailAddress=" + emailAddress
-                + ", userRole=" + userRole
-                + "}";
+        return "User{" + "id='" + getId() + "'" + ", username='" + username + "'" + ", fullname=" + fullname
+                + ", password=" + password + ", emailAddress=" + emailAddress + ", userRole=" + userRole + "}";
     }
 }

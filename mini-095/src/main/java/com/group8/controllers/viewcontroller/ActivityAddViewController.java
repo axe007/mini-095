@@ -171,7 +171,8 @@ public class ActivityAddViewController implements Initializable {
             return;
         }
 
-        if (activityName.equals("") || activityDescription.equals("") || startDate.equals("") || endDate.equals("")
+        if (activityName.toString().equals("") || activityDescription.toString().equals("")
+                || startDate.toString().equals("") || endDate.toString().equals("")
                 || (activityType.equals("User story") && storyPoints == 0.0)
                 || ((activityType.equals("Task") || activityType.equals("Bug")) && estimatedHours == 0.0)) {
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
