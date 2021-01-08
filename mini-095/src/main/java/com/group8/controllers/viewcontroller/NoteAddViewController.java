@@ -58,7 +58,6 @@ public class NoteAddViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
         if (Session.getWindowMode().equals("new")) {
             windowTitle.setText("Enter new note details:");
             setUpTypeComboBox(NoteType.PROJECT_NOTE);
