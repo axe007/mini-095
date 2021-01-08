@@ -99,9 +99,12 @@ public class NoteViewController implements Initializable {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
+                editNoteButton.setDisable(true);
+
             } else {
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
+                editNoteButton.setDisable(false);
             }
             if (!parentNote.getUserID().equals(currentUserID)) {
                 editNoteButton.setDisable(true);
@@ -116,9 +119,11 @@ public class NoteViewController implements Initializable {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
+                editNoteButton.setDisable(true);
             } else {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
+                editNoteButton.setDisable(false);
             }
             if (!parentNote.getUserID().equals(currentUserID)) {
                 editNoteButton.setDisable(true);
@@ -134,9 +139,11 @@ public class NoteViewController implements Initializable {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 sprintTreeTableView.getSelectionModel().clearSelection();
                 activityTreeTableView.getSelectionModel().clearSelection();
+                editNoteButton.setDisable(true);
             } else {
                 projectTreeTableView.getSelectionModel().clearSelection();
                 sprintTreeTableView.getSelectionModel().clearSelection();
+                editNoteButton.setDisable(false);
             }
             if (!parentNote.getUserID().equals(currentUserID)) {
                 editNoteButton.setDisable(true);
