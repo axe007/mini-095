@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.group8.App;
 import com.group8.constants.Constants;
+import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,8 @@ public class LoginViewController {
     private HBox loginErrorMsg;
     @FXML
     private CheckBox localDb;
+    @FXML
+    private Button loginResetBtn;
 
     @FXML
     private void handleLoginButton(ActionEvent event) throws IOException {
@@ -58,9 +61,12 @@ public class LoginViewController {
     @FXML
     private void handleResetButton(ActionEvent event) throws IOException {
 
-        usernameField.clear();
-        passwordField.clear();
-        loginErrorMsg.setVisible(false);
+        // usernameField.clear();
+        // passwordField.clear();
+        // loginErrorMsg.setVisible(false);
+        UIHelper uiHelper = new UIHelper();
+        uiHelper.loadWindow("DBConfigView", loginResetBtn, "Database Configuration");
+
     }
 
 }

@@ -27,13 +27,13 @@ import java.util.List;
 
 public class DatabaseController {
 
-        String dbUser = "MongoAdmin";
-        char[] dbPassword = "Mini095GU".toCharArray(); // the password as a character array
-        String dbName = "mini95";
-        String authdbName = "admin"; // the name of the database in which the user is defined
-        String dbServer = "mongodb.altansukh.com";
-        String dbLocalServer = "localhost";
-        int dbPort = 27017;
+        public static String dbUser = "MongoAdmin";
+        public static char[] dbPassword = "Mini095GU".toCharArray(); // the password as a character array
+        public static String dbName = "mini95";
+        public static String authdbName = "admin"; // the name of the database in which the user is defined
+        public static String dbServer = "mongodb.altansukh.com";
+        public static String dbLocalServer = "localhost";
+        public static int dbPort = 27017;
 
         public MongoClient dbConnect() {
                 boolean localDb = Session.isLocalDb();
