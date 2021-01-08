@@ -25,14 +25,13 @@ import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjectViewController implements Initializable {
 
     private static ProjectController proController = new ProjectController();
     private static UIHelper uiHelper = new UIHelper();
-    private List<Project> projectList = new ArrayList<>();
+
     public static BooleanProperty isUpdated = new SimpleBooleanProperty();
 
     @FXML
@@ -68,7 +67,8 @@ public class ProjectViewController implements Initializable {
 
     @FXML
     private void handleProjectButtons(ActionEvent event) throws IOException {
-        if (event.getSource() == projectNewButton || event.getSource() == projectModifyButton || event.getSource() == projectCloseButton) {
+        if (event.getSource() == projectNewButton || event.getSource() == projectModifyButton
+                || event.getSource() == projectCloseButton) {
             ObjectId loggedUserId = Session.getSessionUserId();
             UserController userController = new UserController();
             String userRole = userController.getUserDetail(loggedUserId, "userRole");

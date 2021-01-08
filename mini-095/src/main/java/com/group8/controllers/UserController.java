@@ -1,13 +1,13 @@
 package com.group8.controllers;
 
 import com.group8.model.*;
-import com.group8.helper.Helper;
+
 import com.mongodb.BasicDBObject;
-import com.mongodb.client.result.UpdateResult;
+
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static com.mongodb.client.model.Updates.*;
 public class UserController {
 
     private static DatabaseController mongoDb = new DatabaseController();
-    private ActivityController activityController = new ActivityController();
+    // private ActivityController activityController = new ActivityController();
 
     public void createUser(String username, String password, String fullname, String emailAddress, String userRole) {
         User newUser;
@@ -113,7 +113,8 @@ public class UserController {
         return userId;
     }
 
-    public void recordTimeLog(ObjectId projectId, ObjectId sprintId, ObjectId activityId, ObjectId userId, double hours, LocalDate createdDate) {
+    public void recordTimeLog(ObjectId projectId, ObjectId sprintId, ObjectId activityId, ObjectId userId, double hours,
+            LocalDate createdDate) {
         TimeLog timeLog = new TimeLog(projectId, sprintId, activityId, userId, hours, createdDate);
         mongoDb.getTimeLogCollection().insertOne(timeLog);
     }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="noteView" prefHeight="600.0" prefWidth="800.0" styleClass="" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.NoteViewController">
+   <children>
+      <BorderPane>
+         <center>
+            <TabPane focusTraversable="false" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab closable="false" text="Project notes">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <TreeTableView fx:id="projectTreeTableView" focusTraversable="false" prefHeight="${projectTreeTableView.parent.height}" prefWidth="${projectTreeTableView.parent.width}" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab closable="false" text="Sprint notes">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <TreeTableView fx:id="sprintTreeTableView" focusTraversable="false" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab closable="false" text="Activities notes">
+                   <content>
+                      <AnchorPane>
+                           <children>
+                              <TreeTableView fx:id="activityTreeTableView" focusTraversable="false" />
+                           </children></AnchorPane>
+                   </content>
+                </Tab>
+              </tabs>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </TabPane>
+         </center>
+         <bottom>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="newNoteButton" mnemonicParsing="false" onAction="#handelNewButton" text="New Note" />
+                  <Button fx:id="editNoteButton" mnemonicParsing="false" onAction="#handelEditButton" text="Edit Note" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</StackPane>

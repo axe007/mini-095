@@ -62,14 +62,14 @@ public class ActivityAssignViewController implements Initializable {
     @FXML
     private void handleSaveBtn(ActionEvent event) throws IOException {
 
-        List<String> unassignedUsers = unassignedListView.getItems();
+        // List<String> unassignedUsers = unassignedListView.getItems();
         List<String> assignedUsers = assignedListView.getItems();
         activityController.updateActivityAssignee(assignedUsers);
 
         String alertHeading = "Assigning activities";
         String alertContent = "Current activity is assigned to \nselected users.";
         UIHelper uiHelper = new UIHelper();
-        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();

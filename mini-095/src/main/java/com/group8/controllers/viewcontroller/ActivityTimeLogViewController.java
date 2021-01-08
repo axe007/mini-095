@@ -23,7 +23,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -74,9 +73,9 @@ public class ActivityTimeLogViewController implements Initializable {
     @FXML
     private void handleSaveActivityBtn(ActionEvent event) throws IOException {
         // clear all text field
-        String noteContentText = "";
-        String newStatusText;
-        String newStatusSet = "TODO";
+        // String noteContentText = "";
+        // String newStatusText;
+        // String newStatusSet = "TODO";
         String alertHeading = "Activity time log";
         String alertContent = "Time log successfully recorded.";
         Activity activity = (Activity) Session.getOpenItem();
@@ -93,10 +92,9 @@ public class ActivityTimeLogViewController implements Initializable {
         sprintId = Session.getCurrentSprintId();
         userId = Session.getSessionUserId();
 
-        try{
+        try {
             timeLogHours = Double.parseDouble(this.timeLogHours.getText());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
                     "You need to enter numbers (2.5) for hours.\nPlease check the hours and try again.");
             this.timeLogHours.getStyleClass().add("textfield-error-highlight");
@@ -139,8 +137,8 @@ public class ActivityTimeLogViewController implements Initializable {
         String activityName;
         LocalDate startDate;
         LocalDate endDate;
-        double storyPoints = 0.0;
-        double estimatedHours = 0.0;
+        // double storyPoints = 0.0;
+        // double estimatedHours = 0.0;
         double priority;
         ObjectId grandId = null;
         ObjectId parentId = null;
@@ -230,7 +228,7 @@ public class ActivityTimeLogViewController implements Initializable {
             currentStatusPane.setPrefWidth(52);
         }
         currentStatus.setText(status);
-        //currentStatus.getStyleClass().add("scrum-activity-status");
+        // currentStatus.getStyleClass().add("scrum-activity-status");
         this.activityName.setText(activityName);
         this.parentItems.setText(grandName + parentName);
 
@@ -256,7 +254,7 @@ public class ActivityTimeLogViewController implements Initializable {
 
         this.createdDate.setDayCellFactory(projectDates);
         this.createdDate.setValue(startDate);
-        
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

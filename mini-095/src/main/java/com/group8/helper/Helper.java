@@ -2,18 +2,12 @@ package com.group8.helper;
 
 import com.group8.App;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
@@ -42,7 +36,7 @@ public class Helper {
         input.nextLine();
 
         return userInput;
-}
+    }
 
     public double getDouble() {
         double userInput = input.nextDouble();
@@ -55,28 +49,21 @@ public class Helper {
         Object controller = null;
         try {
 
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            AnchorPane loadedPane = fxmlLoader.load(App.class.getResource("../fxml/content/" + fileName + ".fxml"));
+            AnchorPane loadedPane = FXMLLoader.load(App.class.getResource("../fxml/content/" + fileName + ".fxml"));
 
-            if (parentPane == null){
+            if (parentPane == null) {
                 parentPane = new StackPane();
             }
             parentPane.getChildren().clear();
             parentPane.getChildren().add(loadedPane);
 
-
-            /*FXMLLoader loader = new FXMLLoader(loc);
-            Parent parent = loader.load();
-            controller = loader.getController();
-            Stage stage = null;
-            if (parentStage != null) {
-                stage = parentStage;
-            } else {
-                stage = new Stage(StageStyle.DECORATED);
-            }
-            stage.setTitle(title);
-            stage.setScene(new Scene(parent));
-            stage.show();*/
+            /*
+             * FXMLLoader loader = new FXMLLoader(loc); Parent parent = loader.load();
+             * controller = loader.getController(); Stage stage = null; if (parentStage !=
+             * null) { stage = parentStage; } else { stage = new
+             * Stage(StageStyle.DECORATED); } stage.setTitle(title); stage.setScene(new
+             * Scene(parent)); stage.show();
+             */
 
         } catch (IOException ex) {
             System.out.println("Exception: " + ex);
@@ -84,13 +71,13 @@ public class Helper {
         return controller;
     }
 
-
     public long getLong() {
         long userInput = input.nextLong();
         input.nextLine();
 
         return userInput;
     }
+
     public LocalDateTime localDateExceptionHandler() {
         System.out.print("Please input in the following format: yyyy-MM-dd hh:mm ");
         String s = "";
@@ -106,8 +93,6 @@ public class Helper {
 
         return dateTime;
     }
-
-
 
     public void closeScanner() {
         input.close();

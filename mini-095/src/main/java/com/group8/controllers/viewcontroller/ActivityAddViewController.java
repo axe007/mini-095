@@ -50,7 +50,7 @@ public class ActivityAddViewController implements Initializable {
     @FXML
     private Button cancelButton;
     @FXML
-    private ComboBox activityType;
+    private ComboBox<String> activityType;
     @FXML
     private ComboBox<ComboBoxItem> parentActivityCombo;
     @FXML
@@ -79,7 +79,7 @@ public class ActivityAddViewController implements Initializable {
         Double storyPoints = 0.0;
         Double estimatedHours = 0.0;
         double priority;
-        ObjectId activityId;
+        // ObjectId activityId;
         ObjectId grandId = null;
         ObjectId parentId = null;
         String parentItemName = null;
@@ -89,7 +89,7 @@ public class ActivityAddViewController implements Initializable {
 
         name = this.activityName.getText();
         description = this.activityDescription.getText();
-        activityType = this.activityType.getValue().toString();
+        activityType = this.activityType.getValue();
 
         if (this.startDate != null || this.endDate != null) {
             startDate = this.startDate.getValue();
@@ -248,8 +248,8 @@ public class ActivityAddViewController implements Initializable {
                 String selectedType;
                 LocalDate startDate;
                 LocalDate endDate;
-                double storyPoints = 0.0;
-                double estimatedHours = 0.0;
+                // double storyPoints = 0.0;
+                // double estimatedHours = 0.0;
                 ObjectId parentId = null;
                 String comboParentName = null;
 

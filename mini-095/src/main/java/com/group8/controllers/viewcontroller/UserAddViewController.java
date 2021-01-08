@@ -1,29 +1,23 @@
 package com.group8.controllers.viewcontroller;
 
-import com.group8.App;
-import com.group8.controllers.ApplicationController;
 import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
-import com.group8.model.Activity;
+
 import com.group8.model.Session;
 import com.group8.model.User;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -112,7 +106,7 @@ public class UserAddViewController implements Initializable {
             }
         }
 
-        if (!uiHelper.validateEmailAddress(emailAddress)) {
+        if (!UIHelper.validateEmailAddress(emailAddress)) {
             uiHelper.alertDialogGenerator(dialogPane, "error", alertHeading,
                     "Invalid email address.\nPlease check email address and try again.");
             this.emailAddress.getStyleClass().add("textfield-error-highlight");
@@ -124,7 +118,7 @@ public class UserAddViewController implements Initializable {
         userRole = selectedRadioButton.getText();
 
         UIHelper uiHelper = new UIHelper();
-        boolean validation = true;
+        // boolean validation = true;
 
         if (Session.getWindowMode().equals("new")) {
 

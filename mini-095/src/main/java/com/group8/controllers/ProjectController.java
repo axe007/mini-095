@@ -15,7 +15,8 @@ public class ProjectController {
 
     private static DatabaseController mongoDb = new DatabaseController();
 
-    public void createProject(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
+    public void createProject(String name, String description, LocalDate startDate, LocalDate endDate, String type,
+            int sprintDuration) {
         Project newProject = new Project(name, description, startDate, endDate, type, sprintDuration);
         mongoDb.getProjectCollection().insertOne(newProject);
     }
@@ -75,12 +76,15 @@ public class ProjectController {
         return projects;
     }
 
-    public void modifyProject(String name, String description, LocalDate startDate, LocalDate endDate, String type, int sprintDuration) {
+    public void modifyProject(String name, String description, LocalDate startDate, LocalDate endDate, String type,
+            int sprintDuration) {
         Project project = (Project) Session.getOpenItem();
         ObjectId id = project.getId();
 
-        mongoDb.getProjectCollection().updateOne(eq("_id", id), combine(set("name", name), set("description", description), set("startDate", startDate),
-                set("endDate", endDate), set("type", type), set("status", "Open"), set("sprintDuration", sprintDuration)));
+        mongoDb.getProjectCollection().updateOne(eq("_id", id),
+                combine(set("name", name), set("description", description), set("startDate", startDate),
+                        set("endDate", endDate), set("type", type), set("status", "Open"),
+                        set("sprintDuration", sprintDuration)));
     }
 
     public ArrayList<ObjectId> getProjectList(ObjectId projectId, String listType) {
@@ -156,16 +160,17 @@ public class ProjectController {
         project.setSprints(sprintList);
         project.setCurrentSprint(sprintId);
 
-        mongoDb.getProjectCollection().updateOne(eq("_id", projectId), combine(set("sprints", sprintList), set("currentSprint", sprintId)));
+        mongoDb.getProjectCollection().updateOne(eq("_id", projectId),
+                combine(set("sprints", sprintList), set("currentSprint", sprintId)));
     }
 
     public void completeSprint() {
         ObjectId projectId = Session.getOpenProjectId();
-        Project project = mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
-                .find(eq("_id", projectId)).first();
+        // Project project =
+        // mongoDb.getProjectCollection().withCodecRegistry(mongoDb.createCodecRegistry("Projects"))
+        // .find(eq("_id", projectId)).first();
         mongoDb.getProjectCollection().updateOne(eq("_id", projectId), set("currentSprint", null));
     }
-
 
     // TEST METHOD - DONT RUN
     public void overwriteActivityListDelete() {

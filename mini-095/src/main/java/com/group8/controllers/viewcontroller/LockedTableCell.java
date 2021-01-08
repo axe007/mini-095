@@ -1,11 +1,6 @@
 package com.group8.controllers.viewcontroller;
 
-import javafx.application.Platform;
-import javafx.scene.AccessibleAttribute;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.skin.TableHeaderRow;
-import javafx.scene.layout.Region;
 
 public abstract class LockedTableCell<T, S> extends TreeTableCell<T, S> {
 

@@ -1,7 +1,6 @@
 package com.group8.controllers;
 
 import com.group8.App;
-import com.group8.controllers.viewcontroller.ActivitiesViewController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Session;
 
@@ -101,8 +100,8 @@ public class ApplicationController implements Initializable {
     }
 
     public void changeView(String viewName, String viewTitle, Object activeButton) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        StackPane loadedPane = fxmlLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
+        // FXMLLoader fxmlLoader = new FXMLLoader();
+        StackPane loadedPane = FXMLLoader.load(App.class.getResource("fxml/content/" + viewName + ".fxml"));
         mainTitleLabel.setText(viewTitle);
         setActiveButton(activeButton);
 

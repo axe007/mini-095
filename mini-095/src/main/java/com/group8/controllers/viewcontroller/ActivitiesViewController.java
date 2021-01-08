@@ -42,7 +42,7 @@ public class ActivitiesViewController implements Initializable {
     @FXML
     private BorderPane avBorderPane;
     @FXML
-    private TableView tblActivities;
+    private TableView<Activity> tblActivities;
     @FXML
     private Button activityNewButton;
     @FXML

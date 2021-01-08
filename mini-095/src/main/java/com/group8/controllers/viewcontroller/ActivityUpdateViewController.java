@@ -3,22 +3,17 @@ package com.group8.controllers.viewcontroller;
 import com.group8.controllers.ActivityController;
 import com.group8.helper.UIHelper;
 import com.group8.model.*;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.css.PseudoClass;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
+
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -26,7 +21,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
+
 import java.util.*;
 
 public class ActivityUpdateViewController implements Initializable {
@@ -71,7 +66,7 @@ public class ActivityUpdateViewController implements Initializable {
     @FXML
     private void handleSaveActivityBtn(ActionEvent event) throws IOException {
         // clear all text field
-        String noteContentText = "";
+        // String noteContentText = "";
         String newStatusText;
         String newStatusSet = "TODO";
         String alertHeading = "Update activity status";
@@ -122,8 +117,8 @@ public class ActivityUpdateViewController implements Initializable {
         String activityName;
         LocalDate startDate;
         LocalDate endDate;
-        double storyPoints = 0.0;
-        double estimatedHours = 0.0;
+        // double storyPoints = 0.0;
+        // double estimatedHours = 0.0;
         double priority;
         ObjectId grandId = null;
         ObjectId parentId = null;

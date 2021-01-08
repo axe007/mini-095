@@ -2,16 +2,11 @@ package com.group8.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
-import com.group8.model.Activity;
-import com.group8.helper.Helper;
-import com.group8.model.Project;
 import com.group8.model.Sprint;
-import com.mongodb.client.ClientSession;
+
 import com.mongodb.client.MongoCollection;
-import com.mongodb.internal.async.SingleResultCallback;
-import com.mongodb.internal.async.client.AsyncMongoCollection;
+
 import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.*;
@@ -24,7 +19,7 @@ public class SprintController {
 
     public ObjectId createSprint(String name, LocalDate sprintStartDate, LocalDate sprintEndDate) {
         final Sprint newSprint = new Sprint(name, sprintStartDate, sprintEndDate);
-        MongoCollection sprintCollection = mongoDb.getSprintCollection()
+        MongoCollection<Sprint> sprintCollection = mongoDb.getSprintCollection()
                 .withCodecRegistry(mongoDb.createCodecRegistry("Sprints"));
 
         newSprint.setId(new ObjectId());

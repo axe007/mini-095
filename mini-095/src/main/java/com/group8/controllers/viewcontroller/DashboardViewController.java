@@ -137,11 +137,11 @@ public class DashboardViewController implements Initializable {
         ObjectId currentUserId = Session.getSessionUserId();
         ObjectId currentProjectId = Session.getOpenProjectId();
         System.out.println("Current user id:" + currentUserId);
-        String userName;
-        String fullName;
+        // String userName;
+        // String fullName;
         String userRole = "";
-        String numberOfProjects;
-        String numberOfActivities;
+        // String numberOfProjects;
+        // String numberOfActivities;
         int userProjectCount = 0;
         int userActivityCount = 0;
         double userHoursProjects = 0.0;
@@ -150,7 +150,7 @@ public class DashboardViewController implements Initializable {
         // Load current user info
         for (User user : usersList) {
             if (user.getId().equals(currentUserId)) {
-                userName = user.getUsername();
+                // userName = user.getUsername();
                 userRole = user.getUserRole();
 
             }
@@ -192,7 +192,7 @@ public class DashboardViewController implements Initializable {
         this.userProjects.setText(String.valueOf(userProjectCount));
         this.userActivities.setText(String.valueOf(userActivityCount));
         this.userHoursProjects.setText(String.valueOf(userHoursProjects) + " hours");
-        this.userHoursCurrentProject.setText(String.valueOf(userHoursCurrentProject)  + " hours");
+        this.userHoursCurrentProject.setText(String.valueOf(userHoursCurrentProject) + " hours");
     }
 
     @FXML
@@ -273,7 +273,6 @@ public class DashboardViewController implements Initializable {
                 this.reviewItems.setText(String.valueOf(reviewCount));
                 this.doneItems.setText(String.valueOf(doneCount));
                 this.totalHoursCurrentSprint.setText(String.valueOf(totalHoursCurrentSprint) + " hours");
-
 
             }
         }

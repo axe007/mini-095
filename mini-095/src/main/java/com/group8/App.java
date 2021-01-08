@@ -14,10 +14,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-/**
- * Hello world!
- *
- */
 public class App extends Application {
     private static Scene scene;
     private static String appTitle = "mini-095 Project Management Software";

@@ -3,24 +3,20 @@ package com.group8.controllers.viewcontroller;
 import com.group8.controllers.ActivityController;
 import com.group8.controllers.ProjectController;
 import com.group8.controllers.SprintController;
-import com.group8.controllers.UserController;
 import com.group8.helper.UIHelper;
 import com.group8.model.Activity;
 import com.group8.model.Session;
 import com.group8.model.Sprint;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Callback;
 import org.bson.types.ObjectId;
 
@@ -37,7 +33,6 @@ public class SprintAddViewController implements Initializable {
     private static ProjectController projectController = new ProjectController();
     private static ActivityController activityController = new ActivityController();
     private static SprintController sprintController = new SprintController();
-    private static UIHelper uiHelper = new UIHelper();
 
     private ObservableList<String> backlogActivities = FXCollections.observableArrayList();
     private ObservableList<String> sprintActivities = FXCollections.observableArrayList();

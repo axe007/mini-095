@@ -68,26 +68,29 @@ public class ScrumboardViewController implements Initializable {
         isUpdated.setValue(false);
         if (event.getSource() == sprintNewButton) {
             if (Session.getCurrentSprintId() != null) {
-                uiHelper.alertDialogGenerator(scrumboardView,"error", "New sprint", "Current sprint is not completed.\nPlease complete the current sprint and try again.");
+                uiHelper.alertDialogGenerator(scrumboardView, "error", "New sprint",
+                        "Current sprint is not completed.\nPlease complete the current sprint and try again.");
                 return;
             } else if (validateNewSprintDate()) {
-                    String alertHeading = "Create new sprint";
-                    String alertContent = "Previous sprint ended on project's end date.\nUnable to create next sprint.\n Please update project dates and try again.";
-                    uiHelper.alertDialogGenerator(scrumboardView,"error", alertHeading, alertContent);
+                String alertHeading = "Create new sprint";
+                String alertContent = "Previous sprint ended on project's end date.\nUnable to create next sprint.\n Please update project dates and try again.";
+                uiHelper.alertDialogGenerator(scrumboardView, "error", alertHeading, alertContent);
             } else {
                 Session.setWindowMode("new");
                 uiHelper.loadWindow("SprintAddView", sprintNewButton, "Create new sprint");
             }
         } else if (event.getSource() == activityAssignButton) {
             if (Session.getCurrentSprintId() == null) {
-                uiHelper.alertDialogGenerator(scrumboardView,"error", "Assign activities", "No sprint has been created.\nPlease start a new sprint and try again.");
+                uiHelper.alertDialogGenerator(scrumboardView, "error", "Assign activities",
+                        "No sprint has been created.\nPlease start a new sprint and try again.");
                 return;
             } else {
                 Session.setWindowMode("edit");
                 uiHelper.loadWindow("SprintAddView", activityAssignButton, "Sprint activities");
             }
         } else if (event.getSource() == activityUpdateButton || event.getSource() == activityTimeLogButton) {
-            ArrayList<ListView> listViews = new ArrayList<>(Arrays.asList(listToDo, listInProgress, listReview, listDone));
+            ArrayList<ListView> listViews = new ArrayList<>(
+                    Arrays.asList(listToDo, listInProgress, listReview, listDone));
             ListCellItem listItem = null;
             for (ListView list : listViews) {
                 if (!list.getSelectionModel().isEmpty()) {
@@ -96,7 +99,8 @@ public class ScrumboardViewController implements Initializable {
             }
 
             if (listItem == null) {
-                uiHelper.alertDialogGenerator(scrumboardView,"error", "Update activity", "No activity selected.\nPlease select an activity and try again.");
+                uiHelper.alertDialogGenerator(scrumboardView, "error", "Update activity",
+                        "No activity selected.\nPlease select an activity and try again.");
                 return;
             } else {
                 String name = listItem.getName();
@@ -108,9 +112,10 @@ public class ScrumboardViewController implements Initializable {
                     uiHelper.loadWindow("ActivityTimeLogView", activityUpdateButton, "Update time log");
                 }
             }
-        }  else if (event.getSource() == sprintCompleteButton) {
+        } else if (event.getSource() == sprintCompleteButton) {
             if (Session.getCurrentSprintId() == null) {
-                uiHelper.alertDialogGenerator(scrumboardView,"error", "Complete a sprint", "No sprint has been created.\nPlease start a new sprint and try again.");
+                uiHelper.alertDialogGenerator(scrumboardView, "error", "Complete a sprint",
+                        "No sprint has been created.\nPlease start a new sprint and try again.");
                 return;
             } else {
                 uiHelper.loadWindow("SprintCompleteView", sprintNewButton, "Complete a sprint");
@@ -149,13 +154,13 @@ public class ScrumboardViewController implements Initializable {
                 activityType = "Bug";
             }
             if (activity.getActivityStatus().equals("TODO")) {
-                todoItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+                todoItems.add(new ListCellItem(activityName, activityType, (int) activityPriority));
             } else if (activity.getActivityStatus().equals("INPROGRESS")) {
-                inprogressItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+                inprogressItems.add(new ListCellItem(activityName, activityType, (int) activityPriority));
             } else if (activity.getActivityStatus().equals("REVIEW")) {
-                reviewItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+                reviewItems.add(new ListCellItem(activityName, activityType, (int) activityPriority));
             } else if (activity.getActivityStatus().equals("DONE")) {
-                doneItems.add(new ListCellItem(activityName, activityType, (int)activityPriority));
+                doneItems.add(new ListCellItem(activityName, activityType, (int) activityPriority));
             }
         }
 
@@ -170,28 +175,28 @@ public class ScrumboardViewController implements Initializable {
                         if (item != null && item.getType().equals("User Story")) {
                             setPrefHeight(45.0);
                             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.STACK_EXCHANGE, "12");
-                            icon.setFill(Color.rgb(8,97,8));
+                            icon.setFill(Color.rgb(8, 97, 8));
                             setText(item.getName());
                             setGraphic(icon);
-                            setTextFill(Color.rgb(8,97,8));
+                            setTextFill(Color.rgb(8, 97, 8));
                             int priority = item.getPriority();
                             setBorder(paintPriority(priority));
-                        } else if (item != null && item.getType().equals("Task")){
+                        } else if (item != null && item.getType().equals("Task")) {
                             setPrefHeight(45);
                             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.CODE_FORK, "12");
-                            icon.setFill(Color.rgb(0,5,221));
+                            icon.setFill(Color.rgb(0, 5, 221));
                             setText(item.getName());
                             setGraphic(icon);
-                            setTextFill(Color.rgb(0,5,221));
+                            setTextFill(Color.rgb(0, 5, 221));
                             int priority = item.getPriority();
                             setBorder(paintPriority(priority));
-                        } else if (item != null && item.getType().equals("Bug")){
+                        } else if (item != null && item.getType().equals("Bug")) {
                             setPrefHeight(45);
                             FontAwesomeIconView icon = new FontAwesomeIconView(FontAwesomeIcon.BUG, "12");
-                            icon.setFill(Color.rgb(200,13,13));
+                            icon.setFill(Color.rgb(200, 13, 13));
                             setText(item.getName());
                             setGraphic(icon);
-                            setTextFill(Color.rgb(200,13,13));
+                            setTextFill(Color.rgb(200, 13, 13));
                             int priority = item.getPriority();
                             setBorder(paintPriority(priority));
                         } else if (empty || item == null || item.getName().equals("")) {
@@ -223,18 +228,25 @@ public class ScrumboardViewController implements Initializable {
     }
 
     public Border paintPriority(int priority) {
-        // Border itemBorder = new Border(new BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 4)));
+        // Border itemBorder = new Border(new
+        // BorderStroke(Color.GREENYELLOW,BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+        // new BorderWidths(0, 0, 0, 4)));
         Border itemBorder = null;
         if (priority == 1) {
-            itemBorder = new Border(new BorderStroke(Color.web("0xDDDDDD"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+            itemBorder = new Border(new BorderStroke(Color.web("0xDDDDDD"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+                    new BorderWidths(0, 0, 0, 3)));
         } else if (priority == 2) {
-            itemBorder = new Border(new BorderStroke(Color.web("0xcbea96"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+            itemBorder = new Border(new BorderStroke(Color.web("0xcbea96"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+                    new BorderWidths(0, 0, 0, 3)));
         } else if (priority == 3) {
-            itemBorder = new Border(new BorderStroke(Color.web("0x41b337"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+            itemBorder = new Border(new BorderStroke(Color.web("0x41b337"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+                    new BorderWidths(0, 0, 0, 3)));
         } else if (priority == 4) {
-            itemBorder = new Border(new BorderStroke(Color.web("0xffe56b"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+            itemBorder = new Border(new BorderStroke(Color.web("0xffe56b"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+                    new BorderWidths(0, 0, 0, 3)));
         } else if (priority == 5) {
-            itemBorder = new Border(new BorderStroke(Color.web("0xE56767"),BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 0, 0, 3)));
+            itemBorder = new Border(new BorderStroke(Color.web("0xE56767"), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+                    new BorderWidths(0, 0, 0, 3)));
         }
         return itemBorder;
     }
@@ -292,9 +304,11 @@ public class ScrumboardViewController implements Initializable {
         public String getName() {
             return name;
         }
+
         public String getType() {
             return type;
         }
+
         public int getPriority() {
             return priority;
         }
@@ -307,7 +321,7 @@ public class ScrumboardViewController implements Initializable {
 
     public boolean validateNewSprintDate() {
         boolean valid;
-        LocalDate projectStartDate = Session.getProjectStartDate();
+        // LocalDate projectStartDate = Session.getProjectStartDate();
         LocalDate projectEndDate = Session.getProjectEndDate();
 
         ObjectId projectId = Session.getOpenProjectId();
@@ -334,7 +348,7 @@ public class ScrumboardViewController implements Initializable {
             }
 
             if ((sprintStartDate.compareTo(projectEndDate) >= 0)) {
-                    valid = true;
+                valid = true;
             } else {
                 valid = false;
             }

@@ -62,13 +62,11 @@ public class SprintCompleteViewController implements Initializable {
     @FXML
     private ListView<String> completeListView;
 
-
     @FXML
     private void handleSaveBtn(ActionEvent event) throws IOException {
         String alertHeading = "Complete a sprint";
         String alertContent = "The sprint has been marked as complete and \nongoing activities are assigned to project backlog.";
-        String sprintNotes;
-        sprintNotes = this.sprintNoteContent.getText();
+        // String sprintNotes = this.sprintNoteContent.getText();
         ObjectId currentSprintId = Session.getCurrentSprintId();
         sprintController.completeSprint(currentSprintId); // Mark this sprint as Complete
 
@@ -78,7 +76,7 @@ public class SprintCompleteViewController implements Initializable {
         projectController.completeSprint();
 
         UIHelper uiHelper = new UIHelper();
-        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
@@ -124,10 +122,10 @@ public class SprintCompleteViewController implements Initializable {
 
         ongoingListView.setItems(ongoingActivities);
         completeListView.setItems(completeActivities);
-        ongoingListView.setMouseTransparent( true );
-        ongoingListView.setFocusTraversable( false );
-        completeListView.setMouseTransparent( true );
-        completeListView.setFocusTraversable( false );
+        ongoingListView.setMouseTransparent(true);
+        ongoingListView.setFocusTraversable(false);
+        completeListView.setMouseTransparent(true);
+        completeListView.setFocusTraversable(false);
 
         if (completeListView.getItems() == null) {
             completeListView.setPlaceholder(new Text("No activities completed yet"));

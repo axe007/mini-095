@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class UserAssignViewController implements Initializable {
 
@@ -53,17 +52,16 @@ public class UserAssignViewController implements Initializable {
     @FXML
     private ListView assignedListView;
 
-
     @FXML
     private void handleSaveBtn(ActionEvent event) throws IOException {
-        List<String> unassignedUsers = unassignedListView.getItems();
+        // List<String> unassignedUsers = unassignedListView.getItems();
         List<String> assignedUsers = assignedListView.getItems();
         projectController.updateDeveloperTeam(assignedUsers);
 
         String alertHeading = "Assigning users";
         String alertContent = "Current project users have been \nsuccessfully updated.";
 
-        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane,"success", alertHeading, alertContent);
+        Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading, alertContent);
         if (result.get() == ButtonType.OK) {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
@@ -113,8 +111,8 @@ public class UserAssignViewController implements Initializable {
         this.projectStartDate.setText(projectStartDate);
         this.projectEndDate.setText(projectEndDate);
 
-        //final ListView<String> unassignedList = new ListView<>(allUsers);
-        //final ListView<String> assignedList = new ListView<>(projectUsers);
+        // final ListView<String> unassignedList = new ListView<>(allUsers);
+        // final ListView<String> assignedList = new ListView<>(projectUsers);
 
         setListViews();
 

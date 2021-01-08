@@ -4,17 +4,12 @@ import com.group8.App;
 import com.group8.controllers.ProjectController;
 import com.group8.model.Project;
 import com.group8.model.Session;
-import com.group8.model.*;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -64,7 +59,7 @@ public class UIHelper {
     public Optional<ButtonType> alertDialogGenerator(StackPane root, String alertType, String title, String content) {
         Alert alert = null;
         DialogPane dialogPane = null;
-        
+
         Optional<ButtonType> result = null;
 
         if (alertType.equals("error")) {
@@ -98,8 +93,8 @@ public class UIHelper {
     }
 
     private void styleAlert(Alert alert) {
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        //LibraryAssistantUtil.setStageIcon(stage);
+        // Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        // LibraryAssistantUtil.setStageIcon(stage);
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(App.class.getResource("css/default.css").toExternalForm());
@@ -177,14 +172,11 @@ public class UIHelper {
     public boolean uiValidator(String fieldName) {
         boolean result = false;
 
-
-
         return result;
     }
 
     public static boolean validateEmailAddress(String emailID) {
-        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(emailID).matches();
     }
