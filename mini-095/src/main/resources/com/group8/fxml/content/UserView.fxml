@@ -32,7 +32,6 @@
                         </GridPane>
                         <HBox alignment="CENTER" fillHeight="false" prefHeight="80.0" prefWidth="743.0" spacing="10.0" BorderPane.alignment="CENTER">
                             <children>
-                                <TextField fx:id="usersSearch" onKeyReleased="#userSearchOnKeyReleased" prefHeight="25.0" prefWidth="584.0" promptText="Search users" />
                             </children>
                         </HBox>
                     </children>
@@ -77,14 +76,6 @@
                         <Button fx:id="userAssignButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleUserButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" text="Assign to open project" textAlignment="CENTER" wrapText="true">
                             <graphic>
                                 <FontAwesomeIconView glyphName="USERS" size="30" styleClass="content-action-icon" />
-                            </graphic>
-                            <HBox.margin>
-                                <Insets left="10.0" right="10.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="userDeleteButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleUserButtons" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" text="Delete user">
-                            <graphic>
-                                <FontAwesomeIconView glyphName="USER_TIMES" size="30" styleClass="content-action-icon" />
                             </graphic>
                             <HBox.margin>
                                 <Insets left="10.0" right="10.0" />

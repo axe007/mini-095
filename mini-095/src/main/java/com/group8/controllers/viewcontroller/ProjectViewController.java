@@ -98,7 +98,23 @@ public class ProjectViewController implements Initializable {
 
                 } else if (event.getSource() == projectCloseButton) {
                     // Method for closing a project
-
+                    Project project = tblProjects.getSelectionModel().getSelectedItem();
+                    Session.setSetOpenItem(project);
+                    if (project == null) {
+                        uiHelper.alertDialogGenerator(projectView, "error", "Close project",
+                                "No project exist or no project selected.\nPlease select a project and try again.");
+                        return;
+                    } else {
+                        String projectStatus = project.getStatus();
+                        if (projectStatus.equals("Closed")) {
+                            uiHelper.alertDialogGenerator(projectView, "error", "Close project",
+                                    "This project is already \"Closed\".\nPlease try again later.");
+                            return;
+                        } else {
+                            Session.setWindowMode("edit");
+                            uiHelper.loadWindow("ProjectCloseView", projectCloseButton, project);
+                        }
+                    }
                 }
             }
         } else if (event.getSource() == projectOpenButton) {
@@ -171,12 +187,20 @@ public class ProjectViewController implements Initializable {
             uiHelper.alertDialogGenerator(projectView, "error", "Open project",
                     "No project exist or no project selected.\nPlease select a project and try again.");
         } else {
-            boolean success = proController.openProject(project);
+            String projectStatus = project.getStatus();
+            ObjectId userId = Session.getSessionUserId();
+            UserController userController = new UserController();
+            String userRole = userController.getUserDetail(userId, "userRole");
 
-            if (success) {
-                uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
+            if (projectStatus.equals("Closed") && userRole.equals("Developer")) {
+                uiHelper.alertDialogGenerator(projectView, "error", "Open project",
+                        "This project is Closed. Only Project Manager or Scrum Master users can open.\nPlease try again later.");
+                return;
+            } else {
+                proController.openProject(project);
                 uiHelper.alertDialogGenerator(projectView, "success", "Open project",
                         "Successfully opened project:\n" + project.getName());
+                uiHelper.loadProjectBreadcrumbs(projectBreadcrumb);
             }
         }
     }
