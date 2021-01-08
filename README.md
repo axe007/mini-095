@@ -31,7 +31,7 @@ You can also modify the code and build by yourself.
 5. Ta-ta-ang, you will find a JAR file under the targe folder.
 
 ## Connect to the mongoDB
-![Database configuration](/mini-095/pic/screenshot.png =250x100)
+<img src="/mini-095/pic/screenshot.png" alt="drawing" width="200"/>
 As showned in the picture, you can customize the URI to connect to your own MongoDB database.
 
 
