@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -70,11 +71,28 @@
             </TabPane>
          </center>
          <bottom>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" prefHeight="120.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="newNoteButton" mnemonicParsing="false" onAction="#handelNewButton" text="New Note" />
-                  <Button fx:id="editNoteButton" mnemonicParsing="false" onAction="#handelEditButton" text="Edit Note" />
+                   <Button fx:id="newNoteButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handelNewButton" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="New note">
+                       <graphic>
+                           <FontAwesomeIconView glyphName="PLUS_SQUARE_ALT" size="30" styleClass="content-action-icon" />
+                       </graphic>
+                       <HBox.margin>
+                           <Insets left="10.0" right="10.0" />
+                       </HBox.margin>
+                   </Button>
+                   <Button fx:id="editNoteButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#handelEditButton" prefHeight="96.0" prefWidth="96.0" styleClass="content-action-button" stylesheets="@../../css/default.css" text="Edit note">
+                       <graphic>
+                           <FontAwesomeIconView glyphName="PENCIL_SQUARE_ALT" size="30" styleClass="content-action-icon" />
+                       </graphic>
+                       <HBox.margin>
+                           <Insets left="10.0" right="10.0" />
+                       </HBox.margin>
+                   </Button>
                </children>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" right="30.0" top="20.0" />
+               </BorderPane.margin>
             </HBox>
          </bottom>
       </BorderPane>

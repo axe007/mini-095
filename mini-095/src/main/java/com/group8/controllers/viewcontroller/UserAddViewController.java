@@ -141,6 +141,7 @@ public class UserAddViewController implements Initializable {
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
                     alertContent);
             if (result.get() == ButtonType.OK) {
+                UserViewController.isUpdated.setValue(true);
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             }

@@ -65,7 +65,6 @@ public class ScrumboardViewController implements Initializable {
 
     @FXML
     private void handleSprintButtons(ActionEvent event) throws IOException {
-        isUpdated.setValue(false);
         if (event.getSource() == sprintNewButton) {
             if (Session.getCurrentSprintId() != null) {
                 uiHelper.alertDialogGenerator(scrumboardView, "error", "New sprint",
@@ -89,6 +88,7 @@ public class ScrumboardViewController implements Initializable {
                 uiHelper.loadWindow("SprintAddView", activityAssignButton, "Sprint activities");
             }
         } else if (event.getSource() == activityUpdateButton || event.getSource() == activityTimeLogButton) {
+            isUpdated.setValue(false);
             ArrayList<ListView> listViews = new ArrayList<>(
                     Arrays.asList(listToDo, listInProgress, listReview, listDone));
             ListCellItem listItem = null;

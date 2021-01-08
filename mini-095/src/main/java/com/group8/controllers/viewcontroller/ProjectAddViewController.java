@@ -114,6 +114,7 @@ public class ProjectAddViewController implements Initializable {
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
                     alertContent);
             if (result.get() == ButtonType.OK) {
+                ProjectViewController.isUpdated.setValue(true);
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             }

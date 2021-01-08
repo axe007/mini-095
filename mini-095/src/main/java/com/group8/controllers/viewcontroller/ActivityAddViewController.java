@@ -191,6 +191,7 @@ public class ActivityAddViewController implements Initializable {
             Optional<ButtonType> result = uiHelper.alertDialogGenerator(dialogPane, "success", alertHeading,
                     alertContent);
             if (result.get() == ButtonType.OK) {
+                ActivitiesViewController.isUpdated.setValue(true);
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
             }

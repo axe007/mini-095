@@ -88,13 +88,9 @@ public class NoteViewController implements Initializable {
                 Note parentNote = projectTreeTableView.getSelectionModel().getSelectedItem().getValue();
                 if (parentNote.getUserName().isEmpty()) {
                     projectTreeTableView.getSelectionModel().clearSelection();
-                    // sprintTreeTableView.getSelectionModel().clearSelection();
-                    // activityTreeTableView.getSelectionModel().clearSelection();
                     editNoteButton.setDisable(true);
                     selectedTable = 0;
                 } else {
-                    // sprintTreeTableView.getSelectionModel().clearSelection();
-                    // activityTreeTableView.getSelectionModel().clearSelection();
                     if (!parentNote.getUserID().equals(currentUserID)) {
                         editNoteButton.setDisable(true);
                     } else {
@@ -106,43 +102,38 @@ public class NoteViewController implements Initializable {
         });
 
         sprintTreeTableView.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
-            Note parentNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
-            if (parentNote.getUserName().isEmpty()) {
-                // projectTreeTableView.getSelectionModel().clearSelection();
-                sprintTreeTableView.getSelectionModel().clearSelection();
-                // activityTreeTableView.getSelectionModel().clearSelection();
-                editNoteButton.setDisable(true);
-                selectedTable = 0;
-            } else {
-                // projectTreeTableView.getSelectionModel().clearSelection();
-                // activityTreeTableView.getSelectionModel().clearSelection();
-                if (!parentNote.getUserID().equals(currentUserID)) {
+            if (sprintTreeTableView.getSelectionModel().getSelectedItem() != null) {
+                Note parentNote = sprintTreeTableView.getSelectionModel().getSelectedItem().getValue();
+                if (parentNote.getUserName().isEmpty()) {
+                    sprintTreeTableView.getSelectionModel().clearSelection();
                     editNoteButton.setDisable(true);
+                    selectedTable = 0;
                 } else {
-                    editNoteButton.setDisable(false);
-                    selectedTable = 2;
+                    if (!parentNote.getUserID().equals(currentUserID)) {
+                        editNoteButton.setDisable(true);
+                    } else {
+                        editNoteButton.setDisable(false);
+                        selectedTable = 2;
+                    }
                 }
             }
-
         });
 
         activityTreeTableView.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
-            Note parentNote = activityTreeTableView.getSelectionModel().getSelectedItem().getValue();
-            if (parentNote.getUserName().isEmpty()) {
-                // projectTreeTableView.getSelectionModel().clearSelection();
-                // sprintTreeTableView.getSelectionModel().clearSelection();
-                activityTreeTableView.getSelectionModel().clearSelection();
-                editNoteButton.setDisable(true);
-                selectedTable = 0;
-            } else {
-                // projectTreeTableView.getSelectionModel().clearSelection();
-                // sprintTreeTableView.getSelectionModel().clearSelection();
-                if (!parentNote.getUserID().equals(currentUserID)) {
+            if (activityTreeTableView.getSelectionModel().getSelectedItem() != null) {
+                Note parentNote = activityTreeTableView.getSelectionModel().getSelectedItem().getValue();
+                if (parentNote.getUserName().isEmpty()) {
+                    activityTreeTableView.getSelectionModel().clearSelection();
                     editNoteButton.setDisable(true);
+                    selectedTable = 0;
                 } else {
-                    editNoteButton.setDisable(false);
-                    selectedTable = 3;
+                    if (!parentNote.getUserID().equals(currentUserID)) {
+                        editNoteButton.setDisable(true);
+                    } else {
+                        editNoteButton.setDisable(false);
+                        selectedTable = 3;
 
+                    }
                 }
             }
         });
@@ -222,7 +213,6 @@ public class NoteViewController implements Initializable {
         projectTreeTableColumn3.setPrefWidth(120.0);
         projectTreeTableColumn3.setMinWidth(90.0);
         TreeTableColumn<Note, String> projectTreeTableColumn4 = new TreeTableColumn<>("Content");
-        // projectTreeTableColumn4.setPrefWidth(800.0);
         projectTreeTableColumn4.setMinWidth(300.0);
 
         projectTreeTableColumn1.setCellValueFactory(new TreeItemPropertyValueFactory<>("noteTitle"));
@@ -235,8 +225,6 @@ public class NoteViewController implements Initializable {
         treeView.getColumns().add(projectTreeTableColumn3);
         treeView.getColumns().add(projectTreeTableColumn4);
         treeView.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
-        // treeView.setColumnResizePolicy((param) -> true );
-        // treeView.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE );
 
         Note projectRootNote = new Note(currentProjectID, currentProjectID, currentProjectName, NoteType.PROJECT_NOTE,
                 currentUserID, "", null, currentProjectName, "");
@@ -250,7 +238,7 @@ public class NoteViewController implements Initializable {
     @FXML
     private void handelNewButton(ActionEvent event) throws IOException {
         Session.setWindowMode("new");
-        uiHelper.loadWindow("NoteAddView", newNoteButton, "Create new note");
+        uiHelper.loadWindow("NoteAddView", newNoteButton, "Create a new note");
     }
 
     @FXML
@@ -271,18 +259,14 @@ public class NoteViewController implements Initializable {
             withSelectedItem = true;
 
         } else {
-            uiHelper.alertDialogGenerator(noteView, "error", "Edit Note",
-                    "No Note was selected.\nPlease select a Note and try again.");
-
+            uiHelper.alertDialogGenerator(noteView, "error", "Edit note",
+                    "No note was selected.\nPlease select a Note and try again.");
         }
 
         if (withSelectedItem) {
             Session.setWindowMode("edit");
 
             uiHelper.loadWindow("NoteAddView", editNoteButton, "Edit note details");
-
         }
-
     }
-
 }

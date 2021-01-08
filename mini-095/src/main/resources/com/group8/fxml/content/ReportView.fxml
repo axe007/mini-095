@@ -8,9 +8,41 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="reportStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ReportViewController">
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<StackPane fx:id="reportStackPane" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ReportViewController">
    <children>
       <BorderPane fx:id="reportBorderPane" prefHeight="200.0" prefWidth="200.0">
+          <top>
+              <GridPane prefHeight="100.0" styleClass="homeview-top-pane" BorderPane.alignment="CENTER">
+                  <columnConstraints>
+                      <ColumnConstraints hgrow="ALWAYS" />
+                      <ColumnConstraints hgrow="SOMETIMES" prefWidth="360.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+                  </rowConstraints>
+                  <children>
+                      <GridPane fx:id="projectBreadcrumb" alignment="CENTER" GridPane.columnIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                          <columnConstraints>
+                              <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="200.0" />
+                              <ColumnConstraints hgrow="NEVER" minWidth="18.0" prefWidth="18.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="140.0" prefWidth="140.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                      </GridPane>
+                      <HBox alignment="CENTER" prefWidth="743.0">
+                          <children>
+                          </children>
+                      </HBox>
+                  </children>
+              </GridPane>
+          </top>
          <center>
             <TabPane fx:id="reportTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
@@ -27,14 +59,9 @@
               </tabs>
             </TabPane>
          </center>
-         <bottom>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="newReportButton" mnemonicParsing="false" onAction="#handleNewButton" text="New Report" />
-                  <Button fx:id="editReportButton" mnemonicParsing="false" onAction="#handleEditButton" text="Edit Report" />
-               </children>
-            </HBox>
-         </bottom>
+          <bottom>
+              <AnchorPane prefHeight="100.0" prefWidth="683.0" styleClass="homeview-bottom-pane" BorderPane.alignment="CENTER" />
+          </bottom>
       </BorderPane>
    </children>
 </StackPane>

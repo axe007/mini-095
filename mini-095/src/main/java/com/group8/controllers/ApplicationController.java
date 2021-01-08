@@ -36,6 +36,8 @@ public class ApplicationController implements Initializable {
     @FXML
     private Button scrumboardButton;
     @FXML
+    private Button scheduleButton;
+    @FXML
     private Button activitiesButton;
     @FXML
     private Button reportsButton;
@@ -77,7 +79,7 @@ public class ApplicationController implements Initializable {
                 viewName = "ActivitiesView";
                 viewTitle = "Activities";
             }
-        } else if (menuEvent.getSource() == reportsButton) {
+        } else if (menuEvent.getSource() == scheduleButton) {
             if (projectId == null || projectId.equals(null)) {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
                         "No project has been opened.\nPlease open a project in Projects window.");
@@ -86,6 +88,15 @@ public class ApplicationController implements Initializable {
                 viewName = "GanttChartView";
                 viewTitle = "Project schedule";
             }
+        } else if (menuEvent.getSource() == reportsButton) {
+            if (projectId == null || projectId.equals(null)) {
+                uiHelper.alertDialogGenerator(appContent, "error", "No project open",
+                        "No project has been opened.\nPlease open a project in Projects window.");
+                return;
+            } else {
+                viewName = "ReportView";
+                viewTitle = "Reports";
+            }
         } else if (menuEvent.getSource() == notesButton) {
             if (projectId == null || projectId.equals(null)) {
                 uiHelper.alertDialogGenerator(appContent, "error", "No project open",
@@ -93,7 +104,7 @@ public class ApplicationController implements Initializable {
                 return;
             } else {
                 viewName = "NoteView";
-                viewTitle = "Notes";
+                viewTitle = "Notes and logs";
             }
 
         } else if (menuEvent.getSource() == usersButton) {
@@ -125,8 +136,8 @@ public class ApplicationController implements Initializable {
 
     @FXML
     public void setActiveButton(Object activeButton) {
-        Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, scrumboardButton, activitiesButton,
-                usersButton, reportsButton, notesButton };
+        Button[] sidebarButtons = new Button[] { dashboardButton, projectButton, scrumboardButton, scheduleButton,
+                activitiesButton, reportsButton, usersButton, notesButton };
 
         for (Button button : sidebarButtons) {
             if (button.equals(activeButton)) {

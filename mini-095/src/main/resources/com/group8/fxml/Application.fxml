@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import de.jensd.fx.glyphs.icons525.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import de.jensd.fx.glyphs.icons525.* ?>
 
 <SplitPane fx:id="mainSplitPane" dividerPositions="0.1" maxHeight="Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" scaleShape="false" styleClass="main-split-pane" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ApplicationController">
   <items>
@@ -14,7 +14,7 @@
              <VBox fx:id="sidebarVBox" maxHeight="Infinity" prefHeight="${mainSplitPane.height}" VBox.vgrow="ALWAYS">
                  <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="400.0" minWidth="300.0" prefWidth="360.0" style="-fx-background-color: #d9e1f4;" VBox.vgrow="NEVER">
                      <children>
-                         <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="dashboard">
+                         <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="dashboard">
                              <graphic>
                                  <FontAwesomeIconView glyphName="HOME" size="42" styleClass="sidebar-icon" />
                              </graphic>
@@ -28,57 +28,65 @@
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="projectButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="projects">
+                         <Button fx:id="projectButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="projects">
                              <graphic>
-                                 <Icons525View glyphName="PROJECT" size="48" styleClass="sidebar-icon" />
+                                 <Icons525View glyphName="PROJECT" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="scrumboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="scrumboard">
+                         <Button fx:id="scrumboardButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="scrumboard">
                              <graphic>
-                                 <FontAwesomeIconView glyphName="OBJECT_GROUP" size="42" styleClass="sidebar-icon" />
+                                 <FontAwesomeIconView glyphName="OBJECT_GROUP" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="reportsButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="gantt chart">
+                         <Button fx:id="scheduleButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="gantt_chart">
                              <graphic>
-                                 <FontAwesomeIconView glyphName="TASKS" size="42" styleClass="sidebar-icon" />
+                                 <FontAwesomeIconView glyphName="BAR_CHART" rotate="90.0" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="activitiesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="activities">
+                         <Button fx:id="reportsButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="reports">
                              <graphic>
-                                 <FontAwesomeIconView glyphName="LIST_OL" size="42" styleClass="sidebar-icon" />
+                                 <FontAwesomeIconView glyphName="TASKS" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="notesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="notes">
+                         <Button fx:id="activitiesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="activities">
                              <graphic>
-                                 <Icons525View glyphName="ONENOTE" size="42" styleClass="sidebar-icon" />
+                                 <FontAwesomeIconView glyphName="LIST_OL" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="usersButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="users">
+                         <Button fx:id="notesButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="notes">
                              <graphic>
-                                 <FontAwesomeIconView glyphName="USERS" size="42" styleClass="sidebar-icon" />
+                                 <Icons525View glyphName="ONENOTE" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
                              </padding>
                          </Button>
-                         <Button fx:id="logoutButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="72.0" prefWidth="360.0" styleClass="sidebar-button" text="log out">
+                         <Button fx:id="usersButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="users">
                              <graphic>
-                                 <Icons525View glyphName="GO2" size="42" styleClass="sidebar-icon" />
+                                 <FontAwesomeIconView glyphName="USERS" size="36" styleClass="sidebar-icon" />
+                             </graphic>
+                             <padding>
+                                 <Insets left="50.0" />
+                             </padding>
+                         </Button>
+                         <Button fx:id="logoutButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleSidebarBtn" prefHeight="64.0" prefWidth="360.0" styleClass="sidebar-button" text="log out">
+                             <graphic>
+                                 <Icons525View glyphName="GO2" size="36" styleClass="sidebar-icon" />
                              </graphic>
                              <padding>
                                  <Insets left="50.0" />
@@ -90,7 +98,7 @@
                      <bottom>
                          <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
                              <children>
-                                 <ImageView fitHeight="132.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                 <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                                      <image>
                                          <Image url="@../images/logo-small.png" />
                                      </image>
