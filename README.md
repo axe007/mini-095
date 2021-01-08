@@ -9,6 +9,7 @@ Please download these in order for the software to setup successfully
 1. Go to the link --><!--Link--> 
 [JavaSDK15](https://www.oracle.com/java/technologies/javase/jdk15-archive-downloads.html)
 2. Download the correct file depending on your OS
+3. Make sure you have the newest JRE(Java Runtime Environment) to run our application.
 
 ### MongoDB
 1. You can use our live server or install your own MongoDB
