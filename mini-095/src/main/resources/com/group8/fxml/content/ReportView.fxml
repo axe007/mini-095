@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
 <StackPane fx:id="reportStackPane" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../../css/default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.viewcontroller.ReportViewController">
    <children>
       <BorderPane fx:id="reportBorderPane" prefHeight="200.0" prefWidth="200.0">
@@ -44,20 +37,36 @@
               </GridPane>
           </top>
          <center>
-            <TabPane fx:id="reportTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-              <tabs>
-                <Tab text="Untitled Tab 1">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                <Tab text="Untitled Tab 2">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+             <GridPane fx:id="reportGrid" alignment="CENTER">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <children>
+                     <TabPane fx:id="reportTabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" GridPane.columnIndex="0" GridPane.fillWidth="true">
+                         <tabs>
+                             <Tab text="Time tracking report">
+                                 <content>
+                                     <AnchorPane fx:id="timeTrackingTable" minHeight="0.0" minWidth="0.0" prefWidth="${reportTabPane.width}" GridPane.fillWidth="true">
+                                         <children>
+                                         </children>
+                                     </AnchorPane>
+                                 </content>
+                             </Tab>
+                             <Tab text="Untitled Tab 2">
+                                 <content>
+                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                             </Tab>
+                         </tabs>
+                     </TabPane>
+                 </children>
+                 <BorderPane.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                 </BorderPane.margin>
+             </GridPane>
          </center>
           <bottom>
               <AnchorPane prefHeight="100.0" prefWidth="683.0" styleClass="homeview-bottom-pane" BorderPane.alignment="CENTER" />

@@ -122,6 +122,20 @@ public abstract class Activity implements Comparable<Activity> {
         return simpleStatus;
     }
 
+    public String getSimpleStatus() {
+        String simpleStatus = "To Do";
+        if (this.getActivityStatus().equals("TODO")) {
+            simpleStatus = "To Do";
+        } else if (this.getActivityStatus().equals("INPROGRESS")) {
+            simpleStatus = "In Progress";
+        } else if (this.getActivityStatus().equals("REVIEW")) {
+            simpleStatus = "Review";
+        } else if (this.getActivityStatus().equals("DONE")) {
+            simpleStatus = "Done";
+        }
+        return simpleStatus;
+    }
+
     @Override
     public String toString() {
         return "ID: " + this.id + " " + this.name + " : " + this.description + " Start: " + this.startDate + " End: "
