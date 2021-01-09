@@ -30,17 +30,16 @@ public class ProjectController {
             Session.setCurrentSprintId(null);
         } else {
             Session.setCurrentSprintId(sprintId);
-            String projectName = project.getName();
-            LocalDate projectStartDate = project.getStartDate();
-            LocalDate projectEndDate = project.getEndDate();
-            Session.setOpenProjectName(projectName);
-            Session.setProjectStartDate(projectStartDate);
-            Session.setProjectEndDate(projectEndDate);
-
             if (sprintId != null) {
                 Session.setCurrentSprintId(sprintId);
             }
         }
+        String projectName = project.getName();
+        LocalDate projectStartDate = project.getStartDate();
+        LocalDate projectEndDate = project.getEndDate();
+        Session.setOpenProjectName(projectName);
+        Session.setProjectStartDate(projectStartDate);
+        Session.setProjectEndDate(projectEndDate);
     }
 
     public String getProjectDetail(ObjectId projectId, String projectAttribute) {

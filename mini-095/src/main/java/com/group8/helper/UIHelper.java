@@ -142,11 +142,9 @@ public class UIHelper {
             openProjectName.setText("No project is open yet");
             openProjectName.setStyle("-fx-text-fill: #eb7f6e");
         } else {
-
-            Project project = (Project) Session.getOpenItem();
-            String projectName = project.getName();
-            LocalDate startDate = project.getStartDate();
-            LocalDate endDate = project.getEndDate();
+            String projectName = Session.getOpenProjectName();
+            LocalDate startDate = Session.getProjectStartDate();
+            LocalDate endDate = Session.getProjectEndDate();
             Session.setProjectStartDate(startDate);
             Session.setProjectEndDate(endDate);
             String startDateText = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
