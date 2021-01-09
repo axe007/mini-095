@@ -133,6 +133,7 @@ public class ProjectAddViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            ProjectViewController.isUpdated.setValue(false);
             if (Session.getWindowMode().equals("new")) {
                 windowModeTitle.setText("Enter new project details:");
 

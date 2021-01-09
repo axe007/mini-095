@@ -106,6 +106,7 @@ public class ScrumboardViewController implements Initializable {
                 String name = listItem.getName();
                 Activity activity = activityController.getActivity("name", name);
                 Session.setSetOpenItem(activity);
+
                 if (event.getSource() == activityUpdateButton) {
                     uiHelper.loadWindow("ActivityUpdateView", activityUpdateButton, "Update activity");
                 } else if (event.getSource() == activityTimeLogButton) {

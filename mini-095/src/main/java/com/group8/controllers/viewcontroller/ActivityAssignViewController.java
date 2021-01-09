@@ -75,6 +75,7 @@ public class ActivityAssignViewController implements Initializable {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
+        ActivitiesViewController.isUpdated.setValue(true);
     }
 
     @FXML
@@ -112,6 +113,7 @@ public class ActivityAssignViewController implements Initializable {
         String activityName = activity.getName();
         LocalDate startDate = activity.getStartDate();
         LocalDate endDate = activity.getEndDate();
+        ActivitiesViewController.isUpdated.setValue(false);
 
         String activityStartDate = startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
         String activityEndDate = endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));

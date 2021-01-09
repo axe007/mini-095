@@ -79,6 +79,11 @@ public class UserAddViewController implements Initializable {
         emailAddress = this.emailAddress.getText();
 
         // Validate user name
+        if (Session.getWindowMode().equals("edit")) {
+            User oldUser = (User) Session.getOpenItem();
+            String userOldName = "";
+        }
+
         User oldUser = (User) Session.getOpenItem();
         String userOldName = "";
         ArrayList<String> userNames = new ArrayList<>();
@@ -162,6 +167,7 @@ public class UserAddViewController implements Initializable {
         try {
             userList.clear();
             userList = userController.getUserList();
+            UserViewController.isUpdated.setValue(false);
 
             if (Session.getWindowMode().equals("new")) {
                 windowModeTitle.setText("Enter new user details:");

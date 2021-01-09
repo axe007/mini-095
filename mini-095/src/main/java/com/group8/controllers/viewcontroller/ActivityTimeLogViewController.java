@@ -148,6 +148,7 @@ public class ActivityTimeLogViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         activitiesList.clear();
         activitiesList = activityController.getActivitiesList();
+        ActivitiesViewController.isUpdated.setValue(false);
 
         String activityName;
         LocalDate startDate;

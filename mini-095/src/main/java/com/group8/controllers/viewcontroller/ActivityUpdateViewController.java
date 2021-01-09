@@ -114,6 +114,7 @@ public class ActivityUpdateViewController implements Initializable {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
+        ScrumboardViewController.isUpdated.setValue(true);
     }
 
     @FXML
@@ -128,7 +129,7 @@ public class ActivityUpdateViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         activitiesList.clear();
         activitiesList = activityController.getActivitiesList();
-
+        ScrumboardViewController.isUpdated.setValue(false);
         String activityName;
         LocalDate startDate;
         LocalDate endDate;

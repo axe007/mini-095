@@ -234,6 +234,7 @@ public class ActivityAddViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ActivitiesViewController.isUpdated.setValue(false);
         activitiesList.clear();
         activitiesList = activityController.getActivitiesList();
 

@@ -107,6 +107,7 @@ public class ProjectCloseViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ProjectViewController.isUpdated.setValue(false);
         try {
             windowModeTitle.setText("Close project");
             Project project = (Project) Session.getOpenItem();
