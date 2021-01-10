@@ -7,7 +7,7 @@ Please download these in order for the software to setup successfully
 
 ### JAVA SDK/RUNTIME 15 and up
 1. Go to the link --><!--Link--> 
-[JavaSDK15](https://www.oracle.com/java/technologies/javase/jdk15-archive-downloads.html)
+[OpenJDK15](https://adoptopenjdk.net/?variant=openjdk15&jvmVariant=hotspot)
 2. Download the correct file depending on your OS
 3. Make sure you have the latest JRE(Java Runtime Environment) to run our application.
 
